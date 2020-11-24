@@ -1,0 +1,1 @@
+web:    java -jar build/libs/debtable-1.0.jar
