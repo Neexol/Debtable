@@ -1,0 +1,17 @@
+[
+  {
+    "room_id" : 0,
+    "label" : "1206",
+    "members_quantity" : 3
+  },
+  {
+    "room_id" : 1,
+    "label" : "1419",
+    "members_quantity" : 3
+  },
+  {
+    "room_id" : 2,
+    "label" : "Test",
+    "members_quantity" : 6
+  }
+]
