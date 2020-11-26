@@ -82,8 +82,10 @@ class HomeRooms extends React.Component {
                                 className="card"
                                 onClick={() => {
                                     // history.pushState(null, null, '/anypath');
-                                    // if (room.label === "1206")
-                                    location.assign(`room/${room.room_id}`)
+                                    if (room.label === "1206") {
+                                        location.assign(`room.html`)
+                                    }
+                                    // location.assign(`room/${room.room_id}`)
                                 }}
                             >
                                 <b>{room.label}</b><br/>
