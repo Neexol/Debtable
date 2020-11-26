@@ -34,9 +34,6 @@ object DatabaseFactory {
         config.isAutoCommit = false
         config.transactionIsolation = "TRANSACTION_REPEATABLE_READ"
 
-        System.getenv("DB_USER")?.let { config.username = it }
-        System.getenv("DB_PASSWORD")?.let { config.password = it }
-
         config.validate()
         return HikariDataSource(config)
     }
