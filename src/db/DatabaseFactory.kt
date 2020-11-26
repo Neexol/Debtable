@@ -5,8 +5,6 @@ import com.zaxxer.hikari.HikariDataSource
 import db.tables.Purchases
 import db.tables.Rooms
 import db.tables.Users
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -30,24 +28,16 @@ object DatabaseFactory {
 
     private fun hikari(): HikariDataSource {
         val config = HikariConfig()
-        config.driverClassName = System.getenv("JDBC_DRIVER") // 1
-        config.jdbcUrl = System.getenv("JDBC_DATABASE_URL") // 2
+        config.driverClassName = System.getenv("JDBC_DRIVER")
+        config.jdbcUrl = System.getenv("JDBC_DATABASE_URL")
         config.maximumPoolSize = 3
         config.isAutoCommit = false
         config.transactionIsolation = "TRANSACTION_REPEATABLE_READ"
-        val user = System.getenv("DB_USER") // 3
-        if (user != null) {
-            config.username = user
-        }
-        val password = System.getenv("DB_PASSWORD") // 4
-        if (password != null) {
-            config.password = password
-        }
+
+        System.getenv("DB_USER")?.let { config.username = it }
+        System.getenv("DB_PASSWORD")?.let { config.password = it }
+
         config.validate()
         return HikariDataSource(config)
-    }
-
-    suspend fun <T> dbQuery(block: () -> T) = withContext(Dispatchers.IO) {
-        transaction { block() }
     }
 }
