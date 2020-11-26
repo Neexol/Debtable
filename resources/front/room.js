@@ -71,7 +71,7 @@ class RoomTable extends React.Component {
 
     render() {
         return (
-            <h1>There will be table</h1>
+            <DebtsTable/>
         );
     }
 }
@@ -98,6 +98,76 @@ class RoomCalendar extends React.Component {
     render() {
         return (
             <h1>There will be calendar of purchases</h1>
+        );
+    }
+}
+
+const DebtsTableHeaders = (
+    <tr>
+        <th>Кто должен</th>
+        <th>Покупка</th>
+        <th>Кому должен</th>
+        <th>Сколько</th>
+        <th>Дата</th>
+    </tr>
+)
+
+class DebtsTableRow extends React.Component {
+    render() {
+        const row = this.props.row;
+        return (
+            <tr>
+                <td>{row.who_owes}</td>
+                <td>{row.purchase}</td>
+                <td>{row.who_paid}</td>
+                <td>{row.cost}</td>
+                <td>{row.date}</td>
+            </tr>
+        );
+    }
+}
+
+class DebtsTableBody extends React.Component {
+    render() {
+        return (
+            <tbody> {
+                this.props.list.map((row) =>
+                    <DebtsTableRow key={row.id} row={row}/>
+                )
+            } </tbody>
+        )
+    }
+}
+
+class DebtsTable extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isLoading: true,
+            table: null
+        };
+    }
+
+    componentDidMount() {
+        // console.log("Table attached");
+        $.get(`${HOST_URL}table.json`, (response) => {
+            this.setState({
+                isLoading: false,
+                table: response
+            })
+        });
+    }
+
+    render() {
+        return (
+            <table className={"redTable"}>
+                <thead>{DebtsTableHeaders}</thead>
+                {
+                    this.state.isLoading
+                        ? <div className="loader"/>
+                        : <DebtsTableBody list={this.state.table}/>
+                }
+            </table>
         );
     }
 }

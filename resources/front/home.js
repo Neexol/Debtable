@@ -58,8 +58,8 @@ class HomeRooms extends React.Component {
     }
 
     componentDidMount() {
-        console.log("Rooms attached")
-        $.get(`${HOST_URL}rooms.json`, "kek", (response) => {
+        // console.log("Rooms attached");
+        $.get(`${HOST_URL}rooms.json`, (response) => {
             this.setState({
                 isLoading: false,
                 rooms: response

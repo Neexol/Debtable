@@ -44,8 +44,6 @@ class DebtsTableRow extends React.Component {
     }
 }
 
-
-
 class DebtsTableBody extends React.Component {
     render() {
         return (
