@@ -160,7 +160,7 @@ table.redTable tfoot .links a{
     color: #f1f1f1;
 }
 .room__content {
-    /*margin-top: 2rem;*/
+    margin-top: 4rem;
     /*margin-top: var(--height);*/
     font-size: 28px; /* Increased text to enable scrolling */
     padding: 1rem;
