@@ -1,7 +1,7 @@
 const NAV_NAMES = [
-    "Rooms",
-    "Profile",
-    "Settings"
+    "🚪 Rooms",
+    "👤 Profile",
+    "⚙️ Settings"
 ]
 
 class Home extends React.Component {
@@ -81,7 +81,6 @@ class HomeRooms extends React.Component {
                                 key={room.room_id}
                                 className="card"
                                 onClick={() => {
-                                    // history.pushState(null, null, '/anypath');
                                     if (room.label === "1206") {
                                         location.assign(`room.html`)
                                     }
