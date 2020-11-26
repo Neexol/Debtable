@@ -1,0 +1,4157 @@
+[
+  {
+    "id" : 276,
+    "member_states" : [
+      152,
+      -26,
+      -126
+    ],
+    "who_paid" : "Владимир",
+    "date" : "23.11.2020",
+    "balance" : 278,
+    "difference" : 160,
+    "cost" : 160,
+    "leader" : "Владимир",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 275,
+    "member_states" : [
+      72,
+      -26,
+      -46
+    ],
+    "who_paid" : "Владимир",
+    "date" : "23.11.2020",
+    "balance" : 118,
+    "difference" : 53,
+    "cost" : 66,
+    "leader" : "Владимир",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 274,
+    "member_states" : [
+      39,
+      -26,
+      -13
+    ],
+    "who_paid" : "Владимир",
+    "date" : "23.11.2020",
+    "balance" : 65,
+    "difference" : -53,
+    "cost" : 170,
+    "leader" : "Владимир",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 273,
+    "member_states" : [
+      -46,
+      -26,
+      72
+    ],
+    "who_paid" : "Владимир",
+    "date" : "23.11.2020",
+    "balance" : 118,
+    "difference" : -40,
+    "cost" : 40,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 272,
+    "member_states" : [
+      -66,
+      -26,
+      92
+    ],
+    "who_paid" : "Владимир",
+    "date" : "23.11.2020",
+    "balance" : 158,
+    "difference" : -160,
+    "cost" : 160,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 271,
+    "member_states" : [
+      -146,
+      -26,
+      172
+    ],
+    "who_paid" : "Владимир",
+    "date" : "23.11.2020",
+    "balance" : 318,
+    "difference" : -38,
+    "cost" : 38,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 270,
+    "member_states" : [
+      -165,
+      -26,
+      191
+    ],
+    "who_paid" : "Владимир",
+    "date" : "23.11.2020",
+    "balance" : 356,
+    "difference" : -88,
+    "cost" : 88,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 269,
+    "member_states" : [
+      -209,
+      -26,
+      235
+    ],
+    "who_paid" : "Владимир",
+    "date" : "23.11.2020",
+    "balance" : 444,
+    "difference" : -36,
+    "cost" : 36,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 268,
+    "member_states" : [
+      -227,
+      -26,
+      253
+    ],
+    "who_paid" : "Георгий",
+    "date" : "22.11.2020",
+    "balance" : 480,
+    "difference" : 50,
+    "cost" : 50,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 267,
+    "member_states" : [
+      -202,
+      -26,
+      228
+    ],
+    "who_paid" : "Георгий",
+    "date" : "22.11.2020",
+    "balance" : 430,
+    "difference" : 130,
+    "cost" : 130,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 266,
+    "member_states" : [
+      -137,
+      -26,
+      163
+    ],
+    "who_paid" : "Георгий",
+    "date" : "22.11.2020",
+    "balance" : 300,
+    "difference" : 80,
+    "cost" : 80,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 265,
+    "member_states" : [
+      -97,
+      -26,
+      123
+    ],
+    "who_paid" : "Георгий",
+    "date" : "22.11.2020",
+    "balance" : 220,
+    "difference" : 64,
+    "cost" : 64,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 264,
+    "member_states" : [
+      -65,
+      -26,
+      91
+    ],
+    "who_paid" : "Георгий",
+    "date" : "22.11.2020",
+    "balance" : 156,
+    "difference" : 70,
+    "cost" : 70,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 263,
+    "member_states" : [
+      -30,
+      -26,
+      56
+    ],
+    "who_paid" : "Георгий",
+    "date" : "22.11.2020",
+    "balance" : 86,
+    "difference" : 12,
+    "cost" : 16,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 262,
+    "member_states" : [
+      -22,
+      -26,
+      48
+    ],
+    "who_paid" : "Владимир",
+    "date" : "20.11.2020",
+    "balance" : 74,
+    "difference" : -76,
+    "cost" : 80,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 261,
+    "member_states" : [
+      -62,
+      -26,
+      88
+    ],
+    "who_paid" : "Владимир",
+    "date" : "20.11.2020",
+    "balance" : 150,
+    "difference" : -100,
+    "cost" : 100,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 260,
+    "member_states" : [
+      -112,
+      -26,
+      138
+    ],
+    "who_paid" : "Владимир",
+    "date" : "17.11.2020",
+    "balance" : 250,
+    "difference" : -120,
+    "cost" : 120,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 259,
+    "member_states" : [
+      -172,
+      -26,
+      198
+    ],
+    "who_paid" : "Владимир",
+    "date" : "17.11.2020",
+    "balance" : 370,
+    "difference" : -140,
+    "cost" : 140,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 258,
+    "member_states" : [
+      -242,
+      -26,
+      268
+    ],
+    "who_paid" : "Владимир",
+    "date" : "17.11.2020",
+    "balance" : 510,
+    "difference" : -66,
+    "cost" : 66,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 257,
+    "member_states" : [
+      -275,
+      -26,
+      301
+    ],
+    "who_paid" : "Владимир",
+    "date" : "17.11.2020",
+    "balance" : 576,
+    "difference" : -140,
+    "cost" : 140,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 256,
+    "member_states" : [
+      -345,
+      -26,
+      371
+    ],
+    "who_paid" : "Георгий",
+    "date" : "16.11.2020",
+    "balance" : 716,
+    "difference" : 44,
+    "cost" : 44,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 255,
+    "member_states" : [
+      -323,
+      -26,
+      349
+    ],
+    "who_paid" : "Георгий",
+    "date" : "16.11.2020",
+    "balance" : 672,
+    "difference" : 58,
+    "cost" : 58,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 254,
+    "member_states" : [
+      -294,
+      -26,
+      320
+    ],
+    "who_paid" : "Георгий",
+    "date" : "16.11.2020",
+    "balance" : 614,
+    "difference" : 98,
+    "cost" : 98,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 253,
+    "member_states" : [
+      -245,
+      -26,
+      271
+    ],
+    "who_paid" : "Георгий",
+    "date" : "16.11.2020",
+    "balance" : 516,
+    "difference" : 120,
+    "cost" : 120,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 252,
+    "member_states" : [
+      -185,
+      -26,
+      211
+    ],
+    "who_paid" : "Георгий",
+    "date" : "16.11.2020",
+    "balance" : 396,
+    "difference" : 100,
+    "cost" : 100,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 251,
+    "member_states" : [
+      -135,
+      -26,
+      161
+    ],
+    "who_paid" : "Георгий",
+    "date" : "16.11.2020",
+    "balance" : 296,
+    "difference" : 100,
+    "cost" : 100,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 250,
+    "member_states" : [
+      -85,
+      -26,
+      111
+    ],
+    "who_paid" : "Георгий",
+    "date" : "16.11.2020",
+    "balance" : 196,
+    "difference" : 124,
+    "cost" : 130,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 249,
+    "member_states" : [
+      -20,
+      -26,
+      46
+    ],
+    "who_paid" : "Георгий",
+    "date" : "16.11.2020",
+    "balance" : 72,
+    "difference" : 26,
+    "cost" : 80,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 248,
+    "member_states" : [
+      20,
+      -26,
+      6
+    ],
+    "who_paid" : "Никита",
+    "date" : "15.11.2020",
+    "balance" : 46,
+    "difference" : -220,
+    "cost" : 220,
+    "leader" : "Владимир",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 247,
+    "member_states" : [
+      130,
+      -136,
+      6
+    ],
+    "who_paid" : "Владимир",
+    "date" : "14.11.2020",
+    "balance" : 266,
+    "difference" : 28,
+    "cost" : 56,
+    "leader" : "Владимир",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 246,
+    "member_states" : [
+      102,
+      -136,
+      34
+    ],
+    "who_paid" : "Владимир",
+    "date" : "14.11.2020",
+    "balance" : 238,
+    "difference" : 51,
+    "cost" : 51,
+    "leader" : "Владимир",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 245,
+    "member_states" : [
+      68,
+      -119,
+      51
+    ],
+    "who_paid" : "Владимир",
+    "date" : "14.11.2020",
+    "balance" : 187,
+    "difference" : -68,
+    "cost" : 170,
+    "leader" : "Владимир",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 244,
+    "member_states" : [
+      -17,
+      -119,
+      136
+    ],
+    "who_paid" : "Владимир",
+    "date" : "14.11.2020",
+    "balance" : 255,
+    "difference" : -100,
+    "cost" : 200,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 243,
+    "member_states" : [
+      -117,
+      -119,
+      236
+    ],
+    "who_paid" : "Владимир",
+    "date" : "11.11.2020",
+    "balance" : 355,
+    "difference" : -24,
+    "cost" : 26,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 242,
+    "member_states" : [
+      -130,
+      -119,
+      249
+    ],
+    "who_paid" : "Владимир",
+    "date" : "11.11.2020",
+    "balance" : 379,
+    "difference" : -54,
+    "cost" : 54,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 241,
+    "member_states" : [
+      -157,
+      -119,
+      276
+    ],
+    "who_paid" : "Владимир",
+    "date" : "11.11.2020",
+    "balance" : 433,
+    "difference" : -90,
+    "cost" : 90,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 240,
+    "member_states" : [
+      -202,
+      -119,
+      321
+    ],
+    "who_paid" : "Владимир",
+    "date" : "11.11.2020",
+    "balance" : 523,
+    "difference" : -130,
+    "cost" : 130,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 239,
+    "member_states" : [
+      -267,
+      -119,
+      386
+    ],
+    "who_paid" : "Владимир",
+    "date" : "11.11.2020",
+    "balance" : 653,
+    "difference" : -129,
+    "cost" : 129,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 238,
+    "member_states" : [
+      -353,
+      -76,
+      429
+    ],
+    "who_paid" : "Владимир",
+    "date" : "11.11.2020",
+    "balance" : 782,
+    "difference" : -140,
+    "cost" : 140,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 237,
+    "member_states" : [
+      -423,
+      -76,
+      499
+    ],
+    "who_paid" : "Владимир",
+    "date" : "11.11.2020",
+    "balance" : 922,
+    "difference" : -130,
+    "cost" : 130,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 236,
+    "member_states" : [
+      -488,
+      -76,
+      564
+    ],
+    "who_paid" : "Никита",
+    "date" : "11.11.2020",
+    "balance" : 1052,
+    "difference" : -70,
+    "cost" : 140,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 235,
+    "member_states" : [
+      -488,
+      -146,
+      634
+    ],
+    "who_paid" : "Никита",
+    "date" : "11.11.2020",
+    "balance" : 1122,
+    "difference" : 0,
+    "cost" : 165,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 234,
+    "member_states" : [
+      -433,
+      -256,
+      689
+    ],
+    "who_paid" : "Никита",
+    "date" : "11.11.2020",
+    "balance" : 1122,
+    "difference" : 12,
+    "cost" : 330,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 233,
+    "member_states" : [
+      -268,
+      -421,
+      689
+    ],
+    "who_paid" : "Владимир",
+    "date" : "09.11.2020",
+    "balance" : 1110,
+    "difference" : -40,
+    "cost" : 80,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 232,
+    "member_states" : [
+      -308,
+      -421,
+      729
+    ],
+    "who_paid" : "Георгий",
+    "date" : "09.11.2020",
+    "balance" : 1150,
+    "difference" : 66,
+    "cost" : 132,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 231,
+    "member_states" : [
+      -242,
+      -421,
+      663
+    ],
+    "who_paid" : "Георгий",
+    "date" : "09.11.2020",
+    "balance" : 1084,
+    "difference" : 28,
+    "cost" : 56,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 230,
+    "member_states" : [
+      -214,
+      -421,
+      635
+    ],
+    "who_paid" : "Георгий",
+    "date" : "09.11.2020",
+    "balance" : 1056,
+    "difference" : 35,
+    "cost" : 70,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 229,
+    "member_states" : [
+      -179,
+      -421,
+      600
+    ],
+    "who_paid" : "Георгий",
+    "date" : "09.11.2020",
+    "balance" : 1021,
+    "difference" : 74,
+    "cost" : 148,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 228,
+    "member_states" : [
+      -105,
+      -421,
+      526
+    ],
+    "who_paid" : "Георгий",
+    "date" : "09.11.2020",
+    "balance" : 947,
+    "difference" : 95,
+    "cost" : 190,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 227,
+    "member_states" : [
+      -10,
+      -421,
+      431
+    ],
+    "who_paid" : "Георгий",
+    "date" : "09.11.2020",
+    "balance" : 852,
+    "difference" : 32,
+    "cost" : 64,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 226,
+    "member_states" : [
+      22,
+      -421,
+      399
+    ],
+    "who_paid" : "Георгий",
+    "date" : "09.11.2020",
+    "balance" : 820,
+    "difference" : 50,
+    "cost" : 100,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 225,
+    "member_states" : [
+      72,
+      -421,
+      349
+    ],
+    "who_paid" : "Георгий",
+    "date" : "09.11.2020",
+    "balance" : 770,
+    "difference" : 7,
+    "cost" : 14,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 224,
+    "member_states" : [
+      79,
+      -421,
+      342
+    ],
+    "who_paid" : "Георгий",
+    "date" : "09.11.2020",
+    "balance" : 763,
+    "difference" : 11,
+    "cost" : 22,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 223,
+    "member_states" : [
+      90,
+      -421,
+      331
+    ],
+    "who_paid" : "Георгий",
+    "date" : "09.11.2020",
+    "balance" : 752,
+    "difference" : 92,
+    "cost" : 184,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 222,
+    "member_states" : [
+      182,
+      -421,
+      239
+    ],
+    "who_paid" : "Георгий",
+    "date" : "09.11.2020",
+    "balance" : 660,
+    "difference" : -56,
+    "cost" : 226,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 221,
+    "member_states" : [
+      295,
+      -421,
+      126
+    ],
+    "who_paid" : "Владимир",
+    "date" : "07.11.2020",
+    "balance" : 716,
+    "difference" : 55,
+    "cost" : 110,
+    "leader" : "Владимир",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 220,
+    "member_states" : [
+      240,
+      -421,
+      181
+    ],
+    "who_paid" : "Владимир",
+    "date" : "07.11.2020",
+    "balance" : 661,
+    "difference" : 59,
+    "cost" : 84,
+    "leader" : "Владимир",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 219,
+    "member_states" : [
+      184,
+      -393,
+      209
+    ],
+    "who_paid" : "Владимир",
+    "date" : "07.11.2020",
+    "balance" : 602,
+    "difference" : -39,
+    "cost" : 78,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 218,
+    "member_states" : [
+      145,
+      -393,
+      248
+    ],
+    "who_paid" : "Владимир",
+    "date" : "02.11.2020",
+    "balance" : 641,
+    "difference" : -50,
+    "cost" : 100,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 217,
+    "member_states" : [
+      95,
+      -393,
+      298
+    ],
+    "who_paid" : "Владимир",
+    "date" : "02.11.2020",
+    "balance" : 691,
+    "difference" : -70,
+    "cost" : 140,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 216,
+    "member_states" : [
+      25,
+      -393,
+      368
+    ],
+    "who_paid" : "Владимир",
+    "date" : "02.11.2020",
+    "balance" : 761,
+    "difference" : -70,
+    "cost" : 140,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 215,
+    "member_states" : [
+      -45,
+      -393,
+      438
+    ],
+    "who_paid" : "Владимир",
+    "date" : "02.11.2020",
+    "balance" : 831,
+    "difference" : -50,
+    "cost" : 100,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 214,
+    "member_states" : [
+      -95,
+      -393,
+      488
+    ],
+    "who_paid" : "Владимир",
+    "date" : "02.11.2020",
+    "balance" : 881,
+    "difference" : -150,
+    "cost" : 300,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 213,
+    "member_states" : [
+      -245,
+      -393,
+      638
+    ],
+    "who_paid" : "Владимир",
+    "date" : "02.11.2020",
+    "balance" : 1031,
+    "difference" : -21,
+    "cost" : 42,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 212,
+    "member_states" : [
+      -266,
+      -393,
+      659
+    ],
+    "who_paid" : "Владимир",
+    "date" : "02.11.2020",
+    "balance" : 1052,
+    "difference" : -45,
+    "cost" : 90,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 211,
+    "member_states" : [
+      -311,
+      -393,
+      704
+    ],
+    "who_paid" : "Владимир",
+    "date" : "02.11.2020",
+    "balance" : 1097,
+    "difference" : -70,
+    "cost" : 140,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 210,
+    "member_states" : [
+      -381,
+      -393,
+      774
+    ],
+    "who_paid" : "Владимир",
+    "date" : "01.11.2020",
+    "balance" : 1167,
+    "difference" : -308,
+    "cost" : 640,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 209,
+    "member_states" : [
+      -701,
+      -73,
+      774
+    ],
+    "who_paid" : "Никита",
+    "date" : "01.11.2020",
+    "balance" : 1475,
+    "difference" : -2,
+    "cost" : 630,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 208,
+    "member_states" : [
+      -491,
+      -493,
+      984
+    ],
+    "who_paid" : "Георгий",
+    "date" : "01.11.2020",
+    "balance" : 1477,
+    "difference" : 18,
+    "cost" : 18,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 207,
+    "member_states" : [
+      -485,
+      -487,
+      972
+    ],
+    "who_paid" : "Георгий",
+    "date" : "01.11.2020",
+    "balance" : 1459,
+    "difference" : 201,
+    "cost" : 201,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 206,
+    "member_states" : [
+      -418,
+      -420,
+      838
+    ],
+    "who_paid" : "Георгий",
+    "date" : "01.11.2020",
+    "balance" : 1258,
+    "difference" : 147,
+    "cost" : 147,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 205,
+    "member_states" : [
+      -369,
+      -371,
+      740
+    ],
+    "who_paid" : "Георгий",
+    "date" : "01.11.2020",
+    "balance" : 1111,
+    "difference" : 123,
+    "cost" : 123,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 204,
+    "member_states" : [
+      -328,
+      -330,
+      658
+    ],
+    "who_paid" : "Георгий",
+    "date" : "01.11.2020",
+    "balance" : 988,
+    "difference" : 63,
+    "cost" : 63,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 203,
+    "member_states" : [
+      -307,
+      -309,
+      616
+    ],
+    "who_paid" : "Георгий",
+    "date" : "01.11.2020",
+    "balance" : 925,
+    "difference" : 186,
+    "cost" : 186,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 202,
+    "member_states" : [
+      -245,
+      -247,
+      492
+    ],
+    "who_paid" : "Георгий",
+    "date" : "01.11.2020",
+    "balance" : 739,
+    "difference" : 399,
+    "cost" : 399,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 201,
+    "member_states" : [
+      -112,
+      -114,
+      226
+    ],
+    "who_paid" : "Владимир",
+    "date" : "31.10.2020",
+    "balance" : 340,
+    "difference" : -61,
+    "cost" : 126,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 200,
+    "member_states" : [
+      -175,
+      -51,
+      226
+    ],
+    "who_paid" : "Владимир",
+    "date" : "31.10.2020",
+    "balance" : 401,
+    "difference" : -75,
+    "cost" : 150,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 199,
+    "member_states" : [
+      -250,
+      24,
+      226
+    ],
+    "who_paid" : "Владимир",
+    "date" : "31.10.2020",
+    "balance" : 476,
+    "difference" : -150,
+    "cost" : 150,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 198,
+    "member_states" : [
+      -325,
+      24,
+      301
+    ],
+    "who_paid" : "Никита",
+    "date" : "30.10.2020",
+    "balance" : 626,
+    "difference" : 0,
+    "cost" : 39,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 197,
+    "member_states" : [
+      -312,
+      -2,
+      314
+    ],
+    "who_paid" : "Владимир",
+    "date" : "30.10.2020",
+    "balance" : 626,
+    "difference" : -39,
+    "cost" : 39,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 196,
+    "member_states" : [
+      -338,
+      11,
+      327
+    ],
+    "who_paid" : "Владимир",
+    "date" : "29.10.2020",
+    "balance" : 665,
+    "difference" : -25,
+    "cost" : 50,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 195,
+    "member_states" : [
+      -363,
+      36,
+      327
+    ],
+    "who_paid" : "Никита",
+    "date" : "28.10.2020",
+    "balance" : 690,
+    "difference" : 0,
+    "cost" : 99,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 194,
+    "member_states" : [
+      -330,
+      -30,
+      360
+    ],
+    "who_paid" : "Никита",
+    "date" : "28.10.2020",
+    "balance" : 690,
+    "difference" : 0,
+    "cost" : 111,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 193,
+    "member_states" : [
+      -293,
+      -104,
+      397
+    ],
+    "who_paid" : "Никита",
+    "date" : "28.10.2020",
+    "balance" : 690,
+    "difference" : 0,
+    "cost" : 39,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 192,
+    "member_states" : [
+      -280,
+      -130,
+      410
+    ],
+    "who_paid" : "Никита",
+    "date" : "28.10.2020",
+    "balance" : 690,
+    "difference" : -9,
+    "cost" : 159,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 191,
+    "member_states" : [
+      -227,
+      -236,
+      463
+    ],
+    "who_paid" : "Никита",
+    "date" : "28.10.2020",
+    "balance" : 699,
+    "difference" : -42,
+    "cost" : 42,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 190,
+    "member_states" : [
+      -213,
+      -264,
+      477
+    ],
+    "who_paid" : "Владимир",
+    "date" : "26.10.2020",
+    "balance" : 741,
+    "difference" : -3,
+    "cost" : 54,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 189,
+    "member_states" : [
+      -249,
+      -246,
+      495
+    ],
+    "who_paid" : "Владимир",
+    "date" : "26.10.2020",
+    "balance" : 744,
+    "difference" : -110,
+    "cost" : 110,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 188,
+    "member_states" : [
+      -304,
+      -246,
+      550
+    ],
+    "who_paid" : "Владимир",
+    "date" : "26.10.2020",
+    "balance" : 854,
+    "difference" : -100,
+    "cost" : 100,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 187,
+    "member_states" : [
+      -354,
+      -246,
+      600
+    ],
+    "who_paid" : "Владимир",
+    "date" : "26.10.2020",
+    "balance" : 954,
+    "difference" : -150,
+    "cost" : 150,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 186,
+    "member_states" : [
+      -429,
+      -246,
+      675
+    ],
+    "who_paid" : "Георгий",
+    "date" : "26.10.2020",
+    "balance" : 1104,
+    "difference" : 50,
+    "cost" : 50,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 185,
+    "member_states" : [
+      -404,
+      -246,
+      650
+    ],
+    "who_paid" : "Георгий",
+    "date" : "26.10.2020",
+    "balance" : 1054,
+    "difference" : 36,
+    "cost" : 36,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 184,
+    "member_states" : [
+      -392,
+      -234,
+      626
+    ],
+    "who_paid" : "Георгий",
+    "date" : "26.10.2020",
+    "balance" : 1018,
+    "difference" : 20,
+    "cost" : 40,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 183,
+    "member_states" : [
+      -392,
+      -214,
+      606
+    ],
+    "who_paid" : "Георгий",
+    "date" : "26.10.2020",
+    "balance" : 998,
+    "difference" : 40,
+    "cost" : 40,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 182,
+    "member_states" : [
+      -372,
+      -214,
+      586
+    ],
+    "who_paid" : "Георгий",
+    "date" : "26.10.2020",
+    "balance" : 958,
+    "difference" : 75,
+    "cost" : 75,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 181,
+    "member_states" : [
+      -347,
+      -189,
+      536
+    ],
+    "who_paid" : "Георгий",
+    "date" : "26.10.2020",
+    "balance" : 883,
+    "difference" : 96,
+    "cost" : 96,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 180,
+    "member_states" : [
+      -315,
+      -157,
+      472
+    ],
+    "who_paid" : "Георгий",
+    "date" : "26.10.2020",
+    "balance" : 787,
+    "difference" : 140,
+    "cost" : 140,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 179,
+    "member_states" : [
+      -245,
+      -157,
+      402
+    ],
+    "who_paid" : "Георгий",
+    "date" : "26.10.2020",
+    "balance" : 647,
+    "difference" : 120,
+    "cost" : 120,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 178,
+    "member_states" : [
+      -185,
+      -157,
+      342
+    ],
+    "who_paid" : "Георгий",
+    "date" : "26.10.2020",
+    "balance" : 527,
+    "difference" : 138,
+    "cost" : 138,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 177,
+    "member_states" : [
+      -139,
+      -111,
+      250
+    ],
+    "who_paid" : "Георгий",
+    "date" : "26.10.2020",
+    "balance" : 389,
+    "difference" : 78,
+    "cost" : 100,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 176,
+    "member_states" : [
+      -89,
+      -111,
+      200
+    ],
+    "who_paid" : "Георгий",
+    "date" : "26.10.2020",
+    "balance" : 311,
+    "difference" : 70,
+    "cost" : 140,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 175,
+    "member_states" : [
+      -19,
+      -111,
+      130
+    ],
+    "who_paid" : "Георгий",
+    "date" : "26.10.2020",
+    "balance" : 241,
+    "difference" : 43,
+    "cost" : 86,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 174,
+    "member_states" : [
+      24,
+      -111,
+      87
+    ],
+    "who_paid" : "Георгий",
+    "date" : "26.10.2020",
+    "balance" : 198,
+    "difference" : -9,
+    "cost" : 144,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 173,
+    "member_states" : [
+      96,
+      -111,
+      15
+    ],
+    "who_paid" : "Владимир",
+    "date" : "22.10.2020",
+    "balance" : 207,
+    "difference" : -9,
+    "cost" : 180,
+    "leader" : "Владимир",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 172,
+    "member_states" : [
+      6,
+      -111,
+      105
+    ],
+    "who_paid" : "Владимир",
+    "date" : "22.10.2020",
+    "balance" : 216,
+    "difference" : -60,
+    "cost" : 120,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 171,
+    "member_states" : [
+      -54,
+      -111,
+      165
+    ],
+    "who_paid" : "Владимир",
+    "date" : "22.10.2020",
+    "balance" : 276,
+    "difference" : -143,
+    "cost" : 200,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 170,
+    "member_states" : [
+      -154,
+      -111,
+      265
+    ],
+    "who_paid" : "Владимир",
+    "date" : "22.10.2020",
+    "balance" : 419,
+    "difference" : -78,
+    "cost" : 78,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 169,
+    "member_states" : [
+      -206,
+      -85,
+      291
+    ],
+    "who_paid" : "Владимир",
+    "date" : "22.10.2020",
+    "balance" : 497,
+    "difference" : -27,
+    "cost" : 27,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 168,
+    "member_states" : [
+      -224,
+      -76,
+      300
+    ],
+    "who_paid" : "Владимир",
+    "date" : "22.10.2020",
+    "balance" : 524,
+    "difference" : -51,
+    "cost" : 51,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 167,
+    "member_states" : [
+      -258,
+      -59,
+      317
+    ],
+    "who_paid" : "Владимир",
+    "date" : "19.10.2020",
+    "balance" : 575,
+    "difference" : -100,
+    "cost" : 100,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 166,
+    "member_states" : [
+      -308,
+      -59,
+      367
+    ],
+    "who_paid" : "Владимир",
+    "date" : "19.10.2020",
+    "balance" : 675,
+    "difference" : -141,
+    "cost" : 141,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 165,
+    "member_states" : [
+      -402,
+      -12,
+      414
+    ],
+    "who_paid" : "Никита",
+    "date" : "19.10.2020",
+    "balance" : 816,
+    "difference" : -9,
+    "cost" : 399,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 164,
+    "member_states" : [
+      -269,
+      -278,
+      547
+    ],
+    "who_paid" : "Никита",
+    "date" : "19.10.2020",
+    "balance" : 825,
+    "difference" : -21,
+    "cost" : 21,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 163,
+    "member_states" : [
+      -262,
+      -292,
+      554
+    ],
+    "who_paid" : "Георгий",
+    "date" : "16.10.2020",
+    "balance" : 846,
+    "difference" : 360,
+    "cost" : 360,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 162,
+    "member_states" : [
+      -142,
+      -172,
+      314
+    ],
+    "who_paid" : "Георгий",
+    "date" : "16.10.2020",
+    "balance" : 486,
+    "difference" : 90,
+    "cost" : 90,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 161,
+    "member_states" : [
+      -112,
+      -142,
+      254
+    ],
+    "who_paid" : "Георгий",
+    "date" : "16.10.2020",
+    "balance" : 396,
+    "difference" : 99,
+    "cost" : 99,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 160,
+    "member_states" : [
+      -79,
+      -109,
+      188
+    ],
+    "who_paid" : "Георгий",
+    "date" : "16.10.2020",
+    "balance" : 297,
+    "difference" : 45,
+    "cost" : 45,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 159,
+    "member_states" : [
+      -64,
+      -94,
+      158
+    ],
+    "who_paid" : "Никита",
+    "date" : "16.10.2020",
+    "balance" : 252,
+    "difference" : -25,
+    "cost" : 50,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 158,
+    "member_states" : [
+      -39,
+      -119,
+      158
+    ],
+    "who_paid" : "Владимир",
+    "date" : "16.10.2020",
+    "balance" : 277,
+    "difference" : 0,
+    "cost" : 36,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 157,
+    "member_states" : [
+      -63,
+      -107,
+      170
+    ],
+    "who_paid" : "Владимир",
+    "date" : "16.10.2020",
+    "balance" : 277,
+    "difference" : -116,
+    "cost" : 160,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 156,
+    "member_states" : [
+      -143,
+      -107,
+      250
+    ],
+    "who_paid" : "Никита",
+    "date" : "13.10.2020",
+    "balance" : 393,
+    "difference" : -81,
+    "cost" : 117,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 155,
+    "member_states" : [
+      -104,
+      -185,
+      289
+    ],
+    "who_paid" : "Никита",
+    "date" : "13.10.2020",
+    "balance" : 474,
+    "difference" : -80,
+    "cost" : 160,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 154,
+    "member_states" : [
+      -24,
+      -265,
+      289
+    ],
+    "who_paid" : "Владимир",
+    "date" : "13.10.2020",
+    "balance" : 554,
+    "difference" : 0,
+    "cost" : 51,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 153,
+    "member_states" : [
+      -58,
+      -248,
+      306
+    ],
+    "who_paid" : "Владимир",
+    "date" : "13.10.2020",
+    "balance" : 554,
+    "difference" : 0,
+    "cost" : 129,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 152,
+    "member_states" : [
+      -144,
+      -205,
+      349
+    ],
+    "who_paid" : "Георгий",
+    "date" : "11.10.2020",
+    "balance" : 554,
+    "difference" : 60,
+    "cost" : 60,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 151,
+    "member_states" : [
+      -124,
+      -185,
+      309
+    ],
+    "who_paid" : "Георгий",
+    "date" : "11.10.2020",
+    "balance" : 494,
+    "difference" : 150,
+    "cost" : 150,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 150,
+    "member_states" : [
+      -74,
+      -135,
+      209
+    ],
+    "who_paid" : "Георгий",
+    "date" : "11.10.2020",
+    "balance" : 344,
+    "difference" : 84,
+    "cost" : 84,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 149,
+    "member_states" : [
+      -46,
+      -107,
+      153
+    ],
+    "who_paid" : "Георгий",
+    "date" : "11.10.2020",
+    "balance" : 260,
+    "difference" : 42,
+    "cost" : 42,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 148,
+    "member_states" : [
+      -32,
+      -93,
+      125
+    ],
+    "who_paid" : "Георгий",
+    "date" : "11.10.2020",
+    "balance" : 218,
+    "difference" : 90,
+    "cost" : 90,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 147,
+    "member_states" : [
+      -2,
+      -63,
+      65
+    ],
+    "who_paid" : "Георгий",
+    "date" : "11.10.2020",
+    "balance" : 128,
+    "difference" : 66,
+    "cost" : 129,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 146,
+    "member_states" : [
+      41,
+      -20,
+      -21
+    ],
+    "who_paid" : "Георгий",
+    "date" : "11.10.2020",
+    "balance" : 62,
+    "difference" : -99,
+    "cost" : 99,
+    "leader" : "Владимир",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 145,
+    "member_states" : [
+      74,
+      13,
+      -87
+    ],
+    "who_paid" : "Георгий",
+    "date" : "11.10.2020",
+    "balance" : 161,
+    "difference" : -196,
+    "cost" : 196,
+    "leader" : "Владимир",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 144,
+    "member_states" : [
+      172,
+      13,
+      -185
+    ],
+    "who_paid" : "Георгий",
+    "date" : "11.10.2020",
+    "balance" : 357,
+    "difference" : -49,
+    "cost" : 98,
+    "leader" : "Владимир",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 143,
+    "member_states" : [
+      172,
+      62,
+      -234
+    ],
+    "who_paid" : "Владимир",
+    "date" : "10.10.2020",
+    "balance" : 406,
+    "difference" : 90,
+    "cost" : 90,
+    "leader" : "Владимир",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 142,
+    "member_states" : [
+      127,
+      62,
+      -189
+    ],
+    "who_paid" : "Владимир",
+    "date" : "10.10.2020",
+    "balance" : 316,
+    "difference" : 140,
+    "cost" : 150,
+    "leader" : "Владимир",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 141,
+    "member_states" : [
+      52,
+      62,
+      -114
+    ],
+    "who_paid" : "Владимир",
+    "date" : "10.10.2020",
+    "balance" : 176,
+    "difference" : 80,
+    "cost" : 160,
+    "leader" : "Никита",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 140,
+    "member_states" : [
+      -28,
+      62,
+      -34
+    ],
+    "who_paid" : "Владимир",
+    "date" : "10.10.2020",
+    "balance" : 96,
+    "difference" : -26,
+    "cost" : 64,
+    "leader" : "Никита",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 139,
+    "member_states" : [
+      -60,
+      62,
+      -2
+    ],
+    "who_paid" : "Владимир",
+    "date" : "10.10.2020",
+    "balance" : 122,
+    "difference" : -76,
+    "cost" : 76,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 138,
+    "member_states" : [
+      -98,
+      100,
+      -2
+    ],
+    "who_paid" : "Владимир",
+    "date" : "10.10.2020",
+    "balance" : 198,
+    "difference" : -126,
+    "cost" : 126,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 137,
+    "member_states" : [
+      -182,
+      142,
+      40
+    ],
+    "who_paid" : "Владимир",
+    "date" : "10.10.2020",
+    "balance" : 324,
+    "difference" : -99,
+    "cost" : 99,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 136,
+    "member_states" : [
+      -248,
+      175,
+      73
+    ],
+    "who_paid" : "Владимир",
+    "date" : "10.10.2020",
+    "balance" : 423,
+    "difference" : -66,
+    "cost" : 66,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 135,
+    "member_states" : [
+      -292,
+      197,
+      95
+    ],
+    "who_paid" : "Владимир",
+    "date" : "10.10.2020",
+    "balance" : 489,
+    "difference" : -15,
+    "cost" : 15,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 134,
+    "member_states" : [
+      -302,
+      202,
+      100
+    ],
+    "who_paid" : "Владимир",
+    "date" : "06.10.2020",
+    "balance" : 504,
+    "difference" : -80,
+    "cost" : 160,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 133,
+    "member_states" : [
+      -382,
+      202,
+      180
+    ],
+    "who_paid" : "Владимир",
+    "date" : "06.10.2020",
+    "balance" : 584,
+    "difference" : -178,
+    "cost" : 200,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 132,
+    "member_states" : [
+      -482,
+      202,
+      280
+    ],
+    "who_paid" : "Георгий",
+    "date" : "05.10.2020",
+    "balance" : 762,
+    "difference" : 60,
+    "cost" : 60,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 131,
+    "member_states" : [
+      -452,
+      202,
+      250
+    ],
+    "who_paid" : "Георгий",
+    "date" : "05.10.2020",
+    "balance" : 702,
+    "difference" : 66,
+    "cost" : 66,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 130,
+    "member_states" : [
+      -419,
+      202,
+      217
+    ],
+    "who_paid" : "Георгий",
+    "date" : "05.10.2020",
+    "balance" : 636,
+    "difference" : 45,
+    "cost" : 60,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 129,
+    "member_states" : [
+      -389,
+      202,
+      187
+    ],
+    "who_paid" : "Георгий",
+    "date" : "05.10.2020",
+    "balance" : 591,
+    "difference" : 47,
+    "cost" : 94,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 128,
+    "member_states" : [
+      -342,
+      202,
+      140
+    ],
+    "who_paid" : "Георгий",
+    "date" : "05.10.2020",
+    "balance" : 544,
+    "difference" : 27,
+    "cost" : 54,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 127,
+    "member_states" : [
+      -315,
+      202,
+      113
+    ],
+    "who_paid" : "Георгий",
+    "date" : "05.10.2020",
+    "balance" : 517,
+    "difference" : 65,
+    "cost" : 130,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 126,
+    "member_states" : [
+      -250,
+      202,
+      48
+    ],
+    "who_paid" : "Георгий",
+    "date" : "05.10.2020",
+    "balance" : 452,
+    "difference" : 0,
+    "cost" : 195,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 125,
+    "member_states" : [
+      -185,
+      267,
+      -82
+    ],
+    "who_paid" : "Георгий",
+    "date" : "05.10.2020",
+    "balance" : 452,
+    "difference" : -188,
+    "cost" : 291,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 124,
+    "member_states" : [
+      -88,
+      364,
+      -276
+    ],
+    "who_paid" : "Владимир",
+    "date" : "03.10.2020",
+    "balance" : 640,
+    "difference" : 72,
+    "cost" : 144,
+    "leader" : "Никита",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 123,
+    "member_states" : [
+      -160,
+      364,
+      -204
+    ],
+    "who_paid" : "Владимир",
+    "date" : "03.10.2020",
+    "balance" : 568,
+    "difference" : 0,
+    "cost" : 42,
+    "leader" : "Никита",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 122,
+    "member_states" : [
+      -188,
+      378,
+      -190
+    ],
+    "who_paid" : "Никита",
+    "date" : "02.10.2020",
+    "balance" : 568,
+    "difference" : 504,
+    "cost" : 630,
+    "leader" : "Никита",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 121,
+    "member_states" : [
+      22,
+      -42,
+      20
+    ],
+    "who_paid" : "Владимир",
+    "date" : "02.10.2020",
+    "balance" : 64,
+    "difference" : -48,
+    "cost" : 100,
+    "leader" : "Владимир",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 120,
+    "member_states" : [
+      -28,
+      -42,
+      70
+    ],
+    "who_paid" : "Георгий",
+    "date" : "02.10.2020",
+    "balance" : 112,
+    "difference" : 36,
+    "cost" : 36,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 119,
+    "member_states" : [
+      -16,
+      -30,
+      46
+    ],
+    "who_paid" : "Георгий",
+    "date" : "02.10.2020",
+    "balance" : 76,
+    "difference" : 48,
+    "cost" : 48,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 118,
+    "member_states" : [
+      0,
+      -14,
+      14
+    ],
+    "who_paid" : "Георгий",
+    "date" : "02.10.2020",
+    "balance" : 28,
+    "difference" : 14,
+    "cost" : 24,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 117,
+    "member_states" : [
+      8,
+      -6,
+      -2
+    ],
+    "who_paid" : "Георгий",
+    "date" : "02.10.2020",
+    "balance" : 14,
+    "difference" : -46,
+    "cost" : 50,
+    "leader" : "Владимир",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 116,
+    "member_states" : [
+      33,
+      -6,
+      -27
+    ],
+    "who_paid" : "Георгий",
+    "date" : "02.10.2020",
+    "balance" : 60,
+    "difference" : -120,
+    "cost" : 120,
+    "leader" : "Владимир",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 115,
+    "member_states" : [
+      93,
+      -6,
+      -87
+    ],
+    "who_paid" : "Георгий",
+    "date" : "02.10.2020",
+    "balance" : 180,
+    "difference" : -130,
+    "cost" : 130,
+    "leader" : "Владимир",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 114,
+    "member_states" : [
+      158,
+      -6,
+      -152
+    ],
+    "who_paid" : "Георгий",
+    "date" : "30.09.2020",
+    "balance" : 310,
+    "difference" : -147,
+    "cost" : 147,
+    "leader" : "Владимир",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 113,
+    "member_states" : [
+      207,
+      43,
+      -250
+    ],
+    "who_paid" : "Владимир",
+    "date" : "29.09.2020",
+    "balance" : 457,
+    "difference" : 50,
+    "cost" : 100,
+    "leader" : "Владимир",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 112,
+    "member_states" : [
+      157,
+      93,
+      -250
+    ],
+    "who_paid" : "Владимир",
+    "date" : "29.09.2020",
+    "balance" : 407,
+    "difference" : 247,
+    "cost" : 366,
+    "leader" : "Владимир",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 111,
+    "member_states" : [
+      -26,
+      93,
+      -67
+    ],
+    "who_paid" : "Никита",
+    "date" : "29.09.2020",
+    "balance" : 160,
+    "difference" : 111,
+    "cost" : 111,
+    "leader" : "Никита",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 110,
+    "member_states" : [
+      11,
+      19,
+      -30
+    ],
+    "who_paid" : "Владимир",
+    "date" : "28.09.2020",
+    "balance" : 49,
+    "difference" : -90,
+    "cost" : 180,
+    "leader" : "Никита",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 109,
+    "member_states" : [
+      -79,
+      19,
+      60
+    ],
+    "who_paid" : "Владимир",
+    "date" : "28.09.2020",
+    "balance" : 139,
+    "difference" : -459,
+    "cost" : 500,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 108,
+    "member_states" : [
+      -329,
+      269,
+      60
+    ],
+    "who_paid" : "Георгий",
+    "date" : "28.09.2020",
+    "balance" : 598,
+    "difference" : 0,
+    "cost" : 36,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 107,
+    "member_states" : [
+      -317,
+      281,
+      36
+    ],
+    "who_paid" : "Георгий",
+    "date" : "28.09.2020",
+    "balance" : 598,
+    "difference" : 0,
+    "cost" : 201,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 106,
+    "member_states" : [
+      -250,
+      348,
+      -98
+    ],
+    "who_paid" : "Георгий",
+    "date" : "28.09.2020",
+    "balance" : 598,
+    "difference" : 0,
+    "cost" : 120,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 105,
+    "member_states" : [
+      -210,
+      388,
+      -178
+    ],
+    "who_paid" : "Никита",
+    "date" : "26.09.2020",
+    "balance" : 598,
+    "difference" : 360,
+    "cost" : 360,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 104,
+    "member_states" : [
+      -90,
+      148,
+      -58
+    ],
+    "who_paid" : "Владимир",
+    "date" : "26.09.2020",
+    "balance" : 238,
+    "difference" : -69,
+    "cost" : 69,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 103,
+    "member_states" : [
+      -136,
+      171,
+      -35
+    ],
+    "who_paid" : "Владимир",
+    "date" : "26.09.2020",
+    "balance" : 307,
+    "difference" : -90,
+    "cost" : 180,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 102,
+    "member_states" : [
+      -226,
+      171,
+      55
+    ],
+    "who_paid" : "Никита",
+    "date" : "26.09.2020",
+    "balance" : 397,
+    "difference" : 150,
+    "cost" : 150,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 101,
+    "member_states" : [
+      -151,
+      96,
+      55
+    ],
+    "who_paid" : "Никита",
+    "date" : "26.09.2020",
+    "balance" : 247,
+    "difference" : 41,
+    "cost" : 150,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 100,
+    "member_states" : [
+      -101,
+      -4,
+      105
+    ],
+    "who_paid" : "Никита",
+    "date" : "26.09.2020",
+    "balance" : 206,
+    "difference" : -125,
+    "cost" : 222,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 99,
+    "member_states" : [
+      -27,
+      -152,
+      179
+    ],
+    "who_paid" : "Никита",
+    "date" : "26.09.2020",
+    "balance" : 331,
+    "difference" : -42,
+    "cost" : 42,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 98,
+    "member_states" : [
+      -13,
+      -180,
+      193
+    ],
+    "who_paid" : "Георгий",
+    "date" : "25.09.2020",
+    "balance" : 373,
+    "difference" : 24,
+    "cost" : 24,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 97,
+    "member_states" : [
+      -5,
+      -172,
+      177
+    ],
+    "who_paid" : "Георгий",
+    "date" : "25.09.2020",
+    "balance" : 349,
+    "difference" : 120,
+    "cost" : 120,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 96,
+    "member_states" : [
+      35,
+      -132,
+      97
+    ],
+    "who_paid" : "Георгий",
+    "date" : "25.09.2020",
+    "balance" : 229,
+    "difference" : 51,
+    "cost" : 51,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 95,
+    "member_states" : [
+      52,
+      -115,
+      63
+    ],
+    "who_paid" : "Георгий",
+    "date" : "25.09.2020",
+    "balance" : 178,
+    "difference" : 11,
+    "cost" : 102,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 94,
+    "member_states" : [
+      86,
+      -81,
+      -5
+    ],
+    "who_paid" : "Георгий",
+    "date" : "25.09.2020",
+    "balance" : 167,
+    "difference" : -164,
+    "cost" : 240,
+    "leader" : "Владимир",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 93,
+    "member_states" : [
+      166,
+      -1,
+      -165
+    ],
+    "who_paid" : "Георгий",
+    "date" : "25.09.2020",
+    "balance" : 331,
+    "difference" : -138,
+    "cost" : 138,
+    "leader" : "Владимир",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 92,
+    "member_states" : [
+      212,
+      45,
+      -257
+    ],
+    "who_paid" : "Никита",
+    "date" : "24.09.2020",
+    "balance" : 469,
+    "difference" : 90,
+    "cost" : 180,
+    "leader" : "Владимир",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 91,
+    "member_states" : [
+      212,
+      -45,
+      -167
+    ],
+    "who_paid" : "Владимир",
+    "date" : "23.09.2020",
+    "balance" : 379,
+    "difference" : -49,
+    "cost" : 612,
+    "leader" : "Владимир",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 90,
+    "member_states" : [
+      -94,
+      261,
+      -167
+    ],
+    "who_paid" : "Никита",
+    "date" : "23.09.2020",
+    "balance" : 428,
+    "difference" : 120,
+    "cost" : 120,
+    "leader" : "Никита",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 89,
+    "member_states" : [
+      -94,
+      201,
+      -107
+    ],
+    "who_paid" : "Никита",
+    "date" : "23.09.2020",
+    "balance" : 308,
+    "difference" : 141,
+    "cost" : 141,
+    "leader" : "Никита",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 88,
+    "member_states" : [
+      -47,
+      107,
+      -60
+    ],
+    "who_paid" : "Никита",
+    "date" : "21.09.2020",
+    "balance" : 167,
+    "difference" : 54,
+    "cost" : 54,
+    "leader" : "Никита",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 87,
+    "member_states" : [
+      -29,
+      71,
+      -42
+    ],
+    "who_paid" : "Владимир",
+    "date" : "21.09.2020",
+    "balance" : 113,
+    "difference" : -20,
+    "cost" : 33,
+    "leader" : "Никита",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 86,
+    "member_states" : [
+      -51,
+      82,
+      -31
+    ],
+    "who_paid" : "Владимир",
+    "date" : "21.09.2020",
+    "balance" : 133,
+    "difference" : -15,
+    "cost" : 15,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 85,
+    "member_states" : [
+      -61,
+      87,
+      -26
+    ],
+    "who_paid" : "Георгий",
+    "date" : "21.09.2020",
+    "balance" : 148,
+    "difference" : -7,
+    "cost" : 42,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 84,
+    "member_states" : [
+      -47,
+      101,
+      -54
+    ],
+    "who_paid" : "Георгий",
+    "date" : "21.09.2020",
+    "balance" : 155,
+    "difference" : -147,
+    "cost" : 147,
+    "leader" : "Никита",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 83,
+    "member_states" : [
+      2,
+      150,
+      -152
+    ],
+    "who_paid" : "Никита",
+    "date" : "20.09.2020",
+    "balance" : 302,
+    "difference" : 60,
+    "cost" : 120,
+    "leader" : "Никита",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 82,
+    "member_states" : [
+      62,
+      90,
+      -152
+    ],
+    "who_paid" : "Владимир",
+    "date" : "20.09.2020",
+    "balance" : 242,
+    "difference" : -28,
+    "cost" : 56,
+    "leader" : "Никита",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 81,
+    "member_states" : [
+      34,
+      118,
+      -152
+    ],
+    "who_paid" : "Владимир",
+    "date" : "20.09.2020",
+    "balance" : 270,
+    "difference" : 0,
+    "cost" : 99,
+    "leader" : "Никита",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 80,
+    "member_states" : [
+      -32,
+      151,
+      -119
+    ],
+    "who_paid" : "Владимир",
+    "date" : "20.09.2020",
+    "balance" : 270,
+    "difference" : -63,
+    "cost" : 150,
+    "leader" : "Никита",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 79,
+    "member_states" : [
+      -132,
+      201,
+      -69
+    ],
+    "who_paid" : "Владимир",
+    "date" : "20.09.2020",
+    "balance" : 333,
+    "difference" : -99,
+    "cost" : 198,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 78,
+    "member_states" : [
+      -231,
+      201,
+      30
+    ],
+    "who_paid" : "Никита",
+    "date" : "20.09.2020",
+    "balance" : 432,
+    "difference" : 378,
+    "cost" : 450,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 77,
+    "member_states" : [
+      -6,
+      -24,
+      30
+    ],
+    "who_paid" : "Владимир",
+    "date" : "18.09.2020",
+    "balance" : 54,
+    "difference" : -93,
+    "cost" : 111,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 76,
+    "member_states" : [
+      -80,
+      13,
+      67
+    ],
+    "who_paid" : "Владимир",
+    "date" : "18.09.2020",
+    "balance" : 147,
+    "difference" : -138,
+    "cost" : 138,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 75,
+    "member_states" : [
+      -172,
+      59,
+      113
+    ],
+    "who_paid" : "Владимир",
+    "date" : "18.09.2020",
+    "balance" : 285,
+    "difference" : -90,
+    "cost" : 90,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 74,
+    "member_states" : [
+      -232,
+      89,
+      143
+    ],
+    "who_paid" : "Владимир",
+    "date" : "18.09.2020",
+    "balance" : 375,
+    "difference" : -420,
+    "cost" : 420,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 73,
+    "member_states" : [
+      -512,
+      229,
+      283
+    ],
+    "who_paid" : "Владимир",
+    "date" : "18.09.2020",
+    "balance" : 795,
+    "difference" : -51,
+    "cost" : 51,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 72,
+    "member_states" : [
+      -546,
+      246,
+      300
+    ],
+    "who_paid" : "Владимир",
+    "date" : "18.09.2020",
+    "balance" : 846,
+    "difference" : -42,
+    "cost" : 42,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 71,
+    "member_states" : [
+      -574,
+      260,
+      314
+    ],
+    "who_paid" : "Никита",
+    "date" : "17.09.2020",
+    "balance" : 888,
+    "difference" : 334,
+    "cost" : 1000,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 70,
+    "member_states" : [
+      -74,
+      -240,
+      314
+    ],
+    "who_paid" : "Владимир",
+    "date" : "17.09.2020",
+    "balance" : 554,
+    "difference" : 0,
+    "cost" : 150,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 69,
+    "member_states" : [
+      -174,
+      -190,
+      364
+    ],
+    "who_paid" : "Владимир",
+    "date" : "16.09.2020",
+    "balance" : 554,
+    "difference" : -19,
+    "cost" : 70,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 68,
+    "member_states" : [
+      -209,
+      -155,
+      364
+    ],
+    "who_paid" : "Никита",
+    "date" : "16.09.2020",
+    "balance" : 573,
+    "difference" : 0,
+    "cost" : 12,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 67,
+    "member_states" : [
+      -205,
+      -163,
+      368
+    ],
+    "who_paid" : "Никита",
+    "date" : "15.09.2020",
+    "balance" : 573,
+    "difference" : -33,
+    "cost" : 150,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 66,
+    "member_states" : [
+      -130,
+      -238,
+      368
+    ],
+    "who_paid" : "Никита",
+    "date" : "15.09.2020",
+    "balance" : 606,
+    "difference" : -35,
+    "cost" : 70,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 65,
+    "member_states" : [
+      -95,
+      -273,
+      368
+    ],
+    "who_paid" : "Никита",
+    "date" : "14.09.2020",
+    "balance" : 641,
+    "difference" : -80,
+    "cost" : 80,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 64,
+    "member_states" : [
+      -95,
+      -313,
+      408
+    ],
+    "who_paid" : "Владимир",
+    "date" : "14.09.2020",
+    "balance" : 721,
+    "difference" : 82,
+    "cost" : 164,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 63,
+    "member_states" : [
+      -177,
+      -231,
+      408
+    ],
+    "who_paid" : "Владимир",
+    "date" : "14.09.2020",
+    "balance" : 639,
+    "difference" : 0,
+    "cost" : 36,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 62,
+    "member_states" : [
+      -201,
+      -219,
+      420
+    ],
+    "who_paid" : "Владимир",
+    "date" : "13.09.2020",
+    "balance" : 639,
+    "difference" : -82,
+    "cost" : 100,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 61,
+    "member_states" : [
+      -251,
+      -219,
+      470
+    ],
+    "who_paid" : "Владимир",
+    "date" : "13.09.2020",
+    "balance" : 721,
+    "difference" : -69,
+    "cost" : 69,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 60,
+    "member_states" : [
+      -297,
+      -196,
+      493
+    ],
+    "who_paid" : "Георгий",
+    "date" : "13.09.2020",
+    "balance" : 790,
+    "difference" : 54,
+    "cost" : 54,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 59,
+    "member_states" : [
+      -279,
+      -178,
+      457
+    ],
+    "who_paid" : "Владимир",
+    "date" : "13.09.2020",
+    "balance" : 736,
+    "difference" : -54,
+    "cost" : 54,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 58,
+    "member_states" : [
+      -315,
+      -160,
+      475
+    ],
+    "who_paid" : "Владимир",
+    "date" : "13.09.2020",
+    "balance" : 790,
+    "difference" : -49,
+    "cost" : 98,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 57,
+    "member_states" : [
+      -364,
+      -111,
+      475
+    ],
+    "who_paid" : "Владимир",
+    "date" : "13.09.2020",
+    "balance" : 839,
+    "difference" : -99,
+    "cost" : 99,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 56,
+    "member_states" : [
+      -430,
+      -78,
+      508
+    ],
+    "who_paid" : "Владимир",
+    "date" : "13.09.2020",
+    "balance" : 938,
+    "difference" : -33,
+    "cost" : 33,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 55,
+    "member_states" : [
+      -452,
+      -67,
+      519
+    ],
+    "who_paid" : "Владимир",
+    "date" : "13.09.2020",
+    "balance" : 971,
+    "difference" : -99,
+    "cost" : 99,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 54,
+    "member_states" : [
+      -518,
+      -34,
+      552
+    ],
+    "who_paid" : "Георгий",
+    "date" : "13.09.2020",
+    "balance" : 1070,
+    "difference" : 81,
+    "cost" : 81,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 53,
+    "member_states" : [
+      -491,
+      -7,
+      498
+    ],
+    "who_paid" : "Владимир",
+    "date" : "13.09.2020",
+    "balance" : 989,
+    "difference" : -81,
+    "cost" : 81,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 52,
+    "member_states" : [
+      -545,
+      20,
+      525
+    ],
+    "who_paid" : "Владимир",
+    "date" : "13.09.2020",
+    "balance" : 1070,
+    "difference" : -56,
+    "cost" : 56,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 51,
+    "member_states" : [
+      -573,
+      20,
+      553
+    ],
+    "who_paid" : "Никита",
+    "date" : "13.09.2020",
+    "balance" : 1126,
+    "difference" : 250,
+    "cost" : 500,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 50,
+    "member_states" : [
+      -323,
+      -230,
+      553
+    ],
+    "who_paid" : "Георгий",
+    "date" : "11.09.2020",
+    "balance" : 876,
+    "difference" : 228,
+    "cost" : 270,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 49,
+    "member_states" : [
+      -188,
+      -230,
+      418
+    ],
+    "who_paid" : "Георгий",
+    "date" : "11.09.2020",
+    "balance" : 648,
+    "difference" : 75,
+    "cost" : 150,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 48,
+    "member_states" : [
+      -113,
+      -230,
+      343
+    ],
+    "who_paid" : "Георгий",
+    "date" : "11.09.2020",
+    "balance" : 573,
+    "difference" : 50,
+    "cost" : 100,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 47,
+    "member_states" : [
+      -63,
+      -230,
+      293
+    ],
+    "who_paid" : "Георгий",
+    "date" : "11.09.2020",
+    "balance" : 523,
+    "difference" : 132,
+    "cost" : 132,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 46,
+    "member_states" : [
+      -19,
+      -186,
+      205
+    ],
+    "who_paid" : "Георгий",
+    "date" : "11.09.2020",
+    "balance" : 391,
+    "difference" : 150,
+    "cost" : 150,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 45,
+    "member_states" : [
+      31,
+      -136,
+      105
+    ],
+    "who_paid" : "Георгий",
+    "date" : "11.09.2020",
+    "balance" : 241,
+    "difference" : 74,
+    "cost" : 81,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 44,
+    "member_states" : [
+      58,
+      -109,
+      51
+    ],
+    "who_paid" : "Георгий",
+    "date" : "11.09.2020",
+    "balance" : 167,
+    "difference" : 0,
+    "cost" : 51,
+    "leader" : "Владимир",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 43,
+    "member_states" : [
+      75,
+      -92,
+      17
+    ],
+    "who_paid" : "Георгий",
+    "date" : "11.09.2020",
+    "balance" : 167,
+    "difference" : 0,
+    "cost" : 60,
+    "leader" : "Владимир",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 42,
+    "member_states" : [
+      95,
+      -72,
+      -23
+    ],
+    "who_paid" : "Георгий",
+    "date" : "11.09.2020",
+    "balance" : 167,
+    "difference" : -24,
+    "cost" : 48,
+    "leader" : "Владимир",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 41,
+    "member_states" : [
+      119,
+      -72,
+      -47
+    ],
+    "who_paid" : "Владимир",
+    "date" : "09.09.2020",
+    "balance" : 191,
+    "difference" : -207,
+    "cost" : 564,
+    "leader" : "Владимир",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 40,
+    "member_states" : [
+      -257,
+      116,
+      141
+    ],
+    "who_paid" : "Никита",
+    "date" : "09.09.2020",
+    "balance" : 398,
+    "difference" : -36,
+    "cost" : 72,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 39,
+    "member_states" : [
+      -257,
+      80,
+      177
+    ],
+    "who_paid" : "Никита",
+    "date" : "09.09.2020",
+    "balance" : 434,
+    "difference" : 137,
+    "cost" : 400,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 38,
+    "member_states" : [
+      -57,
+      -120,
+      177
+    ],
+    "who_paid" : "Георгий",
+    "date" : "08.09.2020",
+    "balance" : 297,
+    "difference" : 36,
+    "cost" : 36,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 37,
+    "member_states" : [
+      -45,
+      -108,
+      153
+    ],
+    "who_paid" : "Владимир",
+    "date" : "07.09.2020",
+    "balance" : 261,
+    "difference" : 8,
+    "cost" : 110,
+    "leader" : "Георгий",
+    "bottom" : "Никита"
+  },
+  {
+    "id" : 36,
+    "member_states" : [
+      -100,
+      -53,
+      153
+    ],
+    "who_paid" : "Владимир",
+    "date" : "07.09.2020",
+    "balance" : 253,
+    "difference" : -99,
+    "cost" : 99,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 35,
+    "member_states" : [
+      -166,
+      -20,
+      186
+    ],
+    "who_paid" : "Владимир",
+    "date" : "07.09.2020",
+    "balance" : 352,
+    "difference" : -110,
+    "cost" : 110,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 34,
+    "member_states" : [
+      -221,
+      -20,
+      241
+    ],
+    "who_paid" : "Владимир",
+    "date" : "07.09.2020",
+    "balance" : 462,
+    "difference" : -51,
+    "cost" : 51,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 33,
+    "member_states" : [
+      -255,
+      -3,
+      258
+    ],
+    "who_paid" : "Владимир",
+    "date" : "07.09.2020",
+    "balance" : 513,
+    "difference" : -33,
+    "cost" : 33,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 32,
+    "member_states" : [
+      -277,
+      8,
+      269
+    ],
+    "who_paid" : "Владимир",
+    "date" : "06.09.2020",
+    "balance" : 546,
+    "difference" : -130,
+    "cost" : 260,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 31,
+    "member_states" : [
+      -407,
+      138,
+      269
+    ],
+    "who_paid" : "Владимир",
+    "date" : "05.09.2020",
+    "balance" : 676,
+    "difference" : -228,
+    "cost" : 228,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 30,
+    "member_states" : [
+      -559,
+      214,
+      345
+    ],
+    "who_paid" : "Георгий",
+    "date" : "05.09.2020",
+    "balance" : 904,
+    "difference" : 311,
+    "cost" : 360,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 29,
+    "member_states" : [
+      -379,
+      214,
+      165
+    ],
+    "who_paid" : "Никита",
+    "date" : "03.09.2020",
+    "balance" : 593,
+    "difference" : 74,
+    "cost" : 74,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 28,
+    "member_states" : [
+      -342,
+      177,
+      165
+    ],
+    "who_paid" : "Владимир",
+    "date" : "02.09.2020",
+    "balance" : 519,
+    "difference" : -240,
+    "cost" : 240,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 27,
+    "member_states" : [
+      -462,
+      297,
+      165
+    ],
+    "who_paid" : "Владимир",
+    "date" : "02.09.2020",
+    "balance" : 759,
+    "difference" : -60,
+    "cost" : 60,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 26,
+    "member_states" : [
+      -492,
+      327,
+      165
+    ],
+    "who_paid" : "Владимир",
+    "date" : "02.09.2020",
+    "balance" : 819,
+    "difference" : -120,
+    "cost" : 120,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 25,
+    "member_states" : [
+      -552,
+      387,
+      165
+    ],
+    "who_paid" : "Никита",
+    "date" : "02.09.2020",
+    "balance" : 939,
+    "difference" : 472,
+    "cost" : 500,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 24,
+    "member_states" : [
+      -302,
+      137,
+      165
+    ],
+    "who_paid" : "Владимир",
+    "date" : "01.09.2020",
+    "balance" : 467,
+    "difference" : -33,
+    "cost" : 33,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 23,
+    "member_states" : [
+      -324,
+      148,
+      176
+    ],
+    "who_paid" : "Владимир",
+    "date" : "01.09.2020",
+    "balance" : 500,
+    "difference" : -56,
+    "cost" : 84,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 22,
+    "member_states" : [
+      -366,
+      190,
+      176
+    ],
+    "who_paid" : "Георгий",
+    "date" : "01.09.2020",
+    "balance" : 556,
+    "difference" : 0,
+    "cost" : 39,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 21,
+    "member_states" : [
+      -353,
+      203,
+      150
+    ],
+    "who_paid" : "Георгий",
+    "date" : "01.09.2020",
+    "balance" : 556,
+    "difference" : 0,
+    "cost" : 63,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 20,
+    "member_states" : [
+      -332,
+      224,
+      108
+    ],
+    "who_paid" : "Георгий",
+    "date" : "01.09.2020",
+    "balance" : 556,
+    "difference" : 0,
+    "cost" : 24,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 19,
+    "member_states" : [
+      -324,
+      232,
+      92
+    ],
+    "who_paid" : "Георгий",
+    "date" : "01.09.2020",
+    "balance" : 556,
+    "difference" : 0,
+    "cost" : 18,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 18,
+    "member_states" : [
+      -318,
+      238,
+      80
+    ],
+    "who_paid" : "Георгий",
+    "date" : "01.09.2020",
+    "balance" : 556,
+    "difference" : 0,
+    "cost" : 147,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 17,
+    "member_states" : [
+      -269,
+      287,
+      -18
+    ],
+    "who_paid" : "Георгий",
+    "date" : "01.09.2020",
+    "balance" : 556,
+    "difference" : 0,
+    "cost" : 156,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 16,
+    "member_states" : [
+      -217,
+      339,
+      -122
+    ],
+    "who_paid" : "Георгий",
+    "date" : "01.09.2020",
+    "balance" : 556,
+    "difference" : -4,
+    "cost" : 99,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 15,
+    "member_states" : [
+      -184,
+      372,
+      -188
+    ],
+    "who_paid" : "Георгий",
+    "date" : "01.09.2020",
+    "balance" : 560,
+    "difference" : -120,
+    "cost" : 120,
+    "leader" : "Никита",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 14,
+    "member_states" : [
+      -144,
+      412,
+      -268
+    ],
+    "who_paid" : "Георгий",
+    "date" : "01.09.2020",
+    "balance" : 680,
+    "difference" : -78,
+    "cost" : 78,
+    "leader" : "Никита",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 13,
+    "member_states" : [
+      -118,
+      438,
+      -320
+    ],
+    "who_paid" : "Никита",
+    "date" : "01.09.2020",
+    "balance" : 758,
+    "difference" : 556,
+    "cost" : 600,
+    "leader" : "Никита",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 12,
+    "member_states" : [
+      82,
+      38,
+      -120
+    ],
+    "who_paid" : "Никита",
+    "date" : "31.08.2020",
+    "balance" : 202,
+    "difference" : 0,
+    "cost" : 129,
+    "leader" : "Владимир",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 11,
+    "member_states" : [
+      125,
+      -48,
+      -77
+    ],
+    "who_paid" : "Георгий",
+    "date" : "31.08.2020",
+    "balance" : 202,
+    "difference" : -60,
+    "cost" : 60,
+    "leader" : "Владимир",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 10,
+    "member_states" : [
+      145,
+      -28,
+      -117
+    ],
+    "who_paid" : "Георгий",
+    "date" : "31.08.2020",
+    "balance" : 262,
+    "difference" : -42,
+    "cost" : 42,
+    "leader" : "Владимир",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 9,
+    "member_states" : [
+      159,
+      -14,
+      -145
+    ],
+    "who_paid" : "Георгий",
+    "date" : "31.08.2020",
+    "balance" : 304,
+    "difference" : -36,
+    "cost" : 36,
+    "leader" : "Владимир",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 8,
+    "member_states" : [
+      171,
+      -2,
+      -169
+    ],
+    "who_paid" : "Владимир",
+    "date" : "31.08.2020",
+    "balance" : 340,
+    "difference" : 33,
+    "cost" : 480,
+    "leader" : "Владимир",
+    "bottom" : "Георгий"
+  },
+  {
+    "id" : 7,
+    "member_states" : [
+      -149,
+      158,
+      -9
+    ],
+    "who_paid" : "Никита",
+    "date" : "31.08.2020",
+    "balance" : 307,
+    "difference" : 100,
+    "cost" : 100,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 6,
+    "member_states" : [
+      -99,
+      108,
+      -9
+    ],
+    "who_paid" : "Владимир",
+    "date" : "03.07.2020",
+    "balance" : 207,
+    "difference" : -50,
+    "cost" : 100,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 5,
+    "member_states" : [
+      -149,
+      108,
+      41
+    ],
+    "who_paid" : "Владимир",
+    "date" : "03.07.2020",
+    "balance" : 257,
+    "difference" : -733,
+    "cost" : 800,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 4,
+    "member_states" : [
+      -549,
+      108,
+      441
+    ],
+    "who_paid" : "Георгий",
+    "date" : "30.06.2020",
+    "balance" : 990,
+    "difference" : 370,
+    "cost" : 370,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 3,
+    "member_states" : [
+      -364,
+      108,
+      256
+    ],
+    "who_paid" : "Георгий",
+    "date" : "30.06.2020",
+    "balance" : 620,
+    "difference" : 148,
+    "cost" : 351,
+    "leader" : "Георгий",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 2,
+    "member_states" : [
+      -247,
+      225,
+      22
+    ],
+    "who_paid" : "Георгий",
+    "date" : "30.06.2020",
+    "balance" : 472,
+    "difference" : 0,
+    "cost" : 201,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 1,
+    "member_states" : [
+      -180,
+      292,
+      -112
+    ],
+    "who_paid" : "Владимир",
+    "date" : "29.06.2020",
+    "balance" : 472,
+    "difference" : -78,
+    "cost" : 156,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  },
+  {
+    "id" : 0,
+    "member_states" : [
+      -258,
+      292,
+      -34
+    ],
+    "who_paid" : "Владимир",
+    "date" : "29.06.2020",
+    "balance" : 550,
+    "difference" : -135,
+    "cost" : 135,
+    "leader" : "Никита",
+    "bottom" : "Владимир"
+  }
+]

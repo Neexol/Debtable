@@ -62,7 +62,6 @@ table.redTable tfoot .links a{
     overflow-x: hidden;
     padding-top: 2rem;
 }
-
 .home__side-menu div {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
@@ -70,16 +69,13 @@ table.redTable tfoot .links a{
     color: #aeaeae;
     cursor: pointer;
 }
-
 .home__side-menu div.active {
     background: gold;
     color: black;
 }
-
 .home__side-menu div:not(.active):hover {
     color: #f1f1f1;
 }
-
 .home__content {
     display: grid;
     grid-template-columns: repeat( auto-fill, minmax(10rem, 1fr) );
@@ -88,7 +84,6 @@ table.redTable tfoot .links a{
     font-size: 28px; /* Increased text to enable scrolling */
     padding: 1rem;
 }
-
 .home__content div.card {
     background: #ffe86f;
     position: relative;
@@ -97,7 +92,6 @@ table.redTable tfoot .links a{
     box-shadow:0 0.5rem 1rem -0.2rem #dddddd;
     cursor: pointer;
 }
-
 .home__add-room-btn {
     position: fixed;
     /*display: none;*/
@@ -131,8 +125,43 @@ table.redTable tfoot .links a{
     height: 1.5rem;
     animation: spin 1s linear infinite;
 }
-
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+
+.room__top-menu {
+    /*--height: auto;*/
+    /*--top-menu_height:*/
+    /*--height: height;*/
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #363636;
+    overflow-x: hidden;
+}
+.room__top-menu div {
+    float: right;
+    padding: 0.5rem;
+    text-decoration: none;
+    /*height: auto;*/
+    font-size: 12pt;
+    color: #aeaeae;
+    cursor: pointer;
+}
+.room__top-menu div.active {
+    background: gold;
+    color: black;
+}
+.room__top-menu div:not(.active):hover {
+    color: #f1f1f1;
+}
+.room__content {
+    margin-top: 4rem;
+    /*margin-top: var(--height);*/
+    font-size: 28px; /* Increased text to enable scrolling */
+    padding: 1rem;
 }
