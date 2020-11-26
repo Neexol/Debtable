@@ -49,7 +49,7 @@ private fun Route.register() {
                         HttpStatusCode.Conflict,
                         "User with this username already exists."
                     )
-                    is Exception -> call.respond(
+                    else -> call.respond(
                         HttpStatusCode.BadRequest,
                         exception.toString()
                     )
@@ -74,10 +74,11 @@ private fun Route.login() {
             call.sessions.set(DebtableSession(user.id.value))
             JwtService.generateToken(user)
         }
-        when (val e = result.exceptionOrNull()) {
+
+        when (val exception = result.exceptionOrNull()) {
             null -> call.respondText(result.getOrNull()!!)
-            else -> if (!interceptJsonBodyError(e)) {
-                when (e) {
+            else -> if (!interceptJsonBodyError(exception)) {
+                when (exception) {
                     is UserNotFoundException -> call.respond(
                         HttpStatusCode.NotFound,
                         "There is no user with this username."
@@ -86,9 +87,9 @@ private fun Route.login() {
                         HttpStatusCode.Unauthorized,
                         "Wrong password."
                     )
-                    is Exception -> call.respond(
+                    else -> call.respond(
                         HttpStatusCode.BadRequest,
-                        e.toString()
+                        exception.toString()
                     )
                 }
             }
