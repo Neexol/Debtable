@@ -1,21 +1,8 @@
-// const NAVIGATION = new Map([
-//     ["ROOMS",    (<HomeRooms/>)   ],
-//     ["PROFILE",  (<HomeProfile/>) ],
-//     ["SETTINGS", (<HomeSettings/>)]
-// ]);
-// const NAVIGATION = new Map([
-//     ["ROOMS",    "(HomeRooms)"   ],
-//     ["PROFILE",  "(HomeProfile)" ],
-//     ["SETTINGS", "(HomeSettings)"]
-// ]);
-
 const NAV_NAMES = [
     "Rooms",
     "Profile",
     "Settings"
 ]
-
-// alert(NAVIGATION[0]);
 
 class Home extends React.Component {
     constructor(props) {
@@ -31,15 +18,13 @@ class Home extends React.Component {
     render() {
         return (
             <>
-                <span>
-                    <HomeSideMenu
-                        checkedIndex={this.state.checkedIndex}
-                        onCheck={this.handleCheck}
-                    />
-                </span>
-                <span>
+                <HomeSideMenu
+                    checkedIndex={this.state.checkedIndex}
+                    onCheck={this.handleCheck}
+                />
+                <div className="home__content">
                     {NAVIGATION[this.state.checkedIndex]}
-                </span>
+                </div>
             </>
         );
     }
@@ -48,7 +33,7 @@ class Home extends React.Component {
 function HomeSideMenu(props) {
     const index = props.checkedIndex;
     return (
-        <nav> {
+        <nav className="home__side-menu"> {
             NAV_NAMES.map(name => {
                 const i = NAV_NAMES.indexOf(name);
                 return (
@@ -56,9 +41,7 @@ function HomeSideMenu(props) {
                         key={i}
                         onClick={() => props.onCheck(i)}
                         className={(index === i) ? "active" : null}
-                    >
-                        {name}
-                    </div>
+                    >{name}</div>
                 )
             })
         } </nav>
@@ -76,7 +59,7 @@ class HomeRooms extends React.Component {
 
     componentDidMount() {
         console.log("Rooms attached")
-        $.get(`${HOST_URL}rooms.json`, (response) => {
+        $.get(`${HOST_URL}rooms.json`, "kek", (response) => {
             this.setState({
                 isLoading: false,
                 rooms: response
@@ -84,18 +67,36 @@ class HomeRooms extends React.Component {
         });
     }
 
+    // render() {
+    //     return <div className="loader"/>
+    // }
     render() {
         return (
-            <div> {
+            <> {
                 this.state.isLoading
                     ? <div className="loader"/>
-                    : this.state.rooms.map(room => (
-                        <div key={room.room_id}>
-                            <b>{room.label}</b><br/>
-                            {room.members_quantity} members
-                        </div>
-                    ))
-            } </div>
+                    : <> {
+                        this.state.rooms.map(room => (
+                            <div
+                                key={room.room_id}
+                                className="card"
+                                onClick={() => {
+                                    // history.pushState(null, null, '/anypath');
+                                    if (room.label === "1206") {
+                                        location.assign(`room.html`)
+                                    }
+                                    // location.assign(`room/${room.room_id}`)
+                                }}
+                            >
+                                <b>{room.label}</b><br/>
+                                {room.members_quantity} members
+                            </div>
+                        ))
+                    }
+                    <button className="home__add-room-btn">
+                        add room
+                    </button> </>
+            } </>
         );
     }
 }
