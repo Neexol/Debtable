@@ -2,4 +2,4 @@
 const BASE_URL = "http://localhost:8080";
 const HOST_URL = BASE_URL + "/";
 
-const Loader = (props) => <div className="loader"/>;
+const Loader = () => <div className="loader"/>;
