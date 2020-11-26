@@ -165,3 +165,14 @@ table.redTable tfoot .links a{
     font-size: 28px; /* Increased text to enable scrolling */
     padding: 1rem;
 }
+
+
+
+.add-record-form,
+.add-record-form input,
+.add-record-form button{
+    width: 100%;
+}
+.add-record-form td:not(:first-of-type) {
+    padding-left: 0.5rem;
+}
