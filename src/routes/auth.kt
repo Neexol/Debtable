@@ -74,6 +74,7 @@ private fun Route.login() {
             call.sessions.set(DebtableSession(user.id.value))
             JwtService.generateToken(user)
         }
+
         when (val exception = result.exceptionOrNull()) {
             null -> call.respondText(result.getOrNull()!!)
             else -> if (!interceptJsonBodyError(exception)) {

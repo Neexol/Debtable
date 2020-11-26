@@ -31,4 +31,11 @@ object UsersRepository {
             Users.username eq username
         }.singleOrNull()
     }
+
+    suspend fun changePassword(
+        userId: Int,
+        newPasswordHash: String
+    ) = newSuspendedTransaction(Dispatchers.IO) {
+        findUserById(userId)!!.passwordHash = newPasswordHash
+    }
 }
