@@ -8,12 +8,14 @@ import io.ktor.routing.*
 import io.ktor.util.*
 import ru.neexol.debtable.auth.hashFunction
 import ru.neexol.debtable.models.requests.ChangePasswordRequest
+import ru.neexol.debtable.models.requests.ChangeUserDataRequest
 import ru.neexol.debtable.models.responses.UserResponse
 import ru.neexol.debtable.repositories.UsersRepository
 import ru.neexol.debtable.utils.exceptions.NotMatchPasswordException
 import ru.neexol.debtable.utils.getUserViaToken
 import ru.neexol.debtable.utils.interceptJsonBodyError
 
+@KtorExperimentalAPI
 fun Route.user() {
     route("/user") {
         whoami()
@@ -21,10 +23,11 @@ fun Route.user() {
     }
 }
 
+@KtorExperimentalAPI
 private fun Route.change() {
     route("/change") {
         password()
-        displayName()
+        data()
     }
 }
 
@@ -81,8 +84,27 @@ private fun Route.password() {
     }
 }
 
-private fun Route.displayName() {
-    post("/display-name") {
+private fun Route.data() {
+    post("/data") {
+        val result = runCatching {
+            val request = call.receive<ChangeUserDataRequest>()
 
+            val user = getUserViaToken()
+
+            UsersRepository.changeUserData(
+                user.id.value,
+                request.displayName
+            )
+        }
+
+        when (val exception = result.exceptionOrNull()) {
+            null -> call.respond(HttpStatusCode.NoContent)
+            else -> if (!interceptJsonBodyError(exception)) {
+                call.respond(
+                    HttpStatusCode.BadRequest,
+                    exception.toString()
+                )
+            }
+        }
     }
 }
