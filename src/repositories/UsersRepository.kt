@@ -4,6 +4,7 @@ import db.tables.Users
 import kotlinx.coroutines.Dispatchers
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import ru.neexol.debtable.db.entities.User
+import ru.neexol.debtable.utils.ilike
 
 object UsersRepository {
     suspend fun addUser(
@@ -28,7 +29,7 @@ object UsersRepository {
         username: String
     ) = newSuspendedTransaction(Dispatchers.IO) {
         User.find {
-            Users.username eq username
+            Users.username ilike username
         }.singleOrNull()
     }
 
