@@ -12,6 +12,7 @@ import ru.neexol.debtable.models.requests.ChangeUserDataRequest
 import ru.neexol.debtable.models.responses.UserResponse
 import ru.neexol.debtable.repositories.UsersRepository
 import ru.neexol.debtable.utils.exceptions.NotMatchPasswordException
+import ru.neexol.debtable.utils.foldRunCatching
 import ru.neexol.debtable.utils.getUserViaToken
 import ru.neexol.debtable.utils.interceptJsonBodyError
 
@@ -33,10 +34,13 @@ private fun Route.change() {
 
 private fun Route.whoami() {
     get("/whoami") {
-        runCatching {
-            UserResponse(getUserViaToken())
-        }.fold(
-            onSuccess = { call.respond(it) },
+        foldRunCatching(
+            block = {
+                UserResponse(getUserViaToken())
+            },
+            onSuccess = { result ->
+                call.respond(result)
+            },
             onFailure = { exception ->
                 call.respond(
                     HttpStatusCode.BadRequest,
@@ -50,19 +54,22 @@ private fun Route.whoami() {
 @KtorExperimentalAPI
 private fun Route.password() {
     patch("/password") {
-        runCatching {
-            val request = call.receive<ChangePasswordRequest>()
-            val user = getUserViaToken()
-            if (user.passwordHash != hashFunction(request.oldPassword)) {
-                throw NotMatchPasswordException()
-            }
+        foldRunCatching(
+            block = {
+                val request = call.receive<ChangePasswordRequest>()
+                val user = getUserViaToken()
+                if (user.passwordHash != hashFunction(request.oldPassword)) {
+                    throw NotMatchPasswordException()
+                }
 
-            UsersRepository.changePassword(
-                user.id.value,
-                hashFunction(request.newPassword)
-            )
-        }.fold(
-            onSuccess = { call.respond(HttpStatusCode.NoContent) },
+                UsersRepository.changePassword(
+                    user.id.value,
+                    hashFunction(request.newPassword)
+                )
+            },
+            onSuccess = {
+                call.respond(HttpStatusCode.NoContent)
+            },
             onFailure = { exception ->
                 if (!interceptJsonBodyError(exception)) {
                     when (exception) {
@@ -83,16 +90,19 @@ private fun Route.password() {
 
 private fun Route.data() {
     patch("/data") {
-        runCatching {
-            val request = call.receive<ChangeUserDataRequest>()
-            val user = getUserViaToken()
+        foldRunCatching(
+            block = {
+                val request = call.receive<ChangeUserDataRequest>()
+                val user = getUserViaToken()
 
-            UsersRepository.changeUserData(
-                user.id.value,
-                request.displayName
-            )
-        }.fold(
-            onSuccess = { call.respond(HttpStatusCode.NoContent) },
+                UsersRepository.changeUserData(
+                    user.id.value,
+                    request.displayName
+                )
+            },
+            onSuccess = {
+                call.respond(HttpStatusCode.NoContent)
+            },
             onFailure = { exception ->
                 if (!interceptJsonBodyError(exception)) {
                     call.respond(

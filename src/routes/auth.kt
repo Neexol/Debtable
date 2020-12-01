@@ -15,6 +15,7 @@ import ru.neexol.debtable.models.requests.RegisterUserRequest
 import ru.neexol.debtable.repositories.UsersRepository
 import ru.neexol.debtable.utils.exceptions.UserNotFoundException
 import ru.neexol.debtable.utils.exceptions.WrongPasswordException
+import ru.neexol.debtable.utils.foldRunCatching
 import ru.neexol.debtable.utils.interceptJsonBodyError
 
 @KtorExperimentalAPI
@@ -28,18 +29,21 @@ fun Route.auth() {
 @KtorExperimentalAPI
 private fun Route.register() {
     post("/register") {
-        runCatching {
-            val request = call.receive<RegisterUserRequest>()
-            val newUser = UsersRepository.addUser(
-                request.username,
-                request.displayName,
-                hashFunction(request.password)
-            )
+        foldRunCatching(
+            block = {
+                val request = call.receive<RegisterUserRequest>()
+                val newUser = UsersRepository.addUser(
+                    request.username,
+                    request.displayName,
+                    hashFunction(request.password)
+                )
 
-            call.sessions.set(DebtableSession(newUser.id.value))
-            JwtService.generateToken(newUser)
-        }.fold(
-            onSuccess = { call.respondText(it) },
+                call.sessions.set(DebtableSession(newUser.id.value))
+                JwtService.generateToken(newUser)
+            },
+            onSuccess = { result ->
+                call.respondText(result)
+            },
             onFailure = { exception ->
                 if (!interceptJsonBodyError(exception)) {
                     when (exception) {
@@ -61,17 +65,20 @@ private fun Route.register() {
 @KtorExperimentalAPI
 private fun Route.login() {
     post("/login") {
-        runCatching {
-            val request = call.receive<RegisterUserRequest>()
-            val user = UsersRepository.findUserByUserName(request.username) ?: throw UserNotFoundException()
-            if (user.passwordHash != hashFunction(request.password)) {
-                throw WrongPasswordException()
-            }
+        foldRunCatching(
+            block = {
+                val request = call.receive<RegisterUserRequest>()
+                val user = UsersRepository.findUserByUserName(request.username) ?: throw UserNotFoundException()
+                if (user.passwordHash != hashFunction(request.password)) {
+                    throw WrongPasswordException()
+                }
 
-            call.sessions.set(DebtableSession(user.id.value))
-            JwtService.generateToken(user)
-        }.fold(
-            onSuccess = { call.respondText(it) },
+                call.sessions.set(DebtableSession(user.id.value))
+                JwtService.generateToken(user)
+            },
+            onSuccess = { result ->
+                call.respondText(result)
+            },
             onFailure = { exception ->
                 if (!interceptJsonBodyError(exception)) {
                     when (exception) {
