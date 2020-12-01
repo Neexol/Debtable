@@ -49,7 +49,7 @@ private fun Route.whoami() {
 
 @KtorExperimentalAPI
 private fun Route.password() {
-    post("/password") {
+    patch("/password") {
         runCatching {
             val request = call.receive<ChangePasswordRequest>()
             val user = getUserViaToken()
@@ -82,7 +82,7 @@ private fun Route.password() {
 }
 
 private fun Route.data() {
-    post("/data") {
+    patch("/data") {
         runCatching {
             val request = call.receive<ChangeUserDataRequest>()
             val user = getUserViaToken()
