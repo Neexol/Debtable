@@ -33,29 +33,26 @@ private fun Route.change() {
 
 private fun Route.whoami() {
     get("/whoami") {
-        val result = runCatching {
+        runCatching {
             UserResponse(getUserViaToken())
-        }
-
-        when (val exception = result.exceptionOrNull()) {
-            null -> call.respond(result.getOrNull()!!)
-            else -> call.respond(
-                HttpStatusCode.BadRequest,
-                exception.toString()
-            )
-        }
-
+        }.fold(
+            onSuccess = { call.respond(it) },
+            onFailure = { exception ->
+                call.respond(
+                    HttpStatusCode.BadRequest,
+                    exception.toString()
+                )
+            }
+        )
     }
 }
 
 @KtorExperimentalAPI
 private fun Route.password() {
     post("/password") {
-        val result = runCatching {
+        runCatching {
             val request = call.receive<ChangePasswordRequest>()
-
             val user = getUserViaToken()
-
             if (user.passwordHash != hashFunction(request.oldPassword)) {
                 throw NotMatchPasswordException()
             }
@@ -64,47 +61,46 @@ private fun Route.password() {
                 user.id.value,
                 hashFunction(request.newPassword)
             )
-        }
-
-        when (val exception = result.exceptionOrNull()) {
-            null -> call.respond(HttpStatusCode.NoContent)
-            else -> if (!interceptJsonBodyError(exception)) {
-                when (exception) {
-                    is NotMatchPasswordException -> call.respond(
-                        HttpStatusCode.Forbidden,
-                        "Old password is wrong."
-                    )
-                    else -> call.respond(
-                        HttpStatusCode.BadRequest,
-                        exception.toString()
-                    )
+        }.fold(
+            onSuccess = { call.respond(HttpStatusCode.NoContent) },
+            onFailure = { exception ->
+                if (!interceptJsonBodyError(exception)) {
+                    when (exception) {
+                        is NotMatchPasswordException -> call.respond(
+                            HttpStatusCode.Forbidden,
+                            "Old password is wrong."
+                        )
+                        else -> call.respond(
+                            HttpStatusCode.BadRequest,
+                            exception.toString()
+                        )
+                    }
                 }
             }
-        }
+        )
     }
 }
 
 private fun Route.data() {
     post("/data") {
-        val result = runCatching {
+        runCatching {
             val request = call.receive<ChangeUserDataRequest>()
-
             val user = getUserViaToken()
 
             UsersRepository.changeUserData(
                 user.id.value,
                 request.displayName
             )
-        }
-
-        when (val exception = result.exceptionOrNull()) {
-            null -> call.respond(HttpStatusCode.NoContent)
-            else -> if (!interceptJsonBodyError(exception)) {
-                call.respond(
-                    HttpStatusCode.BadRequest,
-                    exception.toString()
-                )
+        }.fold(
+            onSuccess = { call.respond(HttpStatusCode.NoContent) },
+            onFailure = { exception ->
+                if (!interceptJsonBodyError(exception)) {
+                    call.respond(
+                        HttpStatusCode.BadRequest,
+                        exception.toString()
+                    )
+                }
             }
-        }
+        )
     }
 }

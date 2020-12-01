@@ -28,9 +28,8 @@ fun Route.auth() {
 @KtorExperimentalAPI
 private fun Route.register() {
     post("/register") {
-        val result = runCatching {
+        runCatching {
             val request = call.receive<RegisterUserRequest>()
-
             val newUser = UsersRepository.addUser(
                 request.username,
                 request.displayName,
@@ -39,60 +38,58 @@ private fun Route.register() {
 
             call.sessions.set(DebtableSession(newUser.id.value))
             JwtService.generateToken(newUser)
-        }
-
-        when (val exception = result.exceptionOrNull()) {
-            null -> call.respondText(result.getOrNull()!!)
-            else -> if (!interceptJsonBodyError(exception)) {
-                when (exception) {
-                    is ExposedSQLException -> call.respond(
-                        HttpStatusCode.Conflict,
-                        "User with this username already exists."
-                    )
-                    else -> call.respond(
-                        HttpStatusCode.BadRequest,
-                        exception.toString()
-                    )
+        }.fold(
+            onSuccess = { call.respondText(it) },
+            onFailure = { exception ->
+                if (!interceptJsonBodyError(exception)) {
+                    when (exception) {
+                        is ExposedSQLException -> call.respond(
+                            HttpStatusCode.Conflict,
+                            "User with this username already exists."
+                        )
+                        else -> call.respond(
+                            HttpStatusCode.BadRequest,
+                            exception.toString()
+                        )
+                    }
                 }
             }
-        }
+        )
     }
 }
 
 @KtorExperimentalAPI
 private fun Route.login() {
     post("/login") {
-        val result = runCatching {
+        runCatching {
             val request = call.receive<RegisterUserRequest>()
-
             val user = UsersRepository.findUserByUserName(request.username) ?: throw UserNotFoundException()
-
             if (user.passwordHash != hashFunction(request.password)) {
                 throw WrongPasswordException()
             }
 
             call.sessions.set(DebtableSession(user.id.value))
             JwtService.generateToken(user)
-        }
-
-        when (val exception = result.exceptionOrNull()) {
-            null -> call.respondText(result.getOrNull()!!)
-            else -> if (!interceptJsonBodyError(exception)) {
-                when (exception) {
-                    is UserNotFoundException -> call.respond(
-                        HttpStatusCode.NotFound,
-                        "There is no user with this username."
-                    )
-                    is WrongPasswordException -> call.respond(
-                        HttpStatusCode.Unauthorized,
-                        "Wrong password."
-                    )
-                    else -> call.respond(
-                        HttpStatusCode.BadRequest,
-                        exception.toString()
-                    )
+        }.fold(
+            onSuccess = { call.respondText(it) },
+            onFailure = { exception ->
+                if (!interceptJsonBodyError(exception)) {
+                    when (exception) {
+                        is UserNotFoundException -> call.respond(
+                            HttpStatusCode.NotFound,
+                            "There is no user with this username."
+                        )
+                        is WrongPasswordException -> call.respond(
+                            HttpStatusCode.Unauthorized,
+                            "Wrong password."
+                        )
+                        else -> call.respond(
+                            HttpStatusCode.BadRequest,
+                            exception.toString()
+                        )
+                    }
                 }
             }
-        }
+        )
     }
 }
