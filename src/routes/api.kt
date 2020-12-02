@@ -9,7 +9,8 @@ fun Route.api() {
     route("/api") {
         auth()
         authenticate("jwt") {
-            user()
+            account()
+            users()
         }
     }
 }
