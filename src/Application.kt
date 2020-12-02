@@ -20,6 +20,7 @@ fun Application.module() {
     installAuthentication()
     installContentNegotiation()
     installDefaultHeaders()
+    installLocations()
 
     routing {
         static {
