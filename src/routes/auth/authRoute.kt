@@ -1,4 +1,4 @@
-package ru.neexol.debtable.routes
+package ru.neexol.debtable.routes.auth
 
 import io.ktor.application.*
 import io.ktor.http.*
@@ -19,15 +19,15 @@ import ru.neexol.debtable.utils.foldRunCatching
 import ru.neexol.debtable.utils.interceptJsonBodyError
 
 @KtorExperimentalAPI
-fun Route.auth() {
+fun Route.authRoute() {
     route("/auth") {
-        register()
-        login()
+        registerEndpoint()
+        loginEndpoint()
     }
 }
 
 @KtorExperimentalAPI
-private fun Route.register() {
+private fun Route.registerEndpoint() {
     post("/register") {
         foldRunCatching(
             block = {
@@ -63,7 +63,7 @@ private fun Route.register() {
 }
 
 @KtorExperimentalAPI
-private fun Route.login() {
+private fun Route.loginEndpoint() {
     post("/login") {
         foldRunCatching(
             block = {

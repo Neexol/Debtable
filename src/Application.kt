@@ -6,7 +6,7 @@ import io.ktor.routing.*
 import io.ktor.util.*
 import ru.neexol.debtable.db.DatabaseFactory
 import ru.neexol.debtable.features.*
-import ru.neexol.debtable.routes.api
+import ru.neexol.debtable.routes.apiRoute
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
@@ -26,7 +26,7 @@ fun Application.module() {
         static {
             resources("front")
         }
-        api()
+        apiRoute()
     }
 }
 

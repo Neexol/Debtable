@@ -1,4 +1,4 @@
-package ru.neexol.debtable.routes
+package ru.neexol.debtable.routes.account
 
 import io.ktor.application.*
 import io.ktor.http.*
@@ -16,22 +16,15 @@ import ru.neexol.debtable.utils.getUserViaToken
 import ru.neexol.debtable.utils.interceptJsonBodyError
 
 @KtorExperimentalAPI
-fun Route.account() {
-    route("/account") {
-        change()
-    }
-}
-
-@KtorExperimentalAPI
-private fun Route.change() {
+fun Route.changeRoute() {
     route("/change") {
-        password()
-        data()
+        passwordEndpoint()
+        dataEndpoint()
     }
 }
 
 @KtorExperimentalAPI
-private fun Route.password() {
+private fun Route.passwordEndpoint() {
     patch("/password") {
         foldRunCatching(
             block = {
@@ -67,7 +60,7 @@ private fun Route.password() {
     }
 }
 
-private fun Route.data() {
+private fun Route.dataEndpoint() {
     patch("/data") {
         foldRunCatching(
             block = {
