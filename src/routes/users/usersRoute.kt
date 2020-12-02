@@ -1,4 +1,4 @@
-package ru.neexol.debtable.routes
+package ru.neexol.debtable.routes.users
 
 import io.ktor.application.*
 import io.ktor.http.*
@@ -12,14 +12,14 @@ import ru.neexol.debtable.utils.foldRunCatching
 import ru.neexol.debtable.utils.getUserViaToken
 import java.lang.NumberFormatException
 
-fun Route.users() {
+fun Route.usersRoute() {
     route("/users") {
-        me()
-        find()
+        meEndpoint()
+        findEndpoint()
     }
 }
 
-private fun Route.me() {
+private fun Route.meEndpoint() {
     get("/me") {
         foldRunCatching(
             block = {
@@ -38,7 +38,7 @@ private fun Route.me() {
     }
 }
 
-private fun Route.find() {
+private fun Route.findEndpoint() {
     get {
         foldRunCatching(
             block = {
