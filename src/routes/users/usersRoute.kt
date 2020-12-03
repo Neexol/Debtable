@@ -1,5 +1,7 @@
 package ru.neexol.debtable.routes.users
 
+import de.nielsfalk.ktor.swagger.*
+import de.nielsfalk.ktor.swagger.version.shared.Group
 import io.ktor.application.*
 import io.ktor.http.*
 import io.ktor.locations.*
@@ -12,15 +14,17 @@ import ru.neexol.debtable.utils.exceptions.IncorrectQueryException
 import ru.neexol.debtable.utils.exceptions.UserNotFoundException
 import ru.neexol.debtable.utils.foldRunCatching
 import ru.neexol.debtable.utils.getUserViaToken
-import java.lang.NumberFormatException
 
 const val API_USERS = "$API/users"
 const val API_USERS_ME = "$API_USERS/me"
+const val API_USERS_FIND = "$API_USERS/find"
 
-@KtorExperimentalLocationsAPI
-@Location(API_USERS) class ApiUsersRoute(val id: Int? = null, val username: String? = null)
+@Group("Users")
 @KtorExperimentalLocationsAPI
 @Location(API_USERS_ME) class ApiUsersMeRoute
+@Group("Users")
+@KtorExperimentalLocationsAPI
+@Location(API_USERS_FIND) class ApiUsersFindRoute(val id: Int? = null, val username: String? = null)
 
 @KtorExperimentalLocationsAPI
 fun Route.usersRoute() {
@@ -30,7 +34,15 @@ fun Route.usersRoute() {
 
 @KtorExperimentalLocationsAPI
 private fun Route.meEndpoint() {
-    get<ApiUsersMeRoute> {
+    get<ApiUsersMeRoute>(
+        "Get current user"
+            .responds(
+                ok<UserResponse>(
+                    example("User example", UserResponse.example, description = "Success.")
+                ),
+                badRequest(description = "Other errors.")
+            )
+    ) {
         foldRunCatching(
             block = {
                 getUserViaToken()
@@ -50,7 +62,16 @@ private fun Route.meEndpoint() {
 
 @KtorExperimentalLocationsAPI
 private fun Route.findEndpoint() {
-    get<ApiUsersRoute> { apiUsersRoute ->
+    get<ApiUsersFindRoute>(
+        "Get user by id or username"
+            .responds(
+                ok<UserResponse>(
+                    example("User example", UserResponse.example, description = "Success.")
+                ),
+                notFound(description = "There is no user with this id/username."),
+                badRequest(description = "Incorrect query or other errors.")
+            )
+    ) { apiUsersRoute ->
         foldRunCatching(
             block = {
                 apiUsersRoute.id?.let { id ->

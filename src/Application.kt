@@ -23,6 +23,7 @@ fun Application.module() {
     installContentNegotiation()
     installDefaultHeaders()
     installLocations()
+    installSwagger()
 
     routing {
         static {

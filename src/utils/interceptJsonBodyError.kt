@@ -1,6 +1,8 @@
 package ru.neexol.debtable.utils
 
 import com.google.gson.JsonSyntaxException
+import de.nielsfalk.ktor.swagger.HttpCodeResponse
+import de.nielsfalk.ktor.swagger.badRequest
 import io.ktor.application.*
 import io.ktor.features.*
 import io.ktor.http.*
@@ -25,3 +27,9 @@ suspend fun PipelineContext<*, ApplicationCall>.interceptJsonBodyError(e: Throwa
     }
     return true
 }
+
+val jsonBodyErrors = arrayOf(
+    HttpCodeResponse(HttpStatusCode.UnsupportedMediaType, listOf(), "Wrong body."),
+    badRequest(description = "Syntax error in json or other errors."),
+    HttpCodeResponse(HttpStatusCode.UnprocessableEntity, listOf(), "Lexical error in json.")
+)
