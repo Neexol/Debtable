@@ -2,6 +2,7 @@ package ru.neexol.debtable.routes.auth
 
 import io.ktor.application.*
 import io.ktor.http.*
+import io.ktor.locations.*
 import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
@@ -13,22 +14,32 @@ import ru.neexol.debtable.auth.JwtService
 import ru.neexol.debtable.auth.hashFunction
 import ru.neexol.debtable.models.requests.RegisterUserRequest
 import ru.neexol.debtable.repositories.UsersRepository
+import ru.neexol.debtable.routes.API
 import ru.neexol.debtable.utils.exceptions.UserNotFoundException
 import ru.neexol.debtable.utils.exceptions.WrongPasswordException
 import ru.neexol.debtable.utils.foldRunCatching
 import ru.neexol.debtable.utils.interceptJsonBodyError
 
+const val API_AUTH = "$API/auth"
+const val API_AUTH_REGISTER = "$API_AUTH/register"
+const val API_AUTH_LOGIN = "$API_AUTH/login"
+
+@KtorExperimentalLocationsAPI
+@Location(API_AUTH_REGISTER) class ApiAuthRegisterRoute
+@KtorExperimentalLocationsAPI
+@Location(API_AUTH_LOGIN) class ApiAuthLoginRoute
+
+@KtorExperimentalLocationsAPI
 @KtorExperimentalAPI
 fun Route.authRoute() {
-    route("/auth") {
-        registerEndpoint()
-        loginEndpoint()
-    }
+    registerEndpoint()
+    loginEndpoint()
 }
 
+@KtorExperimentalLocationsAPI
 @KtorExperimentalAPI
 private fun Route.registerEndpoint() {
-    post("/register") {
+    post<ApiAuthRegisterRoute> {
         foldRunCatching(
             block = {
                 val request = call.receive<RegisterUserRequest>()
@@ -62,9 +73,10 @@ private fun Route.registerEndpoint() {
     }
 }
 
+@KtorExperimentalLocationsAPI
 @KtorExperimentalAPI
 private fun Route.loginEndpoint() {
-    post("/login") {
+    post<ApiAuthLoginRoute> {
         foldRunCatching(
             block = {
                 val request = call.receive<RegisterUserRequest>()

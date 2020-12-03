@@ -34,6 +34,7 @@ sourceSets {
 repositories {
     mavenLocal()
     jcenter()
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
@@ -55,4 +56,6 @@ dependencies {
     implementation "org.jetbrains.exposed:exposed-jdbc:$exposed_version"
     implementation "com.zaxxer:HikariCP:$hikari_version"
     implementation "org.postgresql:postgresql:$postgresql_version"
+
+    implementation 'com.github.nielsfalk:ktor-swagger:v0.7.0'
 }

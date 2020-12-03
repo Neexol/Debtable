@@ -2,25 +2,35 @@ package ru.neexol.debtable.routes.users
 
 import io.ktor.application.*
 import io.ktor.http.*
+import io.ktor.locations.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import ru.neexol.debtable.models.responses.UserResponse
 import ru.neexol.debtable.repositories.UsersRepository
+import ru.neexol.debtable.routes.API
 import ru.neexol.debtable.utils.exceptions.IncorrectQueryException
 import ru.neexol.debtable.utils.exceptions.UserNotFoundException
 import ru.neexol.debtable.utils.foldRunCatching
 import ru.neexol.debtable.utils.getUserViaToken
 import java.lang.NumberFormatException
 
+const val API_USERS = "$API/users"
+const val API_USERS_ME = "$API_USERS/me"
+
+@KtorExperimentalLocationsAPI
+@Location(API_USERS) class ApiUsersRoute(val id: Int? = null, val username: String? = null)
+@KtorExperimentalLocationsAPI
+@Location(API_USERS_ME) class ApiUsersMeRoute
+
+@KtorExperimentalLocationsAPI
 fun Route.usersRoute() {
-    route("/users") {
-        meEndpoint()
-        findEndpoint()
-    }
+    meEndpoint()
+    findEndpoint()
 }
 
+@KtorExperimentalLocationsAPI
 private fun Route.meEndpoint() {
-    get("/me") {
+    get<ApiUsersMeRoute> {
         foldRunCatching(
             block = {
                 getUserViaToken()
@@ -38,17 +48,14 @@ private fun Route.meEndpoint() {
     }
 }
 
+@KtorExperimentalLocationsAPI
 private fun Route.findEndpoint() {
-    get {
+    get<ApiUsersRoute> { apiUsersRoute ->
         foldRunCatching(
             block = {
-                val params = call.request.queryParameters
-                val id = params["id"]?.toInt()
-                val username = params["username"]
-
-                id?.let {
+                apiUsersRoute.id?.let { id ->
                     UsersRepository.findUserById(id) ?: throw UserNotFoundException()
-                } ?: username?.let {
+                } ?: apiUsersRoute.username?.let { username ->
                     UsersRepository.findUserByUserName(username) ?: throw UserNotFoundException()
                 } ?: throw IncorrectQueryException()
             },
@@ -64,10 +71,6 @@ private fun Route.findEndpoint() {
                     is IncorrectQueryException -> call.respond(
                         HttpStatusCode.BadRequest,
                         "Incorrect query."
-                    )
-                    is NumberFormatException -> call.respond(
-                        HttpStatusCode.UnprocessableEntity,
-                        "Id must be a number."
                     )
                     else -> call.respond(
                         HttpStatusCode.BadRequest,

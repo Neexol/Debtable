@@ -2,6 +2,7 @@ package ru.neexol.debtable.routes.account
 
 import io.ktor.application.*
 import io.ktor.http.*
+import io.ktor.locations.*
 import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
@@ -15,17 +16,26 @@ import ru.neexol.debtable.utils.foldRunCatching
 import ru.neexol.debtable.utils.getUserViaToken
 import ru.neexol.debtable.utils.interceptJsonBodyError
 
+const val API_ACCOUNT_CHANGE = "$API_ACCOUNT/change"
+const val API_ACCOUNT_CHANGE_PASSWORD = "$API_ACCOUNT_CHANGE/password"
+const val API_ACCOUNT_CHANGE_DATA = "$API_ACCOUNT_CHANGE/data"
+
+@KtorExperimentalLocationsAPI
+@Location(API_ACCOUNT_CHANGE_PASSWORD) class ApiAccountChangePasswordRoute
+@KtorExperimentalLocationsAPI
+@Location(API_ACCOUNT_CHANGE_DATA) class ApiAccountChangeDataRoute
+
+@KtorExperimentalLocationsAPI
 @KtorExperimentalAPI
 fun Route.changeRoute() {
-    route("/change") {
-        passwordEndpoint()
-        dataEndpoint()
-    }
+    passwordEndpoint()
+    dataEndpoint()
 }
 
+@KtorExperimentalLocationsAPI
 @KtorExperimentalAPI
 private fun Route.passwordEndpoint() {
-    patch("/password") {
+    patch<ApiAccountChangePasswordRoute> {
         foldRunCatching(
             block = {
                 val request = call.receive<ChangePasswordRequest>()
@@ -60,8 +70,9 @@ private fun Route.passwordEndpoint() {
     }
 }
 
+@KtorExperimentalLocationsAPI
 private fun Route.dataEndpoint() {
-    patch("/data") {
+    patch<ApiAccountChangeDataRoute> {
         foldRunCatching(
             block = {
                 val request = call.receive<ChangeUserDataRequest>()
