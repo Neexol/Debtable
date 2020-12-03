@@ -78,9 +78,9 @@ private fun Route.findEndpoint() {
         foldRunCatching(
             block = {
                 apiUsersRoute.id?.let { id ->
-                    UsersRepository.findUserById(id) ?: throw UserNotFoundException()
+                    UsersRepository.getUserById(id) ?: throw UserNotFoundException()
                 } ?: apiUsersRoute.username?.let { username ->
-                    UsersRepository.findUserByUserName(username) ?: throw UserNotFoundException()
+                    UsersRepository.getUserByUserName(username) ?: throw UserNotFoundException()
                 } ?: throw IncorrectQueryException()
             },
             onSuccess = { result ->

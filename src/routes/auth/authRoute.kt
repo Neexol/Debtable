@@ -108,7 +108,7 @@ private fun Route.loginEndpoint() {
     ) { _, request ->
         foldRunCatching(
             block = {
-                val user = UsersRepository.findUserByUserName(request.username) ?: throw UserNotFoundException()
+                val user = UsersRepository.getUserByUserName(request.username) ?: throw UserNotFoundException()
                 if (user.passwordHash != hashFunction(request.password)) {
                     throw WrongPasswordException()
                 }

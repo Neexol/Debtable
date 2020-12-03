@@ -19,13 +19,13 @@ object UsersRepository {
         }
     }
 
-    suspend fun findUserById(
+    suspend fun getUserById(
         userId: Int
     ) = newSuspendedTransaction(Dispatchers.IO) {
         User.findById(userId)
     }
 
-    suspend fun findUserByUserName(
+    suspend fun getUserByUserName(
         username: String
     ) = newSuspendedTransaction(Dispatchers.IO) {
         User.find {
@@ -37,13 +37,13 @@ object UsersRepository {
         userId: Int,
         newPasswordHash: String
     ) = newSuspendedTransaction(Dispatchers.IO) {
-        findUserById(userId)!!.passwordHash = newPasswordHash
+        getUserById(userId)!!.passwordHash = newPasswordHash
     }
 
     suspend fun changeUserData(
         userId: Int,
         newDisplayName: String
     ) = newSuspendedTransaction(Dispatchers.IO) {
-        findUserById(userId)!!.displayName = newDisplayName
+        getUserById(userId)!!.displayName = newDisplayName
     }
 }

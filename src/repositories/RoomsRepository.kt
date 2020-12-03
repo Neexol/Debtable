@@ -15,7 +15,7 @@ object RoomsRepository {
         }
     }
 
-    suspend fun findRoomById(
+    suspend fun getRoomById(
         roomId: Int
     ) = newSuspendedTransaction(Dispatchers.IO) {
         Room.findById(roomId)
@@ -25,7 +25,7 @@ object RoomsRepository {
         roomId: Int,
         user: User
     ) = newSuspendedTransaction(Dispatchers.IO) {
-        findRoomById(roomId)?.let {
+        getRoomById(roomId)?.let {
             it.users = SizedCollection(it.users + user)
         }
     }

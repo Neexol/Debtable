@@ -13,7 +13,7 @@ fun Application.installAuthentication() {
             realm = "Debtable Server"
             validate {
                 val claim = it.payload.getClaim("id").asInt()
-                UsersRepository.findUserById(claim)
+                UsersRepository.getUserById(claim)
             }
         }
     }
