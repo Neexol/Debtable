@@ -14,6 +14,7 @@ import ru.neexol.debtable.utils.exceptions.IncorrectQueryException
 import ru.neexol.debtable.utils.exceptions.UserNotFoundException
 import ru.neexol.debtable.utils.foldRunCatching
 import ru.neexol.debtable.utils.getUserViaToken
+import ru.neexol.debtable.utils.unauthorized
 
 const val API_USERS = "$API/users"
 const val API_USERS_ME = "$API_USERS/me"
@@ -24,7 +25,7 @@ const val API_USERS_FIND = "$API_USERS/find"
 @Location(API_USERS_ME) class ApiUsersMeRoute
 @Group("Users")
 @KtorExperimentalLocationsAPI
-@Location(API_USERS_FIND) class ApiUsersFindRoute(val id: Int? = null, val username: String? = null)
+@Location(API_USERS_FIND) data class ApiUsersFindRoute(val id: Int? = null, val username: String? = null)
 
 @KtorExperimentalLocationsAPI
 fun Route.usersRoute() {
@@ -40,7 +41,8 @@ private fun Route.meEndpoint() {
                 ok<UserResponse>(
                     example("User example", UserResponse.example, description = "Success.")
                 ),
-                badRequest(description = "Other errors.")
+                badRequest(description = "Other errors."),
+                unauthorized()
             )
     ) {
         foldRunCatching(
@@ -69,7 +71,8 @@ private fun Route.findEndpoint() {
                     example("User example", UserResponse.example, description = "Success.")
                 ),
                 notFound(description = "There is no user with this id/username."),
-                badRequest(description = "Incorrect query or other errors.")
+                badRequest(description = "Incorrect query or other errors."),
+                unauthorized()
             )
     ) { apiUsersRoute ->
         foldRunCatching(
