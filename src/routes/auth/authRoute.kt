@@ -1,8 +1,10 @@
 package ru.neexol.debtable.routes.auth
 
+import de.nielsfalk.ktor.swagger.*
+import de.nielsfalk.ktor.swagger.version.shared.Group
 import io.ktor.application.*
 import io.ktor.http.*
-import io.ktor.request.*
+import io.ktor.locations.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.sessions.*
@@ -11,27 +13,52 @@ import org.jetbrains.exposed.exceptions.ExposedSQLException
 import ru.neexol.debtable.auth.DebtableSession
 import ru.neexol.debtable.auth.JwtService
 import ru.neexol.debtable.auth.hashFunction
+import ru.neexol.debtable.models.requests.LoginUserRequest
 import ru.neexol.debtable.models.requests.RegisterUserRequest
 import ru.neexol.debtable.repositories.UsersRepository
+import ru.neexol.debtable.routes.API
 import ru.neexol.debtable.utils.exceptions.UserNotFoundException
 import ru.neexol.debtable.utils.exceptions.WrongPasswordException
 import ru.neexol.debtable.utils.foldRunCatching
 import ru.neexol.debtable.utils.interceptJsonBodyError
+import ru.neexol.debtable.utils.jsonBodyErrors
 
+const val API_AUTH = "$API/auth"
+const val API_AUTH_REGISTER = "$API_AUTH/register"
+const val API_AUTH_LOGIN = "$API_AUTH/login"
+
+@Group("Auth")
+@KtorExperimentalLocationsAPI
+@Location(API_AUTH_REGISTER) class ApiAuthRegisterRoute
+@Group("Auth")
+@KtorExperimentalLocationsAPI
+@Location(API_AUTH_LOGIN) class ApiAuthLoginRoute
+
+@KtorExperimentalLocationsAPI
 @KtorExperimentalAPI
 fun Route.authRoute() {
-    route("/auth") {
-        registerEndpoint()
-        loginEndpoint()
-    }
+    registerEndpoint()
+    loginEndpoint()
 }
 
+@KtorExperimentalLocationsAPI
 @KtorExperimentalAPI
 private fun Route.registerEndpoint() {
-    post("/register") {
+    post<ApiAuthRegisterRoute, RegisterUserRequest>(
+        "Register new user"
+            .examples(
+                example("Register account example", RegisterUserRequest.example)
+            )
+            .responds(
+                ok<String>(
+                    example("Access token example", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBdXRoZW50aWNhdGlvbiIsImlzcyI6ImRlYnRhYmxlU2VydmVyIiwiaWQiOjEyLCJleHAiOjE2MDcwODQzNjd9.W_MFXUC1-Hyeild-C9y1t1t_758yleob9o2n1RvVRgKin_xGfulmqpcrucrzvUSJmC9BrWkpGY7zrr0z6NY8DQ",)
+                ),
+                *jsonBodyErrors,
+                HttpCodeResponse(HttpStatusCode.Conflict, listOf(), "User with this username already exists.")
+            )
+    ) { _, request ->
         foldRunCatching(
             block = {
-                val request = call.receive<RegisterUserRequest>()
                 val newUser = UsersRepository.addUser(
                     request.username,
                     request.displayName,
@@ -62,12 +89,25 @@ private fun Route.registerEndpoint() {
     }
 }
 
+@KtorExperimentalLocationsAPI
 @KtorExperimentalAPI
 private fun Route.loginEndpoint() {
-    post("/login") {
+    post<ApiAuthLoginRoute, LoginUserRequest>(
+        "Login"
+            .examples(
+                example("Login example", LoginUserRequest.example)
+            )
+            .responds(
+                ok<String>(
+                    example("Access token example", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBdXRoZW50aWNhdGlvbiIsImlzcyI6ImRlYnRhYmxlU2VydmVyIiwiaWQiOjEyLCJleHAiOjE2MDcwODQzNjd9.W_MFXUC1-Hyeild-C9y1t1t_758yleob9o2n1RvVRgKin_xGfulmqpcrucrzvUSJmC9BrWkpGY7zrr0z6NY8DQ", description = "Success.")
+                ),
+                *jsonBodyErrors,
+                notFound(description = "There is no user with this username."),
+                HttpCodeResponse(HttpStatusCode.Unauthorized, listOf(), "Wrong password.")
+            )
+    ) { _, request ->
         foldRunCatching(
             block = {
-                val request = call.receive<RegisterUserRequest>()
                 val user = UsersRepository.findUserByUserName(request.username) ?: throw UserNotFoundException()
                 if (user.passwordHash != hashFunction(request.password)) {
                     throw WrongPasswordException()

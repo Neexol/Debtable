@@ -9,4 +9,12 @@ data class UserResponse(
     @SerializedName("display_name") val displayName: String
 ) {
     constructor(user: User): this(user.id.value, user.username, user.displayName)
+
+    companion object {
+        val example = mapOf(
+            "id" to 14,
+            "username" to "neexol",
+            "display_name" to "Nikita Alexeev"
+        )
+    }
 }
