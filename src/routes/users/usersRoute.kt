@@ -13,19 +13,18 @@ import ru.neexol.debtable.routes.API
 import ru.neexol.debtable.utils.exceptions.IncorrectQueryException
 import ru.neexol.debtable.utils.exceptions.UserNotFoundException
 import ru.neexol.debtable.utils.foldRunCatching
-import ru.neexol.debtable.utils.getUserViaToken
+import ru.neexol.debtable.utils.getUserFromToken
 import ru.neexol.debtable.utils.unauthorized
 
 const val API_USERS = "$API/users"
 const val API_USERS_ME = "$API_USERS/me"
-const val API_USERS_FIND = "$API_USERS/find"
 
 @Group("Users")
 @KtorExperimentalLocationsAPI
 @Location(API_USERS_ME) class ApiUsersMeRoute
 @Group("Users")
 @KtorExperimentalLocationsAPI
-@Location(API_USERS_FIND) data class ApiUsersFindRoute(val id: Int? = null, val username: String? = null)
+@Location(API_USERS) data class ApiUsersRoute(val id: Int? = null, val username: String? = null)
 
 @KtorExperimentalLocationsAPI
 fun Route.usersRoute() {
@@ -47,7 +46,7 @@ private fun Route.meEndpoint() {
     ) {
         foldRunCatching(
             block = {
-                getUserViaToken()
+                getUserFromToken()
             },
             onSuccess = { result ->
                 call.respond(UserResponse(result))
@@ -64,7 +63,7 @@ private fun Route.meEndpoint() {
 
 @KtorExperimentalLocationsAPI
 private fun Route.findEndpoint() {
-    get<ApiUsersFindRoute>(
+    get<ApiUsersRoute>(
         "Get user by id or username"
             .responds(
                 ok<UserResponse>(

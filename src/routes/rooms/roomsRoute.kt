@@ -8,8 +8,11 @@ import io.ktor.locations.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import ru.neexol.debtable.models.requests.CreateRoomRequest
+import ru.neexol.debtable.models.responses.CompactRoomResponse
 import ru.neexol.debtable.models.responses.RoomResponse
+import ru.neexol.debtable.models.responses.RoomsResponse
 import ru.neexol.debtable.repositories.RoomsRepository
+import ru.neexol.debtable.repositories.UsersRepository
 import ru.neexol.debtable.routes.API
 import ru.neexol.debtable.utils.*
 
@@ -50,12 +53,10 @@ private fun Route.roomsEndpoint() {
     ) { _, request ->
         foldRunCatching(
             block = {
-                RoomsRepository.addRoom(
-                    request.name
-                ).apply {
+                RoomsRepository.addRoom(request.name).apply {
                     RoomsRepository.addUserToRoom(
                         this.id.value,
-                        getUserViaToken()
+                        getUserFromToken()
                     )
                 }
             },
@@ -69,6 +70,33 @@ private fun Route.roomsEndpoint() {
                         exception.toString()
                     )
                 }
+            }
+        )
+    }
+
+    get<ApiRoomsRoute>(
+        "Get user's rooms"
+            .responds(
+                ok<RoomsResponse>(
+                    example("Rooms list", RoomsResponse.example)
+                ),
+                unauthorized(),
+                badRequest(description = "Other errors.")
+            )
+    ) {
+        foldRunCatching(
+            block = {
+                UsersRepository.getUserRooms(getUserIdFromToken())!!
+            },
+            onSuccess = { result ->
+                val compactRoomList = result.map { CompactRoomResponse(it) }
+                call.respond(RoomsResponse(compactRoomList))
+            },
+            onFailure = { exception ->
+                call.respond(
+                    HttpStatusCode.BadRequest,
+                    exception.toString()
+                )
             }
         )
     }

@@ -26,6 +26,7 @@ const val API_ACCOUNT_CHANGE_DATA = "$API_ACCOUNT_CHANGE/data"
 @KtorExperimentalLocationsAPI
 @Location(API_ACCOUNT_CHANGE_DATA) class ApiAccountChangeDataRoute
 
+@KtorExperimentalAPI
 @KtorExperimentalLocationsAPI
 fun Route.changeRoute() {
     passwordEndpoint()
@@ -49,7 +50,7 @@ private fun Route.passwordEndpoint() {
     ) { _, request ->
         foldRunCatching(
             block = {
-                val user = getUserViaToken()
+                val user = getUserFromToken()
                 if (user.passwordHash != hashFunction(request.oldPassword)) {
                     throw NotMatchPasswordException()
                 }
@@ -96,7 +97,7 @@ private fun Route.dataEndpoint() {
         foldRunCatching(
             block = {
                 UsersRepository.changeUserData(
-                    getUserViaToken().id.value,
+                    getUserIdFromToken(),
                     request.newDisplayName
                 )
             },

@@ -6,14 +6,10 @@ import de.nielsfalk.ktor.swagger.version.shared.Information
 import de.nielsfalk.ktor.swagger.version.v2.Swagger
 import de.nielsfalk.ktor.swagger.version.v3.OpenApi
 import io.ktor.application.*
-import io.ktor.auth.*
-import io.ktor.auth.jwt.*
-import ru.neexol.debtable.auth.JwtService
-import ru.neexol.debtable.repositories.UsersRepository
 
 fun Application.installSwagger() {
     install(SwaggerSupport) {
-        path = "api"
+        path = "api/docs"
         val information = Information(
             version = "0.1",
             title = "Debtable API",

@@ -1,16 +1,17 @@
 package ru.neexol.debtable.auth
 
 import com.auth0.jwt.JWT
+import com.auth0.jwt.JWTVerifier
 import com.auth0.jwt.algorithms.Algorithm
 import ru.neexol.debtable.db.entities.User
 import java.util.*
 
 object JwtService {
-    private val issuer = "debtableServer"
+    private const val issuer = "debtableServer"
     private val jwtSecret = System.getenv("JWT_SECRET")
     private val algorithm = Algorithm.HMAC512(jwtSecret)
 
-    val verifier = JWT
+    val verifier: JWTVerifier = JWT
         .require(algorithm)
         .withIssuer(issuer)
         .build()

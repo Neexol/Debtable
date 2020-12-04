@@ -19,7 +19,7 @@ data class RoomResponse(
         val example = mapOf(
             "id" to 3,
             "name" to "My room",
-            "members" to listOf(UserResponse.example)
+            "members" to listOf(UserResponse.example, UserResponse.example)
         )
     }
 }

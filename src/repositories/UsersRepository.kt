@@ -33,6 +33,12 @@ object UsersRepository {
         }.singleOrNull()
     }
 
+    suspend fun getUserRooms(
+        userId: Int
+    ) = newSuspendedTransaction(Dispatchers.IO) {
+        getUserById(userId)?.rooms?.toList()
+    }
+
     suspend fun changePassword(
         userId: Int,
         newPasswordHash: String
