@@ -36,4 +36,13 @@ object RoomsRepository {
     ) = newSuspendedTransaction(Dispatchers.IO) {
         getRoomById(roomId)?.users?.find { it.id.value == userId } != null
     }
+
+    suspend fun editRoom(
+        roomId: Int,
+        newName: String
+    ) = newSuspendedTransaction(Dispatchers.IO) {
+        getRoomById(roomId)?.apply {
+            name = newName
+        }
+    }
 }

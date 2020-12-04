@@ -8,6 +8,7 @@ import io.ktor.locations.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import ru.neexol.debtable.models.requests.CreateRoomRequest
+import ru.neexol.debtable.models.requests.EditRoomRequest
 import ru.neexol.debtable.models.responses.CompactRoomResponse
 import ru.neexol.debtable.models.responses.RoomResponse
 import ru.neexol.debtable.models.responses.RoomsResponse
@@ -17,6 +18,7 @@ import ru.neexol.debtable.routes.API
 import ru.neexol.debtable.utils.*
 import ru.neexol.debtable.utils.exceptions.ForbiddenException
 import ru.neexol.debtable.utils.exceptions.NotFoundException
+import ru.neexol.debtable.utils.exceptions.WrongPasswordException
 
 const val API_ROOMS = "$API/rooms"
 const val API_ROOM = "$API_ROOMS/{room_id}"
@@ -120,11 +122,9 @@ private fun Route.roomEndpoint() {
     ) { apiRoomRoute ->
         foldRunCatching(
             block = {
-                RoomsRepository.getRoomById(apiRoomRoute.room_id)?.also { room ->
-                    if (!RoomsRepository.isRoomContainsUser(room.id.value, getUserIdFromToken())) {
-                        throw ForbiddenException()
-                    }
-                } ?: throw NotFoundException()
+                val room = RoomsRepository.getRoomById(apiRoomRoute.room_id) ?: throw NotFoundException()
+                if (!RoomsRepository.isRoomContainsUser(room.id.value, getUserIdFromToken())) throw ForbiddenException()
+                room
             },
             onSuccess = { result ->
                 call.respond(RoomResponse(result))
@@ -143,6 +143,52 @@ private fun Route.roomEndpoint() {
                         HttpStatusCode.BadRequest,
                         exception.toString()
                     )
+                }
+            }
+        )
+    }
+
+    patch<ApiRoomRoute, EditRoomRequest>(
+        "Edit room"
+            .examples(
+                example("Edit room example", EditRoomRequest.example)
+            )
+            .responds(
+                ok<RoomResponse>(
+                    example("Room example", RoomResponse.example)
+                ),
+                *jsonBodyErrors,
+                notFound(description = "Room not found."),
+                forbidden()
+            )
+    ) { apiRoomRoute, request ->
+        foldRunCatching(
+            block = {
+                RoomsRepository.getRoomById(apiRoomRoute.room_id) ?: throw NotFoundException()
+                RoomsRepository.isRoomContainsUser(apiRoomRoute.room_id, getUserIdFromToken()).ifFalse {
+                    throw ForbiddenException()
+                }
+                RoomsRepository.editRoom(apiRoomRoute.room_id, request.newName)!!
+            },
+            onSuccess = { result ->
+                call.respond(RoomResponse(result))
+            },
+            onFailure = { exception ->
+                if (!interceptJsonBodyError(exception)) {
+                    when (exception) {
+                        is NotFoundException -> call.respond(
+                            HttpStatusCode.NotFound,
+                            "User not found."
+                        )
+                        is ForbiddenException -> call.respond(
+                            HttpStatusCode.Forbidden,
+                            "Access denied."
+                        )
+                        else -> call.respond(
+                            HttpStatusCode.BadRequest,
+                            exception.toString()
+                        )
+                    }
                 }
             }
         )
