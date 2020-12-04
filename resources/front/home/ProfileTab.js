@@ -14,19 +14,19 @@ class ProfileTab extends React.Component {
         // $.post(`${HOST_URL}table.json`,
 
 
-        $.ajax({
-            method: "post",
-            url: `${HOST_URL}api/auth/register`,
-            contentType: "application/json",
-            data: JSON.stringify({
-                username: "quill",
-                display_name: "Владимир",
-                password: "UltraPass123"
-            }),
-            success: response => {
-                console.log("ajax " + response.responseText);
-            }
-        });
+        // $.ajax({
+        //     method: "post",
+        //     url: `${HOST_URL}api/auth/register`,
+        //     contentType: "application/json",
+        //     data: JSON.stringify({
+        //         username: "quill",
+        //         display_name: "Владимир",
+        //         password: "UltraPass123"
+        //     }),
+        //     success: response => {
+        //         console.log("ajax " + response.responseText);
+        //     }
+        // });
         
 
         // let response = await fetch(`${HOST_URL}table.json`, {
@@ -44,16 +44,16 @@ class ProfileTab extends React.Component {
         // let result = await response.json();
         // alert(result.message);
 
-        
-        $.post(`${HOST_URL}api/auth/register`,
-            JSON.stringify({
-                username: "quill",
-                display_name: "Владимир",
-                password: "UltraPass123"
-            }),
-            (response) => {
-            console.log("post " + response.responseText);
-        });
+        /// YES //////////////////////////////////
+        // $.post(`${HOST_URL}api/auth/register`,
+        //     JSON.stringify({
+        //         username: "quill",
+        //         display_name: "Владимир",
+        //         password: "UltraPass123"
+        //     }),
+        //     (response) => {
+        //     console.log("post " + response.responseText);
+        // });
 
         // $.get(`${HOST_URL}table.json`, (response) => {
         // $.get(`https://devtable.herokuapp.com/api/users/me`, (response) => {
