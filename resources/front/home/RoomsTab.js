@@ -23,7 +23,13 @@ class RoomsTab extends React.Component {
                     ? <Loader/>
                     : <>
                         <RoomTiles rooms={this.state.rooms}/>
-                        <button className="home__add-room-btn">
+                        <button
+                            className="home__add-room-btn"
+                            onClick={e => {
+                                // document.cookie = "test=oppa";
+                                alert(document.cookie);
+                            }}
+                        >
                             add room
                         </button>
                     </>
