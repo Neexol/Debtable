@@ -4,7 +4,7 @@ class ProfileTab extends React.Component {
         this.state = {};
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         // console.log(JSON.stringify({
         //     username: "quill",
         //     display_name: "Владимир",
@@ -16,7 +16,7 @@ class ProfileTab extends React.Component {
 
         $.ajax({
             method: "post",
-            url: `${HOST_URL}table.json`,
+            url: `${HOST_URL}api/auth/register`,
             contentType: "application/json",
             data: JSON.stringify({
                 username: "quill",
@@ -24,34 +24,35 @@ class ProfileTab extends React.Component {
                 password: "UltraPass123"
             }),
             success: response => {
-                console.log(response.responseText);
+                console.log("ajax " + response.responseText);
             }
         });
-
-        let response = await fetch(`${HOST_URL}table.json`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username: "quill",
-                display_name: "Владимир",
-                password: "UltraPass123"
-            }),
-        });
-
-        let result = await response.json();
-        alert(result.message);
         
+
+        // let response = await fetch(`${HOST_URL}table.json`, {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify({
+        //         username: "quill",
+        //         display_name: "Владимир",
+        //         password: "UltraPass123"
+        //     }),
+        // });
+        //
+        // let result = await response.json();
+        // alert(result.message);
+
         
-        $.post(`https://devtable.herokuapp.com/api/auth/register`,
+        $.post(`${HOST_URL}api/auth/register`,
             JSON.stringify({
                 username: "quill",
                 display_name: "Владимир",
                 password: "UltraPass123"
             }),
             (response) => {
-            console.log(response.responseText);
+            console.log("post " + response.responseText);
         });
 
         // $.get(`${HOST_URL}table.json`, (response) => {
