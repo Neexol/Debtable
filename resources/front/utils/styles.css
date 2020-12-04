@@ -51,6 +51,18 @@ table.redTable tfoot .links a{
 
 
 
+.no-select {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently */
+    /*tab-index: -1;*/
+}
+
+
+
 .home__side-menu {
     height: 100%;
     width: 13rem;
@@ -81,7 +93,7 @@ table.redTable tfoot .links a{
     grid-template-columns: repeat( auto-fill, minmax(10rem, 1fr) );
     grid-gap: 2rem;
     margin-left: 13rem;
-    font-size: 28px; /* Increased text to enable scrolling */
+    font-size: 12pt;
     padding: 1rem;
 }
 .home__content div.card {
@@ -162,7 +174,7 @@ table.redTable tfoot .links a{
 .room__content {
     margin-top: 4rem;
     /*margin-top: var(--height);*/
-    font-size: 28px; /* Increased text to enable scrolling */
+    font-size: 12pt;
     padding: 1rem;
 }
 
@@ -170,9 +182,36 @@ table.redTable tfoot .links a{
 
 .add-record-form,
 .add-record-form input,
+.add-record-form select,
 .add-record-form button{
     width: 100%;
 }
 .add-record-form td:not(:first-of-type) {
     padding-left: 0.5rem;
 }
+
+
+
+.multiselect {
+    width: auto;
+}
+#checkboxes {
+    position: absolute;
+    display: block;
+    background: #ffffff;
+    border: 1px #dadada solid;
+}
+#checkboxes label {
+    display: block;
+    width: auto;
+    padding-right: 1rem;
+}
+#checkboxes input {
+    width: auto;
+}
+#checkboxes label:hover {
+    background-color: #1e90ff;
+}
+
+
+

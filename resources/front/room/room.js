@@ -5,12 +5,12 @@ const NAV_NAMES = [
     "⚙️ Management"
 ]
 
-const NAVIGATION = [
-    (<TableTab/>),
+const NAVIGATION = (index, prop) => ([
+    (<TableTab members={prop}/>),
     (<DynamicsTab/>),
     (<CalendarTab/>),
     (<ManagementTab/>)
-];
+][index]);
 
 ReactDOM.render(
     <RoomRoot/>,

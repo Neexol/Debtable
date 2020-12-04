@@ -1,8 +1,21 @@
 class RoomRoot extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {checkedIndex: 0};
+        this.state = {
+            checkedIndex: 0,
+            isLoading: true,
+            members: null
+        };
         this.handleCheck = this.handleCheck.bind(this);
+    }
+
+    componentDidMount() {
+        $.get(`${HOST_URL}members.json`, (response) => {
+            this.setState({
+                isLoading: false,
+                members: response
+            })
+        });
     }
 
     handleCheck(index) {
@@ -10,14 +23,16 @@ class RoomRoot extends React.Component {
     }
 
     render() {
-        return (
+        if (this.state.isLoading) {
+            return <Loader/>
+        } else return (
             <>
                 <RoomTopMenu
                     checkedIndex={this.state.checkedIndex}
                     onCheck={this.handleCheck}
                 />
                 <div className="room__content">
-                    {NAVIGATION[this.state.checkedIndex]}
+                    {NAVIGATION(this.state.checkedIndex, this.state.members)}
                 </div>
             </>
         );
