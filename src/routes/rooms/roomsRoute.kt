@@ -122,9 +122,7 @@ private fun Route.roomEndpoint() {
     ) { apiRoomRoute ->
         foldRunCatching(
             block = {
-                val room = RoomsRepository.getRoomById(apiRoomRoute.room_id) ?: throw NotFoundException()
-                if (!RoomsRepository.isRoomContainsUser(room.id.value, getUserIdFromToken())) throw ForbiddenException()
-                room
+                RoomsRepository.checkRoomAccess(apiRoomRoute.room_id, getUserIdFromToken())
             },
             onSuccess = { result ->
                 call.respond(RoomResponse(result))
@@ -164,10 +162,7 @@ private fun Route.roomEndpoint() {
     ) { apiRoomRoute, request ->
         foldRunCatching(
             block = {
-                RoomsRepository.getRoomById(apiRoomRoute.room_id) ?: throw NotFoundException()
-                RoomsRepository.isRoomContainsUser(apiRoomRoute.room_id, getUserIdFromToken()).ifFalse {
-                    throw ForbiddenException()
-                }
+                RoomsRepository.checkRoomAccess(apiRoomRoute.room_id, getUserIdFromToken())
                 RoomsRepository.editRoom(apiRoomRoute.room_id, request.newName)!!
             },
             onSuccess = { result ->
@@ -178,7 +173,7 @@ private fun Route.roomEndpoint() {
                     when (exception) {
                         is NotFoundException -> call.respond(
                             HttpStatusCode.NotFound,
-                            "User not found."
+                            "Room not found."
                         )
                         is ForbiddenException -> call.respond(
                             HttpStatusCode.Forbidden,
@@ -189,6 +184,45 @@ private fun Route.roomEndpoint() {
                             exception.toString()
                         )
                     }
+                }
+            }
+        )
+    }
+
+    delete<ApiRoomRoute>(
+        "Delete room"
+            .responds(
+                ok<Int>(
+                    example("Deleted room id", 5)
+                ),
+                unauthorized(),
+                notFound(description = "Room not found."),
+                forbidden(),
+                badRequest(description = "Other errors.")
+            )
+    ) { apiRoomRoute ->
+        foldRunCatching(
+            block = {
+                RoomsRepository.checkRoomAccess(apiRoomRoute.room_id, getUserIdFromToken())
+                RoomsRepository.deleteRoom(apiRoomRoute.room_id)!!
+            },
+            onSuccess = { result ->
+                call.respond(result)
+            },
+            onFailure = { exception ->
+                when (exception) {
+                    is NotFoundException -> call.respond(
+                        HttpStatusCode.NotFound,
+                        "Room not found."
+                    )
+                    is ForbiddenException -> call.respond(
+                        HttpStatusCode.Forbidden,
+                        "Access denied."
+                    )
+                    else -> call.respond(
+                        HttpStatusCode.BadRequest,
+                        exception.toString()
+                    )
                 }
             }
         )

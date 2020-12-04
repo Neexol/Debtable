@@ -5,6 +5,9 @@ import org.jetbrains.exposed.sql.SizedCollection
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import ru.neexol.debtable.db.entities.Room
 import ru.neexol.debtable.db.entities.User
+import ru.neexol.debtable.utils.exceptions.ForbiddenException
+import ru.neexol.debtable.utils.exceptions.NotFoundException
+import ru.neexol.debtable.utils.ifFalse
 
 object RoomsRepository {
     suspend fun addRoom(
@@ -44,5 +47,25 @@ object RoomsRepository {
         getRoomById(roomId)?.apply {
             name = newName
         }
+    }
+
+    suspend fun deleteRoom(
+        roomId: Int
+    ) = newSuspendedTransaction(Dispatchers.IO) {
+        getRoomById(roomId)?.apply {
+            users = SizedCollection()
+            delete()
+        }?.id?.value
+    }
+
+    suspend fun checkRoomAccess(
+        roomId: Int,
+        userId: Int
+    ): Room {
+        val room = getRoomById(roomId) ?: throw NotFoundException()
+        isRoomContainsUser(roomId, userId).ifFalse {
+            throw ForbiddenException()
+        }
+        return room
     }
 }
