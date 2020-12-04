@@ -33,7 +33,16 @@ class RoomsTab extends React.Component {
                             add room
                         </button>
                     </>
-            } </>
+            }
+                <button
+                    className="home__add-room-btn"
+                    onClick={e => {
+                        sendGet("api/users/me");
+                        alert(document.cookie);
+                    }}
+                >
+                    TEST BUTTON
+                </button></>
         );
     }
 }
