@@ -10,6 +10,7 @@ class RoomRoot extends React.Component {
     }
 
     componentDidMount() {
+        alert(document.cookie);
         $.get(`${HOST_URL}members.json`, (response) => {
             this.setState({
                 isLoading: false,

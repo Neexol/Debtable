@@ -26,7 +26,25 @@ class RoomsTab extends React.Component {
                         <button
                             className="home__add-room-btn"
                             onClick={e => {
-                                // document.cookie = "test=oppa";
+                                // $.ajax({
+                                //     method: "post",
+                                //     url: `${HOST_URL}api/auth/register`,
+                                //     contentType: "application/json",
+                                //     data: JSON.stringify({
+                                //         username: "quill",
+                                //         display_name: "Владимир",
+                                //         password: "UltraPass123"
+                                //     }),
+                                //     success: response => {
+                                //         console.log("ajax " + response.responseText);
+                                //     }
+                                // });
+                                // document.cookie = "test=oppa;path=/";
+                                sendPost("auth/test", JSON.stringify({
+                                            username: "quill",
+                                            display_name: "Владимир",
+                                            password: "UltraPass123"
+                                        }))
                                 alert(document.cookie);
                             }}
                         >

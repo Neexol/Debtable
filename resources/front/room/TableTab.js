@@ -238,6 +238,7 @@ class AddRecordForm extends React.Component {
                 >
                     {/*{this.state.distribution ? "❖" : "◆"}*/}
                     {this.state.distribution ? "●" : "∷"}
+                    {/*{this.state.distribution ? "⁕" : "⁂"}*/}
                 </td>
 
                 <td><button>ADD</button></td>
