@@ -19,13 +19,13 @@ object UsersRepository {
         }
     }
 
-    suspend fun findUserById(
+    suspend fun getUserById(
         userId: Int
     ) = newSuspendedTransaction(Dispatchers.IO) {
         User.findById(userId)
     }
 
-    suspend fun findUserByUserName(
+    suspend fun getUserByUserName(
         username: String
     ) = newSuspendedTransaction(Dispatchers.IO) {
         User.find {
@@ -33,17 +33,27 @@ object UsersRepository {
         }.singleOrNull()
     }
 
+    suspend fun getUserRooms(
+        userId: Int
+    ) = newSuspendedTransaction(Dispatchers.IO) {
+        getUserById(userId)?.rooms?.toList()
+    }
+
     suspend fun changePassword(
         userId: Int,
         newPasswordHash: String
     ) = newSuspendedTransaction(Dispatchers.IO) {
-        findUserById(userId)!!.passwordHash = newPasswordHash
+        getUserById(userId)?.apply {
+            passwordHash = newPasswordHash
+        }
     }
 
     suspend fun changeUserData(
         userId: Int,
         newDisplayName: String
     ) = newSuspendedTransaction(Dispatchers.IO) {
-        findUserById(userId)!!.displayName = newDisplayName
+        getUserById(userId)?.apply {
+            displayName = newDisplayName
+        }
     }
 }

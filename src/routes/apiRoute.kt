@@ -6,6 +6,8 @@ import io.ktor.routing.*
 import io.ktor.util.*
 import ru.neexol.debtable.routes.account.accountRoute
 import ru.neexol.debtable.routes.auth.authRoute
+import ru.neexol.debtable.routes.invites.invitesRoute
+import ru.neexol.debtable.routes.rooms.roomsRoute
 import ru.neexol.debtable.routes.users.usersRoute
 
 const val API = "/api"
@@ -17,5 +19,7 @@ fun Route.apiRoute() {
     authenticate("jwt") {
         accountRoute()
         usersRoute()
+        roomsRoute()
+        invitesRoute()
     }
 }
