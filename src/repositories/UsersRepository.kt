@@ -43,13 +43,17 @@ object UsersRepository {
         userId: Int,
         newPasswordHash: String
     ) = newSuspendedTransaction(Dispatchers.IO) {
-        getUserById(userId)!!.passwordHash = newPasswordHash
+        getUserById(userId)?.apply {
+            passwordHash = newPasswordHash
+        }
     }
 
     suspend fun changeUserData(
         userId: Int,
         newDisplayName: String
     ) = newSuspendedTransaction(Dispatchers.IO) {
-        getUserById(userId)!!.displayName = newDisplayName
+        getUserById(userId)?.apply {
+            displayName = newDisplayName
+        }
     }
 }

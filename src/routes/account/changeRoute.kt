@@ -11,6 +11,7 @@ import io.ktor.util.*
 import ru.neexol.debtable.auth.hashFunction
 import ru.neexol.debtable.models.requests.ChangePasswordRequest
 import ru.neexol.debtable.models.requests.ChangeUserDataRequest
+import ru.neexol.debtable.models.responses.UserResponse
 import ru.neexol.debtable.repositories.UsersRepository
 import ru.neexol.debtable.utils.*
 import ru.neexol.debtable.utils.exceptions.NotMatchPasswordException
@@ -89,7 +90,9 @@ private fun Route.dataEndpoint() {
                 example("Change data example", ChangeUserDataRequest.example)
             )
             .responds(
-                noContent(description = "Success."),
+                ok<UserResponse>(
+                    example("User example", UserResponse.example)
+                ),
                 *jsonBodyErrors,
                 unauthorized()
             )
@@ -99,10 +102,10 @@ private fun Route.dataEndpoint() {
                 UsersRepository.changeUserData(
                     getUserIdFromToken(),
                     request.newDisplayName
-                )
+                )!!
             },
-            onSuccess = {
-                call.respond(HttpStatusCode.NoContent)
+            onSuccess = { result ->
+                call.respond(UserResponse(result))
             },
             onFailure = { exception ->
                 if (!interceptJsonBodyError(exception)) {
