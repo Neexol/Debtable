@@ -73,12 +73,12 @@ private fun Route.findEndpoint() {
                 badRequest(description = "Incorrect query or other errors."),
                 unauthorized()
             )
-    ) { apiUsersRoute ->
+    ) { route ->
         foldRunCatching(
             block = {
-                apiUsersRoute.id?.let { id ->
+                route.id?.let { id ->
                     UsersRepository.getUserById(id) ?: throw NotFoundException()
-                } ?: apiUsersRoute.username?.let { username ->
+                } ?: route.username?.let { username ->
                     UsersRepository.getUserByUserName(username) ?: throw NotFoundException()
                 } ?: throw IncorrectQueryException()
             },

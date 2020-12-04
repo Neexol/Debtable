@@ -58,14 +58,26 @@ object RoomsRepository {
         }?.id?.value
     }
 
+    suspend fun deleteMemberFromRoom(
+        roomId: Int,
+        memberId: Int
+    ) = newSuspendedTransaction(Dispatchers.IO) {
+        getRoomById(roomId)?.run {
+            users.find {
+                it.id.value == memberId
+            }?.also { user ->
+                users = SizedCollection(users - user)
+                users.toList().ifEmpty { delete() }
+            }?.id?.value
+        }
+    }
+
     suspend fun checkRoomAccess(
         roomId: Int,
         userId: Int
     ): Room {
         val room = getRoomById(roomId) ?: throw NotFoundException()
-        isRoomContainsUser(roomId, userId).ifFalse {
-            throw ForbiddenException()
-        }
+        isRoomContainsUser(roomId, userId).ifFalse { throw ForbiddenException() }
         return room
     }
 }

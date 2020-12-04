@@ -18,7 +18,6 @@ import ru.neexol.debtable.routes.API
 import ru.neexol.debtable.utils.*
 import ru.neexol.debtable.utils.exceptions.ForbiddenException
 import ru.neexol.debtable.utils.exceptions.NotFoundException
-import ru.neexol.debtable.utils.exceptions.WrongPasswordException
 
 const val API_ROOMS = "$API/rooms"
 const val API_ROOM = "$API_ROOMS/{room_id}"
@@ -119,10 +118,10 @@ private fun Route.roomEndpoint() {
                 forbidden(),
                 badRequest(description = "Other errors.")
             )
-    ) { apiRoomRoute ->
+    ) { route ->
         foldRunCatching(
             block = {
-                RoomsRepository.checkRoomAccess(apiRoomRoute.room_id, getUserIdFromToken())
+                RoomsRepository.checkRoomAccess(route.room_id, getUserIdFromToken())
             },
             onSuccess = { result ->
                 call.respond(RoomResponse(result))
@@ -159,11 +158,11 @@ private fun Route.roomEndpoint() {
                 notFound(description = "Room not found."),
                 forbidden()
             )
-    ) { apiRoomRoute, request ->
+    ) { route, request ->
         foldRunCatching(
             block = {
-                RoomsRepository.checkRoomAccess(apiRoomRoute.room_id, getUserIdFromToken())
-                RoomsRepository.editRoom(apiRoomRoute.room_id, request.newName)!!
+                RoomsRepository.checkRoomAccess(route.room_id, getUserIdFromToken())
+                RoomsRepository.editRoom(route.room_id, request.newName)!!
             },
             onSuccess = { result ->
                 call.respond(RoomResponse(result))
@@ -200,11 +199,11 @@ private fun Route.roomEndpoint() {
                 forbidden(),
                 badRequest(description = "Other errors.")
             )
-    ) { apiRoomRoute ->
+    ) { route ->
         foldRunCatching(
             block = {
-                RoomsRepository.checkRoomAccess(apiRoomRoute.room_id, getUserIdFromToken())
-                RoomsRepository.deleteRoom(apiRoomRoute.room_id)!!
+                RoomsRepository.checkRoomAccess(route.room_id, getUserIdFromToken())
+                RoomsRepository.deleteRoom(route.room_id)!!
             },
             onSuccess = { result ->
                 call.respond(result)
