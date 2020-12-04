@@ -15,6 +15,8 @@ import ru.neexol.debtable.repositories.RoomsRepository
 import ru.neexol.debtable.repositories.UsersRepository
 import ru.neexol.debtable.routes.API
 import ru.neexol.debtable.utils.*
+import ru.neexol.debtable.utils.exceptions.ForbiddenException
+import ru.neexol.debtable.utils.exceptions.NotFoundException
 
 const val API_ROOMS = "$API/rooms"
 const val API_ROOM = "$API_ROOMS/{room_id}"
@@ -104,5 +106,45 @@ private fun Route.roomsEndpoint() {
 
 @KtorExperimentalLocationsAPI
 private fun Route.roomEndpoint() {
-
+    get<ApiRoomRoute>(
+        "Get room by id"
+            .responds(
+                ok<RoomResponse>(
+                    example("Room example", RoomResponse.example)
+                ),
+                unauthorized(),
+                notFound(description = "Room not found."),
+                forbidden(),
+                badRequest(description = "Other errors.")
+            )
+    ) { apiRoomRoute ->
+        foldRunCatching(
+            block = {
+                RoomsRepository.getRoomById(apiRoomRoute.room_id)?.also { room ->
+                    if (!RoomsRepository.isRoomContainsUser(room.id.value, getUserIdFromToken())) {
+                        throw ForbiddenException()
+                    }
+                } ?: throw NotFoundException()
+            },
+            onSuccess = { result ->
+                call.respond(RoomResponse(result))
+            },
+            onFailure = { exception ->
+                when (exception) {
+                    is NotFoundException -> call.respond(
+                        HttpStatusCode.NotFound,
+                        "Room not found."
+                    )
+                    is ForbiddenException -> call.respond(
+                        HttpStatusCode.Forbidden,
+                        "Access denied."
+                    )
+                    else -> call.respond(
+                        HttpStatusCode.BadRequest,
+                        exception.toString()
+                    )
+                }
+            }
+        )
+    }
 }

@@ -27,9 +27,3 @@ suspend fun PipelineContext<*, ApplicationCall>.interceptJsonBodyError(e: Throwa
     }
     return true
 }
-
-val jsonBodyErrors = arrayOf(
-    HttpCodeResponse(HttpStatusCode.UnsupportedMediaType, listOf(), "Wrong body."),
-    badRequest(description = "Syntax error in json or other errors."),
-    HttpCodeResponse(HttpStatusCode.UnprocessableEntity, listOf(), "Lexical error in json.")
-)

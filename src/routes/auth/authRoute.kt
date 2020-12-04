@@ -17,7 +17,7 @@ import ru.neexol.debtable.models.requests.LoginUserRequest
 import ru.neexol.debtable.models.requests.RegisterUserRequest
 import ru.neexol.debtable.repositories.UsersRepository
 import ru.neexol.debtable.routes.API
-import ru.neexol.debtable.utils.exceptions.UserNotFoundException
+import ru.neexol.debtable.utils.exceptions.NotFoundException
 import ru.neexol.debtable.utils.exceptions.WrongPasswordException
 import ru.neexol.debtable.utils.foldRunCatching
 import ru.neexol.debtable.utils.interceptJsonBodyError
@@ -102,13 +102,13 @@ private fun Route.loginEndpoint() {
                     example("Access token example", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBdXRoZW50aWNhdGlvbiIsImlzcyI6ImRlYnRhYmxlU2VydmVyIiwiaWQiOjEyLCJleHAiOjE2MDcwODQzNjd9.W_MFXUC1-Hyeild-C9y1t1t_758yleob9o2n1RvVRgKin_xGfulmqpcrucrzvUSJmC9BrWkpGY7zrr0z6NY8DQ", description = "Success.")
                 ),
                 *jsonBodyErrors,
-                notFound(description = "There is no user with this username."),
+                notFound(description = "User not found."),
                 HttpCodeResponse(HttpStatusCode.Unauthorized, listOf(), "Wrong password.")
             )
     ) { _, request ->
         foldRunCatching(
             block = {
-                val user = UsersRepository.getUserByUserName(request.username) ?: throw UserNotFoundException()
+                val user = UsersRepository.getUserByUserName(request.username) ?: throw NotFoundException()
                 if (user.passwordHash != hashFunction(request.password)) {
                     throw WrongPasswordException()
                 }
@@ -122,9 +122,9 @@ private fun Route.loginEndpoint() {
             onFailure = { exception ->
                 if (!interceptJsonBodyError(exception)) {
                     when (exception) {
-                        is UserNotFoundException -> call.respond(
+                        is NotFoundException -> call.respond(
                             HttpStatusCode.NotFound,
-                            "There is no user with this username."
+                            "User not found."
                         )
                         is WrongPasswordException -> call.respond(
                             HttpStatusCode.Unauthorized,

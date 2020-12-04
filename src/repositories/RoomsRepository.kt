@@ -29,4 +29,11 @@ object RoomsRepository {
             it.users = SizedCollection(it.users + user)
         }
     }
+
+    suspend fun isRoomContainsUser(
+        roomId: Int,
+        userId: Int
+    ) = newSuspendedTransaction(Dispatchers.IO) {
+        getRoomById(roomId)?.users?.find { it.id.value == userId } != null
+    }
 }
