@@ -26,8 +26,7 @@ class RoomsTab extends React.Component {
                         <button
                             className="home__add-room-btn"
                             onClick={e => {
-                                sendGet("api/users/me");
-                                alert(document.cookie);
+                                // sendGet("api/users/me");
                             }}
                         >
                             add room
@@ -37,8 +36,17 @@ class RoomsTab extends React.Component {
                 <button
                     className="home__add-room-btn"
                     onClick={e => {
-                        sendGet("api/users/me");
-                        alert(document.cookie);
+                        // sendGet("api/users/me");
+                        sendPost('api/auth/register',
+                            JSON.stringify({
+                                username: "vladimir",
+                                display_name: "Nikita Alexeev",
+                                password: "SuperPass123"
+                            }),
+                            response => {
+                                console.log("response yeeehi ["+response.status+"] : "+response.body);
+                            }
+                        )
                     }}
                 >
                     TEST BUTTON
