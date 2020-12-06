@@ -16,7 +16,8 @@ class AuthorizationRoot extends React.Component {
             username: this.state.login,
             password: this.state.pass
         }), response => {
-            alert(`All is good! ${response.responseText}`);
+            setJWT(response);
+            alert(`All is good! ${response.responseText}\n${response.text}\n${response.body}\n${response}`);
         }, response => {
             switch (response.status) {
                 case 404:
@@ -51,7 +52,13 @@ class AuthorizationRoot extends React.Component {
                         *Ошибка в логине или пароле
                     </div>
 
-                    <button type="submit" className="register-btn" onClick={this.handleSubmitClick}>Войти</button>
+                    <button type="submit" className="apply-btn"
+                            onClick={this.handleSubmitClick}
+                            disabled={
+                                this.state.login === '' ||
+                                this.state.pass  === ''
+                            }
+                    >Войти</button>
                 </div>
 
                 <div className="container signin">
@@ -66,6 +73,3 @@ ReactDOM.render(
     <AuthorizationRoot/>,
     document.getElementById('root')
 );
-
-// setJWT("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBdXRoZW50aWNhdGlvbiIsImlzcyI6ImRlYnRhYmxlU2VydmVyIiwiaWQiOjMsImV4cCI6MTYwNzMzMDQ3NX0.jZvdLsPlI3Pwt2W_2aSCimTtcrFh1B-8AX_jd8Er2hPFPnFl2WH4kAW0lLqnKpeb4HCmc9rimhoUXHoyBXdhqQ");
-console.log(getJWT());

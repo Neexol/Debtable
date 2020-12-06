@@ -36,7 +36,7 @@ hr {
 }
 
 /* Set a style for the submit button */
-.register-btn {
+.apply-btn {
     background-color: gold;
     color: black;
     padding: 16px 20px;
@@ -46,9 +46,13 @@ hr {
     width: 100%;
     opacity: 0.9;
 }
-
-.register-btn:hover {
+.apply-btn:hover:not(:disabled) {
     opacity: 1;
+}
+.apply-btn:disabled {
+    background-color: grey;
+    color: #363636;
+    cursor: auto;
 }
 
 /* Add a blue text color to links */

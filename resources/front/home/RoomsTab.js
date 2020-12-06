@@ -8,12 +8,13 @@ class RoomsTab extends React.Component {
     }
 
     componentDidMount() {
-        sendGet('api/rooms', response => {
-            this.setState({
-                isLoading: false,
-                rooms: response
-            });
-        })
+        // sendGet('api/rooms', response => {
+        //     this.setState({
+        //         isLoading: false,
+        //         rooms: response
+        //     });
+        // })
+
         // $.get(`${HOST_URL}api/rooms`, (response) => {
         //     this.setState({
         //         isLoading: false,
@@ -42,17 +43,13 @@ class RoomsTab extends React.Component {
                 <button
                     className="home__add-room-btn"
                     onClick={e => {
+                        // setJWT(undefined);
+                        sendGet('api/users/me', response => {
+                            console.log(`success! ${response.responseText}`);
+                        }, response => {
+                            console.log(`error! ${response.status}`);
+                        });
                         // sendGet("api/users/me");
-                        sendPost('api/auth/register',
-                            JSON.stringify({
-                                username: "vladimir",
-                                display_name: "Nikita Alexeev",
-                                password: "SuperPass123"
-                            }),
-                            response => {
-                                console.log("response yeeehi ["+response.status+"] : "+response.body);
-                            }
-                        )
                     }}
                 >
                     TEST BUTTON
