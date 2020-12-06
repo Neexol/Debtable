@@ -1,10 +1,10 @@
 class RoomsTab extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            isLoading: true,
-            rooms: null
-        };
+        // this.state = {
+        //     isLoading: true,
+        //     rooms: null
+        // };
     }
 
     componentDidMount() {
@@ -25,55 +25,70 @@ class RoomsTab extends React.Component {
 
     render() {
         return (
-            <> {
-                this.state.isLoading
-                    ? <Loader/>
-                    : <>
-                        <RoomTiles rooms={this.state.rooms}/>
-                        <button
-                            className="home__add-room-btn"
-                            onClick={e => {
-                                // sendGet("api/users/me");
-                            }}
-                        >
-                            add room
-                        </button>
-                    </>
-            }
+            <>
+                <RoomTiles rooms={this.props.rooms}/>
                 <button
                     className="home__add-room-btn"
                     onClick={e => {
-                        // setJWT(undefined);
-                        sendGet('api/users/me', response => {
-                            console.log(`success! ${response.responseText}`);
-                        }, response => {
-                            console.log(`error! ${response.status}`);
-                        });
                         // sendGet("api/users/me");
                     }}
                 >
-                    TEST BUTTON
-                </button></>
+                    add room
+                </button>
+            </>
         );
+
+        // return (
+        //     <> {
+        //         this.state.isLoading
+        //             ? <Loader/>
+        //             : <>
+        //                 <RoomTiles rooms={this.state.rooms}/>
+        //                 <button
+        //                     className="home__add-room-btn"
+        //                     onClick={e => {
+        //                         // sendGet("api/users/me");
+        //                     }}
+        //                 >
+        //                     add room
+        //                 </button>
+        //             </>
+        //     }
+        //         <button
+        //             className="home__add-room-btn"
+        //             onClick={e => {
+        //                 // setJWT(undefined);
+        //                 sendGet('api/users/me', response => {
+        //                     console.log(`success! ${response.responseText}`);
+        //                 }, response => {
+        //                     console.log(`error! ${response.status}`);
+        //                 });
+        //                 // sendGet("api/users/me");
+        //             }}
+        //         >
+        //             TEST BUTTON
+        //         </button>
+        //     </>
+        // );
     }
 }
 
 function RoomTiles(props) {
     return (
         <> {
-            props.rooms.map(room => (
+            props.rooms.rooms.map(room => (
                 <div
-                    key={room.room_id}
+                    key={room.id}
                     className="card"
                     onClick={() => {
-                        if (room.label === "1206") {
+                        if (room.name === "1206") {
                             location.assign(`../room/room.html`)
                         }
                         // location.assign(`room/${room.room_id}`)
                     }}
                 >
-                    <b>{room.label}</b><br/>
-                    {room.members_quantity} members
+                    <b>{room.name}</b><br/>
+                    id: {room.id}
                 </div>
             ))
         } </>

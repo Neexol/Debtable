@@ -57,6 +57,8 @@ class AuthorizationRoot extends React.Component {
         return (
             <div className="registration-form">
                 <div className="container">
+                    <h1>Регистрация</h1><hr/>
+
                     <label htmlFor="login"><b>Логин</b></label>
                     <input type="text" placeholder="Введите логин" name="login" id="login"
                            value={this.state.login}
@@ -94,7 +96,7 @@ class AuthorizationRoot extends React.Component {
                             onClick={this.handleSubmitClick}
                             disabled={
                                 this.state.login       === '' ||
-                                this.state.display     === '' ||
+                                this.state.displayName === '' ||
                                 this.state.pass        === '' ||
                                 this.state.passRepeat  === ''
                             }

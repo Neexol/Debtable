@@ -4,11 +4,11 @@ const NAV_NAMES = [
     "🔔 Notifications"
 ]
 
-const NAVIGATION = [
-    (<RoomsTab/>),
-    (<ProfileTab/>),
+const NAVIGATION = (index, prop) => ([
+    (<RoomsTab rooms={prop.rooms}/>),
+    (<ProfileTab profile={prop.profile} updateUser={prop.updateUser}/>),
     (<NotificationsTab/>)
-];
+][index]);
 
 ReactDOM.render(
     <HomeRoot/>,

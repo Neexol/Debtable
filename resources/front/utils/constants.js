@@ -21,12 +21,25 @@ function setJWT(jwt) {
     ) + ';path=/';
 }
 
+const redirectToLogin = () => location.replace(HOST_URL+'auth/login.html');
+
 const sendRequest = (path, options) =>
     $.ajax(HOST_URL+path, options);
 
 function sendPost(path, body, onSuccess, onError) {
     sendRequest(path, {
         type: "POST",
+        data: body,
+        contentType: "application/json",
+        headers: { Authorization: `Bearer ${getJWT()}` },
+        success: onSuccess,
+        error: onError
+    });
+}
+
+function sendPatch(path, body, onSuccess, onError) {
+    sendRequest(path, {
+        type: "PATCH",
         data: body,
         contentType: "application/json",
         headers: { Authorization: `Bearer ${getJWT()}` },
