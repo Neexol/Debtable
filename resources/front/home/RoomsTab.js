@@ -145,7 +145,8 @@ class RoomsTab extends React.Component {
                         <button type="submit" className="apply-btn"
                                 onClick={this.handleChangeRoom}
                                 disabled={
-                                    this.state.updatedRoomName === this.roomById(this.state.selectedRoomId).name
+                                    this.state.updatedRoomName === this.roomById(this.state.selectedRoomId).name ||
+                                    this.state.updatedRoomName === ''
                                 }>
                             Сохранить
                         </button>
@@ -175,39 +176,6 @@ class RoomsTab extends React.Component {
                 </div>
             </>
         );
-
-        // return (
-        //     <> {
-        //         this.state.isLoading
-        //             ? <Loader/>
-        //             : <>
-        //                 <RoomTiles rooms={this.state.rooms}/>
-        //                 <button
-        //                     className="home__add-room-btn"
-        //                     onClick={e => {
-        //                         // sendGet("api/users/me");
-        //                     }}
-        //                 >
-        //                     add room
-        //                 </button>
-        //             </>
-        //     }
-        //         <button
-        //             className="home__add-room-btn"
-        //             onClick={e => {
-        //                 // setJWT(undefined);
-        //                 sendGet('api/users/me', response => {
-        //                     console.log(`success! ${response.responseText}`);
-        //                 }, response => {
-        //                     console.log(`error! ${response.status}`);
-        //                 });
-        //                 // sendGet("api/users/me");
-        //             }}
-        //         >
-        //             TEST BUTTON
-        //         </button>
-        //     </>
-        // );
     }
 }
 
@@ -217,10 +185,10 @@ function RoomTiles(props) {
             props.rooms.rooms.map(room => (
                 <div key={room.id}
                      className="card"
-                     onClick={() => {
-                         if (room.name === "1206") {
-                             location.assign(`../room/room.html`)
-                         }
+                     onClick={e => {
+                         if (e.target.className === 'edit' ||
+                             e.target.className === 'close') return;
+                         console.log(`click on "${room.name}" [id: ${room.id}]`);
                      }}>
 
                     <span className="close"
@@ -232,7 +200,7 @@ function RoomTiles(props) {
                     <b>{room.name}</b>
                     <span className='edit'
                           onClick={() => props.onChange(room.id)}>
-                         ✎
+                        {' ✎'}
                     </span><br/>
                     id: {room.id}
                 </div>
