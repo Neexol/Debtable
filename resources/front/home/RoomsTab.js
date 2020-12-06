@@ -8,12 +8,19 @@ class RoomsTab extends React.Component {
     }
 
     componentDidMount() {
-        $.get(`${HOST_URL}rooms.json`, (response) => {
-            this.setState({
-                isLoading: false,
-                rooms: response
-            })
-        });
+        // sendGet('api/rooms', response => {
+        //     this.setState({
+        //         isLoading: false,
+        //         rooms: response
+        //     });
+        // })
+
+        // $.get(`${HOST_URL}api/rooms`, (response) => {
+        //     this.setState({
+        //         isLoading: false,
+        //         rooms: response
+        //     })
+        // });
     }
 
     render() {
@@ -26,8 +33,7 @@ class RoomsTab extends React.Component {
                         <button
                             className="home__add-room-btn"
                             onClick={e => {
-                                sendGet("api/users/me");
-                                alert(document.cookie);
+                                // sendGet("api/users/me");
                             }}
                         >
                             add room
@@ -37,8 +43,13 @@ class RoomsTab extends React.Component {
                 <button
                     className="home__add-room-btn"
                     onClick={e => {
-                        sendGet("api/users/me");
-                        alert(document.cookie);
+                        // setJWT(undefined);
+                        sendGet('api/users/me', response => {
+                            console.log(`success! ${response.responseText}`);
+                        }, response => {
+                            console.log(`error! ${response.status}`);
+                        });
+                        // sendGet("api/users/me");
                     }}
                 >
                     TEST BUTTON
