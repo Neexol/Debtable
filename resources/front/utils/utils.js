@@ -2,6 +2,16 @@
 const BASE_URL = "http://localhost:8080";
 const HOST_URL = BASE_URL + "/";
 
+const ROUTE_REGISTER = 'api/auth/register';
+const ROUTE_LOGIN = 'api/auth/login';
+const ROUTE_ME = 'api/users/me';
+const ROUTE_USER = 'api/users';
+const ROUTE_CHANGE_PASS = 'api/account/change/password';
+const ROUTE_CHANGE_NAME = 'api/account/change/data';
+const ROUTE_CREATE_ROOM = 'api/rooms';
+const ROUTE_ROOMS = 'api/rooms';
+const ROUTE_ROOM = id => 'api/rooms/' + id;
+
 const Loader = () => <div className="loader"/>;
 
 function getJWT() {

@@ -8,11 +8,10 @@ class ProfileTab extends React.Component {
 
     handleDisplayNameChange = e => this.setState({displayName: e.target.value});
     handleSaveClick = e => {
-        sendPatch('api/account/change/data', JSON.stringify({
+        sendPatch(ROUTE_CHANGE_NAME, JSON.stringify({
             new_display_name: this.state.displayName
         }), response => {
             this.props.updateUser(response);
-            // alert(`All is good! ${response.responseText}\n${response.text}\n${response.body}\n${response}`);
         }, response => {
             switch (response.status) {
                 case 404:
