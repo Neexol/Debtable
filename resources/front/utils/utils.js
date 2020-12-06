@@ -59,6 +59,17 @@ function sendPatch(path, body, onSuccess, onError) {
     });
 }
 
+function sendDelete(path, body, onSuccess, onError) {
+    sendRequest(path, {
+        type: "DELETE",
+        data: body,
+        contentType: "application/json",
+        headers: { Authorization: `Bearer ${getJWT()}` },
+        success: onSuccess,
+        error: onError
+    });
+}
+
 function sendGet(path, onSuccess, onError) {
     sendRequest(path, {
         type: "GET",

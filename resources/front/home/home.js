@@ -5,8 +5,12 @@ const NAV_NAMES = [
 ]
 
 const NAVIGATION = (index, prop) => ([
-    (<RoomsTab rooms={prop.rooms}/>),
-    (<ProfileTab profile={prop.profile} updateUser={prop.updateUser}/>),
+    (<RoomsTab rooms={prop.rooms}
+               updateRoomsByAdd={prop.updateRoomsByAdd}
+               updateRoomsByDelete={prop.updateRoomsByDelete}
+               updateRoomsByChange={prop.updateRoomsByChange}/>),
+    (<ProfileTab profile={prop.profile}
+                 updateUser={prop.updateUser}/>),
     (<NotificationsTab/>)
 ][index]);
 

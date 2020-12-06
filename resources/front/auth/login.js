@@ -63,7 +63,7 @@ class AuthorizationRoot extends React.Component {
                 </div>
 
                 <div className="container signin">
-                    <p>Впервые на Debtable? <a href="#">Регистрация</a></p>
+                    <p>Впервые на Debtable? <a href="register.html">Регистрация</a></p>
                 </div>
             </div>
         );
