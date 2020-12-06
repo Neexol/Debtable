@@ -96,7 +96,7 @@ class AuthorizationRoot extends React.Component {
                             onClick={this.handleSubmitClick}
                             disabled={
                                 this.state.login       === '' ||
-                                this.state.display     === '' ||
+                                this.state.displayName === '' ||
                                 this.state.pass        === '' ||
                                 this.state.passRepeat  === ''
                             }

@@ -22,7 +22,8 @@ class HomeRoot extends React.Component {
                     redirectToLogin();
                     break;
                 default:
-                    alert("error "+response.status);
+                    // alert("error "+response.status);
+                    console.log("error "+response.status);
                     break;
             }
         })
@@ -34,7 +35,8 @@ class HomeRoot extends React.Component {
                     redirectToLogin();
                     break;
                 default:
-                    alert("error "+response.status);
+                    // alert("error "+response.status);
+                    console.log("error "+response.status);
                     break;
             }
         })
