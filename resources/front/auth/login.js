@@ -17,7 +17,8 @@ class AuthorizationRoot extends React.Component {
             password: this.state.pass
         }), response => {
             setJWT(response);
-            alert(`All is good! ${response.responseText}\n${response.text}\n${response.body}\n${response}`);
+            location.replace(HOST_URL+'home/home.html');
+            // alert(`All is good! ${response.responseText}\n${response.text}\n${response.body}\n${response}`);
         }, response => {
             switch (response.status) {
                 case 404:
