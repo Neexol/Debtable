@@ -16,6 +16,16 @@ class HomeRoot extends React.Component {
         newRooms.rooms.push(newRoom);
         return {rooms: newRooms}
     })
+    updateRoomsByDelete = deletedRoom => this.setState(state => {
+        let newRooms = state.rooms;
+        newRooms.rooms.splice(newRooms.rooms.map(room => room.id).indexOf(deletedRoom), 1);
+        return {rooms: newRooms}
+    })
+    updateRoomsByChange = updatedRoom => this.setState(state => {
+        let newRooms = state.rooms;
+        newRooms.rooms[newRooms.rooms.map(room => room.id).indexOf(updatedRoom.id)] = updatedRoom;
+        return {rooms: newRooms}
+    })
 
     componentDidMount() {
         sendGet(ROUTE_ME, response => {
@@ -60,19 +70,12 @@ class HomeRoot extends React.Component {
                                 profile: this.state.profile,
                                 rooms: this.state.rooms,
                                 updateUser: this.updateUser,
-                                updateRoomsByAdd: this.updateRoomsByAdd
+                                updateRoomsByAdd: this.updateRoomsByAdd,
+                                updateRoomsByDelete: this.updateRoomsByDelete,
+                                updateRoomsByChange: this.updateRoomsByChange
                             })
                         }</div>
                 }
-                {/*<div className="home__empty-page"><Loader/></div>*/}
-                {/*<div className="home__content">{*/}
-                {/*    this.state.profile === undefined || this.state.rooms === undefined*/}
-                {/*        ? <Loader/>*/}
-                {/*        : NAVIGATION(this.state.checkedIndex, {*/}
-                {/*            profile: this.state.profile,*/}
-                {/*            rooms: this.state.rooms*/}
-                {/*        })*/}
-                {/*}</div>*/}
             </>
         );
     }
