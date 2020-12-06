@@ -46,15 +46,25 @@ class HomeRoot extends React.Component {
                 <HomeSideMenu
                     checkedIndex={this.state.checkedIndex}
                     onCheck={this.handleCheck}
-                />
-                <div className="home__content">{
+                />{
                     this.state.profile === undefined || this.state.rooms === undefined
-                        ? <Loader/>
-                        : NAVIGATION(this.state.checkedIndex, {
-                            profile: this.state.profile,
-                            rooms: this.state.rooms
-                        })
-                }</div>
+                        ? <div className="home__empty-page"><Loader/></div>
+                        : <div className="home__content">{
+                            NAVIGATION(this.state.checkedIndex, {
+                                profile: this.state.profile,
+                                rooms: this.state.rooms
+                            })
+                        }</div>
+                }
+                {/*<div className="home__empty-page"><Loader/></div>*/}
+                {/*<div className="home__content">{*/}
+                {/*    this.state.profile === undefined || this.state.rooms === undefined*/}
+                {/*        ? <Loader/>*/}
+                {/*        : NAVIGATION(this.state.checkedIndex, {*/}
+                {/*            profile: this.state.profile,*/}
+                {/*            rooms: this.state.rooms*/}
+                {/*        })*/}
+                {/*}</div>*/}
             </>
         );
     }

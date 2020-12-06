@@ -88,6 +88,10 @@ table.redTable tfoot .links a{
 .home__side-menu div:not(.active):hover {
     color: #f1f1f1;
 }
+.home__empty-page {
+    height: 100%;
+    margin-left: 13rem;
+}
 .home__content {
     display: grid;
     grid-template-columns: repeat( auto-fill, minmax(10rem, 1fr) );
@@ -118,7 +122,6 @@ table.redTable tfoot .links a{
     cursor: pointer;
     padding: 15px;
     border-radius: 4px;
-
 }
 
 /*@media screen and (max-height: 450px) {*/
@@ -128,8 +131,13 @@ table.redTable tfoot .links a{
 
 
 .loader {
-    margin: auto auto;
-    position: fixed;
+    /*margin: auto auto;*/
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
     border: 0.5rem solid #f3f3f3; /* Light grey */
     border-top: 0.5rem solid gold; /* Blue */
     border-radius: 50%;
