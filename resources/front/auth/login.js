@@ -12,7 +12,7 @@ class AuthorizationRoot extends React.Component {
     handleLoginChange = e => this.setState({login: e.target.value});
     handlePassChange  = e => this.setState({pass:  e.target.value});
     handleSubmitClick = e => {
-        sendPost('api/auth/login', JSON.stringify({
+        sendPost(ROUTE_LOGIN, JSON.stringify({
             username: this.state.login,
             password: this.state.pass
         }), response => {

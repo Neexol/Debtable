@@ -25,7 +25,7 @@ class AuthorizationRoot extends React.Component {
             })
             return;
         }
-        sendPost('api/auth/register', JSON.stringify({
+        sendPost(ROUTE_REGISTER, JSON.stringify({
             username: this.state.login,
             display_name: this.state.displayName,
             password: this.state.pass

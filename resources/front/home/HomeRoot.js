@@ -13,7 +13,7 @@ class HomeRoot extends React.Component {
     updateUser = newUser => this.setState({profile: newUser});
 
     componentDidMount() {
-        sendGet('api/users/me', response => {
+        sendGet(ROUTE_ME, response => {
             this.setState({profile: response});
         }, response => {
             switch (response.status) {
@@ -26,7 +26,7 @@ class HomeRoot extends React.Component {
                     break;
             }
         })
-        sendGet('api/rooms', response => {
+        sendGet(ROUTE_ROOMS, response => {
             this.setState({rooms: response});
         }, response => {
             switch (response.status) {
