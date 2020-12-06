@@ -175,39 +175,6 @@ class RoomsTab extends React.Component {
                 </div>
             </>
         );
-
-        // return (
-        //     <> {
-        //         this.state.isLoading
-        //             ? <Loader/>
-        //             : <>
-        //                 <RoomTiles rooms={this.state.rooms}/>
-        //                 <button
-        //                     className="home__add-room-btn"
-        //                     onClick={e => {
-        //                         // sendGet("api/users/me");
-        //                     }}
-        //                 >
-        //                     add room
-        //                 </button>
-        //             </>
-        //     }
-        //         <button
-        //             className="home__add-room-btn"
-        //             onClick={e => {
-        //                 // setJWT(undefined);
-        //                 sendGet('api/users/me', response => {
-        //                     console.log(`success! ${response.responseText}`);
-        //                 }, response => {
-        //                     console.log(`error! ${response.status}`);
-        //                 });
-        //                 // sendGet("api/users/me");
-        //             }}
-        //         >
-        //             TEST BUTTON
-        //         </button>
-        //     </>
-        // );
     }
 }
 
