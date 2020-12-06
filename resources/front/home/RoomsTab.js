@@ -6,9 +6,15 @@ class RoomsTab extends React.Component {
             deleteRoomDialogOpened: false,
             changeRoomDialogOpened: false,
             newRoomName: '',
-            selectedRoom: null
+            updatedRoomName: '',
+            selectedRoomId: null
         };
     }
+
+    roomById = id => {
+        const rooms = this.props.rooms.rooms;
+        return id ? rooms[rooms.map(room => room.id).indexOf(id)] : {name: null};
+    };
 
     openAddRoomDialog = () => this.setState({
         addRoomDialogOpened: true
@@ -20,23 +26,26 @@ class RoomsTab extends React.Component {
     
     openDeleteRoomDialog = id => this.setState({
         deleteRoomDialogOpened: true,
-        selectedRoom: id
+        selectedRoomId: id
     });
     closeDeleteRoomDialog = () => this.setState({
         deleteRoomDialogOpened: false,
-        selectedRoom: null
+        selectedRoomId: null
     });
     
     openChangeRoomDialog = (id) => this.setState({
+        updatedRoomName: this.roomById(id).name,
         changeRoomDialogOpened: true,
-        selectedRoom: id
+        selectedRoomId: id
     });
     closeChangeRoomDialog = () => this.setState({
         changeRoomDialogOpened: false,
-        selectedRoom: null
+        selectedRoomId: null,
+        updatedRoomName: ''
     });
 
     handleRoomNameChange = e => this.setState({newRoomName: e.target.value});
+    handleUpdatedRoomNameChange = e => this.setState({updatedRoomName: e.target.value});
 
     handleAddRoom = () => {
         sendPost(ROUTE_ROOMS, JSON.stringify({
@@ -56,8 +65,8 @@ class RoomsTab extends React.Component {
         this.closeAddRoomDialog();
     }
 
-    handleDeleteRoom = () => {this.setState({addRoomDialogOpened: false});
-        sendDelete(ROUTE_ROOM(this.state.selectedRoom), null, response => {
+    handleDeleteRoom = () => {
+        sendDelete(ROUTE_ROOM(this.state.selectedRoomId), null, response => {
             this.props.updateRoomsByDelete(response);
         }, response => {
             switch (response.status) {
@@ -70,6 +79,24 @@ class RoomsTab extends React.Component {
             }
         });
         this.closeDeleteRoomDialog();
+    }
+
+    handleChangeRoom = () => {
+        sendPatch(ROUTE_ROOM(this.state.selectedRoomId), JSON.stringify({
+            new_name: this.state.updatedRoomName
+        }), response => {
+            this.props.updateRoomsByChange(response);
+        }, response => {
+            switch (response.status) {
+                case 401:
+                    redirectToLogin();
+                    break;
+                default:
+                    console.log("error "+response.status);
+                    break;
+            }
+        });
+        this.closeChangeRoomDialog();
     }
 
     render() {
@@ -99,6 +126,28 @@ class RoomsTab extends React.Component {
                                 onClick={this.handleAddRoom}
                                 disabled={this.state.newRoomName === ''}>
                             Создать
+                        </button>
+                    </div>
+                </div>
+
+                <div id="changeRoomDialog" className="modal"
+                     onClick={e => {if (e.target.id === 'changeRoomDialog') this.closeChangeRoomDialog()}}
+                     style={{display: this.state.changeRoomDialogOpened ? 'block' : 'none'}}>
+
+                    <div className="modal-content">
+                        <span className="close" onClick={this.closeChangeRoomDialog}>✕</span>
+
+                        <label htmlFor="room_name"><b>Новое название для комнаты</b></label>
+                        <input type="text" placeholder="Название" name="room_name" id="room_name"
+                               value={this.state.updatedRoomName}
+                               onChange={this.handleUpdatedRoomNameChange}/>
+
+                        <button type="submit" className="apply-btn"
+                                onClick={this.handleChangeRoom}
+                                disabled={
+                                    this.state.updatedRoomName === this.roomById(this.state.selectedRoomId).name
+                                }>
+                            Сохранить
                         </button>
                     </div>
                 </div>
@@ -182,7 +231,7 @@ function RoomTiles(props) {
 
                     <b>{room.name}</b>
                     <span className='edit'
-                          onClick={() => props.onDelete(room.id)}>
+                          onClick={() => props.onChange(room.id)}>
                          ✎
                     </span><br/>
                     id: {room.id}
