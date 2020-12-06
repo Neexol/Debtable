@@ -1,5 +1,6 @@
 // const BASE_URL = "https://devtable.herokuapp.com";
-const BASE_URL = "http://localhost:8080";
+// const BASE_URL = "http://localhost:8080";
+const BASE_URL = "";
 const HOST_URL = BASE_URL + "/";
 
 const ROUTE_REGISTER = 'api/auth/register';
