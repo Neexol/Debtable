@@ -7,7 +7,31 @@ class ProfileTab extends React.Component {
     };
 
     handleDisplayNameChange = e => this.setState({displayName: e.target.value});
-    handleSaveClick = e => {}
+    handleSaveClick = e => {
+        sendPatch('api/account/change/data', JSON.stringify({
+            new_display_name: this.state.displayName
+        }), response => {
+            this.props.updateUser(response);
+            // alert(`All is good! ${response.responseText}\n${response.text}\n${response.body}\n${response}`);
+        }, response => {
+            switch (response.status) {
+                case 404:
+                    this.setState({
+                        errLogin:  'block',
+                        errRepeat: 'none',
+                        errPass:   'none'
+                    });
+                    break;
+                default:
+                    this.setState({
+                        errLogin:  'none',
+                        errRepeat: 'none',
+                        errPass:   'block'
+                    });
+                    break;
+            }
+        });
+    }
     handleChangePassClick = e => {}
     handleLogOut = e => {
         setJWT(undefined);
@@ -17,7 +41,7 @@ class ProfileTab extends React.Component {
     render() {
         return (
             <div className="container">
-                <h1>Профиль <strong>{this.props.profile.username}</strong></h1><hr/>
+                <h1>Профиль (<strong>{this.props.profile.username})</strong></h1>
 
                 <label htmlFor="display_name"><b>Имя пользователя</b></label>
                 <div style={{display: "flex"}}>

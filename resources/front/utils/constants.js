@@ -37,6 +37,17 @@ function sendPost(path, body, onSuccess, onError) {
     });
 }
 
+function sendPatch(path, body, onSuccess, onError) {
+    sendRequest(path, {
+        type: "PATCH",
+        data: body,
+        contentType: "application/json",
+        headers: { Authorization: `Bearer ${getJWT()}` },
+        success: onSuccess,
+        error: onError
+    });
+}
+
 function sendGet(path, onSuccess, onError) {
     sendRequest(path, {
         type: "GET",
