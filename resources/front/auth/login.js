@@ -38,7 +38,7 @@ class AuthorizationRoot extends React.Component {
                     <h1>Авторизация</h1><hr/>
 
                     <label htmlFor="login"><b>Логин</b></label>
-                    <input type="text" placeholder="Введите логин" name="login" id="login" required
+                    <input type="text" placeholder="Введите логин" name="login" id="login"
                            value={this.state.login}
                            onChange={this.handleLoginChange}/>
                     <div className="error-tooltip" style={{display: this.state.errLogin}}>
@@ -46,7 +46,7 @@ class AuthorizationRoot extends React.Component {
                     </div>
 
                     <label htmlFor="pass"><b>Пароль</b></label>
-                    <input type="password" placeholder="Введите пароль" name="pass" id="pass" required
+                    <input type="password" placeholder="Введите пароль" name="pass" id="pass"
                            value={this.state.pass}
                            onChange={this.handlePassChange}/>
                     <div className="error-tooltip" style={{display: this.state.errPass}}>
