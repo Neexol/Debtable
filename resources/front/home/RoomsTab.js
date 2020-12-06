@@ -8,12 +8,18 @@ class RoomsTab extends React.Component {
     }
 
     componentDidMount() {
-        $.get(`${HOST_URL}rooms.json`, (response) => {
+        sendGet('api/rooms', response => {
             this.setState({
                 isLoading: false,
                 rooms: response
-            })
-        });
+            });
+        })
+        // $.get(`${HOST_URL}api/rooms`, (response) => {
+        //     this.setState({
+        //         isLoading: false,
+        //         rooms: response
+        //     })
+        // });
     }
 
     render() {
