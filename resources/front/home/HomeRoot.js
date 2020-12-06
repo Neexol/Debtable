@@ -11,6 +11,11 @@ class HomeRoot extends React.Component {
 
     handleCheck = index => this.setState({checkedIndex: index});
     updateUser = newUser => this.setState({profile: newUser});
+    updateRoomsByAdd = newRoom => this.setState(state => {
+        let newRooms = state.rooms;
+        newRooms.rooms.push(newRoom);
+        return {rooms: newRooms}
+    })
 
     componentDidMount() {
         sendGet(ROUTE_ME, response => {
@@ -54,7 +59,8 @@ class HomeRoot extends React.Component {
                             NAVIGATION(this.state.checkedIndex, {
                                 profile: this.state.profile,
                                 rooms: this.state.rooms,
-                                updateUser: this.updateUser
+                                updateUser: this.updateUser,
+                                updateRoomsByAdd: this.updateRoomsByAdd
                             })
                         }</div>
                 }

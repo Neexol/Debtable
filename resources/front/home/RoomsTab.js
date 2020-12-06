@@ -1,26 +1,32 @@
 class RoomsTab extends React.Component {
     constructor(props) {
         super(props);
-        // this.state = {
-        //     isLoading: true,
-        //     rooms: null
-        // };
+        this.state = {
+            addRoomDialogOpened: false,
+            newRoomName: ''
+        };
     }
 
-    componentDidMount() {
-        // sendGet('api/rooms', response => {
-        //     this.setState({
-        //         isLoading: false,
-        //         rooms: response
-        //     });
-        // })
+    closeAddRoomDialog = e => this.setState({addRoomDialogOpened: false});
+    openAddRoomDialog  = e => this.setState({addRoomDialogOpened: true});
 
-        // $.get(`${HOST_URL}api/rooms`, (response) => {
-        //     this.setState({
-        //         isLoading: false,
-        //         rooms: response
-        //     })
-        // });
+    handleRoomNameChange = e => this.setState({newRoomName: e.target.value});
+    handleAddRoom = e => {
+        this.setState({addRoomDialogOpened: false});
+        sendPost(ROUTE_ROOMS, JSON.stringify({
+            name: this.state.newRoomName
+        }), response => {
+            this.props.updateRoomsByAdd(response);
+        }, response => {
+            switch (response.status) {
+                case 401:
+                    redirectToLogin();
+                    break;
+                default:
+                    console.log("error "+response.status);
+                    break;
+            }
+        });
     }
 
     render() {
@@ -29,12 +35,40 @@ class RoomsTab extends React.Component {
                 <RoomTiles rooms={this.props.rooms}/>
                 <button
                     className="home__add-room-btn"
-                    onClick={e => {
-                        // sendGet("api/users/me");
-                    }}
+                    onClick={this.openAddRoomDialog}
                 >
                     add room
                 </button>
+                <div id="addNewRoomDialog" className="modal"
+                     onClick={e => {if (e.target.id === 'addNewRoomDialog') this.closeAddRoomDialog()}}
+                     style={{display: this.state.addRoomDialogOpened ? 'block' : 'none'}}
+                >
+                    <div className="modal-content">
+                        <span className="close"
+                              onClick={this.closeAddRoomDialog}
+                        >✕</span>
+                        <label htmlFor="room_name"><b>Название новой комнаты</b></label>
+                        <input type="text" placeholder="Название" name="room_name" id="room_name"
+                               value={this.state.newRoomName}
+                               onChange={this.handleRoomNameChange}/>
+                        <button type="submit" className="apply-btn"
+                                onClick={this.handleAddRoom}
+                                disabled={this.state.newRoomName === ''}
+                        >Создать</button>
+                        {/*<label htmlFor="room_name"><b>Название новой комнаты</b></label>*/}
+                        {/*<div style={{display: "flex"}}>*/}
+                        {/*    <input type="text" placeholder="Название" name="room_name" id="room_name"*/}
+                        {/*           style={{flexGrow: "1"}}*/}
+                        {/*           value={this.state.newRoomName}*/}
+                        {/*           onChange={this.handleRoomNameChange}/>*/}
+                        {/*    <button type="submit" className="apply-btn"*/}
+                        {/*            onClick={this.handleAddRoom}*/}
+                        {/*            disabled={this.state.newRoomName === ''}*/}
+                        {/*    >Создать</button>*/}
+                        {/*</div>*/}
+                    </div>
+
+                </div>
             </>
         );
 

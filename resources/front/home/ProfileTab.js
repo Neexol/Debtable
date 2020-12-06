@@ -14,19 +14,11 @@ class ProfileTab extends React.Component {
             this.props.updateUser(response);
         }, response => {
             switch (response.status) {
-                case 404:
-                    this.setState({
-                        errLogin:  'block',
-                        errRepeat: 'none',
-                        errPass:   'none'
-                    });
+                case 401:
+                    redirectToLogin();
                     break;
                 default:
-                    this.setState({
-                        errLogin:  'none',
-                        errRepeat: 'none',
-                        errPass:   'block'
-                    });
+                    console.log("error "+response.status);
                     break;
             }
         });
