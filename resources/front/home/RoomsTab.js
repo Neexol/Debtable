@@ -145,7 +145,8 @@ class RoomsTab extends React.Component {
                         <button type="submit" className="apply-btn"
                                 onClick={this.handleChangeRoom}
                                 disabled={
-                                    this.state.updatedRoomName === this.roomById(this.state.selectedRoomId).name
+                                    this.state.updatedRoomName === this.roomById(this.state.selectedRoomId).name ||
+                                    this.state.updatedRoomName === ''
                                 }>
                             Сохранить
                         </button>
