@@ -1,0 +1,122 @@
+table.redTable {
+    border: 2px solid #A40808;
+    background-color: #EEE7DB;
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+}
+table.redTable td, table.redTable th {
+    border: 1px solid #AAAAAA;
+    padding: 3px 2px;
+}
+table.redTable tbody td {
+    font-size: 13px;
+}
+table.redTable tr:nth-child(even) {
+    background: #F5C8BF;
+}
+table.redTable thead {
+    background: #A40808;
+}
+table.redTable thead th {
+    font-size: 19px;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-align: center;
+    border-left: 2px solid #A40808;
+}
+table.redTable thead th:first-child {
+    border-left: none;
+}
+
+table.redTable tfoot {
+    font-size: 13px;
+    font-weight: bold;
+    color: #FFFFFF;
+    background: #A40808;
+}
+table.redTable tfoot td {
+    font-size: 13px;
+}
+table.redTable tfoot .links {
+    text-align: right;
+}
+table.redTable tfoot .links a{
+    display: inline-block;
+    background: #FFFFFF;
+    color: #A40808;
+    padding: 2px 8px;
+    border-radius: 5px;
+}
+
+
+
+.room__top-menu {
+    /*--height: auto;*/
+    /*--top-menu_height:*/
+    /*--height: height;*/
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #363636;
+    overflow-x: hidden;
+}
+.room__top-menu div {
+    float: right;
+    padding: 0.5rem;
+    text-decoration: none;
+    /*height: auto;*/
+    font-size: 12pt;
+    color: #aeaeae;
+    cursor: pointer;
+}
+.room__top-menu div.active {
+    background: gold;
+    color: black;
+}
+.room__top-menu div:not(.active):hover {
+    color: #f1f1f1;
+}
+.room__content {
+    margin-top: 4rem;
+    /*margin-top: var(--height);*/
+    font-size: 12pt;
+    padding: 1rem;
+}
+
+
+
+.add-record-form,
+.add-record-form input,
+.add-record-form select,
+.add-record-form button{
+    width: 100%;
+}
+.add-record-form td:not(:first-of-type) {
+    padding-left: 0.5rem;
+}
+
+
+
+.multiselect {
+    width: auto;
+}
+#checkboxes {
+    position: absolute;
+    display: block;
+    background: #ffffff;
+    border: 1px #dadada solid;
+}
+#checkboxes label {
+    display: block;
+    width: auto;
+    padding-right: 1rem;
+}
+#checkboxes input {
+    width: auto;
+}
+#checkboxes label:hover {
+    background-color: #1e90ff;
+}
