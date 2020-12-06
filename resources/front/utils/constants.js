@@ -21,6 +21,8 @@ function setJWT(jwt) {
     ) + ';path=/';
 }
 
+const redirectToLogin = () => location.replace(HOST_URL+'auth/login.html');
+
 const sendRequest = (path, options) =>
     $.ajax(HOST_URL+path, options);
 

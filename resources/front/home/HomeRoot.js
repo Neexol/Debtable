@@ -1,12 +1,43 @@
 class HomeRoot extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {checkedIndex: 0};
+        this.state = {
+            checkedIndex: 0,
+            profile: undefined,
+            rooms: undefined
+        };
         this.handleCheck = this.handleCheck.bind(this);
     }
 
     handleCheck(index) {
         this.setState({checkedIndex: index})
+    }
+
+    componentDidMount() {
+        sendGet('api/users/me', response => {
+            this.setState({profile: response});
+        }, response => {
+            switch (response.status) {
+                case 401:
+                    redirectToLogin();
+                    break;
+                default:
+                    alert("error "+response.status);
+                    break;
+            }
+        })
+        sendGet('api/rooms', response => {
+            this.setState({rooms: response});
+        }, response => {
+            switch (response.status) {
+                case 401:
+                    redirectToLogin();
+                    break;
+                default:
+                    alert("error "+response.status);
+                    break;
+            }
+        })
     }
 
     render() {
@@ -16,9 +47,14 @@ class HomeRoot extends React.Component {
                     checkedIndex={this.state.checkedIndex}
                     onCheck={this.handleCheck}
                 />
-                <div className="home__content">
-                    {NAVIGATION[this.state.checkedIndex]}
-                </div>
+                <div className="home__content">{
+                    this.state.profile === undefined || this.state.rooms === undefined
+                        ? <Loader/>
+                        : NAVIGATION(this.state.checkedIndex, {
+                            profile: this.state.profile,
+                            rooms: this.state.rooms
+                        })
+                }</div>
             </>
         );
     }
