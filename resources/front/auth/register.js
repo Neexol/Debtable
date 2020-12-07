@@ -6,23 +6,20 @@ class AuthorizationRoot extends React.Component {
             displayName: '',
             pass: '',
             passRepeat: '',
-            errLogin: 'none',
-            errRepeat: 'none',
-            errPass: 'none'
+            errorText: ''
         };
     }
+
+    setErrorText = error => this.setState({errorText: error});
 
     handleLoginChange       = e => this.setState({login:       e.target.value});
     handleDisplayNameChange = e => this.setState({displayName: e.target.value});
     handlePassChange        = e => this.setState({pass:        e.target.value});
     handlePassRepeatChange  = e => this.setState({passRepeat:  e.target.value});
+
     handleSubmitClick = e => {
         if (this.state.pass !== this.state.passRepeat) {
-            this.setState({
-                errLogin:  'none',
-                errRepeat: 'block',
-                errPass:   'none'
-            })
+            this.setErrorText("Пароли не совпадают!");
             return;
         }
         sendPost(ROUTE_REGISTER, JSON.stringify({
@@ -32,22 +29,19 @@ class AuthorizationRoot extends React.Component {
         }), response => {
             setJWT(response);
             location.replace(HOST_URL+'home/home.html');
-            // alert(`All is good! ${response.responseText}\n${response.text}\n${response.body}\n${response}`);
         }, response => {
             switch (response.status) {
-                case 404:
-                    this.setState({
-                        errLogin:  'block',
-                        errRepeat: 'none',
-                        errPass:   'none'
-                    });
+                case 409:
+                    this.setErrorText("Пользователь с таким логином уже существует!");
+                    break;
+                case 415:
+                    this.setErrorText("Ошибка в теле запроса!");
+                    break;
+                case 422:
+                    this.setErrorText("Проверьте правильность данных!");
                     break;
                 default:
-                    this.setState({
-                        errLogin:  'none',
-                        errRepeat: 'none',
-                        errPass:   'block'
-                    });
+                    this.setErrorText("Неизвестная ошибка!");
                     break;
             }
         });
@@ -64,9 +58,6 @@ class AuthorizationRoot extends React.Component {
                            value={this.state.login}
                            onChange={this.handleLoginChange}
                     />
-                    <div className="error-tooltip" style={{display: this.state.errLogin}}>
-                        *Такой пользователь уже зарегистрирован
-                    </div>
 
                     <label htmlFor="display_name"><b>Имя пользователя</b></label>
                     <input type="text" placeholder="Введите ваше имя" name="display_name" id="display_name"
@@ -76,6 +67,7 @@ class AuthorizationRoot extends React.Component {
 
                     <label htmlFor="pass"><b>Пароль</b></label>
                     <input type="password" placeholder="Введите пароль" name="pass" id="pass"
+                           autoComplete="new-password"
                            value={this.state.pass}
                            onChange={this.handlePassChange}
                     />
@@ -85,14 +77,13 @@ class AuthorizationRoot extends React.Component {
                            value={this.state.passRepeat}
                            onChange={this.handlePassRepeatChange}
                     />
-                    <div className="error-tooltip" style={{display: this.state.errRepeat}}>
-                        *Пароли не совпадают!
-                    </div>
-                    <div className="error-tooltip" style={{display: this.state.errPass}}>
-                        *Ошибка в логине или пароле!
+
+                    <div className="validation-errors"
+                         style={{display: (this.state.errorText === '' ? 'none' : 'block')}}>
+                        {this.state.errorText}
                     </div>
 
-                    <button type="submit" className="apply-btn"
+                    <button className="apply-btn"
                             onClick={this.handleSubmitClick}
                             disabled={
                                 this.state.login       === '' ||
