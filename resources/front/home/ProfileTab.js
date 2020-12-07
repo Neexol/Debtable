@@ -2,9 +2,27 @@ class ProfileTab extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            displayName: this.props.profile.display_name
+            displayName: this.props.profile.display_name,
+            changePassDialogOpened: false,
+            changePass: {
+                oldPass: '',
+                newPass: '',
+                newPassRepeat: ''
+            }
         }
     };
+
+    openChangePassDialog = () => this.setState({
+        changePassDialogOpened: true
+    });
+    closeChangePassDialog = () => this.setState({
+        changePassDialogOpened: false,
+        changePass: {
+            oldPass: '',
+            newPass: '',
+            newPassRepeat: ''
+        }
+    });
 
     handleDisplayNameChange = e => this.setState({displayName: e.target.value});
 
@@ -25,7 +43,11 @@ class ProfileTab extends React.Component {
         });
     }
 
-    handleChangePassClick = e => {}
+    handleOldPassChange = e => this.setState({changePass: {oldPass: e.target.value}});
+    handleNewPassChange = e => this.setState({changePass: {newPass: e.target.value}});
+    handleNewPassRepeatChange = e => this.setState({changePass: {newPassRepeat: e.target.value}});
+
+    handleChangePass = e => {}
 
     handleLogOut = e => {
         setJWT(undefined);
@@ -50,7 +72,7 @@ class ProfileTab extends React.Component {
                         >Сохранить</button>
                     </div>
 
-                    <button className="apply-btn" onClick={this.handleChangePassClick}>
+                    <button className="apply-btn" onClick={this.openChangePassDialog}>
                         Сменить пароль
                     </button>
 
@@ -59,7 +81,42 @@ class ProfileTab extends React.Component {
                     </button>
                 </div>
 
+                <div id="changePassDialog" className="modal"
+                     onClick={e => {if (e.target.id === 'changePassDialog') this.closeChangePassDialog()}}
+                     style={{display: this.state.changePassDialogOpened ? 'block' : 'none'}}>
 
+                    <div className="modal-content">
+                        <span className="small-action-btn close-dialog-btn"
+                              onClick={this.closeChangePassDialog}>
+                            ✕
+                        </span>
+
+                        <label htmlFor="old_pass"><b>Текущий пароль</b></label>
+                        <input type="password" placeholder="текущий пароль" name="old_pass" id="old_pass"
+                               value={this.state.changePass.oldPass}
+                               onChange={this.handleOldPassChange}/>
+
+                        <label htmlFor="new_pass"><b>Новый пароль</b></label>
+                        <input type="password" placeholder="новый пароль" name="new_pass" id="new_pass"
+                               value={this.state.changePass.newPass}
+                               onChange={this.handleNewPassChange}/>
+
+                        <label htmlFor="new_pass_repeat"><b>Новый пароль еще раз</b></label>
+                        <input type="password" placeholder="новый пароль еще раз" name="new_pass_repeat" id="new_pass_repeat"
+                               value={this.state.changePass.newPassRepeat}
+                               onChange={this.handleNewPassRepeatChange}/>
+
+                        <button type="submit" className="apply-btn"
+                                onClick={this.handleChangePass}
+                                disabled={
+                                    this.state.changePass.oldPass === '' ||
+                                    this.state.changePass.newPass === '' ||
+                                    this.state.changePass.newPassRepeat === ''
+                                }>
+                            Подтвердить
+                        </button>
+                    </div>
+                </div>
             </>
         );
     }
