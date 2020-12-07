@@ -1,7 +1,10 @@
 const NAV_NAMES = [
-    "🚪 Rooms",
-    "👤 Profile",
-    "🔔 Notifications"
+    // "🚪 Rooms",
+    // "👤 Profile",
+    // "🔔 Notifications"
+    <><i className="material-icons">meeting_room</i>Комнаты</>,
+    <><i className="material-icons">person</i>Профиль</>,
+    <><i className="material-icons">notifications</i>Приглашения</>,
 ]
 
 const NAVIGATION = (index, prop) => ([
