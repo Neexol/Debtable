@@ -120,6 +120,8 @@ class RoomsTab extends React.Component {
                             ✕
                         </span>
 
+                        <h2>Создать комнату</h2>
+
                         <label htmlFor="room_name"><b>Название новой комнаты</b></label>
                         <input type="text" placeholder="Название" name="room_name" id="room_name"
                                value={this.state.newRoomName}
@@ -142,6 +144,8 @@ class RoomsTab extends React.Component {
                               onClick={this.closeChangeRoomDialog}>
                             ✕
                         </span>
+
+                        <h2>Изменить название комнаты</h2>
 
                         <label htmlFor="new_room_name"><b>Новое название для комнаты</b></label>
                         <input type="text" placeholder="Название" name="new_room_name" id="new_room_name"
@@ -169,7 +173,7 @@ class RoomsTab extends React.Component {
                             ✕
                         </span>
 
-                        <h1>Удалить комнату "{this.roomById(this.state.selectedRoomId).name}"?</h1>
+                        <h2>Удалить комнату "{this.roomById(this.state.selectedRoomId).name}"?</h2>
 
                         <div style={{display: 'flex'}}>
                             <button type="submit" className="apply-btn"
