@@ -120,6 +120,8 @@ class ProfileTab extends React.Component {
                             ✕
                         </span>
 
+                        <h2>Сменить пароль</h2>
+
                         <label htmlFor="old_pass"><b>Текущий пароль</b></label>
                         <input type="password" placeholder="текущий пароль" name="old_pass" id="old_pass"
                                value={this.state.oldPass}
