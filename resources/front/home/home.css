@@ -130,7 +130,7 @@ input[type=text]:focus, input[type=password]:focus {
     width: 80%;
 }
 
-/* The Close Button */
+/* The action Button */
 .small-action-btn {
     color: #aaaaaa;
     font-size: 28px;
@@ -142,14 +142,19 @@ input[type=text]:focus, input[type=password]:focus {
     text-decoration: none;
     cursor: pointer;
 }
-
 .close-dialog-btn,
 .delete-room-btn {
     float: right;
 }
-
-
 .delete-room-btn,
 .edit-room-btn {
     font-size: 10pt;
+}
+
+.validation-errors {
+    border: #A40808 solid 0.1rem;
+    border-radius: 0.3rem;
+    color: #A40808;
+    background: #ffcece;
+    padding: 1rem;
 }

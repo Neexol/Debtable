@@ -4,11 +4,10 @@ class ProfileTab extends React.Component {
         this.state = {
             displayName: this.props.profile.display_name,
             changePassDialogOpened: false,
-            changePass: {
-                oldPass: '',
-                newPass: '',
-                newPassRepeat: ''
-            }
+            oldPass: '',
+            newPass: '',
+            newPassRepeat: '',
+            errorText: ''
         }
     };
 
@@ -17,11 +16,10 @@ class ProfileTab extends React.Component {
     });
     closeChangePassDialog = () => this.setState({
         changePassDialogOpened: false,
-        changePass: {
-            oldPass: '',
-            newPass: '',
-            newPassRepeat: ''
-        }
+        oldPass: '',
+        newPass: '',
+        newPassRepeat: '',
+        errorText: ''
     });
 
     handleDisplayNameChange = e => this.setState({displayName: e.target.value});
@@ -43,11 +41,42 @@ class ProfileTab extends React.Component {
         });
     }
 
-    handleOldPassChange = e => this.setState({changePass: {oldPass: e.target.value}});
-    handleNewPassChange = e => this.setState({changePass: {newPass: e.target.value}});
-    handleNewPassRepeatChange = e => this.setState({changePass: {newPassRepeat: e.target.value}});
+    handleOldPassChange = e => this.setState({oldPass: e.target.value});
+    handleNewPassChange = e => this.setState({newPass: e.target.value});
+    handleNewPassRepeatChange = e => this.setState({newPassRepeat: e.target.value});
 
-    handleChangePass = e => {}
+    setErrorText = error => this.setState({errorText: error});
+
+    handleChangePass = e => {
+        if (this.state.newPass !== this.state.newPassRepeat) {
+            this.setErrorText("Пароли не совпадают!");
+            return;
+        }
+        sendPatch(ROUTE_CHANGE_PASS, JSON.stringify({
+            old_password: this.state.oldPass,
+            new_password: this.state.newPass
+        }), response => {
+            this.closeChangePassDialog();
+        }, response => {
+            switch (response.status) {
+                case 400:
+                    this.setErrorText("Неизвестная ошибка!");
+                    break;
+                case 401:
+                    redirectToLogin();
+                    break;
+                case 403:
+                    this.setErrorText("Текущий пароль неправильный!");
+                    break;
+                case 415:
+                    this.setErrorText("Ошибка в теле запроса!");
+                    break;
+                case 422:
+                    this.setErrorText("Проверьте правильность данных!");
+                    break;
+            }
+        });
+    }
 
     handleLogOut = e => {
         setJWT(undefined);
@@ -93,25 +122,30 @@ class ProfileTab extends React.Component {
 
                         <label htmlFor="old_pass"><b>Текущий пароль</b></label>
                         <input type="password" placeholder="текущий пароль" name="old_pass" id="old_pass"
-                               value={this.state.changePass.oldPass}
+                               value={this.state.oldPass}
                                onChange={this.handleOldPassChange}/>
 
                         <label htmlFor="new_pass"><b>Новый пароль</b></label>
                         <input type="password" placeholder="новый пароль" name="new_pass" id="new_pass"
-                               value={this.state.changePass.newPass}
+                               value={this.state.newPass}
                                onChange={this.handleNewPassChange}/>
 
                         <label htmlFor="new_pass_repeat"><b>Новый пароль еще раз</b></label>
                         <input type="password" placeholder="новый пароль еще раз" name="new_pass_repeat" id="new_pass_repeat"
-                               value={this.state.changePass.newPassRepeat}
+                               value={this.state.newPassRepeat}
                                onChange={this.handleNewPassRepeatChange}/>
+
+                        <div className="validation-errors"
+                             style={{display: (this.state.errorText === '' ? 'none' : 'block')}}>
+                            {this.state.errorText}
+                        </div>
 
                         <button type="submit" className="apply-btn"
                                 onClick={this.handleChangePass}
                                 disabled={
-                                    this.state.changePass.oldPass === '' ||
-                                    this.state.changePass.newPass === '' ||
-                                    this.state.changePass.newPassRepeat === ''
+                                    this.state.oldPass === '' ||
+                                    this.state.newPass === '' ||
+                                    this.state.newPassRepeat === ''
                                 }>
                             Подтвердить
                         </button>
