@@ -50,7 +50,7 @@ class DebtsTable extends React.Component {
     }
 
     componentDidMount() {
-        $.get(`${HOST_URL}table.json`, (response) => {
+        $.get(`${HOST_URL}test/table.json`, (response) => {
             this.setState({
                 isLoading: false,
                 table: response
@@ -80,10 +80,8 @@ class DebtsTable extends React.Component {
                 this.state.isLoading
                     ? <Loader/>
                     : <div>
-                        <AddRecordForm
-                            table={this.state.table}
-                            members={this.props.members}
-                        />
+                        <AddRecordForm table={this.state.table}
+                                       members={this.props.members}/>
                         <table className={"redTable"}>
                             <thead>{DebtsTableHeaders}</thead>
                             <DebtsTableBody list={this.state.table}/>
@@ -114,38 +112,34 @@ class Multiselect extends React.Component {
         return (
             <div className="multiselect">
                 <div className="selectBox" onClick={this.toggleExpanded}>
-                    <input
-                        onBlur={() => this.setState({expanded: false})}
-                        readOnly={true}
-                        id="multiselect-focus-field"
-                        placeholder={this.props.placeholder}
-                        value={
-                            this.props.checkedList.length > 0
-                                ? this.props.checkedList.join(", ")
-                                : ""
-                        }
-                    />
+                    <input onBlur={() => this.setState({expanded: false})}
+                           readOnly={true}
+                           id="multiselect-focus-field"
+                           placeholder={this.props.placeholder}
+                           value={
+                               this.props.checkedList.length > 0
+                                   ? this.props.checkedList.join(", ")
+                                   : ""
+                           }/>
                 </div>
-                <div
-                    id="checkboxes"
-                    className="no-select"
-                    onMouseUp={this.hardFocus}
-                    onMouseDown={this.hardFocus}
-                    style={{display: (this.state.expanded ? "block" : "none")}}>
+                <div id="checkboxes"
+                     className="no-select"
+                     onMouseUp={this.hardFocus}
+                     onMouseDown={this.hardFocus}
+                     style={{display: (this.state.expanded ? "block" : "none")}}>
                     {
                         this.props.list.map(element => (
-                            <label
-                                htmlFor={element}
-                                key={element}>
-                                <input
-                                    type="checkbox"
-                                    id={element}
-                                    onClick={this.props.onListClick}
-                                />
+                            <label htmlFor={element}
+                                   key={element}>
+                                {element}
+                                <input type="checkbox"
+                                       id={element}
+                                       onClick={this.props.onListClick}/>
                                 {element}
                             </label>
                         ))
-                    }</div>
+                    }
+                </div>
             </div>
         );
     }
@@ -188,19 +182,16 @@ class AddRecordForm extends React.Component {
     render() {
         return (
             <table className="add-record-form"><tbody><tr>
-                <td><Multiselect
-                    list={this.props.members.map(member => member.name)}
-                    checkedList={this.state.whoOwes}
-                    onListClick={this.onListClick}
-                    placeholder="Кто (who?)"
-                /></td>
+                <td><Multiselect list={this.props.members.map(member => member.name)}
+                                 checkedList={this.state.whoOwes}
+                                 onListClick={this.onListClick}
+                                 placeholder="Кто (who?)"/></td>
 
                 <td><div>
-                    <input
-                        list="suggestions"
-                        placeholder="покупка"
-                        value={this.state.purchase}
-                        onChange={this.handlePurchaseChange}/>
+                    <input list="suggestions"
+                           placeholder="покупка"
+                           value={this.state.purchase}
+                           onChange={this.handlePurchaseChange}/>
                     <datalist id="suggestions">{
                         [...new Set(
                             this.props.table.map(record => record.purchase)
@@ -214,16 +205,13 @@ class AddRecordForm extends React.Component {
                     ))}
                 }</select></td>
 
-                <td><input
-                    name="cost"
-                    type="number"
-                    value={this.state.cost}
-                    onChange={this.handleCostChange}
-                    placeholder="Сколько"
-                /></td>
+                <td><input name="cost"
+                           type="number"
+                           value={this.state.cost}
+                           onChange={this.handleCostChange}
+                           placeholder="Сколько"/></td>
 
-                <td
-                    className="no-select"
+                <td className="no-select"
                     style={{
                         width: "1pt",
                         height: "25pt",
@@ -234,8 +222,7 @@ class AddRecordForm extends React.Component {
                         // lineHeight: "100%",
                         // padding: "0"
                     }}
-                    onClick={this.toggleDistribution}
-                >
+                    onClick={this.toggleDistribution}>
                     {/*{this.state.distribution ? "❖" : "◆"}*/}
                     {this.state.distribution ? "●" : "∷"}
                     {/*{this.state.distribution ? "⁕" : "⁂"}*/}

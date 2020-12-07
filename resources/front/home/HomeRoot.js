@@ -59,10 +59,9 @@ class HomeRoot extends React.Component {
     render() {
         return (
             <>
-                <HomeSideMenu
-                    checkedIndex={this.state.checkedIndex}
-                    onCheck={this.handleCheck}
-                />{
+                <HomeSideMenu checkedIndex={this.state.checkedIndex}
+                              onCheck={this.handleCheck}/>
+                {
                     this.state.profile === undefined || this.state.rooms === undefined
                         ? <div className="home__empty-page"><Loader/></div>
                         : <div className="home__content">{

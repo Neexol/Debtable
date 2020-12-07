@@ -120,3 +120,8 @@ table.redTable tfoot .links a{
 #checkboxes label:hover {
     background-color: #1e90ff;
 }
+
+
+.nav-icon {
+    margin-right: 0.3rem;
+}

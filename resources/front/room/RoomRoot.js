@@ -10,8 +10,7 @@ class RoomRoot extends React.Component {
     }
 
     componentDidMount() {
-        alert(document.cookie);
-        $.get(`${HOST_URL}members.json`, (response) => {
+        $.get(`${HOST_URL}test/members.json`, (response) => {
             this.setState({
                 isLoading: false,
                 members: response
@@ -28,10 +27,9 @@ class RoomRoot extends React.Component {
             return <Loader/>
         } else return (
             <>
-                <RoomTopMenu
-                    checkedIndex={this.state.checkedIndex}
-                    onCheck={this.handleCheck}
-                />
+                <RoomTopMenu checkedIndex={this.state.checkedIndex}
+                             onCheck={this.handleCheck}/>
+
                 <div className="room__content">
                     {NAVIGATION(this.state.checkedIndex, this.state.members)}
                 </div>

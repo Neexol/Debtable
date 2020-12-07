@@ -56,27 +56,23 @@ class AuthorizationRoot extends React.Component {
                     <label htmlFor="login"><b>Логин</b></label>
                     <input type="text" placeholder="Введите логин" name="login" id="login"
                            value={this.state.login}
-                           onChange={this.handleLoginChange}
-                    />
+                           onChange={this.handleLoginChange}/>
 
                     <label htmlFor="display_name"><b>Имя пользователя</b></label>
                     <input type="text" placeholder="Введите ваше имя" name="display_name" id="display_name"
                            value={this.state.displayName}
-                           onChange={this.handleDisplayNameChange}
-                    />
+                           onChange={this.handleDisplayNameChange}/>
 
                     <label htmlFor="pass"><b>Пароль</b></label>
                     <input type="password" placeholder="Введите пароль" name="pass" id="pass"
                            autoComplete="new-password"
                            value={this.state.pass}
-                           onChange={this.handlePassChange}
-                    />
+                           onChange={this.handlePassChange}/>
 
                     <label htmlFor="pass-repeat"><b>Пароль еще раз</b></label>
                     <input type="password" placeholder="Повторите пароль" name="pass-repeat" id="pass-repeat"
                            value={this.state.passRepeat}
-                           onChange={this.handlePassRepeatChange}
-                    />
+                           onChange={this.handlePassRepeatChange}/>
 
                     <div className="validation-errors"
                          style={{display: (this.state.errorText === '' ? 'none' : 'block')}}>
@@ -90,8 +86,9 @@ class AuthorizationRoot extends React.Component {
                                 this.state.displayName === '' ||
                                 this.state.pass        === '' ||
                                 this.state.passRepeat  === ''
-                            }
-                    >Зарегистрироваться</button>
+                            }>
+                        Зарегистрироваться
+                    </button>
                 </div>
 
                 <div className="container signin">
