@@ -12,3 +12,4 @@ val jsonBodyErrors = arrayOf(
 
 fun unauthorized(description: String = "Wrong token.") = HttpCodeResponse(HttpStatusCode.Unauthorized, listOf(), description)
 fun forbidden(description: String = "Access denied.") = HttpCodeResponse(HttpStatusCode.Forbidden, listOf(), description)
+fun conflict(description: String = "Conflict detected.") = HttpCodeResponse(HttpStatusCode.Conflict, listOf(), description)

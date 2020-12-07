@@ -8,6 +8,7 @@ import ru.neexol.debtable.db.entities.User
 import ru.neexol.debtable.utils.exceptions.ForbiddenException
 import ru.neexol.debtable.utils.exceptions.NotFoundException
 import ru.neexol.debtable.utils.ifFalse
+import ru.neexol.debtable.utils.ifTrue
 
 object RoomsRepository {
     suspend fun addRoom(
@@ -77,7 +78,11 @@ object RoomsRepository {
         user: User
     ) = newSuspendedTransaction(Dispatchers.IO) {
         getRoomById(roomId)?.run {
-            user.also {
+            invitedUsers.find {
+                it.id.value == user.id.value
+            }?.let {
+                return@run null
+            } ?: user.also {
                 invitedUsers = SizedCollection(invitedUsers + user)
             }
         }

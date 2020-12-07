@@ -15,6 +15,7 @@ import ru.neexol.debtable.repositories.UsersRepository
 import ru.neexol.debtable.utils.*
 import ru.neexol.debtable.utils.exceptions.ForbiddenException
 import ru.neexol.debtable.utils.exceptions.NotFoundException
+import ru.neexol.debtable.utils.exceptions.UserAlreadyInRoomException
 
 const val API_ROOM_INVITES = "$API_ROOM/invites"
 
@@ -42,6 +43,7 @@ private fun Route.invitesEndpoint() {
                 unauthorized(),
                 notFound(description = "User or room not found."),
                 forbidden(),
+                conflict(description = "User already in room."),
                 badRequest(description = "Other errors.")
             )
     ) { route, request ->
@@ -49,7 +51,7 @@ private fun Route.invitesEndpoint() {
             block = {
                 RoomsRepository.checkRoomAccess(route.room_id, getUserIdFromToken())
                 val userForInvite = UsersRepository.getUserById(request.userId) ?: throw NotFoundException()
-                RoomsRepository.inviteUserToRoom(route.room_id, userForInvite)!!
+                RoomsRepository.inviteUserToRoom(route.room_id, userForInvite) ?: throw UserAlreadyInRoomException()
             },
             onSuccess = { result ->
                 call.respond(UserResponse(result))
@@ -63,6 +65,10 @@ private fun Route.invitesEndpoint() {
                     is ForbiddenException -> call.respond(
                         HttpStatusCode.Forbidden,
                         "Access denied."
+                    )
+                    is UserAlreadyInRoomException -> call.respond(
+                        HttpStatusCode.Conflict,
+                        "User already in room."
                     )
                     else -> call.respond(
                         HttpStatusCode.BadRequest,
