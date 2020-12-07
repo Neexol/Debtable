@@ -195,6 +195,7 @@ class RoomsTab extends React.Component {
 function RoomTiles(props) {
     return (
         <> {
+            props.rooms.rooms.length === 0 ? (<strong>Нет комнат</strong>) :
             props.rooms.rooms.map(room => (
                 <div key={room.id}
                      className="card"
@@ -205,14 +206,6 @@ function RoomTiles(props) {
                      }}>
 
                     <span className="room-tile-icons-container">
-                        {/*<span className='small-action-btn edit-room-btn'*/}
-                        {/*      onClick={() => props.onChange(room.id)}>*/}
-                        {/*    <i className="material-icons room-tile-icon">edit</i>*/}
-                        {/*</span>*/}
-                        {/*<span className="small-action-btn delete-room-btn"*/}
-                        {/*      onClick={() => props.onDelete(room.id)}>*/}
-                        {/*    <i className="material-icons room-tile-icon">delete</i>*/}
-                        {/*</span>*/}
                         <span className='material-icons small-action-btn edit-room-btn'
                               style={{marginBottom: '0.3rem'}}
                               onClick={() => props.onChange(room.id)}>
