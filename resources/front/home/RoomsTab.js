@@ -115,7 +115,10 @@ class RoomsTab extends React.Component {
                      style={{display: this.state.addRoomDialogOpened ? 'block' : 'none'}}>
 
                     <div className="modal-content">
-                        <span className="close" onClick={this.closeAddRoomDialog}>✕</span>
+                        <span className="small-action-btn close-dialog-btn"
+                              onClick={this.closeAddRoomDialog}>
+                            ✕
+                        </span>
 
                         <label htmlFor="room_name"><b>Название новой комнаты</b></label>
                         <input type="text" placeholder="Название" name="room_name" id="room_name"
@@ -135,10 +138,13 @@ class RoomsTab extends React.Component {
                      style={{display: this.state.changeRoomDialogOpened ? 'block' : 'none'}}>
 
                     <div className="modal-content">
-                        <span className="close" onClick={this.closeChangeRoomDialog}>✕</span>
+                        <span className="small-action-btn close-dialog-btn"
+                              onClick={this.closeChangeRoomDialog}>
+                            ✕
+                        </span>
 
-                        <label htmlFor="room_name"><b>Новое название для комнаты</b></label>
-                        <input type="text" placeholder="Название" name="room_name" id="room_name"
+                        <label htmlFor="new_room_name"><b>Новое название для комнаты</b></label>
+                        <input type="text" placeholder="Название" name="new_room_name" id="new_room_name"
                                value={this.state.updatedRoomName}
                                onChange={this.handleUpdatedRoomNameChange}/>
 
@@ -158,9 +164,12 @@ class RoomsTab extends React.Component {
                      style={{display: this.state.deleteRoomDialogOpened ? 'block' : 'none'}}>
 
                     <div className="modal-content">
-                        <span className="close" onClick={this.closeDeleteRoomDialog}>✕</span>
+                        <span className="small-action-btn close-dialog-btn"
+                              onClick={this.closeDeleteRoomDialog}>
+                            ✕
+                        </span>
 
-                        <h1>Удалить эту комнату?</h1>
+                        <h1>Удалить комнату "{this.roomById(this.state.selectedRoomId).name}"?</h1>
 
                         <div style={{display: 'flex'}}>
                             <button type="submit" className="apply-btn"
@@ -186,19 +195,18 @@ function RoomTiles(props) {
                 <div key={room.id}
                      className="card"
                      onClick={e => {
-                         if (e.target.className === 'edit' ||
-                             e.target.className === 'close') return;
+                         if (e.target.className === 'edit-room' ||
+                             e.target.className === 'close-room') return;
                          console.log(`click on "${room.name}" [id: ${room.id}]`);
                      }}>
 
-                    <span className="close"
-                          style={{fontSize: '10pt'}}
+                    <span className="small-action-btn delete-room-btn"
                           onClick={() => props.onDelete(room.id)}>
                         ⌫
                     </span>
 
                     <b>{room.name}</b>
-                    <span className='edit'
+                    <span className='small-action-btn edit-room-btn'
                           onClick={() => props.onChange(room.id)}>
                         {' ✎'}
                     </span><br/>
