@@ -5,6 +5,7 @@ import io.ktor.auth.*
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
+import ru.neexol.debtable.db.tables.UsersRoomInvites
 import ru.neexol.debtable.db.tables.UsersRooms
 
 class User(id: EntityID<Int>): IntEntity(id), Principal {
@@ -14,4 +15,5 @@ class User(id: EntityID<Int>): IntEntity(id), Principal {
     var displayName by Users.displayName
     var passwordHash by Users.passwordHash
     var rooms by Room via UsersRooms
+    var invites by Room via UsersRoomInvites
 }

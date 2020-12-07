@@ -4,6 +4,7 @@ import db.tables.Rooms
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID
+import ru.neexol.debtable.db.tables.UsersRoomInvites
 import ru.neexol.debtable.db.tables.UsersRooms
 
 class Room(id: EntityID<Int>): IntEntity(id) {
@@ -11,4 +12,5 @@ class Room(id: EntityID<Int>): IntEntity(id) {
 
     var name by Rooms.name
     var users by User via UsersRooms
+    var invitedUsers by User via UsersRoomInvites
 }
