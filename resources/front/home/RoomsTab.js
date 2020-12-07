@@ -160,7 +160,7 @@ class RoomsTab extends React.Component {
                     <div className="modal-content">
                         <span className="close" onClick={this.closeDeleteRoomDialog}>✕</span>
 
-                        <h1>Удалить эту комнату?</h1>
+                        <h1>Удалить комнату "{this.roomById(this.state.selectedRoomId).name}"?</h1>
 
                         <div style={{display: 'flex'}}>
                             <button type="submit" className="apply-btn"
