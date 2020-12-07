@@ -117,7 +117,7 @@ class RoomsTab extends React.Component {
                     <div className="modal-content">
                         <span className="small-action-btn close-dialog-btn"
                               onClick={this.closeAddRoomDialog}>
-                            ✕
+                            <i className="material-icons">close</i>
                         </span>
 
                         <h2>Создать комнату</h2>
@@ -142,7 +142,7 @@ class RoomsTab extends React.Component {
                     <div className="modal-content">
                         <span className="small-action-btn close-dialog-btn"
                               onClick={this.closeChangeRoomDialog}>
-                            ✕
+                            <i className="material-icons">close</i>
                         </span>
 
                         <h2>Изменить название комнаты</h2>
@@ -170,7 +170,7 @@ class RoomsTab extends React.Component {
                     <div className="modal-content">
                         <span className="small-action-btn close-dialog-btn"
                               onClick={this.closeDeleteRoomDialog}>
-                            ✕
+                            <i className="material-icons">close</i>
                         </span>
 
                         <h2>Удалить комнату "{this.roomById(this.state.selectedRoomId).name}"?</h2>
@@ -195,6 +195,7 @@ class RoomsTab extends React.Component {
 function RoomTiles(props) {
     return (
         <> {
+            props.rooms.rooms.length === 0 ? (<strong>Нет комнат</strong>) :
             props.rooms.rooms.map(room => (
                 <div key={room.id}
                      className="card"
@@ -204,16 +205,20 @@ function RoomTiles(props) {
                          console.log(`click on "${room.name}" [id: ${room.id}]`);
                      }}>
 
-                    <span className="small-action-btn delete-room-btn"
-                          onClick={() => props.onDelete(room.id)}>
-                        ⌫
+                    <span className="room-tile-icons-container">
+                        <span className='material-icons small-action-btn edit-room-btn'
+                              style={{marginBottom: '0.3rem'}}
+                              onClick={() => props.onChange(room.id)}>
+                            edit
+                        </span>
+                        <span className="material-icons small-action-btn delete-room-btn"
+                              onClick={() => props.onDelete(room.id)}>
+                            delete
+                        </span>
                     </span>
 
-                    <b>{room.name}</b>
-                    <span className='small-action-btn edit-room-btn'
-                          onClick={() => props.onChange(room.id)}>
-                        {' ✎'}
-                    </span><br/>
+
+                    <b>{room.name}</b><br/>
                     id: {room.id}
                 </div>
             ))
