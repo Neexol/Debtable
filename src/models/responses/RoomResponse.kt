@@ -12,7 +12,7 @@ data class RoomResponse(
     constructor(room: Room): this(
         room.id.value,
         room.name,
-        transaction { room.users.map { UserResponse(it) } }
+        transaction { room.members.map { UserResponse(it) } }
     )
 
     companion object {

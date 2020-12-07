@@ -29,7 +29,7 @@ object RoomsRepository {
         user: User
     ) = newSuspendedTransaction(Dispatchers.IO) {
         getRoomById(roomId)?.let {
-            it.users = SizedCollection(it.users + user)
+            it.members = SizedCollection(it.members + user)
         }
     }
 
@@ -37,7 +37,7 @@ object RoomsRepository {
         roomId: Int,
         userId: Int
     ) = newSuspendedTransaction(Dispatchers.IO) {
-        getRoomById(roomId)?.users?.find { it.id.value == userId } != null
+        getRoomById(roomId)?.members?.find { it.id.value == userId } != null
     }
 
     suspend fun editRoom(
@@ -53,7 +53,8 @@ object RoomsRepository {
         roomId: Int
     ) = newSuspendedTransaction(Dispatchers.IO) {
         getRoomById(roomId)?.apply {
-            users = SizedCollection()
+            members = SizedCollection()
+            invitedUsers = SizedCollection()
             delete()
         }?.id?.value
     }
@@ -63,11 +64,11 @@ object RoomsRepository {
         memberId: Int
     ) = newSuspendedTransaction(Dispatchers.IO) {
         getRoomById(roomId)?.run {
-            users.find {
+            members.find {
                 it.id.value == memberId
-            }?.also { user ->
-                users = SizedCollection(users - user)
-                users.toList().ifEmpty { delete() }
+            }?.also {
+                members = SizedCollection(members.filter { it.id.value != memberId })
+                members.toList().ifEmpty { deleteRoom(roomId) }
             }?.id?.value
         }
     }
@@ -79,5 +80,55 @@ object RoomsRepository {
         val room = getRoomById(roomId) ?: throw NotFoundException()
         isRoomContainsUser(roomId, userId).ifFalse { throw ForbiddenException() }
         return room
+    }
+
+    suspend fun inviteUserToRoom(
+        roomId: Int,
+        user: User
+    ) = newSuspendedTransaction(Dispatchers.IO) {
+        getRoomById(roomId)?.run {
+            invitedUsers.find {
+                it.id.value == user.id.value
+            }?.let {
+                return@run null
+            } ?: user.also {
+                invitedUsers = SizedCollection(invitedUsers + user)
+            }
+        }
+    }
+
+    suspend fun getInvitedUsersToRoom(
+        roomId: Int
+    ) = newSuspendedTransaction(Dispatchers.IO) {
+        getRoomById(roomId)?.invitedUsers?.toList()
+    }
+
+    suspend fun acceptInvite(
+        inviteId: Int,
+        user: User
+    ) = newSuspendedTransaction(Dispatchers.IO) {
+        getRoomById(inviteId)?.run {
+            invitedUsers.find {
+                it.id.value == user.id.value
+            }?.let {
+                invitedUsers = SizedCollection(invitedUsers.filter { it.id.value != user.id.value })
+                members = SizedCollection(members + user)
+                inviteId
+            }
+        }
+    }
+
+    suspend fun deleteInvite(
+        roomId: Int,
+        userId: Int
+    ) = newSuspendedTransaction(Dispatchers.IO) {
+        getRoomById(roomId)?.run {
+            invitedUsers.find {
+                it.id.value == userId
+            }?.let {
+                invitedUsers = SizedCollection(invitedUsers.filter { it.id.value != userId })
+                userId
+            }
+        }
     }
 }

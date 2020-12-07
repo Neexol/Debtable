@@ -9,6 +9,7 @@ import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
 import ru.neexol.debtable.db.tables.DebtorsPurchases
+import ru.neexol.debtable.db.tables.UsersRoomInvites
 import ru.neexol.debtable.db.tables.UsersRooms
 
 object DatabaseFactory {
@@ -21,6 +22,7 @@ object DatabaseFactory {
                 create(Rooms)
                 create(Purchases)
                 create(UsersRooms)
+                create(UsersRoomInvites)
                 create(DebtorsPurchases)
             }
         }

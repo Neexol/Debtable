@@ -10,5 +10,6 @@ val jsonBodyErrors = arrayOf(
     HttpCodeResponse(HttpStatusCode.UnprocessableEntity, listOf(), "Lexical error in json.")
 )
 
-fun unauthorized(): HttpCodeResponse = HttpCodeResponse(HttpStatusCode.Unauthorized, listOf(), "Wrong token.")
-fun forbidden(): HttpCodeResponse = HttpCodeResponse(HttpStatusCode.Forbidden, listOf(), "Access denied.")
+fun unauthorized(description: String = "Wrong token.") = HttpCodeResponse(HttpStatusCode.Unauthorized, listOf(), description)
+fun forbidden(description: String = "Access denied.") = HttpCodeResponse(HttpStatusCode.Forbidden, listOf(), description)
+fun conflict(description: String = "Conflict detected.") = HttpCodeResponse(HttpStatusCode.Conflict, listOf(), description)
