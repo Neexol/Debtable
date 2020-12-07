@@ -83,6 +83,12 @@ object RoomsRepository {
         }
     }
 
+    suspend fun getInvitedUsersToRoom(
+        roomId: Int
+    ) = newSuspendedTransaction(Dispatchers.IO) {
+        getRoomById(roomId)?.invitedUsers?.toList()
+    }
+
     suspend fun checkRoomAccess(
         roomId: Int,
         userId: Int

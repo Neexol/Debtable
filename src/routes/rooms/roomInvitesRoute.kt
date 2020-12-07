@@ -8,6 +8,7 @@ import io.ktor.locations.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import ru.neexol.debtable.models.requests.CreateInviteRequest
+import ru.neexol.debtable.models.responses.InvitedUsersResponse
 import ru.neexol.debtable.models.responses.UserResponse
 import ru.neexol.debtable.repositories.RoomsRepository
 import ru.neexol.debtable.repositories.UsersRepository
@@ -58,6 +59,46 @@ private fun Route.invitesEndpoint() {
                     is NotFoundException -> call.respond(
                         HttpStatusCode.NotFound,
                         "User or room not found."
+                    )
+                    is ForbiddenException -> call.respond(
+                        HttpStatusCode.Forbidden,
+                        "Access denied."
+                    )
+                    else -> call.respond(
+                        HttpStatusCode.BadRequest,
+                        exception.toString()
+                    )
+                }
+            }
+        )
+    }
+
+    get<ApiRoomInvitesRoute>(
+        "Get users invited to this room"
+            .responds(
+                ok<InvitedUsersResponse>(
+                    example("Invited users example", InvitedUsersResponse.example)
+                ),
+                unauthorized(),
+                notFound(description = "Room not found."),
+                forbidden(),
+                badRequest(description = "Other errors.")
+            )
+    ) { route ->
+        foldRunCatching(
+            block = {
+                RoomsRepository.checkRoomAccess(route.room_id, getUserIdFromToken())
+                RoomsRepository.getInvitedUsersToRoom(route.room_id)!!
+            },
+            onSuccess = { result ->
+                val userResponsesList = result.map { UserResponse(it) }
+                call.respond(InvitedUsersResponse(userResponsesList))
+            },
+            onFailure = { exception ->
+                when (exception) {
+                    is NotFoundException -> call.respond(
+                        HttpStatusCode.NotFound,
+                        "Room not found."
                     )
                     is ForbiddenException -> call.respond(
                         HttpStatusCode.Forbidden,
