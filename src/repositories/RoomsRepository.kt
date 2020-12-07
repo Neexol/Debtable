@@ -8,7 +8,6 @@ import ru.neexol.debtable.db.entities.User
 import ru.neexol.debtable.utils.exceptions.ForbiddenException
 import ru.neexol.debtable.utils.exceptions.NotFoundException
 import ru.neexol.debtable.utils.ifFalse
-import ru.neexol.debtable.utils.ifTrue
 
 object RoomsRepository {
     suspend fun addRoom(
@@ -30,7 +29,7 @@ object RoomsRepository {
         user: User
     ) = newSuspendedTransaction(Dispatchers.IO) {
         getRoomById(roomId)?.let {
-            it.users = SizedCollection(it.users + user)
+            it.members = SizedCollection(it.members + user)
         }
     }
 
@@ -38,7 +37,7 @@ object RoomsRepository {
         roomId: Int,
         userId: Int
     ) = newSuspendedTransaction(Dispatchers.IO) {
-        getRoomById(roomId)?.users?.find { it.id.value == userId } != null
+        getRoomById(roomId)?.members?.find { it.id.value == userId } != null
     }
 
     suspend fun editRoom(
@@ -54,7 +53,8 @@ object RoomsRepository {
         roomId: Int
     ) = newSuspendedTransaction(Dispatchers.IO) {
         getRoomById(roomId)?.apply {
-            users = SizedCollection()
+            members = SizedCollection()
+            invitedUsers = SizedCollection()
             delete()
         }?.id?.value
     }
@@ -64,13 +64,22 @@ object RoomsRepository {
         memberId: Int
     ) = newSuspendedTransaction(Dispatchers.IO) {
         getRoomById(roomId)?.run {
-            users.find {
+            members.find {
                 it.id.value == memberId
-            }?.also { user ->
-                users = SizedCollection(users - user)
-                users.toList().ifEmpty { delete() }
+            }?.also {
+                members = SizedCollection(members.filter { it.id.value != memberId })
+                members.toList().ifEmpty { deleteRoom(roomId) }
             }?.id?.value
         }
+    }
+
+    suspend fun checkRoomAccess(
+        roomId: Int,
+        userId: Int
+    ): Room {
+        val room = getRoomById(roomId) ?: throw NotFoundException()
+        isRoomContainsUser(roomId, userId).ifFalse { throw ForbiddenException() }
+        return room
     }
 
     suspend fun inviteUserToRoom(
@@ -94,12 +103,18 @@ object RoomsRepository {
         getRoomById(roomId)?.invitedUsers?.toList()
     }
 
-    suspend fun checkRoomAccess(
+    suspend fun acceptInvite(
         roomId: Int,
-        userId: Int
-    ): Room {
-        val room = getRoomById(roomId) ?: throw NotFoundException()
-        isRoomContainsUser(roomId, userId).ifFalse { throw ForbiddenException() }
-        return room
+        user: User
+    ) = newSuspendedTransaction(Dispatchers.IO) {
+        getRoomById(roomId)?.run {
+            invitedUsers.find {
+                it.id.value == user.id.value
+            }?.let {
+                invitedUsers = SizedCollection(invitedUsers.filter { it.id.value != user.id.value })
+                members = SizedCollection(members + user)
+                roomId
+            }
+        }
     }
 }

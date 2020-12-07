@@ -164,5 +164,39 @@ private fun Route.roomsInvitesEndpoint() {
 
 @KtorExperimentalLocationsAPI
 private fun Route.roomsInviteEndpoint() {
-
+    post<ApiRoomsInviteRoute, Unit>(
+        "Accept an invite"
+            .responds(
+                ok<Int>(
+                    example("Accepted invite id", 3)
+                ),
+                unauthorized(),
+                notFound(description = "Invite not found."),
+                badRequest(description = "Other errors.")
+            )
+    ) { route, _ ->
+        foldRunCatching(
+            block = {
+                RoomsRepository.acceptInvite(
+                    route.invite_id,
+                    UsersRepository.getUserById(getUserIdFromToken())!!
+                ) ?: throw NotFoundException()
+            },
+            onSuccess = { result ->
+                call.respond(result)
+            },
+            onFailure = { exception ->
+                when (exception) {
+                    is NotFoundException -> call.respond(
+                        HttpStatusCode.NotFound,
+                        "Invite not found."
+                    )
+                    else -> call.respond(
+                        HttpStatusCode.BadRequest,
+                        exception.toString()
+                    )
+                }
+            }
+        )
+    }
 }

@@ -12,7 +12,7 @@ data class CompactRoomResponse(
     constructor(room: Room): this(
         room.id.value,
         room.name,
-        transaction { room.users.count().toInt() }
+        transaction { room.members.count().toInt() }
     )
 
     companion object {
