@@ -34,49 +34,63 @@ function setJWT(jwt) {
 
 const redirectToLogin = () => location.replace(HOST_URL+'auth/login.html');
 
-const sendRequest = (path, options) =>
-    $.ajax(HOST_URL+path, options);
+// const sendRequest = (path, options) => $.ajax(HOST_URL+path, options);
 
-function sendPost(path, body, onSuccess, onError) {
-    sendRequest(path, {
-        type: "POST",
-        data: body,
-        contentType: "application/json",
-        headers: { Authorization: `Bearer ${getJWT()}` },
-        success: onSuccess,
-        error: onError
-    });
-}
+const sendRequest = (path, method, body, onSuccess, onError) => $.ajax(HOST_URL+path, {
+    type: method,
+    data: body,
+    contentType: "application/json",
+    headers: { Authorization: `Bearer ${getJWT()}` },
+    success: onSuccess,
+    error: onError
+});
 
-function sendPatch(path, body, onSuccess, onError) {
-    sendRequest(path, {
-        type: "PATCH",
-        data: body,
-        contentType: "application/json",
-        headers: { Authorization: `Bearer ${getJWT()}` },
-        success: onSuccess,
-        error: onError
-    });
-}
+const sendGet    = (path,       onSuccess, onError) => sendRequest(path, 'GET',    null, onSuccess, onError);
+const sendPost   = (path, body, onSuccess, onError) => sendRequest(path, 'POST',   body, onSuccess, onError);
+const sendPatch  = (path, body, onSuccess, onError) => sendRequest(path, 'PATCH',  body, onSuccess, onError);
+const sendDelete = (path, body, onSuccess, onError) => sendRequest(path, 'DELETE', body, onSuccess, onError);
+const sendPut    = (path, body, onSuccess, onError) => sendRequest(path, 'PUT',    body, onSuccess, onError);
 
-function sendDelete(path, body, onSuccess, onError) {
-    sendRequest(path, {
-        type: "DELETE",
-        data: body,
-        contentType: "application/json",
-        headers: { Authorization: `Bearer ${getJWT()}` },
-        success: onSuccess,
-        error: onError
-    });
-}
+// function sendPost(path, body, onSuccess, onError) {
+//     sendRequest(path, {
+//         type: "POST",
+//         data: body,
+//         contentType: "application/json",
+//         headers: { Authorization: `Bearer ${getJWT()}` },
+//         success: onSuccess,
+//         error: onError
+//     });
+// }
+//
+// function sendPatch(path, body, onSuccess, onError) {
+//     sendRequest(path, {
+//         type: "PATCH",
+//         data: body,
+//         contentType: "application/json",
+//         headers: { Authorization: `Bearer ${getJWT()}` },
+//         success: onSuccess,
+//         error: onError
+//     });
+// }
+//
+// function sendDelete(path, body, onSuccess, onError) {
+//     sendRequest(path, {
+//         type: "DELETE",
+//         data: body,
+//         contentType: "application/json",
+//         headers: { Authorization: `Bearer ${getJWT()}` },
+//         success: onSuccess,
+//         error: onError
+//     });
+// }
 
-function sendGet(path, onSuccess, onError) {
-    sendRequest(path, {
-        type: "GET",
-        headers: { Authorization: `Bearer ${getJWT()}` },
-        success: onSuccess,
-        error: onError
-    });
-}
+// function sendGet(path, onSuccess, onError) {
+//     sendRequest(path, {
+//         type: "GET",
+//         headers: { Authorization: `Bearer ${getJWT()}` },
+//         success: onSuccess,
+//         error: onError
+//     });
+// }
 
 
