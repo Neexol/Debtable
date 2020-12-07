@@ -6,7 +6,6 @@ import io.ktor.routing.*
 import io.ktor.util.*
 import ru.neexol.debtable.routes.account.accountRoute
 import ru.neexol.debtable.routes.auth.authRoute
-import ru.neexol.debtable.routes.invites.invitesRoute
 import ru.neexol.debtable.routes.rooms.roomsRoute
 import ru.neexol.debtable.routes.users.usersRoute
 
@@ -20,6 +19,5 @@ fun Route.apiRoute() {
         accountRoute()
         usersRoute()
         roomsRoute()
-        invitesRoute()
     }
 }

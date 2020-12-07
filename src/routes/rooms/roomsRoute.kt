@@ -59,7 +59,7 @@ private fun Route.roomsEndpoint() {
                 RoomsRepository.addRoom(request.name).apply {
                     RoomsRepository.addUserToRoom(
                         this.id.value,
-                        getUserFromToken()
+                        UsersRepository.getUserById(getUserIdFromToken())!!
                     )
                 }
             },

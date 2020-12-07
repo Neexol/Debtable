@@ -8,7 +8,9 @@ import io.ktor.locations.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import ru.neexol.debtable.models.requests.CreateInviteRequest
+import ru.neexol.debtable.models.responses.CompactRoomResponse
 import ru.neexol.debtable.models.responses.InvitedUsersResponse
+import ru.neexol.debtable.models.responses.RoomsResponse
 import ru.neexol.debtable.models.responses.UserResponse
 import ru.neexol.debtable.repositories.RoomsRepository
 import ru.neexol.debtable.repositories.UsersRepository
@@ -18,18 +20,28 @@ import ru.neexol.debtable.utils.exceptions.NotFoundException
 import ru.neexol.debtable.utils.exceptions.UserAlreadyInRoomException
 
 const val API_ROOM_INVITES = "$API_ROOM/invites"
+const val API_ROOMS_INVITES = "$API_ROOMS/invites"
+const val API_ROOMS_INVITE = "$API_ROOMS/invites/{invite_id}"
 
 @Group("Invites")
 @KtorExperimentalLocationsAPI
 @Location(API_ROOM_INVITES) data class ApiRoomInvitesRoute(val room_id: Int)
+@Group("Invites")
+@KtorExperimentalLocationsAPI
+@Location(API_ROOMS_INVITES) class ApiRoomsInvitesRoute
+@Group("Invites")
+@KtorExperimentalLocationsAPI
+@Location(API_ROOMS_INVITE) data class ApiRoomsInviteRoute(val invite_id: Int)
 
 @KtorExperimentalLocationsAPI
 fun Route.roomInvitesRoute() {
-    invitesEndpoint()
+    roomInvitesEndpoint()
+    roomsInvitesEndpoint()
+    roomsInviteEndpoint()
 }
 
 @KtorExperimentalLocationsAPI
-private fun Route.invitesEndpoint() {
+private fun Route.roomInvitesEndpoint() {
     post<ApiRoomInvitesRoute, CreateInviteRequest>(
         "Invite user to room"
             .examples(
@@ -118,4 +130,39 @@ private fun Route.invitesEndpoint() {
             }
         )
     }
+}
+
+@KtorExperimentalLocationsAPI
+private fun Route.roomsInvitesEndpoint() {
+    get<ApiRoomsInvitesRoute> (
+        "Get user's invites"
+            .responds(
+                ok<RoomsResponse>(
+                    example("Invites example", RoomsResponse.example)
+                ),
+                unauthorized(),
+                badRequest(description = "Other errors.")
+            )
+    ) {
+        foldRunCatching(
+            block = {
+                UsersRepository.getUserInvites(getUserIdFromToken())!!
+            },
+            onSuccess = { result ->
+                val compactRoomList = result.map { CompactRoomResponse(it) }
+                call.respond(RoomsResponse(compactRoomList))
+            },
+            onFailure = { exception ->
+                call.respond(
+                    HttpStatusCode.BadRequest,
+                    exception.toString()
+                )
+            }
+        )
+    }
+}
+
+@KtorExperimentalLocationsAPI
+private fun Route.roomsInviteEndpoint() {
+
 }

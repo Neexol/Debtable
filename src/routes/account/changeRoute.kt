@@ -51,7 +51,7 @@ private fun Route.passwordEndpoint() {
     ) { _, request ->
         foldRunCatching(
             block = {
-                val user = getUserFromToken()
+                val user = UsersRepository.getUserById(getUserIdFromToken())!!
                 if (user.passwordHash != hashFunction(request.oldPassword)) {
                     throw NotMatchPasswordException()
                 }

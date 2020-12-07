@@ -13,7 +13,7 @@ import ru.neexol.debtable.routes.API
 import ru.neexol.debtable.utils.exceptions.IncorrectQueryException
 import ru.neexol.debtable.utils.exceptions.NotFoundException
 import ru.neexol.debtable.utils.foldRunCatching
-import ru.neexol.debtable.utils.getUserFromToken
+import ru.neexol.debtable.utils.getUserIdFromToken
 import ru.neexol.debtable.utils.unauthorized
 
 const val API_USERS = "$API/users"
@@ -46,7 +46,7 @@ private fun Route.meEndpoint() {
     ) {
         foldRunCatching(
             block = {
-                getUserFromToken()
+                UsersRepository.getUserById(getUserIdFromToken())!!
             },
             onSuccess = { result ->
                 call.respond(UserResponse(result))

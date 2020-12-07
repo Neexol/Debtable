@@ -56,4 +56,12 @@ object UsersRepository {
             displayName = newDisplayName
         }
     }
+
+    suspend fun getUserInvites(
+        userId: Int
+    ) = newSuspendedTransaction(Dispatchers.IO) {
+        getUserById(userId)?.run {
+            invites.toList()
+        }
+    }
 }
