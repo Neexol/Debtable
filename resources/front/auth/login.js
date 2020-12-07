@@ -4,13 +4,15 @@ class AuthorizationRoot extends React.Component {
         this.state = {
             login: '',
             pass: '',
-            errLogin: 'none',
-            errPass: 'none'
+            errorText: ''
         };
     }
 
+    setErrorText = error => this.setState({errorText: error});
+
     handleLoginChange = e => this.setState({login: e.target.value});
     handlePassChange  = e => this.setState({pass:  e.target.value});
+
     handleSubmitClick = e => {
         sendPost(ROUTE_LOGIN, JSON.stringify({
             username: this.state.login,
@@ -18,14 +20,22 @@ class AuthorizationRoot extends React.Component {
         }), response => {
             setJWT(response);
             location.replace(HOST_URL+'home/home.html');
-            // alert(`All is good! ${response.responseText}\n${response.text}\n${response.body}\n${response}`);
         }, response => {
             switch (response.status) {
+                case 401:
+                    this.setErrorText("Неправильный пароль!");
+                    break;
                 case 404:
-                    this.setState({errLogin: 'block', errPass: 'none'});
+                    this.setErrorText("Пользователь не найден!");
+                    break;
+                case 415:
+                    this.setErrorText("Ошибка в теле запроса!");
+                    break;
+                case 422:
+                    this.setErrorText("Проверьте правильность данных!");
                     break;
                 default:
-                    this.setState({errLogin: 'none', errPass: 'block'});
+                    this.setErrorText("Неизвестная ошибка!");
                     break;
             }
         });
@@ -41,16 +51,15 @@ class AuthorizationRoot extends React.Component {
                     <input type="text" placeholder="Введите логин" name="login" id="login"
                            value={this.state.login}
                            onChange={this.handleLoginChange}/>
-                    <div className="error-tooltip" style={{display: this.state.errLogin}}>
-                        *Пользователь с таким логином не найден
-                    </div>
 
                     <label htmlFor="pass"><b>Пароль</b></label>
                     <input type="password" placeholder="Введите пароль" name="pass" id="pass"
                            value={this.state.pass}
                            onChange={this.handlePassChange}/>
-                    <div className="error-tooltip" style={{display: this.state.errPass}}>
-                        *Ошибка в логине или пароле
+
+                    <div className="validation-errors"
+                         style={{display: (this.state.errorText === '' ? 'none' : 'block')}}>
+                        {this.state.errorText}
                     </div>
 
                     <button type="submit" className="apply-btn"

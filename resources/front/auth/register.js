@@ -29,7 +29,6 @@ class AuthorizationRoot extends React.Component {
         }), response => {
             setJWT(response);
             location.replace(HOST_URL+'home/home.html');
-            // alert(`All is good! ${response.responseText}\n${response.text}\n${response.body}\n${response}`);
         }, response => {
             switch (response.status) {
                 case 409:
