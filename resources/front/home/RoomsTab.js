@@ -137,8 +137,8 @@ class RoomsTab extends React.Component {
                     <div className="modal-content">
                         <span className="close" onClick={this.closeChangeRoomDialog}>✕</span>
 
-                        <label htmlFor="room_name"><b>Новое название для комнаты</b></label>
-                        <input type="text" placeholder="Название" name="room_name" id="room_name"
+                        <label htmlFor="new_room_name"><b>Новое название для комнаты</b></label>
+                        <input type="text" placeholder="Название" name="new_room_name" id="new_room_name"
                                value={this.state.updatedRoomName}
                                onChange={this.handleUpdatedRoomNameChange}/>
 
