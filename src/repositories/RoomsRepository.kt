@@ -104,16 +104,30 @@ object RoomsRepository {
     }
 
     suspend fun acceptInvite(
-        roomId: Int,
+        inviteId: Int,
         user: User
     ) = newSuspendedTransaction(Dispatchers.IO) {
-        getRoomById(roomId)?.run {
+        getRoomById(inviteId)?.run {
             invitedUsers.find {
                 it.id.value == user.id.value
             }?.let {
                 invitedUsers = SizedCollection(invitedUsers.filter { it.id.value != user.id.value })
                 members = SizedCollection(members + user)
-                roomId
+                inviteId
+            }
+        }
+    }
+
+    suspend fun deleteInvite(
+        roomId: Int,
+        userId: Int
+    ) = newSuspendedTransaction(Dispatchers.IO) {
+        getRoomById(roomId)?.run {
+            invitedUsers.find {
+                it.id.value == userId
+            }?.let {
+                invitedUsers = SizedCollection(invitedUsers.filter { it.id.value != userId })
+                userId
             }
         }
     }

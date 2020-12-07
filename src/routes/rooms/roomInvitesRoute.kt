@@ -7,7 +7,6 @@ import io.ktor.http.*
 import io.ktor.locations.*
 import io.ktor.response.*
 import io.ktor.routing.*
-import ru.neexol.debtable.models.requests.CreateInviteRequest
 import ru.neexol.debtable.models.responses.CompactRoomResponse
 import ru.neexol.debtable.models.responses.InvitedUsersResponse
 import ru.neexol.debtable.models.responses.RoomsResponse
@@ -15,17 +14,18 @@ import ru.neexol.debtable.models.responses.UserResponse
 import ru.neexol.debtable.repositories.RoomsRepository
 import ru.neexol.debtable.repositories.UsersRepository
 import ru.neexol.debtable.utils.*
-import ru.neexol.debtable.utils.exceptions.ForbiddenException
-import ru.neexol.debtable.utils.exceptions.NotFoundException
-import ru.neexol.debtable.utils.exceptions.UserAlreadyInRoomException
+import ru.neexol.debtable.utils.exceptions.*
 
 const val API_ROOM_INVITES = "$API_ROOM/invites"
 const val API_ROOMS_INVITES = "$API_ROOMS/invites"
-const val API_ROOMS_INVITE = "$API_ROOMS/invites/{invite_id}"
+const val API_ROOMS_INVITE = "$API_ROOMS_INVITES/{invite_id}"
 
 @Group("Invites")
 @KtorExperimentalLocationsAPI
 @Location(API_ROOM_INVITES) data class ApiRoomInvitesRoute(val room_id: Int)
+@Group("Invites")
+@KtorExperimentalLocationsAPI
+@Location(API_ROOM_INVITES) data class ApiRoomInvitesWithUserIdRoute(val room_id: Int, val user_id: Int)
 @Group("Invites")
 @KtorExperimentalLocationsAPI
 @Location(API_ROOMS_INVITES) class ApiRoomsInvitesRoute
@@ -42,28 +42,30 @@ fun Route.roomInvitesRoute() {
 
 @KtorExperimentalLocationsAPI
 private fun Route.roomInvitesEndpoint() {
-    post<ApiRoomInvitesRoute, CreateInviteRequest>(
+    get<ApiRoomInvitesWithUserIdRoute>(
         "Invite user to room"
-            .examples(
-                example("Create invite example", CreateInviteRequest.example)
-            )
             .responds(
                 ok<UserResponse>(
                     example("Invited user example", UserResponse.example)
                 ),
-                *jsonBodyErrors,
                 unauthorized(),
                 notFound(description = "User or room not found."),
                 forbidden(),
-                conflict(description = "User already in room."),
+                conflict(description = "User already in room or already invited."),
                 badRequest(description = "Other errors.")
             )
-    ) { route, request ->
+    ) { route ->
         foldRunCatching(
             block = {
+                println("handled")
                 RoomsRepository.checkRoomAccess(route.room_id, getUserIdFromToken())
-                val userForInvite = UsersRepository.getUserById(request.userId) ?: throw NotFoundException()
-                RoomsRepository.inviteUserToRoom(route.room_id, userForInvite) ?: throw UserAlreadyInRoomException()
+                RoomsRepository.isRoomContainsUser(route.room_id, route.user_id).ifTrue {
+                    throw UserAlreadyInRoomException()
+                }
+                RoomsRepository.inviteUserToRoom(
+                    route.room_id,
+                    UsersRepository.getUserById(route.user_id) ?: throw NotFoundException()
+                ) ?: throw UserAlreadyInvitedException()
             },
             onSuccess = { result ->
                 call.respond(UserResponse(result))
@@ -77,6 +79,10 @@ private fun Route.roomInvitesEndpoint() {
                     is ForbiddenException -> call.respond(
                         HttpStatusCode.Forbidden,
                         "Access denied."
+                    )
+                    is UserAlreadyInvitedException -> call.respond(
+                        HttpStatusCode.Conflict,
+                        "User already invited."
                     )
                     is UserAlreadyInRoomException -> call.respond(
                         HttpStatusCode.Conflict,
@@ -130,6 +136,45 @@ private fun Route.roomInvitesEndpoint() {
             }
         )
     }
+
+    delete<ApiRoomInvitesWithUserIdRoute>(
+        "Delete invite to this room"
+            .responds(
+                ok<Int>(
+                    example("Deleted user id example", 3)
+                ),
+                unauthorized(),
+                notFound(description = "Invite or room not found."),
+                forbidden(),
+                badRequest(description = "Other errors.")
+            )
+    ) { route ->
+        foldRunCatching(
+            block = {
+                RoomsRepository.checkRoomAccess(route.room_id, getUserIdFromToken())
+                RoomsRepository.deleteInvite(route.room_id, route.user_id) ?: throw NotFoundException()
+            },
+            onSuccess = { result ->
+                call.respond(result)
+            },
+            onFailure = { exception ->
+                when (exception) {
+                    is NotFoundException -> call.respond(
+                        HttpStatusCode.NotFound,
+                        "Invite or room not found."
+                    )
+                    is ForbiddenException -> call.respond(
+                        HttpStatusCode.Forbidden,
+                        "Access denied."
+                    )
+                    else -> call.respond(
+                        HttpStatusCode.BadRequest,
+                        exception.toString()
+                    )
+                }
+            }
+        )
+    }
 }
 
 @KtorExperimentalLocationsAPI
@@ -164,7 +209,7 @@ private fun Route.roomsInvitesEndpoint() {
 
 @KtorExperimentalLocationsAPI
 private fun Route.roomsInviteEndpoint() {
-    post<ApiRoomsInviteRoute, Unit>(
+    get<ApiRoomsInviteRoute>(
         "Accept an invite"
             .responds(
                 ok<Int>(
@@ -174,12 +219,49 @@ private fun Route.roomsInviteEndpoint() {
                 notFound(description = "Invite not found."),
                 badRequest(description = "Other errors.")
             )
-    ) { route, _ ->
+    ) { route ->
         foldRunCatching(
             block = {
                 RoomsRepository.acceptInvite(
                     route.invite_id,
                     UsersRepository.getUserById(getUserIdFromToken())!!
+                ) ?: throw NotFoundException()
+            },
+            onSuccess = { result ->
+                call.respond(result)
+            },
+            onFailure = { exception ->
+                when (exception) {
+                    is NotFoundException -> call.respond(
+                        HttpStatusCode.NotFound,
+                        "Invite not found."
+                    )
+                    else -> call.respond(
+                        HttpStatusCode.BadRequest,
+                        exception.toString()
+                    )
+                }
+            }
+        )
+    }
+
+    delete<ApiRoomsInviteRoute>(
+        "Decline an invite"
+            .responds(
+                ok<Int>(
+                    example("Declined invite id", 3)
+                ),
+                unauthorized(),
+                notFound(description = "Invite not found."),
+                badRequest(description = "Other errors.")
+            )
+    ) { route ->
+        foldRunCatching(
+            block = {
+                RoomsRepository.getRoomById(route.invite_id)!!
+                UsersRepository.declineInvite(
+                    getUserIdFromToken(),
+                    route.invite_id
                 ) ?: throw NotFoundException()
             },
             onSuccess = { result ->

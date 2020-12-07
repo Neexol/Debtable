@@ -93,7 +93,7 @@ private fun Route.findEndpoint() {
                     )
                     is IncorrectQueryException -> call.respond(
                         HttpStatusCode.BadRequest,
-                        "Incorrect query."
+                        "Missing id or username."
                     )
                     else -> call.respond(
                         HttpStatusCode.BadRequest,
