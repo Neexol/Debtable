@@ -22,6 +22,7 @@ import ru.neexol.debtable.utils.exceptions.WrongPasswordException
 import ru.neexol.debtable.utils.foldRunCatching
 import ru.neexol.debtable.utils.interceptJsonBodyError
 import ru.neexol.debtable.utils.jsonBodyErrors
+import ru.neexol.debtable.utils.unauthorized
 
 const val API_AUTH = "$API/auth"
 const val API_AUTH_REGISTER = "$API_AUTH/register"
@@ -103,7 +104,7 @@ private fun Route.loginEndpoint() {
                 ),
                 *jsonBodyErrors,
                 notFound(description = "User not found."),
-                HttpCodeResponse(HttpStatusCode.Unauthorized, listOf(), "Wrong password.")
+                unauthorized("Wrong password.")
             )
     ) { _, request ->
         foldRunCatching(
