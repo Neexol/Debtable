@@ -7,6 +7,8 @@ import io.ktor.http.*
 import io.ktor.locations.*
 import io.ktor.response.*
 import io.ktor.routing.*
+import ru.neexol.debtable.models.requests.AcceptInviteRequest
+import ru.neexol.debtable.models.requests.CreateInviteRequest
 import ru.neexol.debtable.models.responses.CompactRoomResponse
 import ru.neexol.debtable.models.responses.InvitedUsersResponse
 import ru.neexol.debtable.models.responses.RoomsResponse
@@ -42,56 +44,60 @@ fun Route.roomInvitesRoute() {
 
 @KtorExperimentalLocationsAPI
 private fun Route.roomInvitesEndpoint() {
-    get<ApiRoomInvitesWithUserIdRoute>(
+    post<ApiRoomInvitesRoute, CreateInviteRequest>(
         "Invite user to room"
+            .examples(
+                example("Create invite example", CreateInviteRequest.example)
+            )
             .responds(
                 ok<UserResponse>(
                     example("Invited user example", UserResponse.example)
                 ),
+                *jsonBodyErrors,
                 unauthorized(),
                 notFound(description = "User or room not found."),
                 forbidden(),
                 conflict(description = "User already in room or already invited."),
-                badRequest(description = "Other errors.")
             )
-    ) { route ->
+    ) { route, request ->
         foldRunCatching(
             block = {
-                println("handled")
                 RoomsRepository.checkRoomAccess(route.room_id, getUserIdFromToken())
-                RoomsRepository.isRoomContainsUser(route.room_id, route.user_id).ifTrue {
+                RoomsRepository.isRoomContainsUser(route.room_id, request.userId).ifTrue {
                     throw UserAlreadyInRoomException()
                 }
                 RoomsRepository.inviteUserToRoom(
                     route.room_id,
-                    UsersRepository.getUserById(route.user_id) ?: throw NotFoundException()
+                    UsersRepository.getUserById(request.userId) ?: throw NotFoundException()
                 ) ?: throw UserAlreadyInvitedException()
             },
             onSuccess = { result ->
                 call.respond(UserResponse(result))
             },
             onFailure = { exception ->
-                when (exception) {
-                    is NotFoundException -> call.respond(
-                        HttpStatusCode.NotFound,
-                        "User or room not found."
-                    )
-                    is ForbiddenException -> call.respond(
-                        HttpStatusCode.Forbidden,
-                        "Access denied."
-                    )
-                    is UserAlreadyInvitedException -> call.respond(
-                        HttpStatusCode.Conflict,
-                        "User already invited."
-                    )
-                    is UserAlreadyInRoomException -> call.respond(
-                        HttpStatusCode.Conflict,
-                        "User already in room."
-                    )
-                    else -> call.respond(
-                        HttpStatusCode.BadRequest,
-                        exception.toString()
-                    )
+                if (!interceptJsonBodyError(exception)) {
+                    when (exception) {
+                        is NotFoundException -> call.respond(
+                            HttpStatusCode.NotFound,
+                            "User or room not found."
+                        )
+                        is ForbiddenException -> call.respond(
+                            HttpStatusCode.Forbidden,
+                            "Access denied."
+                        )
+                        is UserAlreadyInvitedException -> call.respond(
+                            HttpStatusCode.Conflict,
+                            "User already invited."
+                        )
+                        is UserAlreadyInRoomException -> call.respond(
+                            HttpStatusCode.Conflict,
+                            "User already in room."
+                        )
+                        else -> call.respond(
+                            HttpStatusCode.BadRequest,
+                            exception.toString()
+                        )
+                    }
                 }
             }
         )
@@ -205,25 +211,25 @@ private fun Route.roomsInvitesEndpoint() {
             }
         )
     }
-}
 
-@KtorExperimentalLocationsAPI
-private fun Route.roomsInviteEndpoint() {
-    get<ApiRoomsInviteRoute>(
+    post<ApiRoomsInvitesRoute, AcceptInviteRequest>(
         "Accept an invite"
+            .examples(
+                example("Accept invite example", AcceptInviteRequest.example)
+            )
             .responds(
                 ok<Int>(
                     example("Accepted invite id", 3)
                 ),
+                *jsonBodyErrors,
                 unauthorized(),
-                notFound(description = "Invite not found."),
-                badRequest(description = "Other errors.")
+                notFound(description = "Invite not found.")
             )
-    ) { route ->
+    ) { _, request ->
         foldRunCatching(
             block = {
                 RoomsRepository.acceptInvite(
-                    route.invite_id,
+                    request.inviteId,
                     UsersRepository.getUserById(getUserIdFromToken())!!
                 ) ?: throw NotFoundException()
             },
@@ -231,19 +237,25 @@ private fun Route.roomsInviteEndpoint() {
                 call.respond(result)
             },
             onFailure = { exception ->
-                when (exception) {
-                    is NotFoundException -> call.respond(
-                        HttpStatusCode.NotFound,
-                        "Invite not found."
-                    )
-                    else -> call.respond(
-                        HttpStatusCode.BadRequest,
-                        exception.toString()
-                    )
+                if (!interceptJsonBodyError(exception)) {
+                    when (exception) {
+                        is NotFoundException -> call.respond(
+                            HttpStatusCode.NotFound,
+                            "Invite not found."
+                        )
+                        else -> call.respond(
+                            HttpStatusCode.BadRequest,
+                            exception.toString()
+                        )
+                    }
                 }
             }
         )
     }
+}
+
+@KtorExperimentalLocationsAPI
+private fun Route.roomsInviteEndpoint() {
 
     delete<ApiRoomsInviteRoute>(
         "Decline an invite"
