@@ -67,8 +67,9 @@ class AuthorizationRoot extends React.Component {
                             disabled={
                                 this.state.login === '' ||
                                 this.state.pass  === ''
-                            }
-                    >Войти</button>
+                            }>
+                        Войти
+                    </button>
                 </div>
 
                 <div className="container signin">

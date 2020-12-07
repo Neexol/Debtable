@@ -97,8 +97,9 @@ class ProfileTab extends React.Component {
                                onChange={this.handleDisplayNameChange}/>
                         <button type="submit" className="apply-btn"
                                 onClick={this.handleSaveClick}
-                                disabled={this.state.displayName === this.props.profile.display_name}
-                        >Сохранить</button>
+                                disabled={this.state.displayName === this.props.profile.display_name}>
+                            Сохранить
+                        </button>
                     </div>
 
                     <button className="apply-btn" onClick={this.openChangePassDialog}>
@@ -117,7 +118,7 @@ class ProfileTab extends React.Component {
                     <div className="modal-content">
                         <span className="small-action-btn close-dialog-btn"
                               onClick={this.closeChangePassDialog}>
-                            ✕
+                            <i className="material-icons">close</i>
                         </span>
 
                         <h2>Сменить пароль</h2>
