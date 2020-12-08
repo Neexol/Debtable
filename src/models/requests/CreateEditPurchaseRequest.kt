@@ -10,7 +10,7 @@ data class CreateEditPurchaseRequest(
     @SerializedName("debtor_ids") val debtorIds: List<Int>
 ) {
     companion object {
-        val example = mapOf(
+        val EXAMPLE = mapOf(
             "name" to "Milk",
             "debt" to "99",
             "date" to "22.09.2000",

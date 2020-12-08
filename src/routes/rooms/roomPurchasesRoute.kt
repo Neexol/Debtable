@@ -13,9 +13,11 @@ import ru.neexol.debtable.repositories.PurchasesRepository
 import ru.neexol.debtable.repositories.RoomsRepository
 import ru.neexol.debtable.repositories.UsersRepository
 import ru.neexol.debtable.utils.*
-import ru.neexol.debtable.utils.exceptions.EmptyDebtorsException
-import ru.neexol.debtable.utils.exceptions.ForbiddenException
-import ru.neexol.debtable.utils.exceptions.NotFoundException
+import ru.neexol.debtable.utils.exceptions.access.RoomAccessException
+import ru.neexol.debtable.utils.exceptions.access.UserAccessException
+import ru.neexol.debtable.utils.exceptions.bad_request.EmptyDebtorsException
+import ru.neexol.debtable.utils.exceptions.not_found.PurchaseNotFoundException
+import ru.neexol.debtable.utils.exceptions.not_found.RoomNotFoundException
 
 const val API_ROOM_PURCHASES = "$API_ROOM/purchases"
 const val API_ROOM_PURCHASE = "$API_ROOM_PURCHASES/{purchase_id}"
@@ -40,11 +42,11 @@ private fun Route.purchasesEndpoint() {
         "Get room purchases"
             .responds(
                 ok<List<PurchaseResponse>>(
-                    example("Purchases example", listOf(PurchaseResponse.example, PurchaseResponse.example, PurchaseResponse.example))
+                    example("Purchases example", PurchaseResponse.EXAMPLES, description = "Success.")
                 ),
                 unauthorized(),
                 notFound(description = "Room not found."),
-                forbidden(),
+                forbidden(description = "Access to room denied."),
                 badRequest(description = "Other errors.")
             )
     ) { route ->
@@ -59,13 +61,13 @@ private fun Route.purchasesEndpoint() {
             },
             onFailure = { exception ->
                 when (exception) {
-                    is NotFoundException -> call.respond(
+                    is RoomNotFoundException -> call.respond(
                         HttpStatusCode.NotFound,
                         "Room not found."
                     )
-                    is ForbiddenException -> call.respond(
+                    is RoomAccessException -> call.respond(
                         HttpStatusCode.Forbidden,
-                        "Access denied."
+                        "Access to room denied."
                     )
                     else -> call.respond(
                         HttpStatusCode.BadRequest,
@@ -79,15 +81,15 @@ private fun Route.purchasesEndpoint() {
     post<ApiRoomPurchasesRoute, CreateEditPurchaseRequest>(
         "Create purchase"
             .examples(
-                example("Create purchase example", CreateEditPurchaseRequest.example)
+                example("Create purchase example", CreateEditPurchaseRequest.EXAMPLE)
             )
             .responds(
                 ok<PurchaseResponse>(
-                    example("Purchase example", PurchaseResponse.example)
+                    example("Purchase example", PurchaseResponse.EXAMPLES[1], description = "Success.")
                 ),
                 *jsonBodyErrors,
                 unauthorized(),
-                notFound(description = "Users or room not found."),
+                notFound(description = "Room not found."),
                 forbidden(description = "Access to room or user denied.")
             )
     ) { route, request ->
@@ -97,7 +99,7 @@ private fun Route.purchasesEndpoint() {
                 RoomsRepository.checkRoomAccess(route.room_id, getUserIdFromToken()).let { room ->
                     (request.debtorIds + request.buyerId).forEach {
                         RoomsRepository.isRoomContainsUser(room.id.value, it).ifFalse {
-                            throw ForbiddenException()
+                            throw UserAccessException()
                         }
                     }
 
@@ -117,13 +119,17 @@ private fun Route.purchasesEndpoint() {
             onFailure =  { exception ->
                 if (!interceptJsonBodyError(exception)) {
                     when (exception) {
-                        is NotFoundException -> call.respond(
+                        is RoomNotFoundException -> call.respond(
                             HttpStatusCode.NotFound,
-                            "Users or room not found."
+                            "Room not found."
                         )
-                        is ForbiddenException -> call.respond(
+                        is UserAccessException -> call.respond(
                             HttpStatusCode.Forbidden,
-                            "Access to room or user denied."
+                            "Access to user denied."
+                        )
+                        is RoomAccessException -> call.respond(
+                            HttpStatusCode.Forbidden,
+                            "Access to room denied."
                         )
                         is EmptyDebtorsException -> call.respond(
                             HttpStatusCode.BadRequest,
@@ -145,11 +151,11 @@ private fun Route.purchaseEndpoint() {
     put<ApiRoomPurchaseRoute, CreateEditPurchaseRequest>(
         "Edit purchase"
             .examples(
-                example("Edit purchase example", CreateEditPurchaseRequest.example)
+                example("Edit purchase example", CreateEditPurchaseRequest.EXAMPLE)
             )
             .responds(
                 ok<PurchaseResponse>(
-                    example("Purchase example", PurchaseResponse.example)
+                    example("Purchase example", PurchaseResponse.EXAMPLES[0], description = "Success.")
                 ),
                 *jsonBodyErrors,
                 unauthorized(),
@@ -163,7 +169,7 @@ private fun Route.purchaseEndpoint() {
                 RoomsRepository.checkRoomAccess(route.room_id, getUserIdFromToken())
                 (request.debtorIds + request.buyerId).forEach {
                     RoomsRepository.isRoomContainsUser(route.room_id, it).ifFalse {
-                        throw ForbiddenException()
+                        throw UserAccessException()
                     }
                 }
 
@@ -174,7 +180,7 @@ private fun Route.purchaseEndpoint() {
                     request.name,
                     request.debt / request.debtorIds.size,
                     request.date,
-                ) ?: throw NotFoundException()
+                ) ?: throw PurchaseNotFoundException()
             },
             onSuccess = { result ->
                 call.respond(PurchaseResponse(result))
@@ -182,13 +188,21 @@ private fun Route.purchaseEndpoint() {
             onFailure =  { exception ->
                 if (!interceptJsonBodyError(exception)) {
                     when (exception) {
-                        is NotFoundException -> call.respond(
+                        is RoomNotFoundException -> call.respond(
                             HttpStatusCode.NotFound,
-                            "Purchase or users or room not found."
+                            "Room not found."
                         )
-                        is ForbiddenException -> call.respond(
+                        is PurchaseNotFoundException -> call.respond(
+                            HttpStatusCode.NotFound,
+                            "Purchase not found."
+                        )
+                        is UserAccessException -> call.respond(
                             HttpStatusCode.Forbidden,
-                            "Access to room or user denied."
+                            "Access to user denied."
+                        )
+                        is RoomAccessException -> call.respond(
+                            HttpStatusCode.Forbidden,
+                            "Access to room denied."
                         )
                         is EmptyDebtorsException -> call.respond(
                             HttpStatusCode.BadRequest,
@@ -208,18 +222,18 @@ private fun Route.purchaseEndpoint() {
         "Delete purchase"
             .responds(
                 ok<Int>(
-                    example("Deleted purchase id example", 3)
+                    example("Deleted purchase id example", 3, description = "Success.")
                 ),
                 unauthorized(),
                 notFound(description = "Purchase or room not found."),
-                forbidden(),
+                forbidden(description = "Access to room denied."),
                 badRequest(description = "Other errors.")
             )
     ) { route ->
         foldRunCatching(
             block = {
                 RoomsRepository.checkRoomAccess(route.room_id, getUserIdFromToken()).let {
-                    PurchasesRepository.deletePurchase(it, route.purchase_id) ?: throw NotFoundException()
+                    PurchasesRepository.deletePurchase(it, route.purchase_id) ?: throw PurchaseNotFoundException()
                 }
             },
             onSuccess = { result ->
@@ -227,13 +241,17 @@ private fun Route.purchaseEndpoint() {
             },
             onFailure = { exception ->
                 when (exception) {
-                    is NotFoundException -> call.respond(
+                    is RoomNotFoundException -> call.respond(
                         HttpStatusCode.NotFound,
-                        "Purchase or room not found."
+                        "Room not found."
                     )
-                    is ForbiddenException -> call.respond(
+                    is PurchaseNotFoundException -> call.respond(
+                        HttpStatusCode.NotFound,
+                        "Purchase not found."
+                    )
+                    is RoomAccessException -> call.respond(
                         HttpStatusCode.Forbidden,
-                        "Access denied."
+                        "Access to room denied."
                     )
                     else -> call.respond(
                         HttpStatusCode.BadRequest,

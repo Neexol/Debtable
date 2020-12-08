@@ -11,10 +11,22 @@ data class UserResponse(
     constructor(user: User): this(user.id.value, user.username, user.displayName)
 
     companion object {
-        val example = mapOf(
-            "id" to 14,
-            "username" to "neexol",
-            "display_name" to "Nikita Alexeev"
+        val EXAMPLES = listOf(
+            mapOf(
+                "id" to 1,
+                "username" to "admin",
+                "display_name" to "Tester Testerov"
+            ),
+            mapOf(
+                "id" to 2,
+                "username" to "neexol",
+                "display_name" to "Nikita Alexeev"
+            ),
+            mapOf(
+                "id" to 3,
+                "username" to "vovcrane",
+                "display_name" to "Vladimir Zhuravlev"
+            )
         )
     }
 }

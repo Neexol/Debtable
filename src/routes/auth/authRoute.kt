@@ -17,8 +17,8 @@ import ru.neexol.debtable.models.requests.LoginUserRequest
 import ru.neexol.debtable.models.requests.RegisterUserRequest
 import ru.neexol.debtable.repositories.UsersRepository
 import ru.neexol.debtable.routes.API
-import ru.neexol.debtable.utils.exceptions.NotFoundException
-import ru.neexol.debtable.utils.exceptions.WrongPasswordException
+import ru.neexol.debtable.utils.exceptions.not_found.UserNotFoundException
+import ru.neexol.debtable.utils.exceptions.unauthorized.WrongPasswordException
 import ru.neexol.debtable.utils.foldRunCatching
 import ru.neexol.debtable.utils.interceptJsonBodyError
 import ru.neexol.debtable.utils.jsonBodyErrors
@@ -48,11 +48,11 @@ private fun Route.registerEndpoint() {
     post<ApiAuthRegisterRoute, RegisterUserRequest>(
         "Register new user"
             .examples(
-                example("Register account example", RegisterUserRequest.example)
+                example("Register account example", RegisterUserRequest.EXAMPLE)
             )
             .responds(
                 ok<String>(
-                    example("Access token example", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBdXRoZW50aWNhdGlvbiIsImlzcyI6ImRlYnRhYmxlU2VydmVyIiwiaWQiOjEyLCJleHAiOjE2MDcwODQzNjd9.W_MFXUC1-Hyeild-C9y1t1t_758yleob9o2n1RvVRgKin_xGfulmqpcrucrzvUSJmC9BrWkpGY7zrr0z6NY8DQ",)
+                    example("Access token example", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBdXRoZW50aWNhdGlvbiIsImlzcyI6ImRlYnRhYmxlU2VydmVyIiwiaWQiOjEyLCJleHAiOjE2MDcwODQzNjd9.W_MFXUC1-Hyeild-C9y1t1t_758yleob9o2n1RvVRgKin_xGfulmqpcrucrzvUSJmC9BrWkpGY7zrr0z6NY8DQ", description = "Success.")
                 ),
                 *jsonBodyErrors,
                 HttpCodeResponse(HttpStatusCode.Conflict, listOf(), "User with this username already exists.")
@@ -96,7 +96,7 @@ private fun Route.loginEndpoint() {
     post<ApiAuthLoginRoute, LoginUserRequest>(
         "Login"
             .examples(
-                example("Login example", LoginUserRequest.example)
+                example("Login example", LoginUserRequest.EXAMPLE)
             )
             .responds(
                 ok<String>(
@@ -109,7 +109,7 @@ private fun Route.loginEndpoint() {
     ) { _, request ->
         foldRunCatching(
             block = {
-                val user = UsersRepository.getUserByUserName(request.username) ?: throw NotFoundException()
+                val user = UsersRepository.getUserByUserName(request.username) ?: throw UserNotFoundException()
                 if (user.passwordHash != hashFunction(request.password)) {
                     throw WrongPasswordException()
                 }
@@ -123,7 +123,7 @@ private fun Route.loginEndpoint() {
             onFailure = { exception ->
                 if (!interceptJsonBodyError(exception)) {
                     when (exception) {
-                        is NotFoundException -> call.respond(
+                        is UserNotFoundException -> call.respond(
                             HttpStatusCode.NotFound,
                             "User not found."
                         )

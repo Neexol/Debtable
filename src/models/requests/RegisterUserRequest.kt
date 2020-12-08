@@ -8,7 +8,7 @@ data class RegisterUserRequest(
     @SerializedName("password") val password: String
 ) {
     companion object {
-        val example = mapOf(
+        val EXAMPLE = mapOf(
             "username" to "neexol",
             "display_name" to "Nikita Alexeev",
             "password" to "SuperPass123"

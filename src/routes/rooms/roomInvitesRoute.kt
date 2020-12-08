@@ -14,7 +14,12 @@ import ru.neexol.debtable.models.responses.UserResponse
 import ru.neexol.debtable.repositories.RoomsRepository
 import ru.neexol.debtable.repositories.UsersRepository
 import ru.neexol.debtable.utils.*
-import ru.neexol.debtable.utils.exceptions.*
+import ru.neexol.debtable.utils.exceptions.access.RoomAccessException
+import ru.neexol.debtable.utils.exceptions.conflict.UserAlreadyInRoomException
+import ru.neexol.debtable.utils.exceptions.conflict.UserAlreadyInvitedException
+import ru.neexol.debtable.utils.exceptions.not_found.InviteNotFoundException
+import ru.neexol.debtable.utils.exceptions.not_found.RoomNotFoundException
+import ru.neexol.debtable.utils.exceptions.not_found.UserNotFoundException
 
 const val API_ROOM_INVITES = "$API_ROOM/invites"
 const val API_ROOMS_INVITES = "$API_ROOMS/invites"
@@ -46,11 +51,11 @@ private fun Route.roomInvitesEndpoint() {
         "Get users invited to this room"
             .responds(
                 ok<List<UserResponse>>(
-                    example("Invited users example", listOf(UserResponse.example, UserResponse.example, UserResponse.example))
+                    example("Invited users example", UserResponse.EXAMPLES, description = "Success.")
                 ),
                 unauthorized(),
                 notFound(description = "Room not found."),
-                forbidden(),
+                forbidden(description = "Access to room denied."),
                 badRequest(description = "Other errors.")
             )
     ) { route ->
@@ -64,13 +69,13 @@ private fun Route.roomInvitesEndpoint() {
             },
             onFailure = { exception ->
                 when (exception) {
-                    is NotFoundException -> call.respond(
+                    is RoomNotFoundException -> call.respond(
                         HttpStatusCode.NotFound,
                         "Room not found."
                     )
-                    is ForbiddenException -> call.respond(
+                    is RoomAccessException -> call.respond(
                         HttpStatusCode.Forbidden,
-                        "Access denied."
+                        "Access to room denied."
                     )
                     else -> call.respond(
                         HttpStatusCode.BadRequest,
@@ -84,16 +89,16 @@ private fun Route.roomInvitesEndpoint() {
     post<ApiRoomInvitesRoute, CreateInviteRequest>(
         "Invite user to room"
             .examples(
-                example("Create invite example", CreateInviteRequest.example)
+                example("Create invite example", CreateInviteRequest.EXAMPLE)
             )
             .responds(
                 ok<UserResponse>(
-                    example("Invited user example", UserResponse.example)
+                    example("Invited user example", UserResponse.EXAMPLES[1], description = "Success.")
                 ),
                 *jsonBodyErrors,
                 unauthorized(),
                 notFound(description = "User or room not found."),
-                forbidden(),
+                forbidden(description = "Access to room denied."),
                 conflict(description = "User already in room or already invited.")
             )
     ) { route, request ->
@@ -105,7 +110,7 @@ private fun Route.roomInvitesEndpoint() {
                 }
                 RoomsRepository.inviteUserToRoom(
                     route.room_id,
-                    UsersRepository.getUserById(request.userId) ?: throw NotFoundException()
+                    UsersRepository.getUserById(request.userId) ?: throw UserNotFoundException()
                 ) ?: throw UserAlreadyInvitedException()
             },
             onSuccess = { result ->
@@ -114,13 +119,17 @@ private fun Route.roomInvitesEndpoint() {
             onFailure = { exception ->
                 if (!interceptJsonBodyError(exception)) {
                     when (exception) {
-                        is NotFoundException -> call.respond(
+                        is RoomNotFoundException -> call.respond(
                             HttpStatusCode.NotFound,
-                            "User or room not found."
+                            "Room not found."
                         )
-                        is ForbiddenException -> call.respond(
+                        is UserNotFoundException -> call.respond(
+                            HttpStatusCode.NotFound,
+                            "User not found."
+                        )
+                        is RoomAccessException -> call.respond(
                             HttpStatusCode.Forbidden,
-                            "Access denied."
+                            "Access to room denied."
                         )
                         is UserAlreadyInvitedException -> call.respond(
                             HttpStatusCode.Conflict,
@@ -144,31 +153,35 @@ private fun Route.roomInvitesEndpoint() {
         "Delete invite to this room"
             .responds(
                 ok<Int>(
-                    example("Deleted user id example", 3)
+                    example("Deleted user id example", 3, description = "Success.")
                 ),
                 unauthorized(),
                 notFound(description = "Invite or room not found."),
-                forbidden(),
+                forbidden(description = "Access to room denied."),
                 badRequest(description = "Other errors.")
             )
     ) { route ->
         foldRunCatching(
             block = {
                 RoomsRepository.checkRoomAccess(route.room_id, getUserIdFromToken())
-                RoomsRepository.deleteInvite(route.room_id, route.user_id) ?: throw NotFoundException()
+                RoomsRepository.deleteInvite(route.room_id, route.user_id) ?: throw InviteNotFoundException()
             },
             onSuccess = { result ->
                 call.respond(result)
             },
             onFailure = { exception ->
                 when (exception) {
-                    is NotFoundException -> call.respond(
+                    is RoomNotFoundException -> call.respond(
                         HttpStatusCode.NotFound,
-                        "Invite or room not found."
+                        "Room not found."
                     )
-                    is ForbiddenException -> call.respond(
+                    is InviteNotFoundException -> call.respond(
+                        HttpStatusCode.NotFound,
+                        "Invite not found."
+                    )
+                    is RoomAccessException -> call.respond(
                         HttpStatusCode.Forbidden,
-                        "Access denied."
+                        "Access to room denied."
                     )
                     else -> call.respond(
                         HttpStatusCode.BadRequest,
@@ -186,7 +199,7 @@ private fun Route.roomsInvitesEndpoint() {
         "Get user invites"
             .responds(
                 ok<List<RoomResponse>>(
-                    example("Invites example", listOf(RoomResponse.example,RoomResponse.example , RoomResponse.example))
+                    example("Invites example", RoomResponse.EXAMPLES, description = "Success.")
                 ),
                 unauthorized(),
                 badRequest(description = "Other errors.")
@@ -211,11 +224,11 @@ private fun Route.roomsInvitesEndpoint() {
     post<ApiRoomsInvitesRoute, AcceptInviteRequest>(
         "Accept an invite"
             .examples(
-                example("Accept invite example", AcceptInviteRequest.example)
+                example("Accept invite example", AcceptInviteRequest.EXAMPLE)
             )
             .responds(
-                ok<Int>(
-                    example("Accepted invite id", 3)
+                ok<RoomResponse>(
+                    example("Room example", RoomResponse.EXAMPLES[0], description = "Success.")
                 ),
                 *jsonBodyErrors,
                 unauthorized(),
@@ -227,7 +240,7 @@ private fun Route.roomsInvitesEndpoint() {
                 RoomsRepository.acceptInvite(
                     request.inviteId,
                     UsersRepository.getUserById(getUserIdFromToken())!!
-                ) ?: throw NotFoundException()
+                ) ?: throw InviteNotFoundException()
             },
             onSuccess = { result ->
                 call.respond(RoomResponse(result))
@@ -235,7 +248,7 @@ private fun Route.roomsInvitesEndpoint() {
             onFailure = { exception ->
                 if (!interceptJsonBodyError(exception)) {
                     when (exception) {
-                        is NotFoundException -> call.respond(
+                        is InviteNotFoundException -> call.respond(
                             HttpStatusCode.NotFound,
                             "Invite not found."
                         )
@@ -256,7 +269,7 @@ private fun Route.roomsInviteEndpoint() {
         "Decline an invite"
             .responds(
                 ok<Int>(
-                    example("Declined invite id", 3)
+                    example("Declined invite id", 3, description = "Success.")
                 ),
                 unauthorized(),
                 notFound(description = "Invite not found."),
@@ -269,14 +282,14 @@ private fun Route.roomsInviteEndpoint() {
                 UsersRepository.declineInvite(
                     getUserIdFromToken(),
                     route.invite_id
-                ) ?: throw NotFoundException()
+                ) ?: throw InviteNotFoundException()
             },
             onSuccess = { result ->
                 call.respond(result)
             },
             onFailure = { exception ->
                 when (exception) {
-                    is NotFoundException -> call.respond(
+                    is InviteNotFoundException -> call.respond(
                         HttpStatusCode.NotFound,
                         "Invite not found."
                     )

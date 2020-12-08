@@ -13,8 +13,8 @@ import ru.neexol.debtable.repositories.RoomsRepository
 import ru.neexol.debtable.repositories.UsersRepository
 import ru.neexol.debtable.routes.API
 import ru.neexol.debtable.utils.*
-import ru.neexol.debtable.utils.exceptions.ForbiddenException
-import ru.neexol.debtable.utils.exceptions.NotFoundException
+import ru.neexol.debtable.utils.exceptions.access.RoomAccessException
+import ru.neexol.debtable.utils.exceptions.not_found.RoomNotFoundException
 
 const val API_ROOMS = "$API/rooms"
 const val API_ROOM = "$API_ROOMS/{room_id}"
@@ -42,7 +42,7 @@ private fun Route.roomsEndpoint() {
         "Get user rooms"
             .responds(
                 ok<List<RoomResponse>>(
-                    example("Rooms list", listOf(RoomResponse.example, RoomResponse.example, RoomResponse.example))
+                    example("Rooms list", RoomResponse.EXAMPLES, description = "Success.")
                 ),
                 unauthorized(),
                 badRequest(description = "Other errors.")
@@ -67,11 +67,11 @@ private fun Route.roomsEndpoint() {
     post<ApiRoomsRoute, CreateEditRoomRequest>(
         "Create room"
             .examples(
-                example("Create room example", CreateEditRoomRequest.example)
+                example("Create room example", CreateEditRoomRequest.EXAMPLE)
             )
             .responds(
                 ok<RoomResponse>(
-                    example("Created room example", RoomResponse.example)
+                    example("Created room example", RoomResponse.EXAMPLES[2], description = "Success.")
                 ),
                 *jsonBodyErrors,
                 unauthorized()
@@ -106,15 +106,15 @@ private fun Route.roomEndpoint() {
     put<ApiRoomRoute, CreateEditRoomRequest>(
         "Edit room"
             .examples(
-                example("Edit room example", CreateEditRoomRequest.example)
+                example("Edit room example", CreateEditRoomRequest.EXAMPLE)
             )
             .responds(
                 ok<RoomResponse>(
-                    example("Room example", RoomResponse.example)
+                    example("Room example", RoomResponse.EXAMPLES[1], description = "Success.")
                 ),
                 *jsonBodyErrors,
                 notFound(description = "Room not found."),
-                forbidden()
+                forbidden(description = "Access to room denied.")
             )
     ) { route, request ->
         foldRunCatching(
@@ -128,13 +128,13 @@ private fun Route.roomEndpoint() {
             onFailure = { exception ->
                 if (!interceptJsonBodyError(exception)) {
                     when (exception) {
-                        is NotFoundException -> call.respond(
+                        is RoomNotFoundException -> call.respond(
                             HttpStatusCode.NotFound,
                             "Room not found."
                         )
-                        is ForbiddenException -> call.respond(
+                        is RoomAccessException -> call.respond(
                             HttpStatusCode.Forbidden,
-                            "Access denied."
+                            "Access to room denied."
                         )
                         else -> call.respond(
                             HttpStatusCode.BadRequest,
@@ -150,11 +150,11 @@ private fun Route.roomEndpoint() {
         "Delete room"
             .responds(
                 ok<Int>(
-                    example("Deleted room id", 5)
+                    example("Deleted room id", 5, description = "Success.")
                 ),
                 unauthorized(),
                 notFound(description = "Room not found."),
-                forbidden(),
+                forbidden(description = "Access to room denied."),
                 badRequest(description = "Other errors.")
             )
     ) { route ->
@@ -168,13 +168,13 @@ private fun Route.roomEndpoint() {
             },
             onFailure = { exception ->
                 when (exception) {
-                    is NotFoundException -> call.respond(
+                    is RoomNotFoundException -> call.respond(
                         HttpStatusCode.NotFound,
                         "Room not found."
                     )
-                    is ForbiddenException -> call.respond(
+                    is RoomAccessException -> call.respond(
                         HttpStatusCode.Forbidden,
-                        "Access denied."
+                        "Access to room denied."
                     )
                     else -> call.respond(
                         HttpStatusCode.BadRequest,

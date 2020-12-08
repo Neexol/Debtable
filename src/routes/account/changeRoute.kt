@@ -14,7 +14,7 @@ import ru.neexol.debtable.models.requests.ChangeUserDataRequest
 import ru.neexol.debtable.models.responses.UserResponse
 import ru.neexol.debtable.repositories.UsersRepository
 import ru.neexol.debtable.utils.*
-import ru.neexol.debtable.utils.exceptions.NotMatchPasswordException
+import ru.neexol.debtable.utils.exceptions.forbidden.NotMatchPasswordException
 
 const val API_ACCOUNT_CHANGE = "$API_ACCOUNT/change"
 const val API_ACCOUNT_CHANGE_PASSWORD = "$API_ACCOUNT_CHANGE/password"
@@ -40,7 +40,7 @@ private fun Route.passwordEndpoint() {
     patch<ApiAccountChangePasswordRoute, ChangePasswordRequest>(
         "Change password"
             .examples(
-                example("Change password example", ChangePasswordRequest.example)
+                example("Change password example", ChangePasswordRequest.EXAMPLE)
             )
             .responds(
                 noContent(description = "Success."),
@@ -87,11 +87,11 @@ private fun Route.dataEndpoint() {
     patch<ApiAccountChangeDataRoute, ChangeUserDataRequest>(
         "Change data"
             .examples(
-                example("Change data example", ChangeUserDataRequest.example)
+                example("Change data example", ChangeUserDataRequest.EXAMPLE)
             )
             .responds(
                 ok<UserResponse>(
-                    example("User example", UserResponse.example)
+                    example("User example", UserResponse.EXAMPLES[0], description = "Success.")
                 ),
                 *jsonBodyErrors,
                 unauthorized()

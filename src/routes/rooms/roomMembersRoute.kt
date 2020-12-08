@@ -9,8 +9,9 @@ import io.ktor.response.*
 import io.ktor.routing.*
 import ru.neexol.debtable.models.responses.UserResponse
 import ru.neexol.debtable.repositories.RoomsRepository
-import ru.neexol.debtable.utils.exceptions.ForbiddenException
-import ru.neexol.debtable.utils.exceptions.NotFoundException
+import ru.neexol.debtable.utils.exceptions.access.RoomAccessException
+import ru.neexol.debtable.utils.exceptions.not_found.MemberNotFoundException
+import ru.neexol.debtable.utils.exceptions.not_found.RoomNotFoundException
 import ru.neexol.debtable.utils.foldRunCatching
 import ru.neexol.debtable.utils.forbidden
 import ru.neexol.debtable.utils.getUserIdFromToken
@@ -36,11 +37,11 @@ private fun Route.memberEndpoint() {
         "Get room members"
             .responds(
                 ok<List<UserResponse>>(
-                    example("Members example", listOf(UserResponse.example, UserResponse.example, UserResponse.example))
+                    example("Members example", UserResponse.EXAMPLES, description = "Success.")
                 ),
                 unauthorized(),
                 notFound(description = "Room not found."),
-                forbidden(),
+                forbidden(description = "Access to room denied."),
                 badRequest(description = "Other errors.")
             )
     ) { route ->
@@ -55,13 +56,13 @@ private fun Route.memberEndpoint() {
             },
             onFailure = { exception ->
                 when (exception) {
-                    is NotFoundException -> call.respond(
+                    is RoomNotFoundException -> call.respond(
                         HttpStatusCode.NotFound,
                         "Room not found."
                     )
-                    is ForbiddenException -> call.respond(
+                    is RoomAccessException -> call.respond(
                         HttpStatusCode.Forbidden,
-                        "Access denied."
+                        "Access to room denied."
                     )
                     else -> call.respond(
                         HttpStatusCode.BadRequest,
@@ -76,31 +77,35 @@ private fun Route.memberEndpoint() {
         "Delete room member"
             .responds(
                 ok<Int>(
-                    example("Deleted room member id", 5)
+                    example("Deleted room member id", 5, description = "Success.")
                 ),
                 unauthorized(),
                 notFound(description = "Room or member not found."),
-                forbidden(),
+                forbidden(description = "Access to room denied."),
                 badRequest(description = "Other errors.")
             )
     ) { route ->
         foldRunCatching(
             block = {
                 RoomsRepository.checkRoomAccess(route.room_id, getUserIdFromToken())
-                RoomsRepository.deleteMemberFromRoom(route.room_id, route.member_id) ?: throw NotFoundException()
+                RoomsRepository.deleteMemberFromRoom(route.room_id, route.member_id) ?: throw MemberNotFoundException()
             },
             onSuccess = { result ->
                 call.respond(result)
             },
             onFailure = { exception ->
                 when (exception) {
-                    is NotFoundException -> call.respond(
+                    is RoomNotFoundException -> call.respond(
                         HttpStatusCode.NotFound,
-                        "Room or member not found."
+                        "Room not found."
                     )
-                    is ForbiddenException -> call.respond(
+                    is MemberNotFoundException -> call.respond(
+                        HttpStatusCode.NotFound,
+                        "Member not found."
+                    )
+                    is RoomAccessException -> call.respond(
                         HttpStatusCode.Forbidden,
-                        "Access denied."
+                        "Access to room denied."
                     )
                     else -> call.respond(
                         HttpStatusCode.BadRequest,

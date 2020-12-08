@@ -7,7 +7,7 @@ data class ChangePasswordRequest(
     @SerializedName("new_password") val newPassword: String
 ) {
     companion object {
-        val example = mapOf(
+        val EXAMPLE = mapOf(
             "old_password" to "OldEasyPass",
             "new_password" to "NewSuperPass123"
         )

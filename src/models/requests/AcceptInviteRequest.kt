@@ -6,7 +6,7 @@ data class AcceptInviteRequest(
     @SerializedName("invite_id") val inviteId: Int
 ) {
     companion object {
-        val example = mapOf(
+        val EXAMPLE = mapOf(
             "invite_id" to 3
         )
     }

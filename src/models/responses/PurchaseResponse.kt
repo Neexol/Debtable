@@ -22,13 +22,31 @@ data class PurchaseResponse(
     )
 
     companion object {
-        val example = mapOf(
-            "id" to 1,
-            "name" to "Milk",
-            "debt" to 33.3,
-            "date" to "22.09.2000",
-            "buyer" to UserResponse.example,
-            "debtors" to listOf(UserResponse.example, UserResponse.example, UserResponse.example)
+        val EXAMPLES = listOf(
+            mapOf(
+                "id" to 1,
+                "name" to "Milk",
+                "debt" to 40,
+                "date" to "22.09.2020",
+                "buyer" to UserResponse.EXAMPLES[0],
+                "debtors" to listOf(UserResponse.EXAMPLES[0], UserResponse.EXAMPLES[1])
+            ),
+            mapOf(
+                "id" to 2,
+                "name" to "Meat",
+                "debt" to 120,
+                "date" to "24.12.2020",
+                "buyer" to UserResponse.EXAMPLES[1],
+                "debtors" to listOf(UserResponse.EXAMPLES[1], UserResponse.EXAMPLES[2])
+            ),
+            mapOf(
+                "id" to 3,
+                "name" to "Water",
+                "debt" to 15,
+                "date" to "15.06.2020",
+                "buyer" to UserResponse.EXAMPLES[2],
+                "debtors" to listOf(UserResponse.EXAMPLES[0])
+            )
         )
     }
 }
