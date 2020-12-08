@@ -53,8 +53,6 @@ object RoomsRepository {
         roomId: Int
     ) = newSuspendedTransaction(Dispatchers.IO) {
         getRoomById(roomId)?.apply {
-            members = SizedCollection()
-            invitedUsers = SizedCollection()
             delete()
         }?.id?.value
     }

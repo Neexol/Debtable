@@ -5,6 +5,7 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import ru.neexol.debtable.db.entities.Purchase
 
 data class PurchaseResponse(
+    @SerializedName("id") val id: Int,
     @SerializedName("name") val name: String,
     @SerializedName("debt") val debt: Float,
     @SerializedName("date") val date: String,
@@ -12,6 +13,7 @@ data class PurchaseResponse(
     @SerializedName("debtors") val debtors: List<UserResponse>
 ) {
     constructor(purchase: Purchase) : this(
+        purchase.id.value,
         purchase.name,
         purchase.debt,
         purchase.date,
@@ -21,6 +23,7 @@ data class PurchaseResponse(
 
     companion object {
         val example = mapOf(
+            "id" to 1,
             "name" to "Milk",
             "debt" to 33.3,
             "date" to "22.09.2000",

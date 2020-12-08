@@ -53,21 +53,22 @@ private fun Route.purchasesEndpoint() {
         foldRunCatching(
             block = {
                 request.debtorIds.ifEmpty { throw EmptyDebtorsException() }
-                val room = RoomsRepository.checkRoomAccess(route.room_id, getUserIdFromToken())
-                (request.debtorIds + request.buyerId).forEach {
-                    RoomsRepository.isRoomContainsUser(route.room_id, it).ifFalse {
-                        throw ForbiddenException()
+                RoomsRepository.checkRoomAccess(route.room_id, getUserIdFromToken()).let { room ->
+                    (request.debtorIds + request.buyerId).forEach {
+                        RoomsRepository.isRoomContainsUser(room.id.value, it).ifFalse {
+                            throw ForbiddenException()
+                        }
                     }
-                }
 
-                PurchasesRepository.addPurchase(
-                    room,
-                    UsersRepository.getUserById(request.buyerId)!!,
-                    request.debtorIds.map { UsersRepository.getUserById(it)!! },
-                    request.name,
-                    request.isDivisible.ifTrue { request.debt / request.debtorIds.size } ?: request.debt,
-                    request.date,
-                )
+                    PurchasesRepository.addPurchase(
+                        room,
+                        UsersRepository.getUserById(request.buyerId)!!,
+                        request.debtorIds.map { UsersRepository.getUserById(it)!! },
+                        request.name,
+                        request.isDivisible.ifTrue { request.debt / request.debtorIds.size } ?: request.debt,
+                        request.date,
+                    )
+                }
             },
             onSuccess = { result ->
                 call.respond(PurchaseResponse(result))
@@ -98,6 +99,45 @@ private fun Route.purchasesEndpoint() {
     }
 }
 
+@KtorExperimentalLocationsAPI
 private fun Route.purchaseEndpoint() {
-
+    delete<ApiRoomPurchaseRoute>(
+        "Delete purchase"
+            .responds(
+                ok<Int>(
+                    example("Deleted purchase id example", 3)
+                ),
+                unauthorized(),
+                notFound(description = "Purchase or room not found."),
+                forbidden(),
+                badRequest(description = "Other errors.")
+            )
+    ) { route ->
+        foldRunCatching(
+            block = {
+                RoomsRepository.checkRoomAccess(route.room_id, getUserIdFromToken()).let {
+                    PurchasesRepository.deletePurchase(it, route.purchase_id) ?: throw NotFoundException()
+                }
+            },
+            onSuccess = { result ->
+                call.respond(result)
+            },
+            onFailure = { exception ->
+                when (exception) {
+                    is NotFoundException -> call.respond(
+                        HttpStatusCode.NotFound,
+                        "Purchase or room not found."
+                    )
+                    is ForbiddenException -> call.respond(
+                        HttpStatusCode.Forbidden,
+                        "Access denied."
+                    )
+                    else -> call.respond(
+                        HttpStatusCode.BadRequest,
+                        exception.toString()
+                    )
+                }
+            }
+        )
+    }
 }
