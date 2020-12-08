@@ -7,22 +7,19 @@ import ru.neexol.debtable.db.entities.Room
 data class RoomResponse(
     @SerializedName("id") val id: Int,
     @SerializedName("name") val name: String,
-    @SerializedName("members") val members: List<UserResponse>,
-    @SerializedName("purchases") val purchases: List<PurchaseResponse>
+    @SerializedName("members_number") val membersNumber: Int
 ) {
     constructor(room: Room): this(
         room.id.value,
         room.name,
-        transaction { room.members.map { UserResponse(it) } },
-        transaction { room.purchases.map { PurchaseResponse(it) } }
+        transaction { room.members.count().toInt() }
     )
 
     companion object {
         val example = mapOf(
-            "id" to 3,
-            "name" to "My room",
-            "members" to listOf(UserResponse.example, UserResponse.example),
-            "purchases" to listOf(PurchaseResponse.example, PurchaseResponse.example, PurchaseResponse.example)
+            "id" to 5,
+            "name" to "Other room",
+            "members_number" to 4
         )
     }
 }

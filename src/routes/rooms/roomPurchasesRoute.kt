@@ -13,7 +13,9 @@ import ru.neexol.debtable.repositories.PurchasesRepository
 import ru.neexol.debtable.repositories.RoomsRepository
 import ru.neexol.debtable.repositories.UsersRepository
 import ru.neexol.debtable.utils.*
-import ru.neexol.debtable.utils.exceptions.*
+import ru.neexol.debtable.utils.exceptions.EmptyDebtorsException
+import ru.neexol.debtable.utils.exceptions.ForbiddenException
+import ru.neexol.debtable.utils.exceptions.NotFoundException
 
 const val API_ROOM_PURCHASES = "$API_ROOM/purchases"
 const val API_ROOM_PURCHASE = "$API_ROOM_PURCHASES/{purchase_id}"
@@ -34,6 +36,46 @@ fun Route.roomPurchasesRoute() {
 
 @KtorExperimentalLocationsAPI
 private fun Route.purchasesEndpoint() {
+    get<ApiRoomPurchasesRoute>(
+        "Get room purchases"
+            .responds(
+                ok<List<PurchaseResponse>>(
+                    example("Purchases example", listOf(PurchaseResponse.example, PurchaseResponse.example, PurchaseResponse.example))
+                ),
+                unauthorized(),
+                notFound(description = "Room not found."),
+                forbidden(),
+                badRequest(description = "Other errors.")
+            )
+    ) { route ->
+        foldRunCatching(
+            block = {
+                RoomsRepository.checkRoomAccess(route.room_id, getUserIdFromToken()).let { room ->
+                    RoomsRepository.getRoomPurchases(room.id.value)!!
+                }
+            },
+            onSuccess = { result ->
+                call.respond(result.map { PurchaseResponse(it) })
+            },
+            onFailure = { exception ->
+                when (exception) {
+                    is NotFoundException -> call.respond(
+                        HttpStatusCode.NotFound,
+                        "Room not found."
+                    )
+                    is ForbiddenException -> call.respond(
+                        HttpStatusCode.Forbidden,
+                        "Access denied."
+                    )
+                    else -> call.respond(
+                        HttpStatusCode.BadRequest,
+                        exception.toString()
+                    )
+                }
+            }
+        )
+    }
+
     post<ApiRoomPurchasesRoute, CreateEditPurchaseRequest>(
         "Create purchase"
             .examples(

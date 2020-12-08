@@ -57,6 +57,12 @@ object RoomsRepository {
         }?.id?.value
     }
 
+    suspend fun getRoomMembers(
+        roomId: Int
+    ) = newSuspendedTransaction(Dispatchers.IO) {
+        getRoomById(roomId)?.members?.toList()
+    }
+
     suspend fun deleteMemberFromRoom(
         roomId: Int,
         memberId: Int
@@ -126,5 +132,11 @@ object RoomsRepository {
                 userId
             }
         }
+    }
+
+    suspend fun getRoomPurchases(
+        roomId: Int
+    ) = newSuspendedTransaction(Dispatchers.IO) {
+        getRoomById(roomId)?.purchases?.toList()
     }
 }
