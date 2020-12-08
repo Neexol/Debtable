@@ -76,11 +76,9 @@ object RoomsRepository {
     suspend fun checkRoomAccess(
         roomId: Int,
         userId: Int
-    ): Room {
-        val room = getRoomById(roomId) ?: throw NotFoundException()
+    ) = getRoomById(roomId)?.also {
         isRoomContainsUser(roomId, userId).ifFalse { throw ForbiddenException() }
-        return room
-    }
+    } ?: throw NotFoundException()
 
     suspend fun inviteUserToRoom(
         roomId: Int,

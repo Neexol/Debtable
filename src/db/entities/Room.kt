@@ -1,5 +1,6 @@
 package ru.neexol.debtable.db.entities
 
+import db.tables.Purchases
 import db.tables.Rooms
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
@@ -11,6 +12,7 @@ class Room(id: EntityID<Int>): IntEntity(id) {
     companion object : IntEntityClass<Room>(Rooms)
 
     var name by Rooms.name
+    val purchases by Purchase referrersOn Purchases.room
     var members by User via UsersRooms
     var invitedUsers by User via UsersRoomInvites
 }

@@ -1,7 +1,5 @@
 package ru.neexol.debtable.utils
 
-fun Boolean.ifTrue(block: () -> Unit) {
-    if (this) block()
-}
+fun <T> Boolean.ifTrue(block: () -> T) = if (this) block() else null
 
-fun Boolean.ifFalse(block: () -> Unit) = (!this).ifTrue(block)
+fun <T> Boolean.ifFalse(block: () -> T) = (!this).ifTrue(block)

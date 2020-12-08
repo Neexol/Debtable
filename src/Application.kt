@@ -8,6 +8,7 @@ import io.ktor.util.*
 import ru.neexol.debtable.db.DatabaseFactory
 import ru.neexol.debtable.features.*
 import ru.neexol.debtable.routes.apiRoute
+import ru.neexol.debtable.routes.filesRoute
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
@@ -26,9 +27,7 @@ fun Application.module() {
     installSwagger()
 
     routing {
-        static {
-            resources("front")
-        }
+        filesRoute()
         apiRoute()
     }
 }

@@ -18,7 +18,8 @@ data class CompactRoomResponse(
     companion object {
         val example = mapOf(
             "id" to 5,
-            "name" to "Other room"
+            "name" to "Other room",
+            "members_number" to 4
         )
     }
 }
