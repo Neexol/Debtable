@@ -28,4 +28,32 @@ object PurchasesRepository {
             purchase.debtors = SizedCollection(debtors)
         }
     }
+
+    suspend fun editPurchase(
+        purchaseId: Int,
+        buyer: User,
+        debtors: List<User>,
+        name: String,
+        debt: Float,
+        date: String
+    ) = newSuspendedTransaction(Dispatchers.IO) {
+        Purchase.findById(purchaseId)?.apply {
+            this.buyer = buyer
+            this.name = name
+            this.debt = debt
+            this.date = date
+            this.debtors = SizedCollection(debtors)
+        }
+    }
+
+    suspend fun deletePurchase(
+        room: Room,
+        purchaseId: Int
+    ) = newSuspendedTransaction(Dispatchers.IO) {
+        room.purchases.find {
+            it.id.value == purchaseId
+        }?.apply {
+            delete()
+        }?.id?.value
+    }
 }
