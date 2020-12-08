@@ -9,7 +9,6 @@ import io.ktor.response.*
 import io.ktor.routing.*
 import ru.neexol.debtable.models.requests.CreateRoomRequest
 import ru.neexol.debtable.models.requests.EditRoomRequest
-import ru.neexol.debtable.models.responses.CompactRoomResponse
 import ru.neexol.debtable.models.responses.RoomResponse
 import ru.neexol.debtable.models.responses.RoomsResponse
 import ru.neexol.debtable.repositories.RoomsRepository
@@ -92,8 +91,7 @@ private fun Route.roomsEndpoint() {
                 UsersRepository.getUserRooms(getUserIdFromToken())!!
             },
             onSuccess = { result ->
-                val compactRoomList = result.map { CompactRoomResponse(it) }
-                call.respond(RoomsResponse(compactRoomList))
+                call.respond(RoomsResponse(result.map { RoomResponse(it) }))
             },
             onFailure = { exception ->
                 call.respond(
@@ -107,44 +105,6 @@ private fun Route.roomsEndpoint() {
 
 @KtorExperimentalLocationsAPI
 private fun Route.roomEndpoint() {
-    get<ApiRoomRoute>(
-        "Get room by id"
-            .responds(
-                ok<RoomResponse>(
-                    example("Room example", RoomResponse.example)
-                ),
-                unauthorized(),
-                notFound(description = "Room not found."),
-                forbidden(),
-                badRequest(description = "Other errors.")
-            )
-    ) { route ->
-        foldRunCatching(
-            block = {
-                RoomsRepository.checkRoomAccess(route.room_id, getUserIdFromToken())
-            },
-            onSuccess = { result ->
-                call.respond(RoomResponse(result))
-            },
-            onFailure = { exception ->
-                when (exception) {
-                    is NotFoundException -> call.respond(
-                        HttpStatusCode.NotFound,
-                        "Room not found."
-                    )
-                    is ForbiddenException -> call.respond(
-                        HttpStatusCode.Forbidden,
-                        "Access denied."
-                    )
-                    else -> call.respond(
-                        HttpStatusCode.BadRequest,
-                        exception.toString()
-                    )
-                }
-            }
-        )
-    }
-
     patch<ApiRoomRoute, EditRoomRequest>(
         "Edit room"
             .examples(

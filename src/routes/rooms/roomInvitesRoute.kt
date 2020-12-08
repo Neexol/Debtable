@@ -9,7 +9,7 @@ import io.ktor.response.*
 import io.ktor.routing.*
 import ru.neexol.debtable.models.requests.AcceptInviteRequest
 import ru.neexol.debtable.models.requests.CreateInviteRequest
-import ru.neexol.debtable.models.responses.CompactRoomResponse
+import ru.neexol.debtable.models.responses.RoomResponse
 import ru.neexol.debtable.models.responses.InvitedUsersResponse
 import ru.neexol.debtable.models.responses.RoomsResponse
 import ru.neexol.debtable.models.responses.UserResponse
@@ -200,8 +200,7 @@ private fun Route.roomsInvitesEndpoint() {
                 UsersRepository.getUserInvites(getUserIdFromToken())!!
             },
             onSuccess = { result ->
-                val compactRoomList = result.map { CompactRoomResponse(it) }
-                call.respond(RoomsResponse(compactRoomList))
+                call.respond(RoomsResponse(result.map { RoomResponse(it) }))
             },
             onFailure = { exception ->
                 call.respond(
@@ -234,7 +233,7 @@ private fun Route.roomsInvitesEndpoint() {
                 ) ?: throw NotFoundException()
             },
             onSuccess = { result ->
-                call.respond(CompactRoomResponse(result))
+                call.respond(RoomResponse(result))
             },
             onFailure = { exception ->
                 if (!interceptJsonBodyError(exception)) {
