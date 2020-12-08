@@ -7,8 +7,7 @@ import io.ktor.http.*
 import io.ktor.locations.*
 import io.ktor.response.*
 import io.ktor.routing.*
-import ru.neexol.debtable.models.requests.CreateRoomRequest
-import ru.neexol.debtable.models.requests.EditRoomRequest
+import ru.neexol.debtable.models.requests.CreateEditRoomRequest
 import ru.neexol.debtable.models.responses.RoomResponse
 import ru.neexol.debtable.repositories.RoomsRepository
 import ru.neexol.debtable.repositories.UsersRepository
@@ -39,10 +38,10 @@ fun Route.roomsRoute() {
 
 @KtorExperimentalLocationsAPI
 private fun Route.roomsEndpoint() {
-    post<ApiRoomsRoute, CreateRoomRequest>(
+    post<ApiRoomsRoute, CreateEditRoomRequest>(
         "Create room"
             .examples(
-                example("Create room example", CreateRoomRequest.example)
+                example("Create room example", CreateEditRoomRequest.example)
             )
             .responds(
                 ok<RoomResponse>(
@@ -104,10 +103,10 @@ private fun Route.roomsEndpoint() {
 
 @KtorExperimentalLocationsAPI
 private fun Route.roomEndpoint() {
-    patch<ApiRoomRoute, EditRoomRequest>(
+    put<ApiRoomRoute, CreateEditRoomRequest>(
         "Edit room"
             .examples(
-                example("Edit room example", EditRoomRequest.example)
+                example("Edit room example", CreateEditRoomRequest.example)
             )
             .responds(
                 ok<RoomResponse>(
@@ -121,7 +120,7 @@ private fun Route.roomEndpoint() {
         foldRunCatching(
             block = {
                 RoomsRepository.checkRoomAccess(route.room_id, getUserIdFromToken())
-                RoomsRepository.editRoom(route.room_id, request.newName)!!
+                RoomsRepository.editRoom(route.room_id, request.name)!!
             },
             onSuccess = { result ->
                 call.respond(RoomResponse(result))
