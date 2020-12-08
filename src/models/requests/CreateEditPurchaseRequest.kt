@@ -7,8 +7,7 @@ data class CreateEditPurchaseRequest(
     @SerializedName("debt") val debt: Float,
     @SerializedName("date") val date: String,
     @SerializedName("buyer_id") val buyerId: Int,
-    @SerializedName("debtor_ids") val debtorIds: List<Int>,
-    @SerializedName("is_divisible") val isDivisible: Boolean
+    @SerializedName("debtor_ids") val debtorIds: List<Int>
 ) {
     companion object {
         val example = mapOf(
@@ -16,8 +15,7 @@ data class CreateEditPurchaseRequest(
             "debt" to "99",
             "date" to "22.09.2000",
             "buyer_id" to 1,
-            "debtor_ids" to listOf(1, 2, 3),
-            "is_divisible" to true,
+            "debtor_ids" to listOf(1, 2, 3)
         )
     }
 }

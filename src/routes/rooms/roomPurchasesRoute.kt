@@ -64,7 +64,7 @@ private fun Route.purchasesEndpoint() {
                         UsersRepository.getUserById(request.buyerId)!!,
                         request.debtorIds.map { UsersRepository.getUserById(it)!! },
                         request.name,
-                        request.isDivisible.ifTrue { request.debt / request.debtorIds.size } ?: request.debt,
+                        request.debt / request.debtorIds.size,
                         request.date,
                     )
                 }
@@ -130,7 +130,7 @@ private fun Route.purchaseEndpoint() {
                     UsersRepository.getUserById(request.buyerId)!!,
                     request.debtorIds.map { UsersRepository.getUserById(it)!! },
                     request.name,
-                    request.isDivisible.ifTrue { request.debt / request.debtorIds.size } ?: request.debt,
+                    request.debt / request.debtorIds.size,
                     request.date,
                 ) ?: throw NotFoundException()
             },
