@@ -33,7 +33,17 @@ class HomeRoot extends React.Component {
     updateInvitesByAccept = acceptedInvite => this.setState(state => {
         let newRooms = state.rooms;
         newRooms.rooms.push(acceptedInvite);
-
+        let newInvites = state.invites;
+        newInvites.rooms.splice(newInvites.rooms.map(room => room.id).indexOf(declinedInvite.id), 1);
+        return {
+            invites: newInvites,
+            rooms: newRooms
+        }
+    });
+    updateInvitesByDecline = declinedInvite => this.setState(state => {
+        let newInvites = state.invites;
+        newInvites.rooms.splice(newInvites.rooms.map(room => room.id).indexOf(declinedInvite), 1);
+        return {invites: newInvites}
     });
 
     getProfile = () => sendGet(ROUTE_ME,
