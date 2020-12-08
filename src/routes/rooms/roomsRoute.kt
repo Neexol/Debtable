@@ -76,7 +76,7 @@ private fun Route.roomsEndpoint() {
     }
 
     get<ApiRoomsRoute>(
-        "Get user's rooms"
+        "Get user rooms"
             .responds(
                 ok<List<RoomResponse>>(
                     example("Rooms list", listOf(RoomResponse.example, RoomResponse.example, RoomResponse.example))

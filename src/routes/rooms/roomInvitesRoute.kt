@@ -183,7 +183,7 @@ private fun Route.roomInvitesEndpoint() {
 @KtorExperimentalLocationsAPI
 private fun Route.roomsInvitesEndpoint() {
     get<ApiRoomsInvitesRoute> (
-        "Get user's invites"
+        "Get user invites"
             .responds(
                 ok<List<RoomResponse>>(
                     example("Invites example", listOf(RoomResponse.example,RoomResponse.example , RoomResponse.example))
