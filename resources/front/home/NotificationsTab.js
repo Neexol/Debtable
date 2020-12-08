@@ -46,8 +46,8 @@ class NotificationsTab extends React.Component {
 function InviteTiles(props) {
     return (
         <> {
-            props.invites.rooms.length === 0 ? (<strong>Нет приглашений</strong>) :
-                props.invites.rooms.map(room => (
+            props.invites.length === 0 ? (<strong>Нет приглашений</strong>) :
+                props.invites.map(room => (
                     <div key={room.id}
                          className="card invite-card"
                          onClick={e => {

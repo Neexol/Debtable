@@ -12,7 +12,7 @@ class RoomsTab extends React.Component {
     }
 
     roomById = id => {
-        const rooms = this.props.rooms.rooms;
+        const rooms = this.props.rooms;
         return id ? rooms[rooms.map(room => room.id).indexOf(id)] : {name: null};
     };
 
@@ -196,8 +196,8 @@ class RoomsTab extends React.Component {
 function RoomTiles(props) {
     return (
         <> {
-            props.rooms.rooms.length === 0 ? (<strong>Нет комнат</strong>) :
-            props.rooms.rooms.map(room => (
+            props.rooms.length === 0 ? (<strong>Нет комнат</strong>) :
+            props.rooms.map(room => (
                 <div key={room.id}
                      className="card room-card"
                      onClick={e => {
