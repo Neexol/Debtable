@@ -2,7 +2,7 @@ package ru.neexol.debtable.models.requests
 
 import com.google.gson.annotations.SerializedName
 
-data class CreatePurchaseRequest(
+data class CreateEditPurchaseRequest(
     @SerializedName("name") val name: String,
     @SerializedName("debt") val debt: Float,
     @SerializedName("date") val date: String,
