@@ -1,4 +1,4 @@
-class NotificationsTab extends React.Component {
+class InvitesTab extends React.Component {
     handleAcceptInvite = id => {
         sendPost(ROUTE_INVITES_OF_USER, JSON.stringify({
             invite_id: id

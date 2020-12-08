@@ -14,9 +14,9 @@ const NAVIGATION = (index, prop) => ([
                updateRoomsByChange={prop.updateRoomsByChange}/>),
     (<ProfileTab profile={prop.profile}
                  updateUser={prop.updateUser}/>),
-    (<NotificationsTab invites={prop.invites}
-                       updateInvitesByAccept={prop.updateInvitesByAccept}
-                       updateInvitesByDecline={prop.updateInvitesByDecline}/>)
+    (<InvitesTab invites={prop.invites}
+                 updateInvitesByAccept={prop.updateInvitesByAccept}
+                 updateInvitesByDecline={prop.updateInvitesByDecline}/>)
 ][index]);
 
 ReactDOM.render(

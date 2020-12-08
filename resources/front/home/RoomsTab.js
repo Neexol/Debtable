@@ -217,9 +217,12 @@ function RoomTiles(props) {
                             delete
                         </span>
                     </span>
-
-
+                    
                     <b>{room.name}</b><br/>
+                    <span style={{display: 'flex', alignItems: 'center'}}>
+                        <i className="material-icons nav-icon">people</i>
+                        {room.members_number}
+                    </span><br/>
                     id: {room.id}
                 </div>
             ))
