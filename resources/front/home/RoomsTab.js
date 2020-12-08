@@ -106,8 +106,9 @@ class RoomsTab extends React.Component {
                            onDelete={this.openDeleteRoomDialog}
                            onChange={this.openChangeRoomDialog}/>
                 <button className="home__add-room-btn"
+                        style={{display: 'flex', alignItems: 'center'}}
                         onClick={this.openAddRoomDialog}>
-                    Добавить комнату
+                    <><i className="material-icons nav-icon">add_circle</i>Добавить комнату</>
                 </button>
 
                 <div id="addNewRoomDialog" className="modal"
