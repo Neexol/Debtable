@@ -4,7 +4,8 @@ class HomeRoot extends React.Component {
         this.state = {
             checkedIndex: 0,
             profile: undefined,
-            rooms: undefined
+            rooms: undefined,
+            invites: undefined
         };
         this.handleCheck = this.handleCheck.bind(this);
     }
@@ -27,23 +28,28 @@ class HomeRoot extends React.Component {
         return {rooms: newRooms}
     })
 
-    componentDidMount() {
-        sendGet(ROUTE_ME, response => {
+    getProfile = () => sendGet(ROUTE_ME,
+        response => {
             this.setState({profile: response});
-        }, response => {
+        },
+        response => {
             switch (response.status) {
                 case 401:
                     redirectToLogin();
                     break;
                 default:
-                    // alert("error "+response.status);
+                // alert("error "+response.status);
                     console.log("error "+response.status);
                     break;
             }
-        })
-        sendGet(ROUTE_ROOMS, response => {
+        }
+    );
+
+    getRooms = () => sendGet(ROUTE_ROOMS,
+        response => {
             this.setState({rooms: response});
-        }, response => {
+        },
+        response => {
             switch (response.status) {
                 case 401:
                     redirectToLogin();
@@ -53,7 +59,31 @@ class HomeRoot extends React.Component {
                     console.log("error "+response.status);
                     break;
             }
-        })
+        }
+    );
+
+    getInvites = () => sendGet(ROUTE_INVITES_OF_USER,
+        response => {
+            this.setState({invites: response});
+            // response.rooms.forEach(room => console.log('\ninvite to '+room.name+` [${room.id}]`));
+        },
+        response => {
+            switch (response.status) {
+                case 401:
+                    redirectToLogin();
+                    break;
+                default:
+                    // alert("error "+response.status);
+                    console.log("error "+response.status);
+                    break;
+            }
+        }
+    );
+
+    componentDidMount() {
+        this.getProfile();
+        this.getRooms();
+        this.getInvites();
     }
 
     render() {
@@ -68,6 +98,7 @@ class HomeRoot extends React.Component {
                             NAVIGATION(this.state.checkedIndex, {
                                 profile: this.state.profile,
                                 rooms: this.state.rooms,
+                                invites: this.state.invites,
                                 updateUser: this.updateUser,
                                 updateRoomsByAdd: this.updateRoomsByAdd,
                                 updateRoomsByDelete: this.updateRoomsByDelete,

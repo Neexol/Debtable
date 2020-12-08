@@ -3,15 +3,28 @@
 const BASE_URL = "";
 const HOST_URL = BASE_URL + "/";
 
+// Auth
 const ROUTE_REGISTER = 'api/auth/register';
 const ROUTE_LOGIN = 'api/auth/login';
-const ROUTE_ME = 'api/users/me';
-const ROUTE_USER = 'api/users';
+
+// Account
 const ROUTE_CHANGE_PASS = 'api/account/change/password';
 const ROUTE_CHANGE_NAME = 'api/account/change/data';
+
+// Users
+const ROUTE_ME = 'api/users/me';
+const ROUTE_USER = 'api/users';
+
+// Rooms
 const ROUTE_CREATE_ROOM = 'api/rooms';
 const ROUTE_ROOMS = 'api/rooms';
 const ROUTE_ROOM = id => 'api/rooms/' + id;
+const ROUTE_DELETE_ROOM_MEMBER = (roomID, userID) => 'api/rooms/' + roomID + '/members/' + userID;
+
+// Invites
+const ROUTE_INVITES_OF_USER = 'api/rooms/invites';
+const ROUTE_INVITES_OF_ROOM = id => 'api/rooms/' + id + '/invites';
+const ROUTE_DECLINE_INVITE = id => 'api/rooms/invites/' + id;
 
 const Loader = () => <div className="loader"/>;
 
