@@ -106,8 +106,9 @@ class RoomsTab extends React.Component {
                            onDelete={this.openDeleteRoomDialog}
                            onChange={this.openChangeRoomDialog}/>
                 <button className="home__add-room-btn"
+                        style={{display: 'flex', alignItems: 'center'}}
                         onClick={this.openAddRoomDialog}>
-                    Добавить комнату
+                    <><i className="material-icons nav-icon">add_circle</i>Добавить комнату</>
                 </button>
 
                 <div id="addNewRoomDialog" className="modal"
@@ -198,7 +199,7 @@ function RoomTiles(props) {
             props.rooms.rooms.length === 0 ? (<strong>Нет комнат</strong>) :
             props.rooms.rooms.map(room => (
                 <div key={room.id}
-                     className="card"
+                     className="card room-card"
                      onClick={e => {
                          if (e.target.className === 'edit-room' ||
                              e.target.className === 'close-room') return;
