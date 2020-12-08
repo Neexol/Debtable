@@ -8,9 +8,9 @@ import db.tables.Users
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
-import ru.neexol.debtable.db.tables.DebtorsPurchases
-import ru.neexol.debtable.db.tables.UsersRoomInvites
-import ru.neexol.debtable.db.tables.UsersRooms
+import ru.neexol.debtable.db.tables.Debtors
+import ru.neexol.debtable.db.tables.Invites
+import ru.neexol.debtable.db.tables.Members
 
 object DatabaseFactory {
     fun init() {
@@ -21,9 +21,9 @@ object DatabaseFactory {
                 create(Users)
                 create(Rooms)
                 create(Purchases)
-                create(UsersRooms)
-                create(UsersRoomInvites)
-                create(DebtorsPurchases)
+                create(Members)
+                create(Invites)
+                create(Debtors)
             }
         }
     }
