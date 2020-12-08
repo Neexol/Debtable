@@ -7,4 +7,5 @@ object Purchases : IntIdTable() {
     val debt = float("debt")
     val date = varchar("date", 64)
     val buyer = reference("buyer", Users)
+    val room = reference("room", Rooms)
 }

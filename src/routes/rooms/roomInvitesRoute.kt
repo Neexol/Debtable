@@ -57,7 +57,7 @@ private fun Route.roomInvitesEndpoint() {
                 unauthorized(),
                 notFound(description = "User or room not found."),
                 forbidden(),
-                conflict(description = "User already in room or already invited."),
+                conflict(description = "User already in room or already invited.")
             )
     ) { route, request ->
         foldRunCatching(
@@ -256,7 +256,6 @@ private fun Route.roomsInvitesEndpoint() {
 
 @KtorExperimentalLocationsAPI
 private fun Route.roomsInviteEndpoint() {
-
     delete<ApiRoomsInviteRoute>(
         "Decline an invite"
             .responds(

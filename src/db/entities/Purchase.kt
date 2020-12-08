@@ -13,5 +13,6 @@ class Purchase(id: EntityID<Int>): IntEntity(id) {
     var debt by Purchases.debt
     var date by Purchases.date
     var buyer by User referencedOn Purchases.buyer
+    var room by Room referencedOn Purchases.room
     var debtors by User via DebtorsPurchases
 }
