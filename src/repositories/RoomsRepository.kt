@@ -111,7 +111,7 @@ object RoomsRepository {
             }?.let {
                 invitedUsers = SizedCollection(invitedUsers.filter { it.id.value != user.id.value })
                 members = SizedCollection(members + user)
-                inviteId
+                this
             }
         }
     }

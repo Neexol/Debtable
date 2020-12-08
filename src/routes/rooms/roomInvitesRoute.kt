@@ -234,7 +234,7 @@ private fun Route.roomsInvitesEndpoint() {
                 ) ?: throw NotFoundException()
             },
             onSuccess = { result ->
-                call.respond(result)
+                call.respond(CompactRoomResponse(result))
             },
             onFailure = { exception ->
                 if (!interceptJsonBodyError(exception)) {
