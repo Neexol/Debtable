@@ -48,11 +48,11 @@ private fun Route.registerEndpoint() {
     post<ApiAuthRegisterRoute, RegisterUserRequest>(
         "Register new user"
             .examples(
-                example("Register account example", RegisterUserRequest.example)
+                example("Register account example", RegisterUserRequest.EXAMPLE)
             )
             .responds(
                 ok<String>(
-                    example("Access token example", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBdXRoZW50aWNhdGlvbiIsImlzcyI6ImRlYnRhYmxlU2VydmVyIiwiaWQiOjEyLCJleHAiOjE2MDcwODQzNjd9.W_MFXUC1-Hyeild-C9y1t1t_758yleob9o2n1RvVRgKin_xGfulmqpcrucrzvUSJmC9BrWkpGY7zrr0z6NY8DQ",)
+                    example("Access token example", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBdXRoZW50aWNhdGlvbiIsImlzcyI6ImRlYnRhYmxlU2VydmVyIiwiaWQiOjEyLCJleHAiOjE2MDcwODQzNjd9.W_MFXUC1-Hyeild-C9y1t1t_758yleob9o2n1RvVRgKin_xGfulmqpcrucrzvUSJmC9BrWkpGY7zrr0z6NY8DQ", description = "Success.")
                 ),
                 *jsonBodyErrors,
                 HttpCodeResponse(HttpStatusCode.Conflict, listOf(), "User with this username already exists.")
@@ -96,7 +96,7 @@ private fun Route.loginEndpoint() {
     post<ApiAuthLoginRoute, LoginUserRequest>(
         "Login"
             .examples(
-                example("Login example", LoginUserRequest.example)
+                example("Login example", LoginUserRequest.EXAMPLE)
             )
             .responds(
                 ok<String>(

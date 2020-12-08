@@ -6,7 +6,7 @@ data class CreateEditRoomRequest(
     @SerializedName("name") val name: String
 ) {
     companion object {
-        val example = mapOf(
+        val EXAMPLE = mapOf(
             "name" to "My room"
         )
     }

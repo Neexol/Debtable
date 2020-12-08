@@ -38,7 +38,7 @@ private fun Route.meEndpoint() {
         "Get current user"
             .responds(
                 ok<UserResponse>(
-                    example("User example", UserResponse.example, description = "Success.")
+                    example("User example", UserResponse.EXAMPLES[0], description = "Success.")
                 ),
                 badRequest(description = "Other errors."),
                 unauthorized()
@@ -67,7 +67,7 @@ private fun Route.findEndpoint() {
         "Get user by id or username"
             .responds(
                 ok<UserResponse>(
-                    example("User example", UserResponse.example, description = "Success.")
+                    example("User example", UserResponse.EXAMPLES[2], description = "Success.")
                 ),
                 notFound(description = "User not found."),
                 badRequest(description = "Incorrect query or other errors."),

@@ -40,7 +40,7 @@ private fun Route.passwordEndpoint() {
     patch<ApiAccountChangePasswordRoute, ChangePasswordRequest>(
         "Change password"
             .examples(
-                example("Change password example", ChangePasswordRequest.example)
+                example("Change password example", ChangePasswordRequest.EXAMPLE)
             )
             .responds(
                 noContent(description = "Success."),
@@ -87,11 +87,11 @@ private fun Route.dataEndpoint() {
     patch<ApiAccountChangeDataRoute, ChangeUserDataRequest>(
         "Change data"
             .examples(
-                example("Change data example", ChangeUserDataRequest.example)
+                example("Change data example", ChangeUserDataRequest.EXAMPLE)
             )
             .responds(
                 ok<UserResponse>(
-                    example("User example", UserResponse.example)
+                    example("User example", UserResponse.EXAMPLES[0], description = "Success.")
                 ),
                 *jsonBodyErrors,
                 unauthorized()

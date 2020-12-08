@@ -6,7 +6,7 @@ data class ChangeUserDataRequest(
     @SerializedName("new_display_name") val newDisplayName: String
 ) {
     companion object {
-        val example = mapOf(
+        val EXAMPLE = mapOf(
             "new_display_name" to "Michael Jackson"
         )
     }

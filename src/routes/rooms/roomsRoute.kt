@@ -42,7 +42,7 @@ private fun Route.roomsEndpoint() {
         "Get user rooms"
             .responds(
                 ok<List<RoomResponse>>(
-                    example("Rooms list", listOf(RoomResponse.example, RoomResponse.example, RoomResponse.example))
+                    example("Rooms list", RoomResponse.EXAMPLES, description = "Success.")
                 ),
                 unauthorized(),
                 badRequest(description = "Other errors.")
@@ -67,11 +67,11 @@ private fun Route.roomsEndpoint() {
     post<ApiRoomsRoute, CreateEditRoomRequest>(
         "Create room"
             .examples(
-                example("Create room example", CreateEditRoomRequest.example)
+                example("Create room example", CreateEditRoomRequest.EXAMPLE)
             )
             .responds(
                 ok<RoomResponse>(
-                    example("Created room example", RoomResponse.example)
+                    example("Created room example", RoomResponse.EXAMPLES[2], description = "Success.")
                 ),
                 *jsonBodyErrors,
                 unauthorized()
@@ -106,11 +106,11 @@ private fun Route.roomEndpoint() {
     put<ApiRoomRoute, CreateEditRoomRequest>(
         "Edit room"
             .examples(
-                example("Edit room example", CreateEditRoomRequest.example)
+                example("Edit room example", CreateEditRoomRequest.EXAMPLE)
             )
             .responds(
                 ok<RoomResponse>(
-                    example("Room example", RoomResponse.example)
+                    example("Room example", RoomResponse.EXAMPLES[1], description = "Success.")
                 ),
                 *jsonBodyErrors,
                 notFound(description = "Room not found."),
@@ -150,7 +150,7 @@ private fun Route.roomEndpoint() {
         "Delete room"
             .responds(
                 ok<Int>(
-                    example("Deleted room id", 5)
+                    example("Deleted room id", 5, description = "Success.")
                 ),
                 unauthorized(),
                 notFound(description = "Room not found."),

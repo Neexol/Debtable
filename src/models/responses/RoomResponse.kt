@@ -16,10 +16,22 @@ data class RoomResponse(
     )
 
     companion object {
-        val example = mapOf(
-            "id" to 5,
-            "name" to "Other room",
-            "members_number" to 4
+        val EXAMPLES = listOf(
+            mapOf(
+                "id" to 1,
+                "name" to "Admin room",
+                "members_number" to 3
+            ),
+            mapOf(
+                "id" to 2,
+                "name" to "1206 room",
+                "members_number" to 4
+            ),
+            mapOf(
+                "id" to 3,
+                "name" to "Printer room",
+                "members_number" to 5
+            )
         )
     }
 }

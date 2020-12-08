@@ -36,7 +36,7 @@ private fun Route.memberEndpoint() {
         "Get room members"
             .responds(
                 ok<List<UserResponse>>(
-                    example("Members example", listOf(UserResponse.example, UserResponse.example, UserResponse.example))
+                    example("Members example", UserResponse.EXAMPLES, description = "Success.")
                 ),
                 unauthorized(),
                 notFound(description = "Room not found."),
@@ -76,7 +76,7 @@ private fun Route.memberEndpoint() {
         "Delete room member"
             .responds(
                 ok<Int>(
-                    example("Deleted room member id", 5)
+                    example("Deleted room member id", 5, description = "Success.")
                 ),
                 unauthorized(),
                 notFound(description = "Room or member not found."),

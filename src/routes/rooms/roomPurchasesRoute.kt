@@ -40,7 +40,7 @@ private fun Route.purchasesEndpoint() {
         "Get room purchases"
             .responds(
                 ok<List<PurchaseResponse>>(
-                    example("Purchases example", listOf(PurchaseResponse.example, PurchaseResponse.example, PurchaseResponse.example))
+                    example("Purchases example", PurchaseResponse.EXAMPLES, description = "Success.")
                 ),
                 unauthorized(),
                 notFound(description = "Room not found."),
@@ -79,11 +79,11 @@ private fun Route.purchasesEndpoint() {
     post<ApiRoomPurchasesRoute, CreateEditPurchaseRequest>(
         "Create purchase"
             .examples(
-                example("Create purchase example", CreateEditPurchaseRequest.example)
+                example("Create purchase example", CreateEditPurchaseRequest.EXAMPLE)
             )
             .responds(
                 ok<PurchaseResponse>(
-                    example("Purchase example", PurchaseResponse.example)
+                    example("Purchase example", PurchaseResponse.EXAMPLES[1], description = "Success.")
                 ),
                 *jsonBodyErrors,
                 unauthorized(),
@@ -145,11 +145,11 @@ private fun Route.purchaseEndpoint() {
     put<ApiRoomPurchaseRoute, CreateEditPurchaseRequest>(
         "Edit purchase"
             .examples(
-                example("Edit purchase example", CreateEditPurchaseRequest.example)
+                example("Edit purchase example", CreateEditPurchaseRequest.EXAMPLE)
             )
             .responds(
                 ok<PurchaseResponse>(
-                    example("Purchase example", PurchaseResponse.example)
+                    example("Purchase example", PurchaseResponse.EXAMPLES[0], description = "Success.")
                 ),
                 *jsonBodyErrors,
                 unauthorized(),
@@ -208,7 +208,7 @@ private fun Route.purchaseEndpoint() {
         "Delete purchase"
             .responds(
                 ok<Int>(
-                    example("Deleted purchase id example", 3)
+                    example("Deleted purchase id example", 3, description = "Success.")
                 ),
                 unauthorized(),
                 notFound(description = "Purchase or room not found."),
