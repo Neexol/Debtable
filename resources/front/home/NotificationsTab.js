@@ -14,7 +14,7 @@ class NotificationsTab extends React.Component {
                     break;
             }
         });
-    }
+    };
 
     handleDeclineInvite = id => {
         sendDelete(ROUTE_DECLINE_INVITE(id), null,
@@ -30,14 +30,14 @@ class NotificationsTab extends React.Component {
                     break;
             }
         });
-    }
+    };
 
     render() {
         return (
             <>
                 <InviteTiles invites={this.props.invites}
                              onAcceptInviteClick={this.handleAcceptInvite}
-                             onDeclineInviteClick={this.handleDeclineInvite()}/>
+                             onDeclineInviteClick={this.handleDeclineInvite}/>
             </>
         );
     }

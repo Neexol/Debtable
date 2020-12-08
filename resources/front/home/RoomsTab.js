@@ -82,8 +82,8 @@ class RoomsTab extends React.Component {
     }
 
     handleChangeRoom = () => {
-        sendPatch(ROUTE_ROOM(this.state.selectedRoomId), JSON.stringify({
-            new_name: this.state.updatedRoomName
+        sendPut(ROUTE_ROOM(this.state.selectedRoomId), JSON.stringify({
+            name: this.state.updatedRoomName
         }), response => {
             this.props.updateRoomsByChange(response);
         }, response => {
