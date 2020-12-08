@@ -20,6 +20,9 @@ const val API_ROOM_MEMBER = "$API_ROOM_MEMBERS/{member_id}"
 
 @Group("Rooms")
 @KtorExperimentalLocationsAPI
+@Location(API_ROOM_MEMBERS) data class ApiRoomMembersRoute(val room_id: Int)
+@Group("Rooms")
+@KtorExperimentalLocationsAPI
 @Location(API_ROOM_MEMBER) data class ApiRoomMemberRoute(val room_id: Int, val member_id: Int)
 
 @KtorExperimentalLocationsAPI
@@ -28,6 +31,15 @@ fun Route.roomMembersRoute() {
 }
 @KtorExperimentalLocationsAPI
 private fun Route.memberEndpoint() {
+    get<ApiRoomMembersRoute>(
+        "Get room members"
+            .responds(
+
+            )
+    ) { route ->
+
+    }
+
     delete<ApiRoomMemberRoute>(
         "Delete room member"
             .responds(

@@ -10,7 +10,6 @@ import io.ktor.routing.*
 import ru.neexol.debtable.models.requests.CreateRoomRequest
 import ru.neexol.debtable.models.requests.EditRoomRequest
 import ru.neexol.debtable.models.responses.RoomResponse
-import ru.neexol.debtable.models.responses.RoomsResponse
 import ru.neexol.debtable.repositories.RoomsRepository
 import ru.neexol.debtable.repositories.UsersRepository
 import ru.neexol.debtable.routes.API
@@ -79,8 +78,8 @@ private fun Route.roomsEndpoint() {
     get<ApiRoomsRoute>(
         "Get user's rooms"
             .responds(
-                ok<RoomsResponse>(
-                    example("Rooms list", RoomsResponse.example)
+                ok<List<RoomResponse>>(
+                    example("Rooms list", listOf(RoomResponse.example, RoomResponse.example, RoomResponse.example))
                 ),
                 unauthorized(),
                 badRequest(description = "Other errors.")
@@ -91,7 +90,7 @@ private fun Route.roomsEndpoint() {
                 UsersRepository.getUserRooms(getUserIdFromToken())!!
             },
             onSuccess = { result ->
-                call.respond(RoomsResponse(result.map { RoomResponse(it) }))
+                call.respond(result.map { RoomResponse(it) })
             },
             onFailure = { exception ->
                 call.respond(

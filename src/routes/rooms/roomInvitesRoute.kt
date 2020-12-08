@@ -10,8 +10,6 @@ import io.ktor.routing.*
 import ru.neexol.debtable.models.requests.AcceptInviteRequest
 import ru.neexol.debtable.models.requests.CreateInviteRequest
 import ru.neexol.debtable.models.responses.RoomResponse
-import ru.neexol.debtable.models.responses.InvitedUsersResponse
-import ru.neexol.debtable.models.responses.RoomsResponse
 import ru.neexol.debtable.models.responses.UserResponse
 import ru.neexol.debtable.repositories.RoomsRepository
 import ru.neexol.debtable.repositories.UsersRepository
@@ -106,8 +104,8 @@ private fun Route.roomInvitesEndpoint() {
     get<ApiRoomInvitesRoute>(
         "Get users invited to this room"
             .responds(
-                ok<InvitedUsersResponse>(
-                    example("Invited users example", InvitedUsersResponse.example)
+                ok<List<UserResponse>>(
+                    example("Invited users example", listOf(UserResponse.example, UserResponse.example, UserResponse.example))
                 ),
                 unauthorized(),
                 notFound(description = "Room not found."),
@@ -121,8 +119,7 @@ private fun Route.roomInvitesEndpoint() {
                 RoomsRepository.getInvitedUsersToRoom(route.room_id)!!
             },
             onSuccess = { result ->
-                val userResponsesList = result.map { UserResponse(it) }
-                call.respond(InvitedUsersResponse(userResponsesList))
+                call.respond(result.map { UserResponse(it) })
             },
             onFailure = { exception ->
                 when (exception) {
@@ -188,8 +185,8 @@ private fun Route.roomsInvitesEndpoint() {
     get<ApiRoomsInvitesRoute> (
         "Get user's invites"
             .responds(
-                ok<RoomsResponse>(
-                    example("Invites example", RoomsResponse.example)
+                ok<List<RoomResponse>>(
+                    example("Invites example", listOf(RoomResponse.example,RoomResponse.example , RoomResponse.example))
                 ),
                 unauthorized(),
                 badRequest(description = "Other errors.")
@@ -200,7 +197,7 @@ private fun Route.roomsInvitesEndpoint() {
                 UsersRepository.getUserInvites(getUserIdFromToken())!!
             },
             onSuccess = { result ->
-                call.respond(RoomsResponse(result.map { RoomResponse(it) }))
+                call.respond(result.map { RoomResponse(it) })
             },
             onFailure = { exception ->
                 call.respond(
