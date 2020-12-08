@@ -1,4 +1,4 @@
-class NotificationsTab extends React.Component {
+class InvitesTab extends React.Component {
     handleAcceptInvite = id => {
         sendPost(ROUTE_INVITES_OF_USER, JSON.stringify({
             invite_id: id
@@ -14,7 +14,7 @@ class NotificationsTab extends React.Component {
                     break;
             }
         });
-    }
+    };
 
     handleDeclineInvite = id => {
         sendDelete(ROUTE_DECLINE_INVITE(id), null,
@@ -30,14 +30,14 @@ class NotificationsTab extends React.Component {
                     break;
             }
         });
-    }
+    };
 
     render() {
         return (
             <>
                 <InviteTiles invites={this.props.invites}
                              onAcceptInviteClick={this.handleAcceptInvite}
-                             onDeclineInviteClick={this.handleDeclineInvite()}/>
+                             onDeclineInviteClick={this.handleDeclineInvite}/>
             </>
         );
     }
@@ -46,8 +46,8 @@ class NotificationsTab extends React.Component {
 function InviteTiles(props) {
     return (
         <> {
-            props.invites.rooms.length === 0 ? (<strong>Нет приглашений</strong>) :
-                props.invites.rooms.map(room => (
+            props.invites.length === 0 ? (<strong>Нет приглашений</strong>) :
+                props.invites.map(room => (
                     <div key={room.id}
                          className="card invite-card"
                          onClick={e => {

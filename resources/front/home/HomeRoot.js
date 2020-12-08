@@ -16,25 +16,25 @@ class HomeRoot extends React.Component {
 
     updateRoomsByAdd = newRoom => this.setState(state => {
         let newRooms = state.rooms;
-        newRooms.rooms.push(newRoom);
+        newRooms.push(newRoom);
         return {rooms: newRooms}
     });
     updateRoomsByDelete = deletedRoom => this.setState(state => {
         let newRooms = state.rooms;
-        newRooms.rooms.splice(newRooms.rooms.map(room => room.id).indexOf(deletedRoom), 1);
+        newRooms.splice(newRooms.map(room => room.id).indexOf(deletedRoom), 1);
         return {rooms: newRooms}
     });
     updateRoomsByChange = updatedRoom => this.setState(state => {
         let newRooms = state.rooms;
-        newRooms.rooms[newRooms.rooms.map(room => room.id).indexOf(updatedRoom.id)] = updatedRoom;
+        newRooms[newRooms.map(room => room.id).indexOf(updatedRoom.id)] = updatedRoom;
         return {rooms: newRooms}
     });
 
     updateInvitesByAccept = acceptedInvite => this.setState(state => {
         let newRooms = state.rooms;
-        newRooms.rooms.push(acceptedInvite);
+        newRooms.push(acceptedInvite);
         let newInvites = state.invites;
-        newInvites.rooms.splice(newInvites.rooms.map(room => room.id).indexOf(declinedInvite.id), 1);
+        newInvites.splice(newInvites.map(room => room.id).indexOf(acceptedInvite.id), 1);
         return {
             invites: newInvites,
             rooms: newRooms
@@ -42,7 +42,7 @@ class HomeRoot extends React.Component {
     });
     updateInvitesByDecline = declinedInvite => this.setState(state => {
         let newInvites = state.invites;
-        newInvites.rooms.splice(newInvites.rooms.map(room => room.id).indexOf(declinedInvite), 1);
+        newInvites.splice(newInvites.map(room => room.id).indexOf(declinedInvite), 1);
         return {invites: newInvites}
     });
 

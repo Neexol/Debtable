@@ -12,7 +12,7 @@ class RoomsTab extends React.Component {
     }
 
     roomById = id => {
-        const rooms = this.props.rooms.rooms;
+        const rooms = this.props.rooms;
         return id ? rooms[rooms.map(room => room.id).indexOf(id)] : {name: null};
     };
 
@@ -82,8 +82,8 @@ class RoomsTab extends React.Component {
     }
 
     handleChangeRoom = () => {
-        sendPatch(ROUTE_ROOM(this.state.selectedRoomId), JSON.stringify({
-            new_name: this.state.updatedRoomName
+        sendPut(ROUTE_ROOM(this.state.selectedRoomId), JSON.stringify({
+            name: this.state.updatedRoomName
         }), response => {
             this.props.updateRoomsByChange(response);
         }, response => {
@@ -196,8 +196,8 @@ class RoomsTab extends React.Component {
 function RoomTiles(props) {
     return (
         <> {
-            props.rooms.rooms.length === 0 ? (<strong>Нет комнат</strong>) :
-            props.rooms.rooms.map(room => (
+            props.rooms.length === 0 ? (<strong>Нет комнат</strong>) :
+            props.rooms.map(room => (
                 <div key={room.id}
                      className="card room-card"
                      onClick={e => {
@@ -217,9 +217,12 @@ function RoomTiles(props) {
                             delete
                         </span>
                     </span>
-
-
+                    
                     <b>{room.name}</b><br/>
+                    <span style={{display: 'flex', alignItems: 'center'}}>
+                        <i className="material-icons nav-icon">people</i>
+                        {room.members_number}
+                    </span><br/>
                     id: {room.id}
                 </div>
             ))
