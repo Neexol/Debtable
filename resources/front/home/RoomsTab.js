@@ -199,7 +199,7 @@ function RoomTiles(props) {
             props.rooms.rooms.length === 0 ? (<strong>Нет комнат</strong>) :
             props.rooms.rooms.map(room => (
                 <div key={room.id}
-                     className="card"
+                     className="card room-card"
                      onClick={e => {
                          if (e.target.className === 'edit-room' ||
                              e.target.className === 'close-room') return;

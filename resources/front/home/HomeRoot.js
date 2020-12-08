@@ -11,22 +11,30 @@ class HomeRoot extends React.Component {
     }
 
     handleCheck = index => this.setState({checkedIndex: index});
+
     updateUser = newUser => this.setState({profile: newUser});
+
     updateRoomsByAdd = newRoom => this.setState(state => {
         let newRooms = state.rooms;
         newRooms.rooms.push(newRoom);
         return {rooms: newRooms}
-    })
+    });
     updateRoomsByDelete = deletedRoom => this.setState(state => {
         let newRooms = state.rooms;
         newRooms.rooms.splice(newRooms.rooms.map(room => room.id).indexOf(deletedRoom), 1);
         return {rooms: newRooms}
-    })
+    });
     updateRoomsByChange = updatedRoom => this.setState(state => {
         let newRooms = state.rooms;
         newRooms.rooms[newRooms.rooms.map(room => room.id).indexOf(updatedRoom.id)] = updatedRoom;
         return {rooms: newRooms}
-    })
+    });
+
+    updateInvitesByAccept = acceptedInvite => this.setState(state => {
+        let newRooms = state.rooms;
+        newRooms.rooms.push(acceptedInvite);
+
+    });
 
     getProfile = () => sendGet(ROUTE_ME,
         response => {
@@ -102,7 +110,9 @@ class HomeRoot extends React.Component {
                                 updateUser: this.updateUser,
                                 updateRoomsByAdd: this.updateRoomsByAdd,
                                 updateRoomsByDelete: this.updateRoomsByDelete,
-                                updateRoomsByChange: this.updateRoomsByChange
+                                updateRoomsByChange: this.updateRoomsByChange,
+                                updateInvitesByAccept: this.updateInvitesByAccept,
+                                updateInvitesByDecline: this.updateInvitesByDecline
                             })
                         }</div>
                 }
