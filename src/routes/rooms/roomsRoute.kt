@@ -13,8 +13,8 @@ import ru.neexol.debtable.repositories.RoomsRepository
 import ru.neexol.debtable.repositories.UsersRepository
 import ru.neexol.debtable.routes.API
 import ru.neexol.debtable.utils.*
-import ru.neexol.debtable.utils.exceptions.ForbiddenException
-import ru.neexol.debtable.utils.exceptions.NotFoundException
+import ru.neexol.debtable.utils.exceptions.access.RoomAccessException
+import ru.neexol.debtable.utils.exceptions.not_found.RoomNotFoundException
 
 const val API_ROOMS = "$API/rooms"
 const val API_ROOM = "$API_ROOMS/{room_id}"
@@ -114,7 +114,7 @@ private fun Route.roomEndpoint() {
                 ),
                 *jsonBodyErrors,
                 notFound(description = "Room not found."),
-                forbidden()
+                forbidden(description = "Access to room denied.")
             )
     ) { route, request ->
         foldRunCatching(
@@ -128,13 +128,13 @@ private fun Route.roomEndpoint() {
             onFailure = { exception ->
                 if (!interceptJsonBodyError(exception)) {
                     when (exception) {
-                        is NotFoundException -> call.respond(
+                        is RoomNotFoundException -> call.respond(
                             HttpStatusCode.NotFound,
                             "Room not found."
                         )
-                        is ForbiddenException -> call.respond(
+                        is RoomAccessException -> call.respond(
                             HttpStatusCode.Forbidden,
-                            "Access denied."
+                            "Access to room denied."
                         )
                         else -> call.respond(
                             HttpStatusCode.BadRequest,
@@ -154,7 +154,7 @@ private fun Route.roomEndpoint() {
                 ),
                 unauthorized(),
                 notFound(description = "Room not found."),
-                forbidden(),
+                forbidden(description = "Access to room denied."),
                 badRequest(description = "Other errors.")
             )
     ) { route ->
@@ -168,13 +168,13 @@ private fun Route.roomEndpoint() {
             },
             onFailure = { exception ->
                 when (exception) {
-                    is NotFoundException -> call.respond(
+                    is RoomNotFoundException -> call.respond(
                         HttpStatusCode.NotFound,
                         "Room not found."
                     )
-                    is ForbiddenException -> call.respond(
+                    is RoomAccessException -> call.respond(
                         HttpStatusCode.Forbidden,
-                        "Access denied."
+                        "Access to room denied."
                     )
                     else -> call.respond(
                         HttpStatusCode.BadRequest,

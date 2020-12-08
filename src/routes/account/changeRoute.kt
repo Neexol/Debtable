@@ -14,7 +14,7 @@ import ru.neexol.debtable.models.requests.ChangeUserDataRequest
 import ru.neexol.debtable.models.responses.UserResponse
 import ru.neexol.debtable.repositories.UsersRepository
 import ru.neexol.debtable.utils.*
-import ru.neexol.debtable.utils.exceptions.NotMatchPasswordException
+import ru.neexol.debtable.utils.exceptions.forbidden.NotMatchPasswordException
 
 const val API_ACCOUNT_CHANGE = "$API_ACCOUNT/change"
 const val API_ACCOUNT_CHANGE_PASSWORD = "$API_ACCOUNT_CHANGE/password"

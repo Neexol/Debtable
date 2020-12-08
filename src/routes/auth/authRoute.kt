@@ -17,8 +17,8 @@ import ru.neexol.debtable.models.requests.LoginUserRequest
 import ru.neexol.debtable.models.requests.RegisterUserRequest
 import ru.neexol.debtable.repositories.UsersRepository
 import ru.neexol.debtable.routes.API
-import ru.neexol.debtable.utils.exceptions.NotFoundException
-import ru.neexol.debtable.utils.exceptions.WrongPasswordException
+import ru.neexol.debtable.utils.exceptions.not_found.UserNotFoundException
+import ru.neexol.debtable.utils.exceptions.unauthorized.WrongPasswordException
 import ru.neexol.debtable.utils.foldRunCatching
 import ru.neexol.debtable.utils.interceptJsonBodyError
 import ru.neexol.debtable.utils.jsonBodyErrors
@@ -109,7 +109,7 @@ private fun Route.loginEndpoint() {
     ) { _, request ->
         foldRunCatching(
             block = {
-                val user = UsersRepository.getUserByUserName(request.username) ?: throw NotFoundException()
+                val user = UsersRepository.getUserByUserName(request.username) ?: throw UserNotFoundException()
                 if (user.passwordHash != hashFunction(request.password)) {
                     throw WrongPasswordException()
                 }
@@ -123,7 +123,7 @@ private fun Route.loginEndpoint() {
             onFailure = { exception ->
                 if (!interceptJsonBodyError(exception)) {
                     when (exception) {
-                        is NotFoundException -> call.respond(
+                        is UserNotFoundException -> call.respond(
                             HttpStatusCode.NotFound,
                             "User not found."
                         )

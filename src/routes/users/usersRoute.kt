@@ -10,8 +10,8 @@ import io.ktor.routing.*
 import ru.neexol.debtable.models.responses.UserResponse
 import ru.neexol.debtable.repositories.UsersRepository
 import ru.neexol.debtable.routes.API
-import ru.neexol.debtable.utils.exceptions.IncorrectQueryException
-import ru.neexol.debtable.utils.exceptions.NotFoundException
+import ru.neexol.debtable.utils.exceptions.bad_request.IncorrectQueryException
+import ru.neexol.debtable.utils.exceptions.not_found.UserNotFoundException
 import ru.neexol.debtable.utils.foldRunCatching
 import ru.neexol.debtable.utils.getUserIdFromToken
 import ru.neexol.debtable.utils.unauthorized
@@ -77,9 +77,9 @@ private fun Route.findEndpoint() {
         foldRunCatching(
             block = {
                 route.id?.let { id ->
-                    UsersRepository.getUserById(id) ?: throw NotFoundException()
+                    UsersRepository.getUserById(id) ?: throw UserNotFoundException()
                 } ?: route.username?.let { username ->
-                    UsersRepository.getUserByUserName(username) ?: throw NotFoundException()
+                    UsersRepository.getUserByUserName(username) ?: throw UserNotFoundException()
                 } ?: throw IncorrectQueryException()
             },
             onSuccess = { result ->
@@ -87,7 +87,7 @@ private fun Route.findEndpoint() {
             },
             onFailure = { exception ->
                 when (exception) {
-                    is NotFoundException -> call.respond(
+                    is UserNotFoundException -> call.respond(
                         HttpStatusCode.NotFound,
                         "User not found."
                     )

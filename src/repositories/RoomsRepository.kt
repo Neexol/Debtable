@@ -5,8 +5,8 @@ import org.jetbrains.exposed.sql.SizedCollection
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import ru.neexol.debtable.db.entities.Room
 import ru.neexol.debtable.db.entities.User
-import ru.neexol.debtable.utils.exceptions.ForbiddenException
-import ru.neexol.debtable.utils.exceptions.NotFoundException
+import ru.neexol.debtable.utils.exceptions.access.RoomAccessException
+import ru.neexol.debtable.utils.exceptions.not_found.RoomNotFoundException
 import ru.neexol.debtable.utils.ifFalse
 
 object RoomsRepository {
@@ -81,8 +81,8 @@ object RoomsRepository {
         roomId: Int,
         userId: Int
     ) = getRoomById(roomId)?.also {
-        isRoomContainsUser(roomId, userId).ifFalse { throw ForbiddenException() }
-    } ?: throw NotFoundException()
+        isRoomContainsUser(roomId, userId).ifFalse { throw RoomAccessException() }
+    } ?: throw RoomNotFoundException()
 
     suspend fun inviteUserToRoom(
         roomId: Int,
