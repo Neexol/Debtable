@@ -42,6 +42,45 @@ fun Route.roomInvitesRoute() {
 
 @KtorExperimentalLocationsAPI
 private fun Route.roomInvitesEndpoint() {
+    get<ApiRoomInvitesRoute>(
+        "Get users invited to this room"
+            .responds(
+                ok<List<UserResponse>>(
+                    example("Invited users example", listOf(UserResponse.example, UserResponse.example, UserResponse.example))
+                ),
+                unauthorized(),
+                notFound(description = "Room not found."),
+                forbidden(),
+                badRequest(description = "Other errors.")
+            )
+    ) { route ->
+        foldRunCatching(
+            block = {
+                RoomsRepository.checkRoomAccess(route.room_id, getUserIdFromToken())
+                RoomsRepository.getInvitedUsersToRoom(route.room_id)!!
+            },
+            onSuccess = { result ->
+                call.respond(result.map { UserResponse(it) })
+            },
+            onFailure = { exception ->
+                when (exception) {
+                    is NotFoundException -> call.respond(
+                        HttpStatusCode.NotFound,
+                        "Room not found."
+                    )
+                    is ForbiddenException -> call.respond(
+                        HttpStatusCode.Forbidden,
+                        "Access denied."
+                    )
+                    else -> call.respond(
+                        HttpStatusCode.BadRequest,
+                        exception.toString()
+                    )
+                }
+            }
+        )
+    }
+
     post<ApiRoomInvitesRoute, CreateInviteRequest>(
         "Invite user to room"
             .examples(
@@ -96,45 +135,6 @@ private fun Route.roomInvitesEndpoint() {
                             exception.toString()
                         )
                     }
-                }
-            }
-        )
-    }
-
-    get<ApiRoomInvitesRoute>(
-        "Get users invited to this room"
-            .responds(
-                ok<List<UserResponse>>(
-                    example("Invited users example", listOf(UserResponse.example, UserResponse.example, UserResponse.example))
-                ),
-                unauthorized(),
-                notFound(description = "Room not found."),
-                forbidden(),
-                badRequest(description = "Other errors.")
-            )
-    ) { route ->
-        foldRunCatching(
-            block = {
-                RoomsRepository.checkRoomAccess(route.room_id, getUserIdFromToken())
-                RoomsRepository.getInvitedUsersToRoom(route.room_id)!!
-            },
-            onSuccess = { result ->
-                call.respond(result.map { UserResponse(it) })
-            },
-            onFailure = { exception ->
-                when (exception) {
-                    is NotFoundException -> call.respond(
-                        HttpStatusCode.NotFound,
-                        "Room not found."
-                    )
-                    is ForbiddenException -> call.respond(
-                        HttpStatusCode.Forbidden,
-                        "Access denied."
-                    )
-                    else -> call.respond(
-                        HttpStatusCode.BadRequest,
-                        exception.toString()
-                    )
                 }
             }
         )

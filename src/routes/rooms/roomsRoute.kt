@@ -38,6 +38,32 @@ fun Route.roomsRoute() {
 
 @KtorExperimentalLocationsAPI
 private fun Route.roomsEndpoint() {
+    get<ApiRoomsRoute>(
+        "Get user rooms"
+            .responds(
+                ok<List<RoomResponse>>(
+                    example("Rooms list", listOf(RoomResponse.example, RoomResponse.example, RoomResponse.example))
+                ),
+                unauthorized(),
+                badRequest(description = "Other errors.")
+            )
+    ) {
+        foldRunCatching(
+            block = {
+                UsersRepository.getUserRooms(getUserIdFromToken())!!
+            },
+            onSuccess = { result ->
+                call.respond(result.map { RoomResponse(it) })
+            },
+            onFailure = { exception ->
+                call.respond(
+                    HttpStatusCode.BadRequest,
+                    exception.toString()
+                )
+            }
+        )
+    }
+    
     post<ApiRoomsRoute, CreateEditRoomRequest>(
         "Create room"
             .examples(
@@ -70,32 +96,6 @@ private fun Route.roomsEndpoint() {
                         exception.toString()
                     )
                 }
-            }
-        )
-    }
-
-    get<ApiRoomsRoute>(
-        "Get user rooms"
-            .responds(
-                ok<List<RoomResponse>>(
-                    example("Rooms list", listOf(RoomResponse.example, RoomResponse.example, RoomResponse.example))
-                ),
-                unauthorized(),
-                badRequest(description = "Other errors.")
-            )
-    ) {
-        foldRunCatching(
-            block = {
-                UsersRepository.getUserRooms(getUserIdFromToken())!!
-            },
-            onSuccess = { result ->
-                call.respond(result.map { RoomResponse(it) })
-            },
-            onFailure = { exception ->
-                call.respond(
-                    HttpStatusCode.BadRequest,
-                    exception.toString()
-                )
             }
         )
     }
