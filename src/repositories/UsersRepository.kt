@@ -34,6 +34,14 @@ object UsersRepository {
         }.singleOrNull()
     }
 
+    suspend fun getUsersByUserName(
+        username: String
+    ) = newSuspendedTransaction(Dispatchers.IO) {
+        User.find {
+            Users.username ilike "%$username%"
+        }.toList()
+    }
+
     suspend fun getUserRooms(
         userId: Int
     ) = newSuspendedTransaction(Dispatchers.IO) {

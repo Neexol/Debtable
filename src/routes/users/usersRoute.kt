@@ -10,8 +10,6 @@ import io.ktor.routing.*
 import ru.neexol.debtable.models.responses.UserResponse
 import ru.neexol.debtable.repositories.UsersRepository
 import ru.neexol.debtable.routes.API
-import ru.neexol.debtable.utils.exceptions.bad_request.IncorrectQueryException
-import ru.neexol.debtable.utils.exceptions.not_found.UserNotFoundException
 import ru.neexol.debtable.utils.foldRunCatching
 import ru.neexol.debtable.utils.getUserIdFromToken
 import ru.neexol.debtable.utils.unauthorized
@@ -24,7 +22,7 @@ const val API_USERS_ME = "$API_USERS/me"
 @Location(API_USERS_ME) class ApiUsersMeRoute
 @Group("Users")
 @KtorExperimentalLocationsAPI
-@Location(API_USERS) data class ApiUsersRoute(val id: Int? = null, val username: String? = null)
+@Location(API_USERS) data class ApiUsersRoute(val username: String)
 
 @KtorExperimentalLocationsAPI
 fun Route.usersRoute() {
@@ -64,42 +62,27 @@ private fun Route.meEndpoint() {
 @KtorExperimentalLocationsAPI
 private fun Route.findEndpoint() {
     get<ApiUsersRoute>(
-        "Get user by id or username"
+        "Get users by username"
             .responds(
                 ok<UserResponse>(
-                    example("User example", UserResponse.EXAMPLES[2], description = "Success.")
+                    example("Users example", UserResponse.EXAMPLES, description = "Success.")
                 ),
-                notFound(description = "User not found."),
-                badRequest(description = "Incorrect query or other errors."),
-                unauthorized()
+                unauthorized(),
+                badRequest(description = "Other errors.")
             )
     ) { route ->
         foldRunCatching(
             block = {
-                route.id?.let { id ->
-                    UsersRepository.getUserById(id) ?: throw UserNotFoundException()
-                } ?: route.username?.let { username ->
-                    UsersRepository.getUserByUserName(username) ?: throw UserNotFoundException()
-                } ?: throw IncorrectQueryException()
+                UsersRepository.getUsersByUserName(route.username)
             },
             onSuccess = { result ->
-                call.respond(UserResponse(result))
+                call.respond(result.map { UserResponse(it) })
             },
             onFailure = { exception ->
-                when (exception) {
-                    is UserNotFoundException -> call.respond(
-                        HttpStatusCode.NotFound,
-                        "User not found."
-                    )
-                    is IncorrectQueryException -> call.respond(
-                        HttpStatusCode.BadRequest,
-                        "Missing id or username."
-                    )
-                    else -> call.respond(
-                        HttpStatusCode.BadRequest,
-                        exception.toString()
-                    )
-                }
+                call.respond(
+                    HttpStatusCode.BadRequest,
+                    exception.toString()
+                )
             }
         )
     }
