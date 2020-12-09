@@ -28,7 +28,7 @@ class AuthorizationRoot extends React.Component {
             password: this.state.pass
         }), response => {
             setJWT(response);
-            location.replace(HOST_URL+'home/home.html');
+            redirectToHome();
         }, response => {
             switch (response.status) {
                 case 409:
