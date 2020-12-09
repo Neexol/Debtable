@@ -46,6 +46,11 @@ class RoomRoot extends React.Component {
         newInvitedUsers.splice(newInvitedUsers.map(user => user.id).indexOf(removedInvitedUser), 1);
         return {invitedUsers: newInvitedUsers}
     });
+    updateInvitedUsersByAdd = newInvitedUser => this.setState(state => {
+        let newInvitedUsers = state.invitedUsers;
+        newInvitedUsers.push(newInvitedUser);
+        return {invitedUsers: newInvitedUsers}
+    });
 
     getMembers = () => sendGet(ROUTE_MEMBERS(this.state.roomID),
         response => {
@@ -120,6 +125,7 @@ class RoomRoot extends React.Component {
                                 roomID: this.state.roomID,
                                 updateMembersByRemove: this.updateMembersByRemove,
                                 updateInvitedUsersByRemove: this.updateInvitedUsersByRemove,
+                                updateInvitedUsersByAdd: this.updateInvitedUsersByAdd,
                             })
                         }</div>
                 }

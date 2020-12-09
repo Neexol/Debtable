@@ -19,6 +19,7 @@ const NAVIGATION = (index, prop) => ([
                     members={prop.members}
                     updateMembersByRemove={prop.updateMembersByRemove}
                     updateInvitedUsersByRemove={prop.updateInvitedUsersByRemove}
+                    updateInvitedUsersByAdd={prop.updateInvitedUsersByAdd}
                     invitedUsers={prop.invitedUsers}/>)
 ][index]);
 

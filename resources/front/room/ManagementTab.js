@@ -45,14 +45,15 @@ class ManagementTab extends React.Component {
         } else {
             return 'user'
         }
-    }
+    };
 
     handleRemoveMember = () => {
         sendDelete(ROUTE_REMOVE_MEMBER(this.props.roomID, this.state.selectedUserID), null,
         response => {
             this.props.updateMembersByRemove(response);
             console.log("user ["+response+"] removed");
-        }, response => {
+        },
+        response => {
             switch (response.status) {
                 case 401:
                     redirectToLogin();
@@ -63,24 +64,53 @@ class ManagementTab extends React.Component {
             }
         });
         this.closeRemoveMemberDialog();
-    }
+    };
 
     handleRemoveInvitedUser = () => {
         sendDelete(ROUTE_REMOVE_INVITED_USER(this.props.roomID, this.state.selectedUserID), null,
-            response => {
+        response => {
                 this.props.updateInvitedUsersByRemove(response);
                 console.log("invited user ["+response+"] removed");
-            }, response => {
-                switch (response.status) {
-                    case 401:
-                        redirectToLogin();
-                        break;
-                    default:
-                        console.log("error "+response.status);
-                        break;
-                }
-            });
+        },
+        response => {
+            switch (response.status) {
+                case 401:
+                    redirectToLogin();
+                    break;
+                default:
+                    console.log("error "+response.status);
+                    break;
+            }
+        });
         this.closeRemoveInvitedUserDialog();
+    };
+
+    handleInviteNewUser = () => {
+        sendPost(ROUTE_INVITES_OF_ROOM(this.props.roomID), JSON.stringify({
+            user_id: this.state.selectedUserID
+        }), response => {
+            this.props.updateInvitedUsersByAdd(response);
+            console.log("invite new user ["+response.id+"]");
+        }, response => {
+            switch (response.status) {
+                case 401:
+                    redirectToLogin();
+                    break;
+                default:
+                    console.log("error "+response.status);
+                    break;
+            }
+        });
+        this.closeRemoveInvitedUserDialog();
+    };
+
+    inviteNewUserFromDialog = userID => {
+        this.state.selectedUserID = userID;
+        this.handleInviteNewUser();
+    };
+    cancelInviteFromDialog = userID => {
+        this.state.selectedUserID = userID;
+        this.handleRemoveInvitedUser();
     }
 
     render() {
@@ -131,6 +161,8 @@ class ManagementTab extends React.Component {
                 <InviteUsersDialog id="inviteUsersDialog"
                                    whoIsUser={this.whoIsUser}
                                    display={this.state.inviteUsersDialogOpened}
+                                   onInviteUser={this.inviteNewUserFromDialog}
+                                   onCancelInvite={this.cancelInviteFromDialog}
                                    onClose={() => this.setState({inviteUsersDialogOpened: false})}/>
             </>
         );
@@ -150,9 +182,7 @@ function MembersList(props) {
                         </span>
 
                         <span className="material-icons small-action-btn"
-                              onClick={() => props.onRemove(member.id)}
-                              // style={{float: 'right'}}
-                        >
+                              onClick={() => props.onRemove(member.id)}>
                             {props.removeIcon}
                         </span>
                     </div>
@@ -253,7 +283,9 @@ class InviteUsersDialog extends React.Component {
                                     this.state.searchResults.map(user => (
                                         <SearchResult key={user.id}
                                                       user={user}
-                                                      whoIsUser={this.props.whoIsUser(user.id)}/>
+                                                      whoIsUser={this.props.whoIsUser(user.id)}
+                                                      onInviteUser={this.props.onInviteUser}
+                                                      onCancelInvite={this.props.onCancelInvite}/>
                                     ))
                                 )
                             )
@@ -275,7 +307,12 @@ function SearchResult(props) {
             </span>
 
             <button className={"invite-text-btn"+(props.whoIsUser === 'invitedUser' ? ' negative' : '')}
-                    // onClick={() => props.onRemove(member.id)}
+                    onClick={() => {
+                        switch (props.whoIsUser) {
+                            case 'invitedUser': props.onCancelInvite(props.user.id); return;
+                            case 'user': props.onInviteUser(props.user.id); return;
+                        }
+                    }}
                     disabled={props.whoIsUser === 'member'}>
                 {
                     props.whoIsUser === 'member' ? 'Уже в комнате' : (

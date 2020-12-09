@@ -24,7 +24,7 @@ const ROUTE_ROOM = roomID => 'api/rooms/' + roomID;
 const ROUTE_INVITES_OF_USER = 'api/rooms/invites';
 const ROUTE_INVITES_OF_ROOM = roomID => 'api/rooms/' + roomID + '/invites';
 const ROUTE_DECLINE_INVITE = inviteID => 'api/rooms/invites/' + inviteID;
-const ROUTE_REMOVE_INVITED_USER = (roomID, userID) => '/api/rooms/' + roomID + '/invites?user_id=' + userID;
+const ROUTE_REMOVE_INVITED_USER = (roomID, userID) => 'api/rooms/' + roomID + '/invites?user_id=' + userID;
 
 // Members
 const ROUTE_MEMBERS = roomID => 'api/rooms/' + roomID + '/members';
