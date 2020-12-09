@@ -5,17 +5,22 @@ import org.jetbrains.exposed.sql.SizedCollection
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import ru.neexol.debtable.db.entities.Room
 import ru.neexol.debtable.db.entities.User
+import ru.neexol.debtable.utils.StatsString
 import ru.neexol.debtable.utils.exceptions.access.RoomAccessException
 import ru.neexol.debtable.utils.exceptions.not_found.RoomNotFoundException
 import ru.neexol.debtable.utils.ifFalse
+import ru.neexol.debtable.utils.ifTrue
 
 object RoomsRepository {
     suspend fun addRoom(
-        name: String
+        name: String,
+        creator: User
     ) = newSuspendedTransaction(Dispatchers.IO) {
         Room.new {
             this.name = name
         }
+    }.also { room ->
+        addUserToRoom(room.id.value, creator)
     }
 
     suspend fun getRoomById(
@@ -28,8 +33,13 @@ object RoomsRepository {
         roomId: Int,
         user: User
     ) = newSuspendedTransaction(Dispatchers.IO) {
-        getRoomById(roomId)?.let {
-            it.members = SizedCollection(it.members + user)
+        getRoomById(roomId)?.let { room ->
+            user.also {
+                room.members = SizedCollection(room.members + user)
+                room.stats = StatsString(room.stats).apply {
+                    addUserBalance(user.id.value)
+                }.toString()
+            }
         }
     }
 
@@ -114,7 +124,7 @@ object RoomsRepository {
                 it.id.value == user.id.value
             }?.let {
                 invitedUsers = SizedCollection(invitedUsers.filter { it.id.value != user.id.value })
-                members = SizedCollection(members + user)
+                addUserToRoom(inviteId, user)
                 this
             }
         }
@@ -138,5 +148,20 @@ object RoomsRepository {
         roomId: Int
     ) = newSuspendedTransaction(Dispatchers.IO) {
         getRoomById(roomId)?.purchases?.toList()
+    }
+
+    suspend fun getRoomStats(
+        roomId: Int
+    ) = newSuspendedTransaction(Dispatchers.IO) {
+        getRoomById(roomId)?.let { room ->
+            StatsString(room.stats).also { stats ->
+                stats.toList().forEach { userBalance ->
+                    (userBalance.second == 0f && !isRoomContainsUser(roomId, userBalance.first)).ifTrue {
+                        stats.removeUserBalance(userBalance.first)
+                    }
+                }
+                room.stats = stats.toString()
+            }.toList()
+        }
     }
 }

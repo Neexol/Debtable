@@ -166,21 +166,23 @@ private fun Route.purchaseEndpoint() {
         foldRunCatching(
             block = {
                 request.debtorIds.ifEmpty { throw EmptyDebtorsException() }
-                RoomsRepository.checkRoomAccess(route.room_id, getUserIdFromToken())
-                (request.debtorIds + request.buyerId).forEach {
-                    RoomsRepository.isRoomContainsUser(route.room_id, it).ifFalse {
-                        throw UserAccessException()
+                RoomsRepository.checkRoomAccess(route.room_id, getUserIdFromToken()).let { room ->
+                    (request.debtorIds + request.buyerId).forEach {
+                        RoomsRepository.isRoomContainsUser(route.room_id, it).ifFalse {
+                            throw UserAccessException()
+                        }
                     }
-                }
 
-                PurchasesRepository.editPurchase(
-                    route.purchase_id,
-                    UsersRepository.getUserById(request.buyerId)!!,
-                    request.debtorIds.map { UsersRepository.getUserById(it)!! },
-                    request.name,
-                    request.debt / request.debtorIds.size,
-                    request.date,
-                ) ?: throw PurchaseNotFoundException()
+                    PurchasesRepository.editPurchase(
+                        room,
+                        route.purchase_id,
+                        UsersRepository.getUserById(request.buyerId)!!,
+                        request.debtorIds.map { UsersRepository.getUserById(it)!! },
+                        request.name,
+                        request.debt / request.debtorIds.size,
+                        request.date,
+                    ) ?: throw PurchaseNotFoundException()
+                }
             },
             onSuccess = { result ->
                 call.respond(PurchaseResponse(result))

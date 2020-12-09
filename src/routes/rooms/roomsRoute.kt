@@ -32,6 +32,7 @@ fun Route.roomsRoute() {
     roomMembersRoute()
     roomInvitesRoute()
     roomPurchasesRoute()
+    roomStatsRoute()
     roomsEndpoint()
     roomEndpoint()
 }
@@ -79,12 +80,7 @@ private fun Route.roomsEndpoint() {
     ) { _, request ->
         foldRunCatching(
             block = {
-                RoomsRepository.addRoom(request.name).apply {
-                    RoomsRepository.addUserToRoom(
-                        this.id.value,
-                        UsersRepository.getUserById(getUserIdFromToken())!!
-                    )
-                }
+                RoomsRepository.addRoom(request.name, UsersRepository.getUserById(getUserIdFromToken())!!)
             },
             onSuccess = { result ->
                 call.respond(RoomResponse(result))
