@@ -27,7 +27,7 @@ const ROUTE_DECLINE_INVITE = inviteID => 'api/rooms/invites/' + inviteID;
 
 // Members
 const ROUTE_MEMBERS = roomID => 'api/rooms/' + roomID + '/members';
-const ROUTE_DELETE_MEMBER = (roomID, userID) => 'api/rooms/' + roomID + '/members/' + userID;
+const ROUTE_REMOVE_MEMBER = (roomID, userID) => 'api/rooms/' + roomID + '/members/' + userID;
 
 // Purchases
 const ROUTE_PURCHASES = roomID => 'api/rooms/' + roomID + '/purchases';

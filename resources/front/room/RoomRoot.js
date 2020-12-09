@@ -36,6 +36,12 @@ class RoomRoot extends React.Component {
         this.setState({checkedIndex: index})
     }
 
+    updateMembersByRemove = removedMember => this.setState(state => {
+        let newMembers = state.members;
+        newMembers.splice(newMembers.map(member => member.id).indexOf(removedMember), 1);
+        return {members: newMembers}
+    });
+
     getMembers = () => sendGet(ROUTE_MEMBERS(this.state.roomID),
         response => {
             this.setState({members: response});
@@ -52,7 +58,6 @@ class RoomRoot extends React.Component {
             }
         }
     );
-
     getInvitedUsers = () => sendGet(ROUTE_INVITES_OF_ROOM(this.state.roomID),
         response => {
             this.setState({invitedUsers: response});
@@ -69,7 +74,6 @@ class RoomRoot extends React.Component {
             }
         }
     );
-
     getPurchases = () => sendGet(ROUTE_PURCHASES(this.state.roomID),
         response => {
             this.setState({purchases: response});
@@ -108,6 +112,8 @@ class RoomRoot extends React.Component {
                                 members: this.state.members,
                                 purchases: this.state.purchases,
                                 invitedUsers: this.state.invitedUsers,
+                                roomID: this.state.roomID,
+                                updateMembersByRemove: this.updateMembersByRemove,
                             })
                         }</div>
                 }

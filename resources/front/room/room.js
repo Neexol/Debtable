@@ -11,10 +11,13 @@ const NAV_NAMES = [
 const NAV_HOME = <><i className="material-icons nav-icon">home</i>Домой</>;
 
 const NAVIGATION = (index, prop) => ([
-    (<TableTab purchases={prop.purchases}
+    (<TableTab roomID={prop.roomID}
+               purchases={prop.purchases}
                members={prop.members}/>),
     (<StatisticsTab/>),
-    (<ManagementTab members={prop.members}
+    (<ManagementTab roomID={prop.roomID}
+                    members={prop.members}
+                    updateMembersByRemove={prop.updateMembersByRemove}
                     invitedUsers={prop.invitedUsers}/>)
 ][index]);
 
