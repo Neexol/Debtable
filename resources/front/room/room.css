@@ -89,6 +89,12 @@ table.redTable tfoot .links a{
     /*overflow: scroll;*/
     /*height: 20rem;*/
 }
+.room__empty-page {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 13rem;
+}
 
 .add-record-form,
 .add-record-form input,

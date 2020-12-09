@@ -2,9 +2,11 @@ class RoomRoot extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            roomID: this.getRoomID(),
             checkedIndex: this.getCurrentTab(),
-            isLoading: true,
-            members: null
+            members: undefined,
+            purchases: undefined,
+            // statistics: undefined
         };
     }
 
@@ -15,6 +17,11 @@ class RoomRoot extends React.Component {
             case 'management': return 2;
             default: return 0;
         }
+    }
+
+    getRoomID() {
+        const tab = new URLSearchParams(window.location.search).get('room');
+        return Number.parseInt(tab);
     }
 
     handleCheck = index => {
@@ -29,27 +36,80 @@ class RoomRoot extends React.Component {
         this.setState({checkedIndex: index})
     }
 
+    getMembers = () => sendGet(ROUTE_MEMBERS(this.state.roomID),
+        response => {
+            this.setState({members: response});
+        },
+        response => {
+            switch (response.status) {
+                case 401:
+                    redirectToLogin();
+                    break;
+                default:
+                    // alert("error "+response.status);
+                    console.log("error "+response.status);
+                    break;
+            }
+        }
+    );
+
+    getPurchases = () => sendGet(ROUTE_PURCHASES(this.state.roomID),
+        response => {
+            this.setState({purchases: response});
+        },
+        response => {
+            switch (response.status) {
+                case 401:
+                    redirectToLogin();
+                    break;
+                default:
+                    // alert("error "+response.status);
+                    console.log("error "+response.status);
+                    break;
+            }
+        }
+    );
+
     componentDidMount() {
-        $.get(`${HOST_URL}test/members.json`, (response) => {
-            this.setState({
-                isLoading: false,
-                members: response
-            })
-        });
+        this.getMembers();
+        this.getPurchases();
     }
 
     render() {
-        if (this.state.isLoading) {
-            return <Loader/>
-        } else return (
+        return (
             <>
                 <RoomTopMenu checkedIndex={this.state.checkedIndex}
                              onCheck={this.handleCheck}/>
-
-                <div className="room__content">
-                    {NAVIGATION(this.state.checkedIndex, this.state.members)}
-                </div>
+                {
+                    this.state.members    === undefined ||
+                    this.state.purchases  === undefined
+                    // this.state.statistics === undefined
+                        ? <div className="room__empty-page"><Loader/></div>
+                        : <div className="room__content">{
+                            NAVIGATION(this.state.checkedIndex, {
+                                members: this.state.members,
+                                purchases: this.state.purchases,
+                                // statistics: this.state.statistics
+                            })
+                        }</div>
+                }
             </>
-        );
+        )
     }
+
+    // render() {
+    //     if (this.state.isLoading) {
+    //         return <Loader/>
+    //     } else return (
+    //         <>
+    //             <RoomTopMenu checkedIndex={this.state.checkedIndex}
+    //                          onCheck={this.handleCheck}/>
+    //
+    //             <div className="room__content">
+    //                 {NAVIGATION(this.state.checkedIndex, this.state.members)}
+    //             </div>
+    //         </>
+    //
+    //     );
+    // }
 }
