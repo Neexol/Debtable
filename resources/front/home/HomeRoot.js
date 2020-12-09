@@ -2,7 +2,7 @@ class HomeRoot extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            checkedIndex: 0,
+            checkedIndex: this.getCurrentTab(),
             profile: undefined,
             rooms: undefined,
             invites: undefined
@@ -10,7 +10,26 @@ class HomeRoot extends React.Component {
         this.handleCheck = this.handleCheck.bind(this);
     }
 
-    handleCheck = index => this.setState({checkedIndex: index});
+    getCurrentTab() {
+        const tab = new URLSearchParams(window.location.search).get('tab')?.toString();
+        switch (tab) {
+            case 'profile': return 1;
+            case 'invites': return 2;
+            default: return 0;
+        }
+    }
+
+    handleCheck = index => {
+        const tabs = ['rooms', 'profile', 'invites'];
+        const params = new URLSearchParams(window.location.search);
+        params.set('tab', tabs[index]);
+        window.history.pushState(
+            {tab: index},
+            '',
+            window.location.toString().replace(/\?.*$/, '')+`?${params}`
+        );
+        this.setState({checkedIndex: index});
+    }
 
     updateUser = newUser => this.setState({profile: newUser});
 
@@ -110,7 +129,9 @@ class HomeRoot extends React.Component {
                 <HomeSideMenu checkedIndex={this.state.checkedIndex}
                               onCheck={this.handleCheck}/>
                 {
-                    this.state.profile === undefined || this.state.rooms === undefined
+                    this.state.profile === undefined ||
+                    this.state.rooms   === undefined ||
+                    this.state.invites === undefined
                         ? <div className="home__empty-page"><Loader/></div>
                         : <div className="home__content">{
                             NAVIGATION(this.state.checkedIndex, {
