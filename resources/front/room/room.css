@@ -61,7 +61,7 @@ table.redTable tfoot .links a{
     top: 0;
     left: 0;
     background-color: #363636;
-    overflow-x: hidden;
+    /*overflow-x: hidden;*/
 }
 .room__top-menu div {
     float: right;
@@ -84,9 +84,11 @@ table.redTable tfoot .links a{
     /*margin-top: var(--height);*/
     font-size: 12pt;
     padding: 1rem;
+    /*overflow-scrolling: auto;*/
+
+    overflow: scroll;
+    height: 20rem;
 }
-
-
 
 .add-record-form,
 .add-record-form input,
