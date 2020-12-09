@@ -6,7 +6,7 @@ class RoomRoot extends React.Component {
             checkedIndex: this.getCurrentTab(),
             members: undefined,
             purchases: undefined,
-            // statistics: undefined
+            invitedUsers: undefined,
         };
     }
 
@@ -53,6 +53,23 @@ class RoomRoot extends React.Component {
         }
     );
 
+    getInvitedUsers = () => sendGet(ROUTE_INVITES_OF_ROOM(this.state.roomID),
+        response => {
+            this.setState({invitedUsers: response});
+        },
+        response => {
+            switch (response.status) {
+                case 401:
+                    redirectToLogin();
+                    break;
+                default:
+                    // alert("error "+response.status);
+                    console.log("error "+response.status);
+                    break;
+            }
+        }
+    );
+
     getPurchases = () => sendGet(ROUTE_PURCHASES(this.state.roomID),
         response => {
             this.setState({purchases: response});
@@ -73,6 +90,7 @@ class RoomRoot extends React.Component {
     componentDidMount() {
         this.getMembers();
         this.getPurchases();
+        this.getInvitedUsers();
     }
 
     render() {
@@ -81,15 +99,15 @@ class RoomRoot extends React.Component {
                 <RoomTopMenu checkedIndex={this.state.checkedIndex}
                              onCheck={this.handleCheck}/>
                 {
-                    this.state.members    === undefined ||
-                    this.state.purchases  === undefined
-                    // this.state.statistics === undefined
+                    this.state.members      === undefined ||
+                    this.state.purchases    === undefined ||
+                    this.state.invitedUsers === undefined
                         ? <div className="room__empty-page"><Loader/></div>
                         : <div className="room__content">{
                             NAVIGATION(this.state.checkedIndex, {
                                 members: this.state.members,
                                 purchases: this.state.purchases,
-                                // statistics: this.state.statistics
+                                invitedUsers: this.state.invitedUsers,
                             })
                         }</div>
                 }

@@ -133,3 +133,18 @@ table.redTable tfoot .links a{
 .nav-icon {
     margin-right: 0.3rem;
 }
+
+
+.member-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: #fffbe4;
+    position: relative;
+    margin: 0.5rem;
+    border-radius: 0.3rem;
+    padding: 1rem;
+    box-shadow:0 0.5rem 1rem -0.2rem #dddddd;
+    width: 10rem;
+}

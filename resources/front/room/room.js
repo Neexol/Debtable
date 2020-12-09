@@ -14,7 +14,8 @@ const NAVIGATION = (index, prop) => ([
     (<TableTab purchases={prop.purchases}
                members={prop.members}/>),
     (<StatisticsTab/>),
-    (<ManagementTab members={prop.members}/>)
+    (<ManagementTab members={prop.members}
+                    invitedUsers={prop.invitedUsers}/>)
 ][index]);
 
 ReactDOM.render(
