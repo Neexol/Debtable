@@ -13,7 +13,7 @@ const ROUTE_CHANGE_NAME = 'api/account/change/data';
 
 // Users
 const ROUTE_ME = 'api/users/me';
-const ROUTE_USER = 'api/users';
+const ROUTE_USERS = query => 'api/users?username=' + query;
 
 // Rooms
 const ROUTE_CREATE_ROOM = 'api/rooms';

@@ -4,6 +4,7 @@ class ManagementTab extends React.Component {
         this.state = {
             removeMemberDialogOpened: false,
             removeInvitedUserDialogOpened: false,
+            inviteUsersDialogOpened: false,
             selectedUserID: null
         };
     }
@@ -31,6 +32,20 @@ class ManagementTab extends React.Component {
         removeInvitedUserDialogOpened: false,
         selectedUserID: null
     });
+
+    whoIsUser = userID => {
+        console.log('userID = '+userID+
+            '\nmembers: '+this.props.members.map(user => user.id)+
+            '\nmembers: '+this.props.invitedUsers.map(user => user.id)
+        );
+        if (this.props.members.map(user => user.id).includes(userID)) {
+            return 'member'
+        } else if (this.props.invitedUsers.map(user => user.id).includes(userID)) {
+            return 'invitedUser'
+        } else {
+            return 'user'
+        }
+    }
 
     handleRemoveMember = () => {
         sendDelete(ROUTE_REMOVE_MEMBER(this.props.roomID, this.state.selectedUserID), null,
@@ -74,6 +89,7 @@ class ManagementTab extends React.Component {
                 <div style={{display: 'flex', alignItems: 'center'}}>
                     <span>Комната "<strong>название</strong>"</span>
                     <button className="action-btn"
+                            onClick={() => this.setState({inviteUsersDialogOpened: true})}
                             style={{display: 'flex', alignItems: 'center'}}>
                         <><i className="material-icons nav-icon">person_add</i>Пригласить участников</>
                     </button>
@@ -111,6 +127,11 @@ class ManagementTab extends React.Component {
                                onClose={this.closeRemoveInvitedUserDialog}
                                onConfirm={this.handleRemoveInvitedUser}
                                text={`Отменить приглашение #${this.userById(this.state.selectedUserID).username}?`}/>
+
+                <InviteUsersDialog id="inviteUsersDialog"
+                                   whoIsUser={this.whoIsUser}
+                                   display={this.state.inviteUsersDialogOpened}
+                                   onClose={() => this.setState({inviteUsersDialogOpened: false})}/>
             </>
         );
     }
@@ -165,6 +186,104 @@ function ConfirmDialog(props) {
                     </button>
                 </div>
             </div>
+        </div>
+    );
+}
+
+class InviteUsersDialog extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            searchText: '',
+            searchResults: undefined,
+        };
+    }
+
+    handleSearchTextChange = e => this.setState({searchText: e.target.value});
+
+    handleSearch = () => {
+        sendGet(ROUTE_USERS(this.state.searchText),
+            response => {
+                this.setState({searchResults: response});
+            },
+            response => {
+                switch (response.status) {
+                    case 401:
+                        redirectToLogin();
+                        break;
+                    default:
+                        // alert("error "+response.status);
+                        console.log("error "+response.status);
+                        break;
+                }
+            }
+        );
+    }
+
+    render() {
+        return (
+            <div id={this.props.id} className="modal"
+                 onClick={e => {if (e.target.id === this.props.id) this.props.onClose()}}
+                 style={{display: this.props.display ? 'block' : 'none'}}>
+
+                <div className="modal-content">
+
+                    <span className="small-action-btn close-dialog-btn"
+                          onClick={this.props.onClose}>
+                        <i className="material-icons">close</i>
+                    </span>
+
+                    <div style={{display: "flex"}}>
+                        <input type="text" placeholder="Введите имя" name="search"
+                               style={{flexGrow: "1"}}
+                               value={this.state.searchText}
+                               onChange={this.handleSearchTextChange}/>
+                        <button className="action-btn"
+                                onClick={this.handleSearch}
+                                disabled={this.state.searchText === ''}
+                                style={{display: 'flex', alignItems: 'center'}}>
+                            <><i className="material-icons nav-icon">search</i>Поиск</>
+                        </button>
+                    </div>
+
+                    <div className="search-results-container">
+                        {
+                            this.state.searchResults === undefined ? '' : (
+                                !this.state.searchResults.length ? 'Пользователей не найдено :(' : (
+                                    this.state.searchResults.map(user => (
+                                        <SearchResult key={user.id}
+                                                      user={user}
+                                                      whoIsUser={this.props.whoIsUser(user.id)}/>
+                                    ))
+                                )
+                            )
+                        }
+                    </div>
+
+                </div>
+            </div>
+        );
+    }
+}
+
+function SearchResult(props) {
+    return (
+        <div className="search-result">
+            <span>
+                <strong>{props.user.display_name}</strong><br/>
+                #{props.user.username}
+            </span>
+
+            <button className={"invite-text-btn"+(props.whoIsUser === 'invitedUser' ? ' negative' : '')}
+                    // onClick={() => props.onRemove(member.id)}
+                    disabled={props.whoIsUser === 'member'}>
+                {
+                    props.whoIsUser === 'member' ? 'Уже в комнате' : (
+                        props.whoIsUser === 'invitedUser' ? 'Отменить приглашение' :
+                            'Пригласить'
+                    )
+                }
+            </button>
         </div>
     );
 }

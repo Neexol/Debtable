@@ -152,3 +152,39 @@ table.redTable tfoot .links a{
     display: flex;
     align-items: start;
 }
+
+
+.search-result {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    position: relative;
+    margin: 0.5rem;
+    padding: 1rem;
+}
+
+.invite-text-btn {
+    background: none;
+    border: none;
+    color: gold;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.invite-text-btn:hover:not(:disabled) {
+    opacity: 0.6;
+}
+.invite-text-btn.negative {
+    color: darkred;
+}
+.invite-text-btn:disabled {
+    color: #888888;
+    cursor: auto;
+}
+
+
+.search-results-container {
+    height: 10rem;
+    overflow: scroll;
+    overflow-x: hidden;
+}
