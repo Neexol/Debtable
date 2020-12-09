@@ -18,6 +18,7 @@ const NAVIGATION = (index, prop) => ([
     (<ManagementTab roomID={prop.roomID}
                     members={prop.members}
                     updateMembersByRemove={prop.updateMembersByRemove}
+                    updateInvitedUsersByRemove={prop.updateInvitedUsersByRemove}
                     invitedUsers={prop.invitedUsers}/>)
 ][index]);
 

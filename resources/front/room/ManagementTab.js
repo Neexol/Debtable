@@ -3,6 +3,7 @@ class ManagementTab extends React.Component {
         super(props);
         this.state = {
             removeMemberDialogOpened: false,
+            removeInvitedUserDialogOpened: false,
             selectedUserID: null
         };
     }
@@ -22,6 +23,15 @@ class ManagementTab extends React.Component {
         selectedUserID: null
     });
 
+    openRemoveInvitedUserDialog = invitedUserID => this.setState({
+        removeInvitedUserDialogOpened: true,
+        selectedUserID: invitedUserID
+    });
+    closeRemoveInvitedUserDialog = () => this.setState({
+        removeInvitedUserDialogOpened: false,
+        selectedUserID: null
+    });
+
     handleRemoveMember = () => {
         sendDelete(ROUTE_REMOVE_MEMBER(this.props.roomID, this.state.selectedUserID), null,
         response => {
@@ -38,6 +48,24 @@ class ManagementTab extends React.Component {
             }
         });
         this.closeRemoveMemberDialog();
+    }
+
+    handleRemoveInvitedUser = () => {
+        sendDelete(ROUTE_REMOVE_INVITED_USER(this.props.roomID, this.state.selectedUserID), null,
+            response => {
+                this.props.updateInvitedUsersByRemove(response);
+                console.log("invited user ["+response+"] removed");
+            }, response => {
+                switch (response.status) {
+                    case 401:
+                        redirectToLogin();
+                        break;
+                    default:
+                        console.log("error "+response.status);
+                        break;
+                }
+            });
+        this.closeRemoveInvitedUserDialog();
     }
 
     render() {
@@ -65,37 +93,24 @@ class ManagementTab extends React.Component {
                             <span>
                                 Пришлашенные<br/>
                                 <MembersList members={this.props.invitedUsers}
-                                             onRemove={this.props.openRemoveMemberDialog}
+                                             onRemove={this.openRemoveInvitedUserDialog}
                                              removeIcon='cancel'/>
                             </span>
                         ) : null
                     }
                 </div>
 
-                <div id="removeMemberDialog" className="modal"
-                     onClick={e => {if (e.target.id === 'removeMemberDialog') this.closeRemoveMemberDialog()}}
-                     style={{display: this.state.removeMemberDialogOpened ? 'block' : 'none'}}>
-
-                    <div className="modal-content">
-                        <span className="small-action-btn close-dialog-btn"
-                              onClick={this.closeRemoveMemberDialog}>
-                            <i className="material-icons">close</i>
-                        </span>
-
-                        <h2>Кикнуть участника #{this.userById(this.state.selectedUserID).username}?</h2>
-
-                        <div style={{display: 'flex'}}>
-                            <button type="submit" className="apply-btn"
-                                    onClick={this.closeRemoveMemberDialog}>
-                                Отмена
-                            </button>
-                            <button type="submit" className="apply-btn"
-                                    onClick={this.handleRemoveMember}>
-                                Да, пошел он нахуй
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <ConfirmDialog id="removeMemberDialog"
+                               display={this.state.removeMemberDialogOpened}
+                               onClose={this.closeRemoveMemberDialog}
+                               onConfirm={this.handleRemoveMember}
+                               text={`Кикнуть участника #${this.userById(this.state.selectedUserID).username}?`}/>
+                               
+                <ConfirmDialog id="removeInvitedUserDialog"
+                               display={this.state.removeInvitedUserDialogOpened}
+                               onClose={this.closeRemoveInvitedUserDialog}
+                               onConfirm={this.handleRemoveInvitedUser}
+                               text={`Отменить приглашение #${this.userById(this.state.selectedUserID).username}?`}/>
             </>
         );
     }
@@ -122,5 +137,34 @@ function MembersList(props) {
                     </div>
                 ))
         }</>
+    );
+}
+
+function ConfirmDialog(props) {
+    return (
+        <div id={props.id} className="modal"
+             onClick={e => {if (e.target.id === props.id) props.onClose()}}
+             style={{display: props.display ? 'block' : 'none'}}>
+
+            <div className="modal-content">
+                <span className="small-action-btn close-dialog-btn"
+                      onClick={props.onClose}>
+                    <i className="material-icons">close</i>
+                </span>
+
+                <h2>{props.text}</h2>
+
+                <div style={{display: 'flex'}}>
+                    <button type="submit" className="apply-btn"
+                            onClick={props.onClose}>
+                        Отмена
+                    </button>
+                    <button type="submit" className="apply-btn"
+                            onClick={props.onConfirm}>
+                        Да, пошел он нахуй
+                    </button>
+                </div>
+            </div>
+        </div>
     );
 }
