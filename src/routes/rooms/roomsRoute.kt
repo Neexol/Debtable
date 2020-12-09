@@ -99,6 +99,44 @@ private fun Route.roomsEndpoint() {
 
 @KtorExperimentalLocationsAPI
 private fun Route.roomEndpoint() {
+    get<ApiRoomRoute>(
+        "Get room by id"
+            .responds(
+                ok<RoomResponse>(
+                    example("Room example", RoomResponse.EXAMPLES[0])
+                ),
+                unauthorized(),
+                notFound(description = "Room not found."),
+                forbidden(description = "Access to room denied."),
+                badRequest(description = "Other errors.")
+            )
+    ) { route ->
+        foldRunCatching(
+            block = {
+                RoomsRepository.checkRoomAccess(route.room_id, getUserIdFromToken())
+            },
+            onSuccess = { result ->
+                call.respond(RoomResponse(result))
+            },
+            onFailure = { exception ->
+                when (exception) {
+                    is RoomNotFoundException -> call.respond(
+                        HttpStatusCode.NotFound,
+                        "Room not found."
+                    )
+                    is RoomAccessException -> call.respond(
+                        HttpStatusCode.Forbidden,
+                        "Access to room denied."
+                    )
+                    else -> call.respond(
+                        HttpStatusCode.BadRequest,
+                        exception.toString()
+                    )
+                }
+            }
+        )
+    }
+
     put<ApiRoomRoute, CreateEditRoomRequest>(
         "Edit room"
             .examples(
