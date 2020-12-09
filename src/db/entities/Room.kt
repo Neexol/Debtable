@@ -12,6 +12,7 @@ class Room(id: EntityID<Int>): IntEntity(id) {
     companion object : IntEntityClass<Room>(Rooms)
 
     var name by Rooms.name
+    var stats by Rooms.stats
     val purchases by Purchase referrersOn Purchases.room
     var members by User via Members
     var invitedUsers by User via Invites
