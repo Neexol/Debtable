@@ -58,4 +58,15 @@ const sendPatch  = (path, body, onSuccess, onError) => sendRequest(path, 'PATCH'
 const sendDelete = (path, body, onSuccess, onError) => sendRequest(path, 'DELETE', body, onSuccess, onError);
 const sendPut    = (path, body, onSuccess, onError) => sendRequest(path, 'PUT',    body, onSuccess, onError);
 
+const parseJWT = () => {
+    const jwt = getJWT();
+    if (jwt === undefined) return undefined;
+    const base64Url = jwt.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    return JSON.parse(decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join('')));
+};
+const getAuthorizedUserID = () => parseJWT()?.id;
+
 
