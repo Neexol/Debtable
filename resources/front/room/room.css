@@ -86,8 +86,8 @@ table.redTable tfoot .links a{
     padding: 1rem;
     /*overflow-scrolling: auto;*/
 
-    overflow: scroll;
-    height: 20rem;
+    /*overflow: scroll;*/
+    /*height: 20rem;*/
 }
 
 .add-record-form,
