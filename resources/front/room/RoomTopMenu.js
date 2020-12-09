@@ -3,7 +3,7 @@ function RoomTopMenu(props) {
     return (
         <nav className="room__top-menu">
             <div style={{float:'left', display: 'flex', alignItems: 'center'}}
-                 onClick={() => location.assign(`../home/home.html`)}>
+                 onClick={redirectToHome}>
                 {NAV_HOME}
             </div>
             {

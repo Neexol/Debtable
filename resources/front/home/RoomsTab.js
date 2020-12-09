@@ -201,9 +201,13 @@ function RoomTiles(props) {
                 <div key={room.id}
                      className="card room-card"
                      onClick={e => {
-                         if (e.target.className === 'edit-room' ||
-                             e.target.className === 'close-room') return;
-                         console.log(`click on "${room.name}" [id: ${room.id}]`);
+                         // console.log(e.target.className.includes('edit-room-btn'));
+                         // if (e.target.className === 'edit-room-btn' ||
+                         //     e.target.className === 'delete-room-btn') return;
+                         if (e.target.className.includes('edit-room-btn') ||
+                             e.target.className.includes('delete-room-btn')) return;
+                         redirectToRoom(room.id);
+                         // console.log(`click on "${room.name}" [id: ${room.id}]`);
                      }}>
 
                     <span className="room-tile-icons-container">
