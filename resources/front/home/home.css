@@ -107,62 +107,6 @@ input[type=text]:focus, input[type=password]:focus {
 }
 
 
-.action-btn {
-    background-color: gold;
-    color: black;
-    padding: 0.3rem 0.5rem;
-    border: none;
-    cursor: pointer;
-    width: auto;
-    border-radius: 0.3rem;
-}
-.action-btn:hover:not(:disabled) {
-    opacity: 0.7;
-}
-.action-btn:disabled {
-    background-color: #fff8e8;
-    color: #363636;
-    cursor: auto;
-}
-
-
-
-.modal {
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-.modal-content {
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-}
-.modal h2, .modal h3 {
-    margin-top: 0;
-}
-
-.small-action-btn {
-    color: #aaaaaa;
-    font-size: 14pt;
-}
-.small-action-btn:hover,
-.small-action-btn:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
-.close-dialog-btn {
-    float: right;
-}
 
 .validation-errors {
     border: #A40808 solid 0.1rem;
