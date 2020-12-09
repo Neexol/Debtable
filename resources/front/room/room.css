@@ -89,6 +89,12 @@ table.redTable tfoot .links a{
     /*overflow: scroll;*/
     /*height: 20rem;*/
 }
+.room__empty-page {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 13rem;
+}
 
 .add-record-form,
 .add-record-form input,
@@ -126,4 +132,59 @@ table.redTable tfoot .links a{
 
 .nav-icon {
     margin-right: 0.3rem;
+}
+
+
+.member-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: #fffbe4;
+    position: relative;
+    margin: 0.5rem;
+    border-radius: 0.3rem;
+    padding: 1rem;
+    box-shadow:0 0.5rem 1rem -0.2rem #dddddd;
+    width: 10rem;
+}
+.members-container {
+    display: flex;
+    align-items: start;
+}
+
+
+.search-result {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    position: relative;
+    margin: 0.5rem;
+    padding: 1rem;
+}
+
+.invite-text-btn {
+    background: none;
+    border: none;
+    color: gold;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.invite-text-btn:hover:not(:disabled) {
+    opacity: 0.6;
+}
+.invite-text-btn.negative {
+    color: darkred;
+}
+.invite-text-btn:disabled {
+    color: #888888;
+    cursor: auto;
+}
+
+
+.search-results-container {
+    height: 10rem;
+    overflow: scroll;
+    overflow-x: hidden;
 }

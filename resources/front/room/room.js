@@ -11,9 +11,16 @@ const NAV_NAMES = [
 const NAV_HOME = <><i className="material-icons nav-icon">home</i>Домой</>;
 
 const NAVIGATION = (index, prop) => ([
-    (<TableTab members={prop}/>),
+    (<TableTab roomID={prop.roomID}
+               purchases={prop.purchases}
+               members={prop.members}/>),
     (<StatisticsTab/>),
-    (<ManagementTab/>)
+    (<ManagementTab roomID={prop.roomID}
+                    members={prop.members}
+                    updateMembersByRemove={prop.updateMembersByRemove}
+                    updateInvitedUsersByRemove={prop.updateInvitedUsersByRemove}
+                    updateInvitedUsersByAdd={prop.updateInvitedUsersByAdd}
+                    invitedUsers={prop.invitedUsers}/>)
 ][index]);
 
 ReactDOM.render(

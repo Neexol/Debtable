@@ -195,7 +195,7 @@ class RoomsTab extends React.Component {
 
 function RoomTiles(props) {
     return (
-        <> {
+        <>{
             props.rooms.length === 0 ? (<strong>Нет комнат</strong>) :
             props.rooms.map(room => (
                 <div key={room.id}
@@ -230,6 +230,6 @@ function RoomTiles(props) {
                     id: {room.id}
                 </div>
             ))
-        } </>
+        }</>
     );
 }

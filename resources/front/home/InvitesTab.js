@@ -45,7 +45,7 @@ class InvitesTab extends React.Component {
 
 function InviteTiles(props) {
     return (
-        <> {
+        <>{
             props.invites.length === 0 ? (<strong>Нет приглашений</strong>) :
                 props.invites.map(room => (
                     <div key={room.id}
@@ -80,6 +80,6 @@ function InviteTiles(props) {
                         </div>
                     </div>
                 ))
-        } </>
+        }</>
     );
 }

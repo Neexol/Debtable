@@ -1,6 +1,6 @@
 // const BASE_URL = "https://devtable.herokuapp.com";
 // const BASE_URL = "http://localhost:8080";
-const BASE_URL = "";
+const BASE_URL = location.origin;
 const HOST_URL = BASE_URL + "/";
 
 // Auth
@@ -13,18 +13,26 @@ const ROUTE_CHANGE_NAME = 'api/account/change/data';
 
 // Users
 const ROUTE_ME = 'api/users/me';
-const ROUTE_USER = 'api/users';
+const ROUTE_USERS = query => 'api/users?username=' + query;
 
 // Rooms
 const ROUTE_CREATE_ROOM = 'api/rooms';
 const ROUTE_ROOMS = 'api/rooms';
-const ROUTE_ROOM = id => 'api/rooms/' + id;
-const ROUTE_DELETE_ROOM_MEMBER = (roomID, userID) => 'api/rooms/' + roomID + '/members/' + userID;
+const ROUTE_ROOM = roomID => 'api/rooms/' + roomID;
 
 // Invites
 const ROUTE_INVITES_OF_USER = 'api/rooms/invites';
-const ROUTE_INVITES_OF_ROOM = id => 'api/rooms/' + id + '/invites';
-const ROUTE_DECLINE_INVITE = id => 'api/rooms/invites/' + id;
+const ROUTE_INVITES_OF_ROOM = roomID => 'api/rooms/' + roomID + '/invites';
+const ROUTE_DECLINE_INVITE = inviteID => 'api/rooms/invites/' + inviteID;
+const ROUTE_REMOVE_INVITED_USER = (roomID, userID) => 'api/rooms/' + roomID + '/invites?user_id=' + userID;
+
+// Members
+const ROUTE_MEMBERS = roomID => 'api/rooms/' + roomID + '/members';
+const ROUTE_REMOVE_MEMBER = (roomID, userID) => 'api/rooms/' + roomID + '/members/' + userID;
+
+// Purchases
+const ROUTE_PURCHASES = roomID => 'api/rooms/' + roomID + '/purchases';
+const ROUTE_PURCHASE = (roomID, purchaseID) => 'api/rooms/' + roomID + '/purchases/' + purchaseID;
 
 const Loader = () => <div className="loader"/>;
 
@@ -41,7 +49,7 @@ const setJWT = jwt => document.cookie = 'jwt_auth=' + (
 
 const redirectToLogin = () => location.replace(HOST_URL+'auth/login.html');
 const redirectToHome  = () => location.replace(HOST_URL+'home/home.html');
-const redirectToRoom  = id => location.replace(HOST_URL+'room/room.html?id='+id);
+const redirectToRoom  = id => location.replace(HOST_URL+'room/room.html?room='+id);
 
 const sendRequest = (path, method, body, onSuccess, onError) => $.ajax(HOST_URL+path, {
     type: method,
