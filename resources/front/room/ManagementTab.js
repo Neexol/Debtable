@@ -3,9 +3,10 @@ class ManagementTab extends React.Component {
         super(props);
         this.state = {
             removeMemberDialogOpened: false,
+            leaveRoomDialogOpened: false,
             removeInvitedUserDialogOpened: false,
             inviteUsersDialogOpened: false,
-            selectedUserID: null
+            selectedUserID: null,
         };
     }
 
@@ -33,6 +34,15 @@ class ManagementTab extends React.Component {
         selectedUserID: null
     });
 
+    openLeaveRoomDialog = memberID => this.setState({
+        leaveRoomDialogOpened: true,
+        selectedUserID: memberID
+    });
+    closeLeaveRoomDialog = () => this.setState({
+        leaveRoomDialogOpened: false,
+        selectedUserID: null
+    });
+
     whoIsUser = userID => {
         if (this.props.members.map(user => user.id).includes(userID)) {
             return 'member'
@@ -43,11 +53,13 @@ class ManagementTab extends React.Component {
         }
     };
 
-    handleRemoveMember = () => {
+    removeMember = isAuthorizedUser => {
         sendDelete(ROUTE_REMOVE_MEMBER(this.props.roomID, this.state.selectedUserID), null,
         response => {
             this.props.updateMembersByRemove(response);
-            console.log("user ["+response+"] removed");
+            // console.log("isAuthorizedUser = "+isAuthorizedUser);
+            if (isAuthorizedUser) redirectToHome();
+            // console.log("user ["+response+"] removed");
         },
         response => {
             switch (response.status) {
@@ -59,8 +71,14 @@ class ManagementTab extends React.Component {
                     break;
             }
         });
-        this.closeRemoveMemberDialog();
+        if (isAuthorizedUser) {
+            this.closeLeaveRoomDialog();
+        } else {
+            this.closeRemoveMemberDialog();
+        }
     };
+    handleLeaveRoom = () => this.removeMember(true);
+    handleRemoveMember = () => this.removeMember(false);
 
     handleRemoveInvitedUser = () => {
         sendDelete(ROUTE_REMOVE_INVITED_USER(this.props.roomID, this.state.selectedUserID), null,
@@ -128,6 +146,7 @@ class ManagementTab extends React.Component {
                         Участники<br/>
                         <MembersList members={this.props.members}
                                      onRemove={this.openRemoveMemberDialog}
+                                     onLeaveRoom={this.openLeaveRoomDialog}
                                      removeIcon='person_remove'/>
                     </span>
                     {
@@ -136,6 +155,7 @@ class ManagementTab extends React.Component {
                                 Пришлашенные<br/>
                                 <MembersList members={this.props.invitedUsers}
                                              onRemove={this.openRemoveInvitedUserDialog}
+                                             onLeaveRoom={this.openLeaveRoomDialog}
                                              removeIcon='cancel'/>
                             </span>
                         ) : null
@@ -147,12 +167,18 @@ class ManagementTab extends React.Component {
                                onClose={this.closeRemoveMemberDialog}
                                onConfirm={this.handleRemoveMember}
                                text={`Кикнуть участника #${this.userById(this.state.selectedUserID).username}?`}/>
-                               
+
                 <ConfirmDialog id="removeInvitedUserDialog"
                                display={this.state.removeInvitedUserDialogOpened}
                                onClose={this.closeRemoveInvitedUserDialog}
                                onConfirm={this.handleRemoveInvitedUser}
                                text={`Отменить приглашение #${this.userById(this.state.selectedUserID).username}?`}/>
+
+                <ConfirmDialog id="leaveRoomDialog"
+                               display={this.state.leaveRoomDialogOpened}
+                               onClose={this.closeLeaveRoomDialog}
+                               onConfirm={this.handleLeaveRoom}
+                               text='Вы действительно хотите покинуть комнату? А долги кто будет возвращать? А?'/>
 
                 <InviteUsersDialog id="inviteUsersDialog"
                                    whoIsUser={this.whoIsUser}
@@ -168,21 +194,27 @@ class ManagementTab extends React.Component {
 function MembersList(props) {
     return (
         <>{
-                props.members.map(member => (
-                    <div key={member.id}
-                         className="member-card"
-                         style={{display: 'flex', alignItems: 'center'}}>
-                        <span>
-                            <strong>{member.display_name}</strong><br/>
-                            {LOGIN_SYMBOL}{member.username}
-                        </span>
+            props.members.map(member => (
+                <div key={member.id}
+                     className={"member-card" + (member.id === getAuthorizedUserID() ? " self" : "")}
+                     style={{display: 'flex', alignItems: 'center'}}>
+                    <span>
+                        <strong>{member.display_name}</strong><br/>
+                        {LOGIN_SYMBOL}{member.username}
+                    </span>
 
-                        <span className="material-icons small-action-btn"
-                              onClick={() => props.onRemove(member.id)}>
-                            {props.removeIcon}
-                        </span>
-                    </div>
-                ))
+                    <span className="material-icons small-action-btn"
+                          onClick={() => {
+                              if (member.id === getAuthorizedUserID()) {
+                                  props.onLeaveRoom(member.id);
+                              } else {
+                                  props.onRemove(member.id);
+                              }
+                          }}>
+                        {props.removeIcon}
+                    </span>
+                </div>
+            ))
         }</>
     );
 }
@@ -208,7 +240,7 @@ function ConfirmDialog(props) {
                     </button>
                     <button type="submit" className="apply-btn"
                             onClick={props.onConfirm}>
-                        Да, пошел он нахуй
+                        Да
                     </button>
                 </div>
             </div>
