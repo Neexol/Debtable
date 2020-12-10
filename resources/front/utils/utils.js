@@ -2,6 +2,7 @@
 // const BASE_URL = "http://localhost:8080";
 const BASE_URL = location.origin;
 const HOST_URL = BASE_URL + "/";
+const LOGIN_SYMBOL = '@';
 
 // Auth
 const ROUTE_REGISTER = 'api/auth/register';

@@ -87,7 +87,8 @@ class ProfileTab extends React.Component {
         return (
             <>
                 <div className="container">
-                    <h1>{this.props.profile.username}</h1>
+                    <h1>{this.props.profile.display_name}</h1>
+                    <h3>{LOGIN_SYMBOL}{this.props.profile.username}</h3>
 
                     <label htmlFor="display_name"><b>Имя пользователя</b></label>
                     <div style={{display: "flex"}}>

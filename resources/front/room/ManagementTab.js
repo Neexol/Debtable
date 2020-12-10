@@ -174,7 +174,7 @@ function MembersList(props) {
                          style={{display: 'flex', alignItems: 'center'}}>
                         <span>
                             <strong>{member.display_name}</strong><br/>
-                            #{member.username}
+                            {LOGIN_SYMBOL}{member.username}
                         </span>
 
                         <span className="material-icons small-action-btn"
@@ -299,7 +299,7 @@ function SearchResult(props) {
         <div className="search-result">
             <span>
                 <strong>{props.user.display_name}</strong><br/>
-                #{props.user.username}
+                {LOGIN_SYMBOL}{props.user.username}
             </span>
 
             <button className={"invite-text-btn"+(props.whoIsUser === 'invitedUser' ? ' negative' : '')}
