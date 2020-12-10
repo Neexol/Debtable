@@ -127,6 +127,7 @@ class HomeRoot extends React.Component {
         return (
             <>
                 <HomeSideMenu checkedIndex={this.state.checkedIndex}
+                              isInvites={this.state.invites?.length > 0}
                               onCheck={this.handleCheck}/>
                 {
                     this.state.profile === undefined ||

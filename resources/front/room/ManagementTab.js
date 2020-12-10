@@ -34,10 +34,6 @@ class ManagementTab extends React.Component {
     });
 
     whoIsUser = userID => {
-        console.log('userID = '+userID+
-            '\nmembers: '+this.props.members.map(user => user.id)+
-            '\nmembers: '+this.props.invitedUsers.map(user => user.id)
-        );
         if (this.props.members.map(user => user.id).includes(userID)) {
             return 'member'
         } else if (this.props.invitedUsers.map(user => user.id).includes(userID)) {
@@ -178,7 +174,7 @@ function MembersList(props) {
                          style={{display: 'flex', alignItems: 'center'}}>
                         <span>
                             <strong>{member.display_name}</strong><br/>
-                            #{member.username}
+                            {LOGIN_SYMBOL}{member.username}
                         </span>
 
                         <span className="material-icons small-action-btn"
@@ -303,7 +299,7 @@ function SearchResult(props) {
         <div className="search-result">
             <span>
                 <strong>{props.user.display_name}</strong><br/>
-                #{props.user.username}
+                {LOGIN_SYMBOL}{props.user.username}
             </span>
 
             <button className={"invite-text-btn"+(props.whoIsUser === 'invitedUser' ? ' negative' : '')}
