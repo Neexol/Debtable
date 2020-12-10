@@ -81,7 +81,6 @@ class HomeRoot extends React.Component {
             }
         }
     );
-
     getRooms = () => sendGet(ROUTE_ROOMS,
         response => {
             this.setState({rooms: response});
@@ -98,7 +97,6 @@ class HomeRoot extends React.Component {
             }
         }
     );
-
     getInvites = () => sendGet(ROUTE_INVITES_OF_USER,
         response => {
             this.setState({invites: response});

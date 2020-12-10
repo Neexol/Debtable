@@ -1,12 +1,78 @@
 class TableTab extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            purchases: undefined,
+        };
+    }
+
+    getPurchases = () => sendGet(ROUTE_PURCHASES(this.props.room.id),
+        response => {
+            this.setState({purchases: response});
+        },
+        response => {
+            switch (response.status) {
+                case 401:
+                    redirectToLogin();
+                    break;
+                default:
+                    // alert("error "+response.status);
+                    console.log("error "+response.status);
+                    break;
+            }
+        }
+    );
+
+    componentDidMount() {
+        this.getPurchases();
     }
 
     render() {
-        return <DebtsTable members={this.props.members}/>;
+        return (
+            <>
+                <h2>*тут форма для добавления</h2>
+                <AddRecordForm/>
+                {
+                    this.state.purchases === undefined
+                        ? <div className="room__empty-page"><Loader/></div>
+                        : <DebtsTable purchases={this.state.purchases}/>
+                }
+
+            </>
+        );
     }
+}
+
+function DebtsTable(props) {
+    return (
+        <table className={"redTable"}>
+            <thead>{DebtsTableHeaders}</thead>
+            <tbody>{
+                props.purchases.map(purchase => (
+                    <tr key={purchase.id}>
+                        <td style={{display: 'flex', flexWrap: 'wrap', padding: '0.3rem'}}>{
+                            purchase.debtors.map(debtor => (
+                                <span key={debtor.id}
+                                      className='user-chip'
+                                      title={LOGIN_SYMBOL+debtor.username}>
+                                    {debtor.display_name}
+                                </span>
+                            ))
+                        }</td>
+                        <td>{purchase.name}</td>
+                        <td>
+                            <span className='user-chip'
+                                  title={LOGIN_SYMBOL+purchase.buyer.username}>
+                                {purchase.buyer.display_name}
+                            </span>
+                        </td>
+                        <td>{purchase.debt}</td>
+                        <td>{purchase.date}</td>
+                    </tr>
+                ))
+            }</tbody>
+        </table>
+    );
 }
 
 const DebtsTableHeaders = (
@@ -18,79 +84,6 @@ const DebtsTableHeaders = (
         <th>Дата</th>
     </tr>
 )
-
-function DebtsTableRow(props) {
-    const row = props.row;
-    return (
-        <tr>
-            <td>{row.who_owes}</td>
-            <td>{row.purchase}</td>
-            <td>{row.who_paid}</td>
-            <td>{row.cost}</td>
-            <td>{row.date}</td>
-        </tr>
-    );
-}
-
-const DebtsTableBody = (props) => (
-    <tbody>{
-        props.list.map(row =>
-            <DebtsTableRow key={row.id} row={row}/>
-        )
-    }</tbody>
-)
-
-class DebtsTable extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isLoading: true,
-            table: null
-        };
-    }
-
-    componentDidMount() {
-        $.get(`${HOST_URL}test/table.json`, (response) => {
-            this.setState({
-                isLoading: false,
-                table: response
-            })
-        });
-    }
-
-    // render() {
-    //     return (
-    //         <div>
-    //             <AddRecordForm
-    //                 table={this.state.table}/>
-    //             <table className={"redTable"}>
-    //                 <thead>{DebtsTableHeaders}</thead>
-    //                 {
-    //                     this.state.isLoading
-    //                         ? <tbody><tr><td colSpan={5}><Loader/></td></tr></tbody>
-    //                         : <DebtsTableBody list={this.state.table}/>
-    //                 }
-    //             </table>
-    //         </div>
-    //     );
-    // }
-    render() {
-        return (
-            <div>{
-                this.state.isLoading
-                    ? <Loader/>
-                    : <div>
-                        <AddRecordForm table={this.state.table}
-                                       members={this.props.members}/>
-                        <table className={"redTable"}>
-                            <thead>{DebtsTableHeaders}</thead>
-                            <DebtsTableBody list={this.state.table}/>
-                        </table>
-                    </div>
-            }</div>
-        );
-    }
-}
 
 class Multiselect extends React.Component {
     constructor(props) {
@@ -149,9 +142,9 @@ class AddRecordForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            whoOwes: [],
+            debtors: [],
             purchase: "",
-            whoPaid: "",
+            buyer: null,
             cost: null,
             distribution: false
         };
