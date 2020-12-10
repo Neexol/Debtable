@@ -147,6 +147,7 @@ class ManagementTab extends React.Component {
                         <MembersList members={this.props.members}
                                      onRemove={this.openRemoveMemberDialog}
                                      onLeaveRoom={this.openLeaveRoomDialog}
+                                     isOnlyOneMember={this.props.members.length === 1}
                                      removeIcon='person_remove'/>
                     </span>
                     {
@@ -156,6 +157,7 @@ class ManagementTab extends React.Component {
                                 <MembersList members={this.props.invitedUsers}
                                              onRemove={this.openRemoveInvitedUserDialog}
                                              onLeaveRoom={this.openLeaveRoomDialog}
+                                             isOnlyOneMember={false}
                                              removeIcon='cancel'/>
                             </span>
                         ) : null
@@ -204,6 +206,7 @@ function MembersList(props) {
                     </span>
 
                     <span className="material-icons small-action-btn"
+                          style={{display: (props.isOnlyOneMember ? 'none' : 'block')}}
                           onClick={() => {
                               if (member.id === getAuthorizedUserID()) {
                                   props.onLeaveRoom(member.id);
