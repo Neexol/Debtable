@@ -31,7 +31,9 @@ class TableTab extends React.Component {
         return (
             <>
                 <AddRecordForm purchases={this.state.purchases === undefined ? [] : this.state.purchases}
-                               members={this.props.members}/>
+                               members={this.props.members}
+                               room={this.props.room}
+                               updateTable={this.getPurchases}/>
                 {
                     this.state.purchases === undefined
                         ? <div className="room__empty-page"><Loader/></div>
@@ -91,9 +93,31 @@ class AddRecordForm extends React.Component {
         this.state = {
             debtors: [],
             purchaseName: '',
-            cost: 0,
+            cost: '',
             buyer: getAuthorizedUserID(),
         };
+    }
+
+    handleAddPurchase = () => {
+        sendPost(ROUTE_PURCHASES(this.props.room.id), JSON.stringify({
+            name: this.state.purchaseName,
+            debt: this.state.cost,
+            date: getCurrentDate(),
+            buyer_id: this.state.buyer,
+            debtor_ids: this.state.debtors
+        }), response => {
+            // this.props.updateTableByAdd(response);
+            this.props.updateTable();
+        }, response => {
+            switch (response.status) {
+                case 401:
+                    redirectToLogin();
+                    break;
+                default:
+                    console.log("error "+response.status);
+                    break;
+            }
+        });
     }
 
     componentDidMount() {
@@ -113,7 +137,7 @@ class AddRecordForm extends React.Component {
     }
 
     render() {
-        console.log('da (yes)');
+        // console.log('da (yes)');
         return (
             <div className="add-record-form">
 
@@ -133,7 +157,9 @@ class AddRecordForm extends React.Component {
                         {/*<option value='-1'>Все</option>*/}
                         {
                             this.props.members.map(member => (
-                                <option value={member.id}>{member.display_name}</option>
+                                <option value={member.id} key={member.id}>
+                                    {member.display_name}
+                                </option>
                             ))
                         }
                     </select>
@@ -144,6 +170,8 @@ class AddRecordForm extends React.Component {
                     <input type="text"
                            // placeholder="Например, веп))0"
                            id="purchase-name"
+                           value={this.state.purchaseName}
+                           onChange={e => this.setState({purchaseName: e.target.value})}
                            className="autocomplete"/>
                     <label htmlFor="purchase-name">Покупка</label>
                 </div>
@@ -151,12 +179,14 @@ class AddRecordForm extends React.Component {
                 <div className="input-field col s12">
                     <select value={this.state.buyer}
                             onChange={e => this.setState({
-                                debtors: e.target.value
+                                debtors: Number.parseInt(e.target.value)
                             })}
                             id="buyerSelect">
                         {
                             this.props.members.map(member => (
-                                <option value={member.id}>{member.display_name}</option>
+                                <option value={member.id} key={member.id}>
+                                    {member.display_name}
+                                </option>
                             ))
                         }
                     </select>
@@ -166,8 +196,25 @@ class AddRecordForm extends React.Component {
                 <div className="input-field col s12">
                     <input type="number"
                            // placeholder="40 гривен"
+                           value={this.state.cost}
+                           onChange={e => this.setState({
+                               cost: Number.parseFloat(e.target.value)
+                           })}
                            id="costInput"/>
                     <label htmlFor="costInput">Сколько</label>
+                </div>
+
+                <div>
+                    <button className="waves-effect waves-light btn"
+                            disabled={
+                                this.state.debtors.length === 0 ||
+                                this.state.purchaseName.length === 0 ||
+                                this.state.cost.length === 0
+                            }
+                            onClick={this.handleAddPurchase}>
+                        <i className="material-icons left">add</i>
+                        Добавить
+                    </button>
                 </div>
 
             </div>
