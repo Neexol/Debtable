@@ -131,6 +131,7 @@ class RoomRoot extends React.Component {
                 <RoomTopMenu checkedIndex={this.state.checkedIndex}
                              onCheck={this.handleCheck}/>
                 {
+                    this.state.room         === undefined ||
                     this.state.members      === undefined ||
                     this.state.purchases    === undefined ||
                     this.state.invitedUsers === undefined

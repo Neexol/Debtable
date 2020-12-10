@@ -192,3 +192,12 @@ table.redTable tfoot .links a{
     overflow-x: hidden;
     overflow-y: auto;
 }
+
+
+
+.user-chip {
+    background: #E0E0E0;
+    border-radius: 1rem;
+    margin: 0.3rem;
+    padding: 0.4rem;
+}
