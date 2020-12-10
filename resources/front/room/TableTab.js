@@ -156,6 +156,7 @@ class AddRecordForm extends React.Component {
 
     componentDidMount() {
         M.FormSelect.init($('#debtorsSelect'));
+        M.FormSelect.init($('#buyerSelect'));
         M.Autocomplete.init($('#purchase-name'));
     }
 
@@ -176,21 +177,36 @@ class AddRecordForm extends React.Component {
 
                     <div className="input-field col s12">
                         <select multiple={true}
+                                value={this.state.debtors}
                                 onChange={() => this.setState({
                                     debtors: $('#debtorsSelect').val().map(id => Number.parseInt(id))
                                 })}
-                                value={this.state.debtors}
                                 id="debtorsSelect">
                             <option value={10}>просто</option>
                             <option value={20}>здравствуй</option>
                             <option value={30}>просто</option>
                             <option value={40}>как дела</option>
                         </select>
+                        <label>Кто должен</label>
                     </div>
 
                     <div className="input-field col s12">
                         <input type="text" id="purchase-name" className="autocomplete"/>
                         <label htmlFor="purchase-name">Покупка</label>
+                    </div>
+
+                    <div className="input-field col s12">
+                        <select value={this.state.buyer}
+                                onChange={e => this.setState({
+                                    debtors: e.target.value
+                                })}
+                                id="buyerSelect">
+                            <option value={1}>просто</option>
+                            <option value={2}>здравствуй</option>
+                            <option value={3}>просто</option>
+                            <option value={4}>как дела</option>
+                        </select>
+                        <label>Кому должен</label>
                     </div>
 
                 </div>
