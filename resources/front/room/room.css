@@ -187,4 +187,5 @@ table.redTable tfoot .links a{
     height: 10rem;
     overflow: scroll;
     overflow-x: hidden;
+    overflow-y: auto;
 }

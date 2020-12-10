@@ -34,10 +34,6 @@ class ManagementTab extends React.Component {
     });
 
     whoIsUser = userID => {
-        console.log('userID = '+userID+
-            '\nmembers: '+this.props.members.map(user => user.id)+
-            '\nmembers: '+this.props.invitedUsers.map(user => user.id)
-        );
         if (this.props.members.map(user => user.id).includes(userID)) {
             return 'member'
         } else if (this.props.invitedUsers.map(user => user.id).includes(userID)) {
