@@ -96,13 +96,12 @@ table.redTable tfoot .links a{
     margin-left: 13rem;
 }
 
-.add-record-form,
-.add-record-form input,
-.add-record-form select,
-.add-record-form button{
+.add-record-form {
     width: 100%;
+    display: flex;
+    align-items: center;
 }
-.add-record-form td:not(:first-of-type) {
+.add-record-form div:not(:first-of-type) {
     padding-left: 0.5rem;
 }
 
