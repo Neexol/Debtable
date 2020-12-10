@@ -31,6 +31,7 @@ class TableTab extends React.Component {
         return (
             <>
                 <h2>*тут форма для добавления</h2>
+                <AddRecordForm/>
                 {
                     this.state.purchases === undefined
                         ? <div className="room__empty-page"><Loader/></div>
@@ -83,54 +84,6 @@ const DebtsTableHeaders = (
         <th>Дата</th>
     </tr>
 )
-
-// function DebtsTableRow(props) {
-//     const row = props.row;
-//     return (
-//         <tr>
-//             <td>{row.who_owes}</td>
-//             <td>{row.purchase}</td>
-//             <td>{row.who_paid}</td>
-//             <td>{row.cost}</td>
-//             <td>{row.date}</td>
-//         </tr>
-//     );
-// }
-
-// const DebtsTableBody = (props) => (
-//     <tbody>{
-//         props.list.map(row =>
-//             <DebtsTableRow key={row.id} row={row}/>
-//         )
-//     }</tbody>
-// )
-
-// class DebtsTable extends React.Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             isLoading: true,
-//             table: null
-//         };
-//     }
-//
-//     render() {
-//         return (
-//             <div>{
-//                 this.state.isLoading
-//                     ? <Loader/>
-//                     : <div>
-//                         <AddRecordForm table={this.state.table}
-//                                        members={this.props.members}/>
-//                         <table className={"redTable"}>
-//                             <thead>{DebtsTableHeaders}</thead>
-//                             <DebtsTableBody list={this.state.table}/>
-//                         </table>
-//                     </div>
-//             }</div>
-//         );
-//     }
-// }
 
 class Multiselect extends React.Component {
     constructor(props) {
@@ -189,9 +142,9 @@ class AddRecordForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            whoOwes: [],
+            debtors: [],
             purchase: "",
-            whoPaid: "",
+            buyer: null,
             cost: null,
             distribution: false
         };
