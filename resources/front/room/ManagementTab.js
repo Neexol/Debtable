@@ -54,7 +54,7 @@ class ManagementTab extends React.Component {
     };
 
     removeMember = isAuthorizedUser => {
-        sendDelete(ROUTE_REMOVE_MEMBER(this.props.roomID, this.state.selectedUserID), null,
+        sendDelete(ROUTE_REMOVE_MEMBER(this.props.room.id, this.state.selectedUserID), null,
         response => {
             this.props.updateMembersByRemove(response);
             // console.log("isAuthorizedUser = "+isAuthorizedUser);
@@ -81,7 +81,7 @@ class ManagementTab extends React.Component {
     handleRemoveMember = () => this.removeMember(false);
 
     handleRemoveInvitedUser = () => {
-        sendDelete(ROUTE_REMOVE_INVITED_USER(this.props.roomID, this.state.selectedUserID), null,
+        sendDelete(ROUTE_REMOVE_INVITED_USER(this.props.room.id, this.state.selectedUserID), null,
         response => {
                 this.props.updateInvitedUsersByRemove(response);
                 console.log("invited user ["+response+"] removed");
@@ -100,7 +100,7 @@ class ManagementTab extends React.Component {
     };
 
     handleInviteNewUser = () => {
-        sendPost(ROUTE_INVITES_OF_ROOM(this.props.roomID), JSON.stringify({
+        sendPost(ROUTE_INVITES_OF_ROOM(this.props.room.id), JSON.stringify({
             user_id: this.state.selectedUserID
         }), response => {
             this.props.updateInvitedUsersByAdd(response);
@@ -131,7 +131,7 @@ class ManagementTab extends React.Component {
         return (
             <>
                 <div style={{display: 'flex', alignItems: 'center'}}>
-                    <span>Комната "<strong>название</strong>"</span>
+                    <span>Комната "<strong>{this.props.room.name}</strong>"</span>
                     <button className="action-btn"
                             onClick={() => this.setState({inviteUsersDialogOpened: true})}
                             style={{display: 'flex', alignItems: 'center'}}>
