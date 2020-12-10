@@ -31,7 +31,7 @@ class TableTab extends React.Component {
         return (
             <>
                 <h2>*тут форма для добавления</h2>
-                <AddRecordForm/>
+                <AddRecordForm purchases={this.state.purchases === undefined ? [] : this.state.purchases}/>
                 {
                     this.state.purchases === undefined
                         ? <div className="room__empty-page"><Loader/></div>
@@ -153,36 +153,20 @@ class AddRecordForm extends React.Component {
             // distribution: false
         };
     }
-    //
-    // handlePurchaseChange = e => this.setState({
-    //     purchase: e.target.value
-    // });
-    //
-    // handleCostChange = e => this.setState({
-    //     cost: e.target.value
-    // })
-    //
-    // toggleDistribution = () => this.setState(
-    //     state => ({distribution: !state.distribution})
-    // );
-    //
-    // onListClick = e => {
-    //     let newList = this.state.whoOwes;
-    //     if (e.target.checked) {
-    //         newList.push(e.target.id)
-    //     } else {
-    //         newList.splice(newList.indexOf(e.target.id), 1);
-    //     }
-    //     this.setState({whoOwes: newList})
-    // }
 
     componentDidMount() {
         M.FormSelect.init($('#debtorsSelect'));
-        M.Autocomplete.init($('#purchase-name'), {
-            data: {
+        M.Autocomplete.init($('#purchase-name'));
+    }
 
-            }
-        })
+    componentDidUpdate() {
+        M.Autocomplete.getInstance($('#purchase-name')).updateData(
+            JSON.parse(`{${
+                this.props.purchases
+                    .map(purchase => `"${purchase.name}": null`)
+                    .join(',')
+            }}`)
+        );
     }
 
     render() {
