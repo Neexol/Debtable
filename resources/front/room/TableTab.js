@@ -48,10 +48,11 @@ function DebtsTable(props) {
             <thead>{DebtsTableHeaders}</thead>
             <tbody>{
                 props.purchases.map(purchase => (
-                    <tr>
+                    <tr key={purchase.id}>
                         <td style={{display: 'flex', flexWrap: 'wrap', padding: '0.3rem'}}>{
                             purchase.debtors.map(debtor => (
-                                <span className='user-chip'
+                                <span key={debtor.id}
+                                      className='user-chip'
                                       title={LOGIN_SYMBOL+debtor.username}>
                                     {debtor.display_name}
                                 </span>
