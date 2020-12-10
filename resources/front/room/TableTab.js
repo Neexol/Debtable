@@ -85,144 +85,181 @@ const DebtsTableHeaders = (
     </tr>
 )
 
-class Multiselect extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {expanded: false};
-    }
-
-    toggleExpanded = () => this.setState(
-        state => ({expanded: !state.expanded})
-    )
-
-    hardFocus = e => {
-        $('#multiselect-focus-field').focus();
-        e.preventDefault();
-        e.stopPropagation();
-    }
-
-    render() {
-        return (
-            <div className="multiselect">
-                <div className="selectBox" onClick={this.toggleExpanded}>
-                    <input onBlur={() => this.setState({expanded: false})}
-                           readOnly={true}
-                           id="multiselect-focus-field"
-                           placeholder={this.props.placeholder}
-                           value={
-                               this.props.checkedList.length > 0
-                                   ? this.props.checkedList.join(", ")
-                                   : ""
-                           }/>
-                </div>
-                <div id="checkboxes"
-                     className="no-select"
-                     onMouseUp={this.hardFocus}
-                     onMouseDown={this.hardFocus}
-                     style={{display: (this.state.expanded ? "block" : "none")}}>
-                    {
-                        this.props.list.map(element => (
-                            <label htmlFor={element}
-                                   key={element}>
-                                {element}
-                                <input type="checkbox"
-                                       id={element}
-                                       onClick={this.props.onListClick}/>
-                                {element}
-                            </label>
-                        ))
-                    }
-                </div>
-            </div>
-        );
-    }
-}
+// class Multiselect extends React.Component {
+//     constructor(props) {
+//         super(props);
+//         this.state = {expanded: false};
+//     }
+//
+//     toggleExpanded = () => this.setState(
+//         state => ({expanded: !state.expanded})
+//     )
+//
+//     hardFocus = e => {
+//         $('#multiselect-focus-field').focus();
+//         e.preventDefault();
+//         e.stopPropagation();
+//     }
+//
+//     render() {
+//         return (
+//             <div className="multiselect">
+//                 <div className="selectBox" onClick={this.toggleExpanded}>
+//                     <input onBlur={() => this.setState({expanded: false})}
+//                            readOnly={true}
+//                            id="multiselect-focus-field"
+//                            placeholder={this.props.placeholder}
+//                            value={
+//                                this.props.checkedList.length > 0
+//                                    ? this.props.checkedList.join(", ")
+//                                    : ""
+//                            }/>
+//                 </div>
+//                 <div id="checkboxes"
+//                      className="no-select"
+//                      onMouseUp={this.hardFocus}
+//                      onMouseDown={this.hardFocus}
+//                      style={{display: (this.state.expanded ? "block" : "none")}}>
+//                     {
+//                         this.props.list.map(element => (
+//                             <label htmlFor={element}
+//                                    key={element}>
+//                                 {element}
+//                                 <input type="checkbox"
+//                                        id={element}
+//                                        onClick={this.props.onListClick}/>
+//                                 {element}
+//                             </label>
+//                         ))
+//                     }
+//                 </div>
+//             </div>
+//         );
+//     }
+// }
 
 class AddRecordForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             debtors: [],
-            purchase: "",
-            buyer: null,
-            cost: null,
-            distribution: false
+            purchaseName: '',
+            cost: 0,
+            buyer: getAuthorizedUserID(),
+            // debtors: [],
+            // purchase: "",
+            // buyer: null,
+            // cost: null,
+            // distribution: false
         };
     }
+    //
+    // handlePurchaseChange = e => this.setState({
+    //     purchase: e.target.value
+    // });
+    //
+    // handleCostChange = e => this.setState({
+    //     cost: e.target.value
+    // })
+    //
+    // toggleDistribution = () => this.setState(
+    //     state => ({distribution: !state.distribution})
+    // );
+    //
+    // onListClick = e => {
+    //     let newList = this.state.whoOwes;
+    //     if (e.target.checked) {
+    //         newList.push(e.target.id)
+    //     } else {
+    //         newList.splice(newList.indexOf(e.target.id), 1);
+    //     }
+    //     this.setState({whoOwes: newList})
+    // }
 
-    handlePurchaseChange = e => this.setState({
-        purchase: e.target.value
-    });
+    componentDidMount() {
+        M.FormSelect.init($('#debtorsSelect'));
+        M.Autocomplete.init($('#purchase-name'), {
+            data: {
 
-    handleCostChange = e => this.setState({
-        cost: e.target.value
-    })
-
-    toggleDistribution = () => this.setState(
-        state => ({distribution: !state.distribution})
-    );
-
-    onListClick = e => {
-        let newList = this.state.whoOwes;
-        if (e.target.checked) {
-            newList.push(e.target.id)
-        } else {
-            newList.splice(newList.indexOf(e.target.id), 1);
-        }
-        this.setState({whoOwes: newList})
+            }
+        })
     }
 
     render() {
         return (
-            <table className="add-record-form"><tbody><tr>
-                <td><Multiselect list={this.props.members.map(member => member.name)}
-                                 checkedList={this.state.whoOwes}
-                                 onListClick={this.onListClick}
-                                 placeholder="Кто (who?)"/></td>
+            <>
+                <div className="add-record-form">
 
-                <td><div>
-                    <input list="suggestions"
-                           placeholder="покупка"
-                           value={this.state.purchase}
-                           onChange={this.handlePurchaseChange}/>
-                    <datalist id="suggestions">{
-                        [...new Set(
-                            this.props.table.map(record => record.purchase)
-                        )].map(purchase => (<option>{purchase}</option>))
-                    }</datalist>
-                </div></td>
+                    <div className="input-field col s12">
+                        <select multiple={true}
+                                onChange={() => this.setState({
+                                    debtors: $('#debtorsSelect').val().map(id => Number.parseInt(id))
+                                })}
+                                value={this.state.debtors}
+                                id="debtorsSelect">
+                            <option value={10}>просто</option>
+                            <option value={20}>здравствуй</option>
+                            <option value={30}>просто</option>
+                            <option value={40}>как дела</option>
+                        </select>
+                    </div>
 
-                <td><select>{
-                    this.props.members.map(member => (
-                        <option>{member.name}</option>
-                    ))}
-                }</select></td>
+                    <div className="input-field col s12">
+                        <input type="text" id="purchase-name" className="autocomplete"/>
+                        <label htmlFor="purchase-name">Покупка</label>
+                    </div>
 
-                <td><input name="cost"
-                           type="number"
-                           value={this.state.cost}
-                           onChange={this.handleCostChange}
-                           placeholder="Сколько"/></td>
+                </div>
+            {/*<table className="add-record-form"><tbody><tr>*/}
+            {/*    <td><Multiselect list={this.props.members.map(member => member.name)}*/}
+            {/*                     checkedList={this.state.whoOwes}*/}
+            {/*                     onListClick={this.onListClick}*/}
+            {/*                     placeholder="Кто (who?)"/></td>*/}
 
-                <td className="no-select"
-                    style={{
-                        width: "1pt",
-                        height: "25pt",
-                        // background: "red",
-                        // textAlign: "center",
-                        fontSize: "18pt",
-                        fontFamily: "Consolas, serif"
-                        // lineHeight: "100%",
-                        // padding: "0"
-                    }}
-                    onClick={this.toggleDistribution}>
-                    {/*{this.state.distribution ? "❖" : "◆"}*/}
-                    {this.state.distribution ? "●" : "∷"}
-                    {/*{this.state.distribution ? "⁕" : "⁂"}*/}
-                </td>
+            {/*    <td><div>*/}
+            {/*        <input list="suggestions"*/}
+            {/*               placeholder="покупка"*/}
+            {/*               value={this.state.purchase}*/}
+            {/*               onChange={this.handlePurchaseChange}/>*/}
+            {/*        <datalist id="suggestions">{*/}
+            {/*            [...new Set(*/}
+            {/*                this.props.table.map(record => record.purchase)*/}
+            {/*            )].map(purchase => (<option>{purchase}</option>))*/}
+            {/*        }</datalist>*/}
+            {/*    </div></td>*/}
 
-                <td><button>ADD</button></td>
-            </tr></tbody></table>
+            {/*    <td><select>{*/}
+            {/*        this.props.members.map(member => (*/}
+            {/*            <option>{member.name}</option>*/}
+            {/*        ))}*/}
+            {/*    }</select></td>*/}
+
+            {/*    <td><input name="cost"*/}
+            {/*               type="number"*/}
+            {/*               value={this.state.cost}*/}
+            {/*               onChange={this.handleCostChange}*/}
+            {/*               placeholder="Сколько"/></td>*/}
+
+            {/*    <td className="no-select"*/}
+            {/*        style={{*/}
+            {/*            width: "1pt",*/}
+            {/*            height: "25pt",*/}
+            {/*            // background: "red",*/}
+            {/*            // textAlign: "center",*/}
+            {/*            fontSize: "18pt",*/}
+            {/*            fontFamily: "Consolas, serif"*/}
+            {/*            // lineHeight: "100%",*/}
+            {/*            // padding: "0"*/}
+            {/*        }}*/}
+            {/*        onClick={this.toggleDistribution}>*/}
+            {/*        /!*{this.state.distribution ? "❖" : "◆"}*!/*/}
+            {/*        {this.state.distribution ? "●" : "∷"}*/}
+            {/*        /!*{this.state.distribution ? "⁕" : "⁂"}*!/*/}
+            {/*    </td>*/}
+
+            {/*    <td><button>ADD</button></td>*/}
+            {/*</tr></tbody></table>*/}
+            </>
         );
     }
 }
