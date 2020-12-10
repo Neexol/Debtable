@@ -141,7 +141,10 @@ class AddRecordForm extends React.Component {
                 </div>
 
                 <div className="input-field col s12">
-                    <input type="text" id="purchase-name" className="autocomplete"/>
+                    <input type="text"
+                           placeholder="Например, веп))0"
+                           id="purchase-name"
+                           className="autocomplete"/>
                     <label htmlFor="purchase-name">Покупка</label>
                 </div>
 
@@ -159,6 +162,8 @@ class AddRecordForm extends React.Component {
                     </select>
                     <label>Кому должен</label>
                 </div>
+
+                
 
             </div>
         );
