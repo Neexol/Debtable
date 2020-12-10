@@ -148,6 +148,9 @@ table.redTable tfoot .links a{
     box-shadow:0 0.5rem 1rem -0.2rem #dddddd;
     width: 10rem;
 }
+.member-card.self {
+    background: gold;
+}
 .members-container {
     display: flex;
     align-items: start;

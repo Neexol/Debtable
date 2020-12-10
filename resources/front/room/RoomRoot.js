@@ -4,6 +4,7 @@ class RoomRoot extends React.Component {
         this.state = {
             roomID: this.getRoomID(),
             checkedIndex: this.getCurrentTab(),
+            room: undefined,
             members: undefined,
             purchases: undefined,
             invitedUsers: undefined,
@@ -100,8 +101,25 @@ class RoomRoot extends React.Component {
             }
         }
     );
+    getRoom = () => sendGet(ROUTE_ROOM(this.state.roomID),
+        response => {
+            this.setState({room: response});
+        },
+        response => {
+            switch (response.status) {
+                case 401:
+                    redirectToLogin();
+                    break;
+                default:
+                    // alert("error "+response.status);
+                    console.log("error "+response.status);
+                    break;
+            }
+        }
+    );
 
     componentDidMount() {
+        this.getRoom();
         this.getMembers();
         this.getPurchases();
         this.getInvitedUsers();
@@ -122,7 +140,7 @@ class RoomRoot extends React.Component {
                                 members: this.state.members,
                                 purchases: this.state.purchases,
                                 invitedUsers: this.state.invitedUsers,
-                                roomID: this.state.roomID,
+                                room: this.state.room,
                                 updateMembersByRemove: this.updateMembersByRemove,
                                 updateInvitedUsersByRemove: this.updateInvitedUsersByRemove,
                                 updateInvitedUsersByAdd: this.updateInvitedUsersByAdd,
