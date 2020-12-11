@@ -90,7 +90,7 @@ class DebtsTable extends React.Component {
         sendPut(ROUTE_PURCHASE(this.props.room.id, this.state.selectedPurchase.id), JSON.stringify({
             name: this.state.purchaseName,
             debt: this.state.cost,
-            date: getCurrentDate(),
+            date: this.state.selectedPurchase.date,
             buyer_id: this.state.buyer,
             debtor_ids: this.state.debtors
         }), response => {

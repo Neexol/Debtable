@@ -14,7 +14,7 @@ const NAVIGATION = (index, prop) => ([
     (<TableTab room={prop.room}
                purchases={prop.purchases}
                members={prop.members}/>),
-    (<StatisticsTab/>),
+    (<StatisticsTab room={prop.room}/>),
     (<ManagementTab room={prop.room}
                     members={prop.members}
                     updateMembersByRemove={prop.updateMembersByRemove}

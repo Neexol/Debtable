@@ -35,6 +35,9 @@ const ROUTE_REMOVE_MEMBER = (roomID, userID) => 'api/rooms/' + roomID + '/member
 const ROUTE_PURCHASES = roomID => 'api/rooms/' + roomID + '/purchases';
 const ROUTE_PURCHASE = (roomID, purchaseID) => 'api/rooms/' + roomID + '/purchases/' + purchaseID;
 
+// Statistics
+const ROUTE_STATISTICS = roomID => 'api/rooms/' + roomID + '/stats';
+
 const Loader = () => <div className="loader"/>;
 
 const getJWT = () => {
