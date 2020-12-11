@@ -3,6 +3,8 @@ const NAV_NAMES = [
     // "📊 Dynamics",
     // "📅 Calendar",
     // "⚙️ Management"
+
+    // (<><i className="material-icons nav-icon">home</i>Домой</>),
     (<><i className="material-icons nav-icon">table_chart</i>Таблица</>),
     (<><i className="material-icons nav-icon">insert_chart_outlined</i>Статистика</>),
     (<><i className="material-icons nav-icon">settings</i>Управление</>),
