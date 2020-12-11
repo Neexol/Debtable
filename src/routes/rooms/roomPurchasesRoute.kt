@@ -53,7 +53,7 @@ private fun Route.purchasesEndpoint() {
         foldRunCatching(
             block = {
                 RoomsRepository.checkRoomAccess(route.room_id, getUserIdFromToken()).let { room ->
-                    RoomsRepository.getRoomPurchases(room.id.value)!!
+                    PurchasesRepository.getPurchases(room)
                 }
             },
             onSuccess = { result ->
