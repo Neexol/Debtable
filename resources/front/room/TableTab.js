@@ -67,12 +67,6 @@ class TableTab extends React.Component {
 
                         <h2>Изменить покупку</h2>
 
-                        {/*<AddRecordForm purchases={this.state.purchases === undefined ? [] : this.state.purchases}*/}
-                        {/*               id='add'*/}
-                        {/*               button={{icon: 'save', text: 'сохранить'}}*/}
-                        {/*               members={this.props.members}*/}
-                        {/*               room={this.props.room}*/}
-                        {/*               updateTable={this.getPurchases}/>*/}
                     </div>
                 </div>
             </>
@@ -80,39 +74,100 @@ class TableTab extends React.Component {
     }
 }
 
-function DebtsTable(props) {
-    return (
-        <table className={"highlight centered"}>
-            <thead>{DebtsTableHeaders}</thead>
-            <tbody>{
-                props.purchases.map(purchase => (
-                    <tr key={purchase.id}
-                        style={{cursor: 'pointer'}}
-                        onClick={() => props.openEditDialog(purchase)}>
-                        <td className='valign-wrapper'>{
-                            purchase.debtors.map(debtor => (
-                                <div key={debtor.id}
-                                     className='chip'
-                                     title={LOGIN_SYMBOL+debtor.username}>
-                                    {debtor.display_name}
-                                </div>
-                            ))
-                        }</td>
-                        <td>{purchase.name}</td>
-                        <td>
-                            <div className='chip'
-                                 title={LOGIN_SYMBOL+purchase.buyer.username}>
-                                {purchase.buyer.display_name}
-                            </div>
-                        </td>
-                        <td>{purchase.debt}</td>
-                        <td>{purchase.date}</td>
-                    </tr>
-                ))
-            }</tbody>
-        </table>
-    );
+class DebtsTable extends React.Component {
+    constructor(props) {
+        super(props);
+        console.log('constructor of '+this.props.id+', purchase = '+this.props.purchase);
+        this.state = {
+            debtors: [],
+            purchaseName: '',
+            cost: '',
+            buyer: getAuthorizedUserID(),
+        };
+    }
+
+    handleEditPurchase = purchaseID => {
+        sendPut(ROUTE_PURCHASE(this.props.room.id, purchaseID), JSON.stringify({
+            name: this.state.purchaseName,
+            debt: this.state.cost,
+            date: getCurrentDate(),
+            buyer_id: this.state.buyer,
+            debtor_ids: this.state.debtors
+        }), response => {
+            // this.props.updateTableByAdd(response);
+            this.props.updateTable();
+        }, response => {
+            switch (response.status) {
+                case 401:
+                    redirectToLogin();
+                    break;
+                default:
+                    M.toast({
+                        html: "error "+response.status,
+                        classes: "error-toast"
+                    })
+                    console.log("error "+response.status);
+                    break;
+            }
+        });
+    }
+
+    componentDidMount() {
+        M.AutoInit();
+    }
+
+    componentDidUpdate() {
+        M.Autocomplete.getInstance($('#purchase-name')).updateData(
+            JSON.parse(`{${
+                this.props.purchases
+                    .map(purchase => `"${purchase.name}": null`)
+                    .join(',')
+            }}`)
+        );
+    }
+
+    render() {
+        return (
+            <>
+                <table className={"highlight centered"}>
+                    <thead>{DebtsTableHeaders}</thead>
+                    <tbody>{
+                        this.props.purchases.map(purchase => (
+                            <tr key={purchase.id}
+                                style={{cursor: 'pointer'}}
+                                onClick={() => this.props.openEditDialog(purchase)}>
+                                <td className='valign-wrapper'>{
+                                    purchase.debtors.map(debtor => (
+                                        <div key={debtor.id}
+                                             className='chip'
+                                             title={LOGIN_SYMBOL+debtor.username}>
+                                            {debtor.display_name}
+                                        </div>
+                                    ))
+                                }</td>
+                                <td>{purchase.name}</td>
+                                <td>
+                                    <div className='chip'
+                                         title={LOGIN_SYMBOL+purchase.buyer.username}>
+                                        {purchase.buyer.display_name}
+                                    </div>
+                                </td>
+                                <td>{purchase.debt}</td>
+                                <td>{purchase.date}</td>
+                            </tr>
+                        ))
+                    }</tbody>
+                </table>
+            </>
+        );
+    }
 }
+
+// function DebtsTable(props) {
+//     return (
+//
+//     );
+// }
 
 const DebtsTableHeaders = (
     <tr>
@@ -123,6 +178,81 @@ const DebtsTableHeaders = (
         <th>Дата</th>
     </tr>
 )
+
+function PurchaseForm(props) {
+    return (
+        <div className="add-record-form">
+
+            <div className='row' style={{flexGrow: '1'}}>
+                <div className="input-field col s3">
+                    <select multiple={true}
+                            value={props.debtors}
+                            onChange={props.onDebtorsChange}
+                            id={"debtorsSelect_"+props.id}>
+                        {
+                            props.members.map(member => (
+                                <option value={member.id} key={member.id}>
+                                    {member.display_name}
+                                </option>
+                            ))
+                        }
+                    </select>
+                    <label>Кто должен</label>
+                </div>
+
+                <div className="input-field col s3">
+                    <input type="text"
+                        // placeholder="Например, веп))0"
+                        //    id={"purchase-name"}
+                           value={props.purchaseName}
+                           onChange={props.onChangePurchaseName}
+                           className="autocomplete"/>
+                    <label>Покупка</label>
+                </div>
+
+                <div className="input-field col s3">
+                    <select value={props.buyer}
+                            onChange={props.onChangeBuyer}
+                            // id={"buyerSelect"}
+                    >
+                        {
+                            props.members.map(member => (
+                                <option value={member.id} key={member.id}>
+                                    {member.display_name}
+                                </option>
+                            ))
+                        }
+                    </select>
+                    <label>Кому должен</label>
+                </div>
+
+                <div className="input-field col s3">
+                    <input type="number"
+                        // placeholder="40 гривен"
+                           value={props.cost}
+                           onChange={props.onChangeCost}
+                           // id={"costInput"}
+                    />
+                    <label>Сколько</label>
+                </div>
+            </div>
+
+            <div style={{transform: "translateY(-100%)"}}>
+                <button className="waves-effect waves-light btn"
+                        disabled={
+                            props.debtors.length === 0 ||
+                            props.purchaseName.length === 0 ||
+                            props.cost.length === 0
+                        }
+                        onClick={props.onSubmit}>
+                    <i className="material-icons left">{props.button.icon}</i>
+                    {props.button.text}
+                </button>
+            </div>
+
+        </div>
+    );
+}
 
 class AddRecordForm extends React.Component {
     constructor(props) {
