@@ -55,6 +55,7 @@ class DebtsTable extends React.Component {
         this.id = 'edit';
         this.state = {
             editPurchaseDialogOpened: false,
+            deletePurchaseDialogOpened: false,
             selectedPurchase: null,
             debtors: [],
             purchaseName: '',
@@ -76,8 +77,17 @@ class DebtsTable extends React.Component {
         selectedPurchase: null,
     });
 
-    handleEditPurchase = purchaseID => {
-        sendPut(ROUTE_PURCHASE(this.props.room.id, purchaseID), JSON.stringify({
+    openDeletePurchaseDialog = purchase => this.setState({
+        selectedPurchase: purchase,
+        deletePurchaseDialogOpened: true,
+    });
+    closeDeletePurchaseDialog = () => this.setState({
+        deletePurchaseDialogOpened: false,
+        selectedPurchase: null,
+    });
+
+    handleEditPurchase = () => {
+        sendPut(ROUTE_PURCHASE(this.props.room.id, this.state.selectedPurchase.id), JSON.stringify({
             name: this.state.purchaseName,
             debt: this.state.cost,
             date: getCurrentDate(),
@@ -101,13 +111,36 @@ class DebtsTable extends React.Component {
             }
         });
         this.closeEditPurchaseDialog();
-    }
+    };
+    handleDeletePurchase = () => {
+        sendDelete(ROUTE_PURCHASE(this.props.room.id, this.state.selectedPurchase.id), null, 
+        response => {
+            // this.props.updateTableByRemove(response);
+            this.props.updateTable();
+        }, 
+        response => {
+            switch (response.status) {
+                case 401:
+                    redirectToLogin();
+                    break;
+                default:
+                    M.toast({
+                        html: "error "+response.status,
+                        classes: "error-toast"
+                    })
+                    console.log("error "+response.status);
+                    break;
+            }
+        });
+        this.closeDeletePurchaseDialog();
+    };
 
     componentDidMount() {
         M.AutoInit();
     }
 
     componentDidUpdate() {
+        M.AutoInit();
         M.Autocomplete.getInstance($('#purchaseName'+this.id)).updateData(
             JSON.parse(`{${
                 this.props.purchases
@@ -122,11 +155,14 @@ class DebtsTable extends React.Component {
             <>
                 <table className={"highlight centered"}>
                     <thead>{DebtsTableHeaders}</thead>
-                    <tbody>{
+                    <tbody className={'scrollable'}>{
                         this.props.purchases.map(purchase => (
                             <tr key={purchase.id}
                                 style={{cursor: 'pointer'}}
-                                onClick={() => this.openEditPurchaseDialog(purchase)}>
+                                onClick={e => {
+                                    if (e.target.className.includes('btn')) return;
+                                    this.openEditPurchaseDialog(purchase)
+                                }}>
                                 <td className='valign-wrapper'>{
                                     purchase.debtors.map(debtor => (
                                         <div key={debtor.id}
@@ -145,6 +181,12 @@ class DebtsTable extends React.Component {
                                 </td>
                                 <td>{purchase.debt}</td>
                                 <td>{purchase.date}</td>
+                                <td style={{width: '5rem'}}>
+                                    <button className="waves-effect waves-red material-icons btn-flat delete"
+                                            onClick={() => this.openDeletePurchaseDialog(purchase)}>
+                                        delete_outline
+                                    </button>
+                                </td>
                             </tr>
                         ))
                     }</tbody>
@@ -160,7 +202,7 @@ class DebtsTable extends React.Component {
                             <i className="material-icons">close</i>
                         </span>
 
-                        <h2>Изменить покупку</h2>
+                        <h4>Изменить покупку</h4>
 
                         <PurchaseForm id={this.id}
                                       members={this.props.members}
@@ -178,7 +220,33 @@ class DebtsTable extends React.Component {
                                       onCostChange={e => this.setState({cost: e.target.value})}
                                       // button={{icon: 'save', text: 'Сохранить'}}
                                       buttonIcon={'save'}
-                                      onSubmit={() => this.handleEditPurchase(this.state.selectedPurchase?.id)}/>
+                                      onSubmit={this.handleEditPurchase}/>
+
+                    </div>
+                </div>
+
+                <div id="deletePurchaseDialog" className="dialog"
+                     onClick={e => {if (e.target.id === 'deletePurchaseDialog') this.closeDeletePurchaseDialog()}}
+                     style={{display: this.state.deletePurchaseDialogOpened ? 'block' : 'none'}}>
+
+                    <div className="dialog-content">
+                        <span className="small-action-btn close-dialog-btn"
+                              onClick={this.closeDeletePurchaseDialog}>
+                            <i className="material-icons">close</i>
+                        </span>
+
+                        <h4>Удалить покупку "{this.state.selectedPurchase?.name}"?</h4>
+                        
+                        <div style={{display: 'flex', flexDirection: 'row-reverse'}}>
+                            <button className="waves-effect waves-light btn-flat"
+                                    onClick={this.handleDeletePurchase}>
+                                да блять
+                            </button>
+                            <button className="waves-effect waves-light btn-flat"
+                                    onClick={this.closeDeletePurchaseDialog}>
+                                отмена
+                            </button>
+                        </div>
 
                     </div>
                 </div>
