@@ -67,7 +67,7 @@
 
 
 
-.modal {
+.dialog {
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
     padding-top: 100px; /* Location of the box */
@@ -79,17 +79,21 @@
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
-.modal-content {
+.dialog-content {
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
 }
-.modal h2, .modal h3 {
+.dialog h2, .dialog h3 {
     margin-top: 0;
 }
 .close-dialog-btn {
     float: right;
 }
 
+
+.error-toast {
+    background: #A40808;
+}

@@ -99,7 +99,7 @@ table.redTable tfoot .links a{
 .add-record-form {
     width: 100%;
     display: flex;
-    align-items: center;
+    align-items: baseline;
 }
 .add-record-form div:not(:first-of-type) {
     padding-left: 0.5rem;
@@ -200,3 +200,20 @@ table.redTable tfoot .links a{
     margin: 0.3rem;
     padding: 0.4rem;
 }
+
+
+.btn-flat.delete {
+    margin-left: 0.5rem;
+    color: #FF3B30;
+}
+
+/*tbody, thead {*/
+/*    display: block;*/
+/*}*/
+
+/*tbody {*/
+/*    width: 100%;*/
+/*    height: 15rem;     */
+/*    overflow-y: auto;   */
+/*    overflow-x: hidden;  */
+/*}*/
