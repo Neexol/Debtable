@@ -70,7 +70,7 @@ class DebtsTable extends React.Component {
         debtors: purchase.debtors.map(debtor => debtor.id),
         purchaseName: purchase.name,
         cost: purchase.debt,
-        buyer: purchase.buyer,
+        buyer: purchase.buyer.id,
     });
     closeEditPurchaseDialog = () => this.setState({
         editPurchaseDialogOpened: false,
@@ -91,7 +91,7 @@ class DebtsTable extends React.Component {
             name: this.state.purchaseName,
             debt: this.state.cost,
             date: getCurrentDate(),
-            buyer_id: this.state.buyer.id,
+            buyer_id: this.state.buyer,
             debtor_ids: this.state.debtors
         }), response => {
             // this.props.updateTableByAdd(response);
@@ -135,12 +135,9 @@ class DebtsTable extends React.Component {
         this.closeDeletePurchaseDialog();
     };
 
-    componentDidMount() {
-        M.AutoInit();
-    }
-
     componentDidUpdate() {
         M.AutoInit();
+        M.updateTextFields();
         M.Autocomplete.getInstance($('#purchaseName'+this.id)).updateData(
             JSON.parse(`{${
                 this.props.purchases
