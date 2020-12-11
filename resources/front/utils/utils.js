@@ -89,4 +89,8 @@ const getCurrentDate = () => {
     return dd + '.' + mm + '.' + yyyy;
 }
 
+const showErrorToast = (code, message) => M.toast({
+    html: code + ': ' + message,
+    classes: "error-toast"
+})
 

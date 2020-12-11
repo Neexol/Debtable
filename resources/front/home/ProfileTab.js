@@ -24,7 +24,7 @@ class ProfileTab extends React.Component {
 
     handleDisplayNameChange = e => this.setState({displayName: e.target.value});
 
-    handleSaveClick = e => {
+    handleSaveClick = () => {
         sendPatch(ROUTE_CHANGE_NAME, JSON.stringify({
             new_display_name: this.state.displayName
         }), response => {
@@ -35,7 +35,7 @@ class ProfileTab extends React.Component {
                     redirectToLogin();
                     break;
                 default:
-                    console.log("error "+response.status);
+                    showErrorToast(response.status, 'Ошибка сохранения');
                     break;
             }
         });
@@ -47,7 +47,7 @@ class ProfileTab extends React.Component {
 
     setErrorText = error => this.setState({errorText: error});
 
-    handleChangePass = e => {
+    handleChangePass = () => {
         if (this.state.newPass !== this.state.newPassRepeat) {
             this.setErrorText("Пароли не совпадают!");
             return;

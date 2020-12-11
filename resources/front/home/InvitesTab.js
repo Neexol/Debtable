@@ -9,8 +9,11 @@ class InvitesTab extends React.Component {
                 case 401:
                     redirectToLogin();
                     break;
+                case 404:
+                    showErrorToast(response.status, 'Приглашение не найдено');
+                    break;
                 default:
-                    console.log("error "+response.status);
+                    showErrorToast(response.status, 'Ошибка принятия приглашения');
                     break;
             }
         });
@@ -25,8 +28,11 @@ class InvitesTab extends React.Component {
                 case 401:
                     redirectToLogin();
                     break;
+                case 404:
+                    showErrorToast(response.status, 'Приглашение не найдено');
+                    break;
                 default:
-                    console.log("error "+response.status);
+                    showErrorToast(response.status, 'Ошибка отказа от приглашения');
                     break;
             }
         });

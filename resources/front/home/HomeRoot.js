@@ -75,8 +75,9 @@ class HomeRoot extends React.Component {
                     redirectToLogin();
                     break;
                 default:
-                // alert("error "+response.status);
-                    console.log("error "+response.status);
+                    // alert("error "+response.status);
+                    // console.log("error "+response.status);
+                    showErrorToast(response.status, 'Ошибка загрузки профиля');
                     break;
             }
         }
@@ -92,7 +93,8 @@ class HomeRoot extends React.Component {
                     break;
                 default:
                     // alert("error "+response.status);
-                    console.log("error "+response.status);
+                    // console.log("error "+response.status);
+                    showErrorToast(response.status, 'Ошибка загрузки комнат');
                     break;
             }
         }
@@ -109,7 +111,8 @@ class HomeRoot extends React.Component {
                     break;
                 default:
                     // alert("error "+response.status);
-                    console.log("error "+response.status);
+                    // console.log("error "+response.status);
+                    showErrorToast(response.status, 'Ошибка загрузки приглашений');
                     break;
             }
         }
