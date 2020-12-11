@@ -5,9 +5,19 @@ class TableTab extends React.Component {
             purchases: undefined,
             dialog: undefined,
             editPurchaseDialogOpened: false,
+            selectedPurchase: null,
         };
     }
 
+    openEditPurchaseDialog = purchase => this.setState({
+        editPurchaseDialogOpened: true,
+        selectedPurchase: purchase
+    });
+    closeEditPurchaseDialog = () => this.setState({
+        editPurchaseDialogOpened: false,
+        selectedPurchase: null
+    });
+    
     getPurchases = () => sendGet(ROUTE_PURCHASES(this.props.room.id),
         response => {
             this.setState({purchases: response});
@@ -33,14 +43,38 @@ class TableTab extends React.Component {
         return (
             <>
                 <AddRecordForm purchases={this.state.purchases === undefined ? [] : this.state.purchases}
+                               purchase={this.state.selectedPurchase}
+                               button={{icon: 'add', text: 'добавить'}}
                                members={this.props.members}
                                room={this.props.room}
                                updateTable={this.getPurchases}/>
                 {
                     this.state.purchases === undefined
                         ? <div className="room__empty-page"><Loader/></div>
-                        : <DebtsTable purchases={this.state.purchases}/>
+                        : <DebtsTable purchases={this.state.purchases}
+                                      openEditDialog={this.openEditPurchaseDialog}/>
                 }
+
+                <div id="editPurchaseDialog" className="dialog"
+                     onClick={e => {if (e.target.id === 'editPurchaseDialog') this.closeEditPurchaseDialog()}}
+                     style={{display: this.state.editPurchaseDialogOpened ? 'block' : 'none'}}>
+
+                    <div className="dialog-content">
+                        <span className="small-action-btn close-dialog-btn"
+                              onClick={this.closeEditPurchaseDialog}>
+                            <i className="material-icons">close</i>
+                        </span>
+
+                        <h2>Изменить покупку</h2>
+
+                        {/*<AddRecordForm purchases={this.state.purchases === undefined ? [] : this.state.purchases}*/}
+                        {/*               id='add'*/}
+                        {/*               button={{icon: 'save', text: 'сохранить'}}*/}
+                        {/*               members={this.props.members}*/}
+                        {/*               room={this.props.room}*/}
+                        {/*               updateTable={this.getPurchases}/>*/}
+                    </div>
+                </div>
             </>
         );
     }
@@ -54,7 +88,7 @@ function DebtsTable(props) {
                 props.purchases.map(purchase => (
                     <tr key={purchase.id}
                         style={{cursor: 'pointer'}}
-                        onClick={() => console.log(purchase.id + ' clicked')}>
+                        onClick={() => props.openEditDialog(purchase)}>
                         <td className='valign-wrapper'>{
                             purchase.debtors.map(debtor => (
                                 <div key={debtor.id}
@@ -93,6 +127,7 @@ const DebtsTableHeaders = (
 class AddRecordForm extends React.Component {
     constructor(props) {
         super(props);
+        console.log('constructor of '+this.props.id+', purchase = '+this.props.purchase);
         this.state = {
             debtors: [],
             purchaseName: '',
@@ -101,7 +136,7 @@ class AddRecordForm extends React.Component {
         };
     }
 
-    addPurchase = () => {
+    handleAddPurchase = () => {
         sendPost(ROUTE_PURCHASES(this.props.room.id), JSON.stringify({
             name: this.state.purchaseName,
             debt: this.state.cost,
@@ -126,44 +161,59 @@ class AddRecordForm extends React.Component {
             }
         });
     }
-    editPurchase = purchaseID => {
-        sendPut(ROUTE_PURCHASE(this.props.room.id, purchaseID), JSON.stringify({
-            name: this.state.purchaseName,
-            debt: this.state.cost,
-            date: getCurrentDate(),
-            buyer_id: this.state.buyer,
-            debtor_ids: this.state.debtors
-        }), response => {
-            // this.props.updateTableByAdd(response);
-            this.props.updateTable();
-        }, response => {
-            switch (response.status) {
-                case 401:
-                    redirectToLogin();
-                    break;
-                default:
-                    M.toast({
-                        html: "error "+response.status,
-                        classes: "error-toast"
-                    })
-                    console.log("error "+response.status);
-                    break;
-            }
-        });
-    }
+    // editPurchase = purchaseID => {
+    //     sendPut(ROUTE_PURCHASE(this.props.room.id, purchaseID), JSON.stringify({
+    //         name: this.state.purchaseName,
+    //         debt: this.state.cost,
+    //         date: getCurrentDate(),
+    //         buyer_id: this.state.buyer,
+    //         debtor_ids: this.state.debtors
+    //     }), response => {
+    //         // this.props.updateTableByAdd(response);
+    //         this.props.updateTable();
+    //     }, response => {
+    //         switch (response.status) {
+    //             case 401:
+    //                 redirectToLogin();
+    //                 break;
+    //             default:
+    //                 M.toast({
+    //                     html: "error "+response.status,
+    //                     classes: "error-toast"
+    //                 })
+    //                 console.log("error "+response.status);
+    //                 break;
+    //         }
+    //     });
+    // }
 
-    handleActionWithPurchase = purchaseID => {
-        if (purchaseID === undefined) {
-            this.addPurchase();
-        } else {
-            this.editPurchase(purchaseID);
-        }
-    }
+    // handleActionWithPurchase = purchase => {
+    //     if (purchase) {
+    //         this.editPurchase(purchase.id);
+    //     } else {
+    //         this.addPurchase();
+    //     }
+    // }
 
     componentDidMount() {
-        M.FormSelect.init($('#debtorsSelect'));
-        M.FormSelect.init($('#buyerSelect'));
-        M.Autocomplete.init($('#purchase-name'));
+        // M.FormSelect.init($('#debtorsSelect'));
+        // M.FormSelect.init($('#buyerSelect'));
+        // M.Autocomplete.init($('#purchase-name'));
+
+        // M.FormSelect.init($('select'));
+        // M.FormSelect.init($('#buyerSelect'));
+        // M.Autocomplete.init($('#purchase-name'));
+
+        console.log('didMount of '+this.props.id+', purchase = '+this.props.purchase);
+        M.AutoInit();
+        // if (this.props.purchase) {
+        //     this.setState({
+        //         debtors: this.props.purchase.debtors.map(debtor => debtor.id),
+        //         purchaseName: this.props.purchase.name,
+        //         cost: this.props.purchase.debt,
+        //         buyer: this.props.purchase.buyer.id,
+        //     })
+        // }
     }
 
     componentDidUpdate() {
@@ -177,6 +227,7 @@ class AddRecordForm extends React.Component {
     }
 
     render() {
+        console.log('render of '+this.props.id+', purchase = '+this.props.purchase);
         return (
             <div className="add-record-form">
 
@@ -193,7 +244,7 @@ class AddRecordForm extends React.Component {
                                     // if (selection.includes(-1)) selection = [-1];
                                     this.setState({debtors: selection})
                                 }}
-                                id="debtorsSelect">
+                                id={"debtorsSelect"}>
                             {/*<option value='-1'>Все</option>*/}
                             {
                                 this.props.members.map(member => (
@@ -209,7 +260,7 @@ class AddRecordForm extends React.Component {
                     <div className="input-field col s3">
                         <input type="text"
                             // placeholder="Например, веп))0"
-                               id="purchase-name"
+                               id={"purchase-name"}
                                value={this.state.purchaseName}
                                onChange={e => this.setState({purchaseName: e.target.value})}
                                className="autocomplete"/>
@@ -219,9 +270,9 @@ class AddRecordForm extends React.Component {
                     <div className="input-field col s3">
                         <select value={this.state.buyer}
                                 onChange={e => this.setState({
-                                    debtors: Number.parseInt(e.target.value)
+                                    buyer: Number.parseInt(e.target.value)
                                 })}
-                                id="buyerSelect">
+                                id={"buyerSelect"}>
                             {
                                 this.props.members.map(member => (
                                     <option value={member.id} key={member.id}>
@@ -238,9 +289,9 @@ class AddRecordForm extends React.Component {
                             // placeholder="40 гривен"
                                value={this.state.cost}
                                onChange={e => this.setState({
-                                   cost: Number.parseFloat(e.target.value)
+                                   cost: e.target.value
                                })}
-                               id="costInput"/>
+                               id={"costInput"}/>
                         <label htmlFor="costInput">Сколько</label>
                     </div>
                 </div>
@@ -252,9 +303,9 @@ class AddRecordForm extends React.Component {
                                 this.state.purchaseName.length === 0 ||
                                 this.state.cost.length === 0
                             }
-                            onClick={() => this.handleActionWithPurchase(this.props.purchaseID)}>
-                        <i className="material-icons left">add</i>
-                        Добавить
+                            onClick={() => this.handleAddPurchase(this.props.purchase)}>
+                        <i className="material-icons left">{this.props.button.icon}</i>
+                        {this.props.button.text}
                     </button>
                 </div>
 
