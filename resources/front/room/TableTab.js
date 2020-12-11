@@ -135,12 +135,9 @@ class DebtsTable extends React.Component {
         this.closeDeletePurchaseDialog();
     };
 
-    componentDidMount() {
-        M.AutoInit();
-    }
-
     componentDidUpdate() {
         M.AutoInit();
+        M.updateTextFields();
         M.Autocomplete.getInstance($('#purchaseName'+this.id)).updateData(
             JSON.parse(`{${
                 this.props.purchases
