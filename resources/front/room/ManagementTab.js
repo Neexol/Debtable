@@ -56,18 +56,23 @@ class ManagementTab extends React.Component {
     removeMember = isAuthorizedUser => {
         sendDelete(ROUTE_REMOVE_MEMBER(this.props.room.id, this.state.selectedUserID), null,
         response => {
-            this.props.updateMembersByRemove(response);
-            // console.log("isAuthorizedUser = "+isAuthorizedUser);
             if (isAuthorizedUser) redirectToHome();
-            // console.log("user ["+response+"] removed");
+            else this.props.updateMembersByRemove(response);
         },
         response => {
             switch (response.status) {
                 case 401:
                     redirectToLogin();
                     break;
+                case 403:
+                    showErrorToast(response.status, 'Ошибка доступа к комнате');
+                    redirectToHome();
+                    break;
+                case 404:
+                    showErrorToast(response.status, 'Участник или комната не найдены');
+                    break;
                 default:
-                    console.log("error "+response.status);
+                    showErrorToast(response.status, 'Ошибка удаления участника');
                     break;
             }
         });
@@ -84,15 +89,21 @@ class ManagementTab extends React.Component {
         sendDelete(ROUTE_REMOVE_INVITED_USER(this.props.room.id, this.state.selectedUserID), null,
         response => {
                 this.props.updateInvitedUsersByRemove(response);
-                console.log("invited user ["+response+"] removed");
         },
         response => {
             switch (response.status) {
                 case 401:
                     redirectToLogin();
                     break;
+                case 403:
+                    showErrorToast(response.status, 'Ошибка доступа к комнате');
+                    redirectToHome();
+                    break;
+                case 404:
+                    showErrorToast(response.status, 'Участник или комната не найдены');
+                    break;
                 default:
-                    console.log("error "+response.status);
+                    showErrorToast(response.status, 'Ошибка удаления приглашения');
                     break;
             }
         });
@@ -110,8 +121,20 @@ class ManagementTab extends React.Component {
                 case 401:
                     redirectToLogin();
                     break;
+                case 403:
+                    showErrorToast(response.status, 'Ошибка доступа к комнате');
+                    redirectToHome();
+                    break;
+                case 404:
+                    showErrorToast(response.status, 'Участник или комната не найдены');
+                    break;
+                case 409:
+                    showErrorToast(response.status,
+                        'Пользователь уже является участником<br>или уже приглашен'
+                    );
+                    break;
                 default:
-                    console.log("error "+response.status);
+                    showErrorToast(response.status, 'Ошибка приглашения');
                     break;
             }
         });
@@ -273,8 +296,7 @@ class InviteUsersDialog extends React.Component {
                         redirectToLogin();
                         break;
                     default:
-                        // alert("error "+response.status);
-                        console.log("error "+response.status);
+                        showErrorToast(response.status, 'Ошибка поиска');
                         break;
                 }
             }

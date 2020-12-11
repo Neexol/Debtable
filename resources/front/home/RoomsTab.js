@@ -58,7 +58,7 @@ class RoomsTab extends React.Component {
                     redirectToLogin();
                     break;
                 default:
-                    console.log("error "+response.status);
+                    showErrorToast(response.status, 'Ошибка создания комнаты');
                     break;
             }
         });
@@ -73,8 +73,14 @@ class RoomsTab extends React.Component {
                 case 401:
                     redirectToLogin();
                     break;
+                case 403:
+                    showErrorToast(response.status, 'Ошибка доступа к комнате');
+                    break;
+                case 404:
+                    showErrorToast(response.status, 'Комната не найдена');
+                    break;
                 default:
-                    console.log("error "+response.status);
+                    showErrorToast(response.status, 'Ошибка удаления комнаты');
                     break;
             }
         });
@@ -91,8 +97,14 @@ class RoomsTab extends React.Component {
                 case 401:
                     redirectToLogin();
                     break;
+                case 403:
+                    showErrorToast(response.status, 'Ошибка доступа к комнате');
+                    break;
+                case 404:
+                    showErrorToast(response.status, 'Комната не найдена');
+                    break;
                 default:
-                    console.log("error "+response.status);
+                    showErrorToast(response.status, 'Ошибка изменения комнаты');
                     break;
             }
         });

@@ -15,9 +15,15 @@ class StatisticsTab extends React.Component {
                 case 401:
                     redirectToLogin();
                     break;
+                case 403:
+                    showErrorToast(response.status, 'Ошибка доступа к комнате');
+                    redirectToHome();
+                    break;
+                case 404:
+                    showErrorToast(response.status, 'Комната не найдена');
+                    break;
                 default:
-                    // alert("error "+response.status);
-                    console.log("error "+response.status);
+                    showErrorToast(response.status, 'Ошибка загрузки статистики');
                     break;
             }
         }

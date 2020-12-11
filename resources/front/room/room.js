@@ -12,7 +12,6 @@ const NAV_HOME = <><i className="material-icons nav-icon">home</i>Домой</>;
 
 const NAVIGATION = (index, prop) => ([
     (<TableTab room={prop.room}
-               purchases={prop.purchases}
                members={prop.members}/>),
     (<StatisticsTab room={prop.room}/>),
     (<ManagementTab room={prop.room}
