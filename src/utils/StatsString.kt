@@ -32,7 +32,9 @@ class StatsString(stats: String) {
     }
 
     fun addUserBalance(userId: Int) {
-        statsMap[userId] = 0f
+        statsMap[userId] ?: run {
+            statsMap[userId] = 0f
+        }
     }
 
     fun removeUserBalance(userId: Int) = statsMap.remove(userId)

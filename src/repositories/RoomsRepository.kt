@@ -144,12 +144,6 @@ object RoomsRepository {
         }
     }
 
-    suspend fun getRoomPurchases(
-        roomId: Int
-    ) = newSuspendedTransaction(Dispatchers.IO) {
-        getRoomById(roomId)?.purchases?.toList()
-    }
-
     suspend fun getRoomStats(
         roomId: Int
     ) = newSuspendedTransaction(Dispatchers.IO) {

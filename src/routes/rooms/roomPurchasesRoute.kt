@@ -18,6 +18,7 @@ import ru.neexol.debtable.utils.exceptions.access.UserAccessException
 import ru.neexol.debtable.utils.exceptions.bad_request.EmptyDebtorsException
 import ru.neexol.debtable.utils.exceptions.not_found.PurchaseNotFoundException
 import ru.neexol.debtable.utils.exceptions.not_found.RoomNotFoundException
+import java.text.SimpleDateFormat
 
 const val API_ROOM_PURCHASES = "$API_ROOM/purchases"
 const val API_ROOM_PURCHASE = "$API_ROOM_PURCHASES/{purchase_id}"
@@ -53,11 +54,17 @@ private fun Route.purchasesEndpoint() {
         foldRunCatching(
             block = {
                 RoomsRepository.checkRoomAccess(route.room_id, getUserIdFromToken()).let { room ->
-                    RoomsRepository.getRoomPurchases(room.id.value)!!
+                    PurchasesRepository.getPurchases(room)
                 }
             },
             onSuccess = { result ->
-                call.respond(result.map { PurchaseResponse(it) })
+                val purchases = result.map {
+                    PurchaseResponse(it)
+                }.sortedWith(compareBy(
+                    { SimpleDateFormat("dd.MM.yyyy").parse(it.date) },
+                    { -it.id }
+                ))
+                call.respond(purchases)
             },
             onFailure = { exception ->
                 when (exception) {

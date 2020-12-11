@@ -10,6 +10,13 @@ import ru.neexol.debtable.models.responses.PurchaseResponse
 import ru.neexol.debtable.utils.StatsString
 
 object PurchasesRepository {
+
+    suspend fun getPurchases(
+        room: Room
+    ) = newSuspendedTransaction(Dispatchers.IO) {
+        room.purchases.toList()
+    }
+
     suspend fun addPurchase(
         room: Room,
         buyer: User,
