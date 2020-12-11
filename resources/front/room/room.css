@@ -99,7 +99,7 @@ table.redTable tfoot .links a{
 .add-record-form {
     width: 100%;
     display: flex;
-    align-items: center;
+    align-items: baseline;
 }
 .add-record-form div:not(:first-of-type) {
     padding-left: 0.5rem;

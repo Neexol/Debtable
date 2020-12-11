@@ -3,6 +3,8 @@ class TableTab extends React.Component {
         super(props);
         this.state = {
             purchases: undefined,
+            dialog: undefined,
+            editPurchaseDialogOpened: false,
         };
     }
 
@@ -39,7 +41,6 @@ class TableTab extends React.Component {
                         ? <div className="room__empty-page"><Loader/></div>
                         : <DebtsTable purchases={this.state.purchases}/>
                 }
-
             </>
         );
     }
@@ -47,26 +48,28 @@ class TableTab extends React.Component {
 
 function DebtsTable(props) {
     return (
-        <table className={"redTable"}>
+        <table className={"highlight centered"}>
             <thead>{DebtsTableHeaders}</thead>
             <tbody>{
                 props.purchases.map(purchase => (
-                    <tr key={purchase.id}>
-                        <td style={{display: 'flex', flexWrap: 'wrap', padding: '0.3rem'}}>{
+                    <tr key={purchase.id}
+                        style={{cursor: 'pointer'}}
+                        onClick={() => console.log(purchase.id + ' clicked')}>
+                        <td className='valign-wrapper'>{
                             purchase.debtors.map(debtor => (
-                                <span key={debtor.id}
-                                      className='user-chip'
-                                      title={LOGIN_SYMBOL+debtor.username}>
+                                <div key={debtor.id}
+                                     className='chip'
+                                     title={LOGIN_SYMBOL+debtor.username}>
                                     {debtor.display_name}
-                                </span>
+                                </div>
                             ))
                         }</td>
                         <td>{purchase.name}</td>
                         <td>
-                            <span className='user-chip'
-                                  title={LOGIN_SYMBOL+purchase.buyer.username}>
+                            <div className='chip'
+                                 title={LOGIN_SYMBOL+purchase.buyer.username}>
                                 {purchase.buyer.display_name}
-                            </span>
+                            </div>
                         </td>
                         <td>{purchase.debt}</td>
                         <td>{purchase.date}</td>
@@ -98,10 +101,35 @@ class AddRecordForm extends React.Component {
         };
     }
 
-    handleAddPurchase = () => {
+    addPurchase = () => {
         sendPost(ROUTE_PURCHASES(this.props.room.id), JSON.stringify({
             name: this.state.purchaseName,
-            debt: [this.state.cost],
+            debt: this.state.cost,
+            date: getCurrentDate(),
+            buyer_id: this.state.buyer,
+            debtor_ids: this.state.debtors
+        }), response => {
+            // this.props.updateTableByAdd(response);
+            this.props.updateTable();
+        }, response => {
+            switch (response.status) {
+                case 401:
+                    redirectToLogin();
+                    break;
+                default:
+                    M.toast({
+                        html: "error "+response.status,
+                        classes: "error-toast"
+                    })
+                    console.log("error "+response.status);
+                    break;
+            }
+        });
+    }
+    editPurchase = purchaseID => {
+        sendPut(ROUTE_PURCHASE(this.props.room.id, purchaseID), JSON.stringify({
+            name: this.state.purchaseName,
+            debt: this.state.cost,
             date: getCurrentDate(),
             buyer_id: this.state.buyer,
             debtor_ids: this.state.debtors
@@ -124,6 +152,14 @@ class AddRecordForm extends React.Component {
         });
     }
 
+    handleActionWithPurchase = purchaseID => {
+        if (purchaseID === undefined) {
+            this.addPurchase();
+        } else {
+            this.editPurchase(purchaseID);
+        }
+    }
+
     componentDidMount() {
         M.FormSelect.init($('#debtorsSelect'));
         M.FormSelect.init($('#buyerSelect'));
@@ -141,81 +177,82 @@ class AddRecordForm extends React.Component {
     }
 
     render() {
-        // console.log('da (yes)');
         return (
             <div className="add-record-form">
 
-                <div className="input-field col s12">
-                    <select multiple={true}
-                            value={this.state.debtors}
-                            onChange={() => {
-                                // let selection = $('#debtorsSelect').val();
-                                // if (selection.includes('all')) {
-                                //     selection = this.props.members.map(member => member.id);
-                                // }
-                                let selection = $('#debtorsSelect').val().map(value => Number.parseInt(value));
-                                // if (selection.includes(-1)) selection = [-1];
-                                this.setState({debtors: selection})
-                            }}
-                            id="debtorsSelect">
-                        {/*<option value='-1'>Все</option>*/}
-                        {
-                            this.props.members.map(member => (
-                                <option value={member.id} key={member.id}>
-                                    {member.display_name}
-                                </option>
-                            ))
-                        }
-                    </select>
-                    <label>Кто должен</label>
+                <div className='row' style={{flexGrow: '1'}}>
+                    <div className="input-field col s3">
+                        <select multiple={true}
+                                value={this.state.debtors}
+                                onChange={() => {
+                                    // let selection = $('#debtorsSelect').val();
+                                    // if (selection.includes('all')) {
+                                    //     selection = this.props.members.map(member => member.id);
+                                    // }
+                                    let selection = $('#debtorsSelect').val().map(value => Number.parseInt(value));
+                                    // if (selection.includes(-1)) selection = [-1];
+                                    this.setState({debtors: selection})
+                                }}
+                                id="debtorsSelect">
+                            {/*<option value='-1'>Все</option>*/}
+                            {
+                                this.props.members.map(member => (
+                                    <option value={member.id} key={member.id}>
+                                        {member.display_name}
+                                    </option>
+                                ))
+                            }
+                        </select>
+                        <label>Кто должен</label>
+                    </div>
+
+                    <div className="input-field col s3">
+                        <input type="text"
+                            // placeholder="Например, веп))0"
+                               id="purchase-name"
+                               value={this.state.purchaseName}
+                               onChange={e => this.setState({purchaseName: e.target.value})}
+                               className="autocomplete"/>
+                        <label htmlFor="purchase-name">Покупка</label>
+                    </div>
+
+                    <div className="input-field col s3">
+                        <select value={this.state.buyer}
+                                onChange={e => this.setState({
+                                    debtors: Number.parseInt(e.target.value)
+                                })}
+                                id="buyerSelect">
+                            {
+                                this.props.members.map(member => (
+                                    <option value={member.id} key={member.id}>
+                                        {member.display_name}
+                                    </option>
+                                ))
+                            }
+                        </select>
+                        <label>Кому должен</label>
+                    </div>
+
+                    <div className="input-field col s3">
+                        <input type="number"
+                            // placeholder="40 гривен"
+                               value={this.state.cost}
+                               onChange={e => this.setState({
+                                   cost: Number.parseFloat(e.target.value)
+                               })}
+                               id="costInput"/>
+                        <label htmlFor="costInput">Сколько</label>
+                    </div>
                 </div>
 
-                <div className="input-field col s12">
-                    <input type="text"
-                           // placeholder="Например, веп))0"
-                           id="purchase-name"
-                           value={this.state.purchaseName}
-                           onChange={e => this.setState({purchaseName: e.target.value})}
-                           className="autocomplete"/>
-                    <label htmlFor="purchase-name">Покупка</label>
-                </div>
-
-                <div className="input-field col s12">
-                    <select value={this.state.buyer}
-                            onChange={e => this.setState({
-                                debtors: Number.parseInt(e.target.value)
-                            })}
-                            id="buyerSelect">
-                        {
-                            this.props.members.map(member => (
-                                <option value={member.id} key={member.id}>
-                                    {member.display_name}
-                                </option>
-                            ))
-                        }
-                    </select>
-                    <label>Кому должен</label>
-                </div>
-
-                <div className="input-field col s12">
-                    <input type="number"
-                           // placeholder="40 гривен"
-                           value={this.state.cost}
-                           onChange={e => this.setState({
-                               cost: Number.parseFloat(e.target.value)
-                           })}
-                           id="costInput"/>
-                    <label htmlFor="costInput">Сколько</label>
-                </div>
-
-                <div>
+                <div style={{transform: "translateY(-100%)"}}>
                     <button className="waves-effect waves-light btn"
                             disabled={
                                 this.state.debtors.length === 0 ||
                                 this.state.purchaseName.length === 0 ||
                                 this.state.cost.length === 0
                             }
-                            onClick={this.handleAddPurchase}>
+                            onClick={() => this.handleActionWithPurchase(this.props.purchaseID)}>
                         <i className="material-icons left">add</i>
                         Добавить
                     </button>
