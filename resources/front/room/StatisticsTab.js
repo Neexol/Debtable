@@ -43,16 +43,15 @@ class StatisticsTab extends React.Component {
     updateChart = () => {
         const stats = this.state.statistics;
         if (!stats) return;
-        const ctx = document.getElementById('statsCanvas');
-        const myChart = new Chart(ctx, {
+        new Chart('statsCanvas', {
             type: 'bar',
             data: {
                 labels: stats.map(col => col.user.display_name),
                 datasets: [{
                     data: stats.map(col => col.balance),
                     backgroundColor: stats.map(col => this.getBackgroundColor(col.balance)),
-                    borderColor: stats.map(col => this.getBackgroundColor(col.balance)),
-                    borderWidth: 1
+                    borderColor: stats.map(col => this.getBorderColor(col.balance)),
+                    borderWidth: 2
                 }]
             },
             options: {
