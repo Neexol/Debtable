@@ -101,7 +101,7 @@ class AddRecordForm extends React.Component {
     handleAddPurchase = () => {
         sendPost(ROUTE_PURCHASES(this.props.room.id), JSON.stringify({
             name: this.state.purchaseName,
-            debt: this.state.cost,
+            debt: [this.state.cost],
             date: getCurrentDate(),
             buyer_id: this.state.buyer,
             debtor_ids: this.state.debtors
@@ -114,6 +114,10 @@ class AddRecordForm extends React.Component {
                     redirectToLogin();
                     break;
                 default:
+                    M.toast({
+                        html: "error "+response.status,
+                        classes: "error-toast"
+                    })
                     console.log("error "+response.status);
                     break;
             }

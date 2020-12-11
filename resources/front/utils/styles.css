@@ -93,3 +93,7 @@
     float: right;
 }
 
+
+.error-toast {
+    background: #A40808;
+}
