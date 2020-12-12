@@ -62,8 +62,8 @@ private fun Route.purchasesEndpoint() {
                     PurchaseResponse(it)
                 }.sortedWith(compareBy(
                     { SimpleDateFormat("dd.MM.yyyy").parse(it.date) },
-                    { -it.id }
-                ))
+                    { it.id }
+                )).reversed()
                 call.respond(purchases)
             },
             onFailure = { exception ->
