@@ -1,27 +1,30 @@
-.home__side-menu {
+.side-menu {
     height: 100%;
-    width: 13rem;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #363636;
-    overflow-x: hidden;
+    width: auto;
+    /*position: fixed;*/
+    /*position: fixed;*/
+    /*z-index: -1;*/
+    float: left;
+    /*top: 0;*/
+    /*left: 0;*/
+    background: #E1E2E1;
+    /*overflow-x: hidden;*/
     padding-top: 2rem;
 }
-.home__side-menu div {
-    padding: 6px 8px 6px 16px;
+.side-menu div {
+    /*padding: 6px 8px 6px 16px;*/
+    padding: 0 1rem;
     text-decoration: none;
-    font-size: 25px;
-    color: #aeaeae;
+    /*font-size: 25px;*/
+    color: #303030;
     cursor: pointer;
 }
-.home__side-menu div.active {
-    background: gold;
+.side-menu div.active {
+    background: #8bc34a;
     color: black;
 }
-.home__side-menu div:not(.active):hover {
-    color: #f1f1f1;
+.side-menu div:not(.active):hover {
+    background: rgba(0, 0, 0, 0.1);
 }
 .home__empty-page {
     height: 100%;
@@ -29,26 +32,51 @@
     flex-direction: column;
     margin-left: 13rem;
 }
-.home__content {
+.content {
+    /*position: fixed;*/
+    /*clear: left;*/
+    height: auto;
+    max-height: 100%;
+    /*width: 100%;*/
+    float: left;
     display: flex;
     flex-wrap: wrap;
-    margin-left: 13rem;
-    font-size: 12pt;
+    padding: 1.5rem;
+    /*width: initial;*/
+    /*max-width: initial;*/
+
+    overflow-y: auto;
+
+
+    /*overflow-x: scroll;*/
+    /*overflow: auto;*/
+    /*margin-left: 13rem;*/
+    /*font-size: 12pt;*/
 }
-.home__content .card {
-    background: #ffe86f;
-    position: relative;
-    margin: 1rem;
-    border-radius: 0.3rem;
-    padding: 1rem;
-    box-shadow:0 0.5rem 1rem -0.2rem #dddddd;
-    cursor: pointer;
-}
+/*.home__content .card {*/
+/*    background: #ffe86f;*/
+/*    position: relative;*/
+/*    margin: 1rem;*/
+/*    border-radius: 0.3rem;*/
+/*    padding: 1rem;*/
+/*    box-shadow:0 0.5rem 1rem -0.2rem #dddddd;*/
+/*    cursor: pointer;*/
+/*}*/
 .card.invite-card {
     width: auto;
 }
-.card.room-card {
+/*.card.room-card {*/
+/*    width: 10rem;*/
+/*}*/
+.card-panel {
+    cursor: pointer;
+}
+
+.room-card {
     width: 10rem;
+    height: fit-content;
+    margin: 0.5rem;
+    /*opacity: 0.5;*/
 }
 .home__add-room-btn {
     position: fixed;

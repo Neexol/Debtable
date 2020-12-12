@@ -211,7 +211,7 @@ function RoomTiles(props) {
             props.rooms.length === 0 ? (<strong>Нет комнат</strong>) :
             props.rooms.map(room => (
                 <div key={room.id}
-                     className="card room-card"
+                     className="card-panel room-card hoverable accent-colored"
                      onClick={e => {
                          // console.log(e.target.className.includes('edit-room-btn'));
                          // if (e.target.className === 'edit-room-btn' ||

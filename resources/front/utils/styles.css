@@ -1,3 +1,19 @@
+html, body, #root {
+    height: 100%;
+    width: 100%;
+    /*max-height: 100%;*/
+}
+
+.accent-colored {
+    background: #8bc34a;
+}
+.accent-light-colored {
+    background: #bef67a;
+}
+
+
+
+
 .no-select {
     -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -6,6 +22,7 @@
     -ms-user-select: none; /* Internet Explorer/Edge */
     user-select: none; /* Non-prefixed version, currently */
 }
+
 
 
 

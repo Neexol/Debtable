@@ -126,7 +126,7 @@ class HomeRoot extends React.Component {
 
     render() {
         return (
-            <>
+            <div style={{ height: '100%', display: 'flex', alignItems: 'flex-start'}}>
                 <HomeSideMenu checkedIndex={this.state.checkedIndex}
                               isInvites={this.state.invites?.length > 0}
                               onCheck={this.handleCheck}/>
@@ -135,7 +135,7 @@ class HomeRoot extends React.Component {
                     this.state.rooms   === undefined ||
                     this.state.invites === undefined
                         ? <div className="home__empty-page"><Loader/></div>
-                        : <div className="home__content">{
+                        : <div className="content">{
                             NAVIGATION(this.state.checkedIndex, {
                                 profile: this.state.profile,
                                 rooms: this.state.rooms,
@@ -149,7 +149,7 @@ class HomeRoot extends React.Component {
                             })
                         }</div>
                 }
-            </>
+            </div>
         );
     }
 }
