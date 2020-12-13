@@ -135,7 +135,7 @@ class RoomsTab extends React.Component {
                            value={this.state.newRoomName}
                            onChange={this.handleRoomNameChange}/>
 
-                    <button type="submit" className="apply-btn"
+                    <button //className="apply-btn"
                             onClick={this.handleAddRoom}
                             disabled={this.state.newRoomName === ''}>
                         Создать

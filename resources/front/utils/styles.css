@@ -1,6 +1,7 @@
 :root {
     --accent-color: #8bc34a;
     --accent-color-hover: #5a9216;
+    --dialog-background: white;
 }
 
 html, body, #root {
@@ -103,23 +104,32 @@ html, body, #root {
 .dialog {
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
+    /*padding-top: 100px;*/
     left: 0;
     top: 0;
     width: 100%; /* Full width */
     height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
+    /*overflow: auto; !* Enable scroll if needed *!*/
+
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 .dialog-content {
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
+
+    position: absolute;
+    top: 20%; left: 50%;
+    transform: translateX(-50%);
+
+    background: var(--dialog-background);
+    /*background-color: #fefefe;*/
+    /*margin: auto;*/
+
+    padding: 2rem;
+    border-radius: 0.5rem;
+    /*border: 1px solid #888;*/
+    width: 60%;
 }
-.dialog h2, .dialog h3 {
+.dialog h4 {
     margin-top: 0;
 }
 .close-dialog-btn {
