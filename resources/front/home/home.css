@@ -110,8 +110,7 @@
     height: fit-content;
     margin: 0.5rem;
 }
-.profile-card {;
-    overflow: hidden;
+.profile-card {
     padding: 0;
     width: 50%;
     height: fit-content;
@@ -154,10 +153,10 @@
 }
 
 
-.container {
-    padding: 16px;
-    background-color: white;
-}
+/*.container {*/
+/*    padding: 16px;*/
+/*    background-color: white;*/
+/*}*/
 
 
 /*input[type=text], input[type=password] {*/
@@ -174,34 +173,24 @@
 /*    outline: none;*/
 /*}*/
 
-.apply-btn {
-    background-color: gold;
-    color: black;
-    padding: 16px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-    width: 100%;
-    opacity: 0.9;
-}
-.apply-btn:hover:not(:disabled) {
-    opacity: 1;
-}
-.apply-btn:disabled {
-    background-color: grey;
-    color: #363636;
-    cursor: auto;
-}
-
-
-
-.validation-errors {
-    border: #A40808 solid 0.1rem;
-    border-radius: 0.3rem;
-    color: #A40808;
-    background: #ffcece;
-    padding: 1rem;
-}
+/*.apply-btn {*/
+/*    background-color: gold;*/
+/*    color: black;*/
+/*    padding: 16px 20px;*/
+/*    margin: 8px 0;*/
+/*    border: none;*/
+/*    cursor: pointer;*/
+/*    width: 100%;*/
+/*    opacity: 0.9;*/
+/*}*/
+/*.apply-btn:hover:not(:disabled) {*/
+/*    opacity: 1;*/
+/*}*/
+/*.apply-btn:disabled {*/
+/*    background-color: grey;*/
+/*    color: #363636;*/
+/*    cursor: auto;*/
+/*}*/
 
 
 .room-tile-icons-container {

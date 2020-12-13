@@ -160,8 +160,8 @@ class RoomsTab extends React.Component {
                         onClose={this.closeDeleteRoomDialog}
                         isOpen={this.state.deleteRoomDialogOpened}
                         title={`Удалить комнату "${this.roomById(this.state.selectedRoomId).name}"?`}>
-                    <YesCancel onYesClick={this.handleDeleteRoom}
-                               onCancelClick={this.closeDeleteRoomDialog}/>
+                    <YesCancelButtons onYesClick={this.handleDeleteRoom}
+                                      onCancelClick={this.closeDeleteRoomDialog}/>
                 </Dialog>
 
             </>

@@ -115,6 +115,8 @@ html, body, #root {
 }
 .dialog-content {
 
+    overflow: hidden;
+
     position: absolute;
     top: 20%; left: 50%;
     transform: translateX(-50%);
@@ -166,6 +168,7 @@ a:hover {
 }
 
 .card-panel {
+    overflow: hidden;
     /*-moz-border-radius: 0.3rem;*/
     /*-webkit-border-radius: 0.3rem;*/
     border-radius: 0.3rem;
@@ -174,10 +177,24 @@ a:hover {
 }
 
 .card-bottom {
-    display: flex;
-    flex-direction: row-reverse;
     width: 100%;
     /*background: var(--dark-color);*/
     background: rgba(0, 0, 0, 0.03);
     /*background: #f7ffea;*/
+}
+
+.flex-left {
+    display: flex;
+}
+.flex-right {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.validation-errors {
+    border: #A40808 solid 0.1rem;
+    border-radius: 0.3rem;
+    color: #A40808;
+    background: #ffcece;
+    padding: 1rem;
 }
