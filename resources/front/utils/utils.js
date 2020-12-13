@@ -38,8 +38,6 @@ const ROUTE_PURCHASE = (roomID, purchaseID) => 'api/rooms/' + roomID + '/purchas
 // Statistics
 const ROUTE_STATISTICS = roomID => 'api/rooms/' + roomID + '/stats';
 
-const Loader = () => <div className="loader"/>;
-
 const getJWT = () => {
     let matches = document.cookie.match(new RegExp("(?:^|; )jwt_auth=([^;]*)"));
     return matches ? decodeURIComponent(matches[1]) : undefined;
@@ -93,6 +91,25 @@ const showErrorToast = (code, message) => M.toast({
     html: code + ': ' + message,
     classes: "error-toast"
 })
+
+// const Loader = () => <div className="loader"/>;
+const Loader = props => (
+    <div className={props.center ? 'align-center' : null}>
+        <div className={`preloader-wrapper ${props.size} active`}>
+            <div className="spinner-layer spinner-green-only">
+                <div className="circle-clipper left">
+                    <div className="circle"/>
+                </div>
+                <div className="gap-patch">
+                    <div className="circle"/>
+                </div>
+                <div className="circle-clipper right">
+                    <div className="circle"/>
+                </div>
+            </div>
+        </div>
+    </div>
+);
 
 const Dialog = props => (
     <div id={props.id} className="dialog"

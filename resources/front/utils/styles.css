@@ -25,7 +25,13 @@ html, body, #root {
 /*    background: var(--accent-color-hover);*/
 /*}*/
 
-
+.align-center {
+    position: relative;
+    width: min-content;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
 
 
 .no-select {
@@ -197,4 +203,9 @@ a:hover {
     color: #A40808;
     background: #ffcece;
     padding: 1rem;
+}
+
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
 }

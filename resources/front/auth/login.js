@@ -43,76 +43,39 @@ class AuthorizationRoot extends React.Component {
 
     render() {
         return (
-            // <div className="registration-form">
+            <div className="card-panel auth-card">
+                <h4>Авторизация</h4><hr/>
 
+                <Edit id={'loginInput'} type={'text'}
+                      margin={'0 0 1rem 0'}
+                      value={this.state.login}
+                      onChange={this.handleLoginChange}
+                      label={'Логин'}/>
+                <Edit id={'passInput'} type={'password'}
+                      margin={'0 0 1rem 0'}
+                      value={this.state.pass}
+                      onChange={this.handlePassChange}
+                      label={'Пароль'}/>
 
-                <div className="card-panel auth-card">
-                    <h4>Авторизация</h4><hr/>
+                <div className="validation-errors"
+                     style={{display: (this.state.errorText === '' ? 'none' : 'block')}}>
+                    {this.state.errorText}
+                </div>
 
-                    <Edit id={'loginInput'} type={'text'}
-                          margin={'0 0 1rem 0'}
-                          value={this.state.login}
-                          onChange={this.handleLoginChange}
-                          label={'Логин'}/>
-                    <Edit id={'passInput'} type={'password'}
-                          margin={'0 0 1rem 0'}
-                          value={this.state.pass}
-                          onChange={this.handlePassChange}
-                          label={'Пароль'}/>
+                <button className="waves-effect waves-light btn"
+                        style={{width: '100%', margin: '1rem 0'}}
+                        onClick={this.handleSubmitClick}
+                        disabled={
+                            this.state.login       === '' ||
+                            this.state.pass        === ''
+                        }>
+                    Войти
+                </button>
 
-                    <div className="validation-errors"
-                         style={{display: (this.state.errorText === '' ? 'none' : 'block')}}>
-                        {this.state.errorText}
-                    </div>
-
-                    <button className="waves-effect waves-light btn"
-                            style={{width: '100%', margin: '1rem 0'}}
-                            onClick={this.handleSubmitClick}
-                            disabled={
-                                this.state.login       === '' ||
-                                this.state.pass        === ''
-                            }>
-                        Войти
-                    </button>
-
-                    <p style={{textAlign: 'center'}}>
-                        Впервые на Debtable? <a href="register.html">Регистрация</a>
-                    </p>
-
-
-            {/*    <div className="container">*/}
-            {/*        <h1>Авторизация</h1><hr/>*/}
-
-            {/*        <label htmlFor="login"><b>Логин</b></label>*/}
-            {/*        <input type="text" placeholder="Введите логин" name="login" id="login"*/}
-            {/*               value={this.state.login}*/}
-            {/*               onChange={this.handleLoginChange}/>*/}
-
-            {/*        <label htmlFor="pass"><b>Пароль</b></label>*/}
-            {/*        <input type="password" placeholder="Введите пароль" name="pass" id="pass"*/}
-            {/*               value={this.state.pass}*/}
-            {/*               onChange={this.handlePassChange}/>*/}
-
-            {/*        <div className="validation-errors"*/}
-            {/*             style={{display: (this.state.errorText === '' ? 'none' : 'block')}}>*/}
-            {/*            {this.state.errorText}*/}
-            {/*        </div>*/}
-
-            {/*        <button type="submit" className="apply-btn"*/}
-            {/*                onClick={this.handleSubmitClick}*/}
-            {/*                disabled={*/}
-            {/*                    this.state.login === '' ||*/}
-            {/*                    this.state.pass  === ''*/}
-            {/*                }>*/}
-            {/*            Войти*/}
-            {/*        </button>*/}
-            {/*    </div>*/}
-
-            {/*    <div className="container signin">*/}
-            {/*        <p>Впервые на Debtable? <a href="register.html">Регистрация</a></p>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
-    </div>
+                <p style={{textAlign: 'center'}}>
+                    Впервые на Debtable? <a href="register.html">Регистрация</a>
+                </p>
+            </div>
         );
     }
 }
