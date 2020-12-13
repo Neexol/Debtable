@@ -126,30 +126,46 @@ class RoomsTab extends React.Component {
                     <i className="material-icons nav-icon">add</i>
                 </button>
 
-                <div id="addNewRoomDialog" className="modal"
-                     onClick={e => {if (e.target.id === 'addNewRoomDialog') this.closeAddRoomDialog()}}
-                     style={{display: this.state.addRoomDialogOpened ? 'block' : 'none'}}>
+                <Dialog id={'addNewRoomDialog'}
+                        onClose={this.closeAddRoomDialog}
+                        isOpen={this.state.addRoomDialogOpened}
+                        title={'Создать комнату'}>
+                    <label htmlFor="room_name"><b>Название новой комнаты</b></label>
+                    <input type="text" placeholder="Название" name="room_name" id="room_name"
+                           value={this.state.newRoomName}
+                           onChange={this.handleRoomNameChange}/>
 
-                    <div className="modal-content">
-                        <span className="small-action-btn close-dialog-btn"
-                              onClick={this.closeAddRoomDialog}>
-                            <i className="material-icons">close</i>
-                        </span>
+                    <button type="submit" className="apply-btn"
+                            onClick={this.handleAddRoom}
+                            disabled={this.state.newRoomName === ''}>
+                        Создать
+                    </button>
+                </Dialog>
 
-                        <h2>Создать комнату</h2>
+                {/*<div id="addNewRoomDialog" className="modal"*/}
+                {/*     onClick={e => {if (e.target.id === 'addNewRoomDialog') this.closeAddRoomDialog()}}*/}
+                {/*     style={{display: this.state.addRoomDialogOpened ? 'block' : 'none'}}>*/}
 
-                        <label htmlFor="room_name"><b>Название новой комнаты</b></label>
-                        <input type="text" placeholder="Название" name="room_name" id="room_name"
-                               value={this.state.newRoomName}
-                               onChange={this.handleRoomNameChange}/>
+                {/*    <div className="modal-content">*/}
+                {/*        <span className="small-action-btn close-dialog-btn"*/}
+                {/*              onClick={this.closeAddRoomDialog}>*/}
+                {/*            <i className="material-icons">close</i>*/}
+                {/*        </span>*/}
 
-                        <button type="submit" className="apply-btn"
-                                onClick={this.handleAddRoom}
-                                disabled={this.state.newRoomName === ''}>
-                            Создать
-                        </button>
-                    </div>
-                </div>
+                {/*        <h2>Создать комнату</h2>*/}
+
+                {/*        <label htmlFor="room_name"><b>Название новой комнаты</b></label>*/}
+                {/*        <input type="text" placeholder="Название" name="room_name" id="room_name"*/}
+                {/*               value={this.state.newRoomName}*/}
+                {/*               onChange={this.handleRoomNameChange}/>*/}
+
+                {/*        <button type="submit" className="apply-btn"*/}
+                {/*                onClick={this.handleAddRoom}*/}
+                {/*                disabled={this.state.newRoomName === ''}>*/}
+                {/*            Создать*/}
+                {/*        </button>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
 
                 <div id="changeRoomDialog" className="modal"
                      onClick={e => {if (e.target.id === 'changeRoomDialog') this.closeChangeRoomDialog()}}

@@ -94,3 +94,17 @@ const showErrorToast = (code, message) => M.toast({
     classes: "error-toast"
 })
 
+const Dialog = props => (
+    <div id={props.id} className="dialog"
+         onClick={e => {if (e.target.id === props.id) props.onClose()}}
+         style={{display: props.isOpen ? 'block' : 'none'}}>
+        <div className="dialog-content">
+            <span className="small-action-btn close-dialog-btn"
+                  onClick={props.onClose}>
+                <i className="material-icons">close</i>
+            </span>
+            <h4>{props.title}</h4>
+            {props.children}
+        </div>
+    </div>
+);
