@@ -12,6 +12,7 @@
     padding-top: 2rem;
 }
 .side-menu div {
+    transition: 0.2s;
     /*padding: 6px 8px 6px 16px;*/
     /*padding: 0 1rem;*/
     text-decoration: none;
@@ -33,6 +34,7 @@
     /*height: 100%;*/
     float: left;
     /*display: block;*/
+    transition: 0.2s;
 }
 .side-menu div:not(.active):hover {
     background: rgba(0, 0, 0, 0.1);
@@ -96,7 +98,7 @@
 .card-panel {
     cursor: pointer;
     border-radius: 0.3rem;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.07), 0 3px 1px -2px rgba(0, 0, 0, 0.06), 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.07), 0 3px 1px -2px rgba(0, 0, 0, 0.06), 0 1px 5px 0 rgba(0, 0, 0, 0.08);
 }
 
 .room-card {
@@ -178,9 +180,16 @@ input[type=text]:focus, input[type=password]:focus {
     display: flex;
     flex-direction: column;
     align-items: end;
-    margin-left: 0.3rem;
+    margin-left: 1rem;
 }
 
+
+.small-action-btn.negative {
+    /*color: #FF3B30;*/
+}
+.small-action-btn.positive {
+    color: var(--accent-color);
+}
 
 
 .nav-icon {

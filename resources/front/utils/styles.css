@@ -1,3 +1,7 @@
+:root {
+    --accent-color: #8bc34a;
+}
+
 html, body, #root {
     height: 100%;
     width: 100%;
@@ -5,7 +9,7 @@ html, body, #root {
 }
 
 .accent-colored {
-    background: #8bc34a;
+    background: var(--accent-color);
 }
 .accent-light-colored {
     background: #bef67a;
@@ -74,10 +78,11 @@ html, body, #root {
 .small-action-btn {
     color: #aaaaaa;
     font-size: 14pt;
+    transition: 0.2s;
 }
 .small-action-btn:hover,
 .small-action-btn:focus {
-    color: #000;
+    opacity: 0.5;
     text-decoration: none;
     cursor: pointer;
 }

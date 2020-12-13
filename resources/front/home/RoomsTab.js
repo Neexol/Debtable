@@ -216,19 +216,18 @@ function RoomTiles(props) {
                          // console.log(e.target.className.includes('edit-room-btn'));
                          // if (e.target.className === 'edit-room-btn' ||
                          //     e.target.className === 'delete-room-btn') return;
-                         if (e.target.className.includes('edit-room-btn') ||
-                             e.target.className.includes('delete-room-btn')) return;
+                         if (e.target.className.includes('small-action-btn')) return;
                          redirectToRoom(room.id);
                          // console.log(`click on "${room.name}" [id: ${room.id}]`);
                      }}>
 
                     <span className="room-tile-icons-container">
-                        <span className='material-icons small-action-btn edit-room-btn'
-                              style={{marginBottom: '0.3rem'}}
+                        <span className='material-icons small-action-btn positive'
+                              style={{marginBottom: '0.5rem'}}
                               onClick={() => props.onChange(room.id)}>
                             edit
                         </span>
-                        <span className="material-icons small-action-btn delete-room-btn"
+                        <span className="material-icons small-action-btn negative"
                               onClick={() => props.onDelete(room.id)}>
                             delete
                         </span>
@@ -238,8 +237,7 @@ function RoomTiles(props) {
                     <span style={{display: 'flex', alignItems: 'center'}}>
                         <i className="material-icons nav-icon">people</i>
                         {room.members_number}
-                    </span><br/>
-                    id: {room.id}
+                    </span>
                 </div>
             ))
         }</>
