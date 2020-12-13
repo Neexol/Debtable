@@ -50,48 +50,7 @@ class AuthorizationRoot extends React.Component {
     render() {
         return (
             <div className="card-panel auth-card">
-                {/*<div className="container">*/}
                 <h4>Регистрация</h4><hr/>
-
-                {/*<label htmlFor="login"><b>Логин</b></label>*/}
-                {/*<input type="text" placeholder="Введите логин" name="login" id="login"*/}
-                {/*       value={this.state.login}*/}
-                {/*       onChange={this.handleLoginChange}/>*/}
-
-                {/*<label htmlFor="display_name"><b>Имя пользователя</b></label>*/}
-                {/*<input type="text" placeholder="Введите ваше имя" name="display_name" id="display_name"*/}
-                {/*       value={this.state.displayName}*/}
-                {/*       onChange={this.handleDisplayNameChange}/>*/}
-
-                {/*<label htmlFor="pass"><b>Пароль</b></label>*/}
-                {/*<input type="password" placeholder="Введите пароль" name="pass" id="pass"*/}
-                {/*       autoComplete="new-password"*/}
-                {/*       value={this.state.pass}*/}
-                {/*       onChange={this.handlePassChange}/>*/}
-
-                {/*<label htmlFor="pass-repeat"><b>Пароль еще раз</b></label>*/}
-                {/*<input type="password" placeholder="Повторите пароль" name="pass-repeat" id="pass-repeat"*/}
-                {/*       value={this.state.passRepeat}*/}
-                {/*       onChange={this.handlePassRepeatChange}/>*/}
-
-                {/*<div className="validation-errors"*/}
-                {/*     style={{display: (this.state.errorText === '' ? 'none' : 'block')}}>*/}
-                {/*    {this.state.errorText}*/}
-                {/*</div>*/}
-
-                {/*<button className="apply-btn"*/}
-                {/*        onClick={this.handleSubmitClick}*/}
-                {/*        disabled={*/}
-                {/*            this.state.login       === '' ||*/}
-                {/*            this.state.displayName === '' ||*/}
-                {/*            this.state.pass        === '' ||*/}
-                {/*            this.state.passRepeat  === ''*/}
-                {/*        }>*/}
-                {/*    Зарегистрироваться*/}
-                {/*</button>*/}
-
-
-
 
                 <Edit id={'displayNameInput'} type={'text'}
                       margin={'0 0 1rem 0'}
@@ -131,13 +90,9 @@ class AuthorizationRoot extends React.Component {
                     Зарегистрироваться
                 </button>
 
-                {/*</div>*/}
-
-                {/*<div className={'card-bottom'}>*/}
-                    <p style={{textAlign: 'center'}}>
-                        Уже есть аккаунт? <a href="login.html">Войти</a>
-                    </p>
-                {/*</div>*/}
+                <p style={{textAlign: 'center'}}>
+                    Уже есть аккаунт? <a href="login.html">Войти</a>
+                </p>
             </div>
         );
     }
