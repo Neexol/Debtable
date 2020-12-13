@@ -121,3 +121,23 @@ const YesCancel = props => (
         </button>
     </div>
 );
+
+const EditButton = props => (
+    <div style={{ display: 'flex', alignItems: 'baseline'}}>
+        <div className="input-field"
+             style={{flexGrow: '1', margin: '0 1rem 0 0'}}>
+            <input type="text"
+                   value={props.editValue}
+                   onChange={props.onEditChange}
+                   id={props.id}/>
+            <label htmlFor={props.id}>{props.label}</label>
+        </div>
+        <div>
+            <button className="waves-effect waves-light btn"
+                    onClick={props.onButtonClick}
+                    disabled={props.buttonDisabled}>
+                <i className="material-icons">{props.buttonIcon}</i>
+            </button>
+        </div>
+    </div>
+);

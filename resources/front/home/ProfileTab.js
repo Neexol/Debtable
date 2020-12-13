@@ -83,33 +83,82 @@ class ProfileTab extends React.Component {
         redirectToLogin();
     }
 
+    componentDidMount() {
+        M.updateTextFields();
+    }
+
     render() {
         return (
             <>
-                <div className="container">
-                    <h1>{this.props.profile.display_name}</h1>
-                    <h3>{LOGIN_SYMBOL}{this.props.profile.username}</h3>
+                <div className="card-panel profile-card">
 
-                    <label htmlFor="display_name"><b>Имя пользователя</b></label>
-                    <div style={{display: "flex"}}>
-                        <input type="text" placeholder="Введите имя" name="display_name" id="display_name"
-                               style={{flexGrow: "1"}}
-                               value={this.state.displayName}
-                               onChange={this.handleDisplayNameChange}/>
-                        <button type="submit" className="apply-btn"
-                                onClick={this.handleSaveClick}
-                                disabled={this.state.displayName === this.props.profile.display_name}>
-                            Сохранить
-                        </button>
+                    <div style={{
+                        display: 'flex',
+                        alignItems: 'stretch',
+                        padding: '2rem 2rem 2rem 0',
+                        wordWrap: 'anywhere'
+                    }}>
+                        <div className={'profile-decorator-line'}/>
+                        <div style={{flexGrow: '1'}}>
+                            <h3>
+                                {this.props.profile.display_name}
+                            </h3>
+                            <h5 className={'neutral-text-colored'}>
+                                {LOGIN_SYMBOL}{this.props.profile.username}
+                            </h5>
+                        </div>
                     </div>
 
-                    <button className="apply-btn" onClick={this.openChangePassDialog}>
-                        Сменить пароль
-                    </button>
+                    <div style={{padding: '2rem'}}>
+                        <div style={{marginTop: '0rem'}}>
+                            <EditButton id={'displayNameInput'}
+                                        label={'Имя пользователя'}
+                                        editValue={this.state.displayName}
+                                        onEditChange={this.handleDisplayNameChange}
+                                        onButtonClick={this.handleSaveClick}
+                                        buttonDisabled={this.state.displayName === this.props.profile.display_name}
+                                        buttonIcon={'save'}/>
+                        </div>
 
-                    <button className="apply-btn" onClick={this.handleLogOut}>
-                        Выйти из этой параши
-                    </button>
+                        {/*<label htmlFor="display_name"><b>Имя пользователя</b></label>*/}
+                        {/*<div style={{display: "flex"}}>*/}
+                        {/*    <input type="text" placeholder="Введите имя" name="display_name" id="display_name"*/}
+                        {/*           style={{flexGrow: "1"}}*/}
+                        {/*           value={this.state.displayName}*/}
+                        {/*           onChange={this.handleDisplayNameChange}/>*/}
+                        {/*    <button type="submit" className="apply-btn"*/}
+                        {/*            onClick={this.handleSaveClick}*/}
+                        {/*            disabled={this.state.displayName === this.props.profile.display_name}>*/}
+                        {/*        Сохранить*/}
+                        {/*    </button>*/}
+                        {/*</div>*/}
+
+
+
+
+
+                        {/*<button className="apply-btn" onClick={this.openChangePassDialog}>*/}
+                        {/*    Сменить пароль*/}
+                        {/*</button>*/}
+
+                        {/*<button className="apply-btn" onClick={this.handleLogOut}>*/}
+                        {/*    Выйти из этой параши*/}
+                        {/*</button>*/}
+                    </div>
+
+                    <div className={'card-bottom'}
+                         style={{margin: '0', padding: '2rem'}}>
+                        <a className="negative-text-colored"
+                           style={{marginLeft: '1rem'}}
+                           onClick={this.handleLogOut}>
+                            Выйти
+                        </a>
+                        <a className="text-colored"
+                           onClick={this.openChangePassDialog}>
+                            Сменить пароль
+                        </a>
+                    </div>
+
                 </div>
 
                 <div id="changePassDialog" className="modal"

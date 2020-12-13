@@ -204,7 +204,7 @@ table.redTable tfoot .links a{
 
 .btn-flat.delete {
     margin-left: 0.5rem;
-    color: #FF3B30;
+    color: var(--negative-text-color);
 }
 
 /*tbody, thead {*/
