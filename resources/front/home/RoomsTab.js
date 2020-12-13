@@ -117,7 +117,7 @@ class RoomsTab extends React.Component {
 
     render() {
         return (
-            <div className={'cards-container'}>
+            <>
                 <RoomTiles rooms={this.props.rooms}
                            onDelete={this.openDeleteRoomDialog}
                            onChange={this.openChangeRoomDialog}/>
@@ -186,38 +186,14 @@ class RoomsTab extends React.Component {
                     </div>
                 </Dialog>
 
-                {/*<div id="deleteRoomDialog" className="modal"*/}
-                {/*     onClick={e => {if (e.target.id === 'deleteRoomDialog') this.closeDeleteRoomDialog()}}*/}
-                {/*     style={{display: this.state.deleteRoomDialogOpened ? 'block' : 'none'}}>*/}
-
-                {/*    <div className="modal-content">*/}
-                {/*        <span className="small-action-btn close-dialog-btn"*/}
-                {/*              onClick={this.closeDeleteRoomDialog}>*/}
-                {/*            <i className="material-icons">close</i>*/}
-                {/*        </span>*/}
-
-                {/*        <h2>Удалить комнату "{this.roomById(this.state.selectedRoomId).name}"?</h2>*/}
-
-                {/*        <div style={{display: 'flex', flexDirection: 'row-reverse'}}>*/}
-                {/*            <button className="waves-effect waves-light btn-flat"*/}
-                {/*                    onClick={this.handleDeletePurchase}>*/}
-                {/*                да*/}
-                {/*            </button>*/}
-                {/*            <button className="waves-effect waves-red btn-flat"*/}
-                {/*                    onClick={this.closeDeletePurchaseDialog}>*/}
-                {/*                отмена*/}
-                {/*            </button>*/}
-                {/*        </div>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
-            </div>
+            </>
         );
     }
 }
 
 function RoomTiles(props) {
     return (
-        <>{
+        <div className={'cards-container'}>{
             props.rooms.length === 0 ? (<strong>Нет комнат</strong>) :
             props.rooms.map(room => (
                 <div key={room.id}
@@ -232,24 +208,25 @@ function RoomTiles(props) {
                      }}>
 
                     <span className="room-tile-icons-container">
-                        <span className='material-icons small-action-btn positive'
+                        <span className='material-icons small-action-btn small-icon positive'
                               style={{marginBottom: '0.5rem'}}
                               onClick={() => props.onChange(room.id)}>
                             edit
                         </span>
-                        <span className="material-icons small-action-btn negative"
+                        <span className="material-icons small-action-btn small-icon negative"
                               onClick={() => props.onDelete(room.id)}>
                             delete
                         </span>
                     </span>
                     
                     <b>{room.name}</b><br/>
-                    <span style={{display: 'flex', alignItems: 'center'}}>
-                        <i className="material-icons nav-icon">people</i>
+                    <span className={'neutral-text-colored'}
+                          style={{display: 'flex', alignItems: 'center'}}>
+                        <i className="material-icons nav-icon small-icon">people</i>
                         {room.members_number}
                     </span>
                 </div>
             ))
-        }</>
+        }</div>
     );
 }

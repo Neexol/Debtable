@@ -13,9 +13,7 @@ html, body, #root {
 .accent-colored {
     background: var(--accent-color);
 }
-.accent-light-colored {
-    background: #bef67a;
-}
+
 .btn-floating {
     position: fixed;
     bottom: 2rem;
@@ -85,11 +83,12 @@ html, body, #root {
     cursor: auto;
 }
 
-
+.small-icon {
+    font-size: 14pt;
+}
 
 .small-action-btn {
-    color: #aaaaaa;
-    font-size: 14pt;
+    color: var(--neutral-color);
     transition: 0.2s;
 }
 .small-action-btn:hover,
@@ -141,6 +140,22 @@ html, body, #root {
     background: #A40808;
 }
 
-.input-field .prefix.active {
+/*.input-field .prefix.active {*/
+/*    color: var(--accent-color);*/
+/*}*/
+
+a {
     color: var(--accent-color);
+    text-align: center;
+    margin: 0;
+}
+
+.neutral-text-colored {
+    color: var(--neutral-color);
+}
+
+.card-panel {
+    cursor: pointer;
+    border-radius: 0.3rem;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.07), 0 3px 1px -2px rgba(0, 0, 0, 0.06), 0 1px 5px 0 rgba(0, 0, 0, 0.08);
 }
