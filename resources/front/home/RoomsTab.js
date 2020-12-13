@@ -111,8 +111,8 @@ class RoomsTab extends React.Component {
         this.closeChangeRoomDialog();
     }
 
-    componentDidMount() {
-        M.AutoInit();
+    componentDidUpdate() {
+        M.updateTextFields();
     }
 
     render() {
@@ -140,7 +140,6 @@ class RoomsTab extends React.Component {
                                    id={"newRoomNameInput"}/>
                             <label htmlFor={"newRoomNameInput"}>Название комнаты</label>
                         </div>
-
                         <div>
                             <button className="waves-effect waves-light btn"
                                     onClick={this.handleAddRoom}
@@ -151,83 +150,66 @@ class RoomsTab extends React.Component {
                     </div>
                 </Dialog>
 
-                {/*<div id="addNewRoomDialog" className="modal"*/}
-                {/*     onClick={e => {if (e.target.id === 'addNewRoomDialog') this.closeAddRoomDialog()}}*/}
-                {/*     style={{display: this.state.addRoomDialogOpened ? 'block' : 'none'}}>*/}
-
-                {/*    <div className="modal-content">*/}
-                {/*        <span className="small-action-btn close-dialog-btn"*/}
-                {/*              onClick={this.closeAddRoomDialog}>*/}
-                {/*            <i className="material-icons">close</i>*/}
-                {/*        </span>*/}
-
-                {/*        <h2>Создать комнату</h2>*/}
-
-                {/*        <label htmlFor="room_name"><b>Название новой комнаты</b></label>*/}
-                {/*        <input type="text" placeholder="Название" name="room_name" id="room_name"*/}
-                {/*               value={this.state.newRoomName}*/}
-                {/*               onChange={this.handleRoomNameChange}/>*/}
-
-                {/*        <button type="submit" className="apply-btn"*/}
-                {/*                onClick={this.handleAddRoom}*/}
-                {/*                disabled={this.state.newRoomName === ''}>*/}
-                {/*            Создать*/}
-                {/*        </button>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
-
-                <div id="changeRoomDialog" className="modal"
-                     onClick={e => {if (e.target.id === 'changeRoomDialog') this.closeChangeRoomDialog()}}
-                     style={{display: this.state.changeRoomDialogOpened ? 'block' : 'none'}}>
-
-                    <div className="modal-content">
-                        <span className="small-action-btn close-dialog-btn"
-                              onClick={this.closeChangeRoomDialog}>
-                            <i className="material-icons">close</i>
-                        </span>
-
-                        <h2>Изменить название комнаты</h2>
-
-                        <label htmlFor="new_room_name"><b>Новое название для комнаты</b></label>
-                        <input type="text" placeholder="Название" name="new_room_name" id="new_room_name"
-                               value={this.state.updatedRoomName}
-                               onChange={this.handleUpdatedRoomNameChange}/>
-
-                        <button type="submit" className="apply-btn"
-                                onClick={this.handleChangeRoom}
-                                disabled={
-                                    this.state.updatedRoomName === this.roomById(this.state.selectedRoomId).name ||
-                                    this.state.updatedRoomName === ''
-                                }>
-                            Сохранить
-                        </button>
-                    </div>
-                </div>
-
-                <div id="deleteRoomDialog" className="modal"
-                     onClick={e => {if (e.target.id === 'deleteRoomDialog') this.closeDeleteRoomDialog()}}
-                     style={{display: this.state.deleteRoomDialogOpened ? 'block' : 'none'}}>
-
-                    <div className="modal-content">
-                        <span className="small-action-btn close-dialog-btn"
-                              onClick={this.closeDeleteRoomDialog}>
-                            <i className="material-icons">close</i>
-                        </span>
-
-                        <h2>Удалить комнату "{this.roomById(this.state.selectedRoomId).name}"?</h2>
-
-                        <div style={{display: 'flex'}}>
-                            <button type="submit" className="apply-btn"
-                                    onClick={this.closeDeleteRoomDialog}>
-                                Отмена
-                            </button>
-                            <button type="submit" className="apply-btn"
-                                    onClick={this.handleDeleteRoom}>
-                                Да
+                <Dialog id={'changeRoomDialog'}
+                        onClose={this.closeChangeRoomDialog}
+                        isOpen={this.state.changeRoomDialogOpened}
+                        title={'Изменить название комнаты'}>
+                    <div style={{ display: 'flex', alignItems: 'baseline', marginTop: '2rem'}}>
+                        <div className="input-field"
+                             style={{flexGrow: '1', margin: '0 1rem 0 0'}}>
+                            <input type="text"
+                                   value={this.state.updatedRoomName}
+                                   onChange={this.handleUpdatedRoomNameChange}
+                                   id={"changeRoomNameInput"}/>
+                            <label htmlFor={"changeRoomNameInput"}>Новое название</label>
+                        </div>
+                        <div>
+                            <button className="waves-effect waves-light btn"
+                                    onClick={this.handleChangeRoom}
+                                    disabled={
+                                        this.state.updatedRoomName === this.roomById(this.state.selectedRoomId).name ||
+                                        this.state.updatedRoomName === ''
+                                    }>
+                                <i className="material-icons">save</i>
                             </button>
                         </div>
                     </div>
-                </div>
+                </Dialog>
+
+                <Dialog id={'deleteRoomDialog'}
+                        onClose={this.closeDeleteRoomDialog}
+                        isOpen={this.state.deleteRoomDialogOpened}
+                        title={`Удалить комнату "${this.roomById(this.state.selectedRoomId).name}"?`}>
+                    <div style={{marginTop: '2rem'}}>
+                        <YesCancel onYesClick={this.handleDeleteRoom}
+                                   onCancelClick={this.closeDeleteRoomDialog}/>
+                    </div>
+                </Dialog>
+
+                {/*<div id="deleteRoomDialog" className="modal"*/}
+                {/*     onClick={e => {if (e.target.id === 'deleteRoomDialog') this.closeDeleteRoomDialog()}}*/}
+                {/*     style={{display: this.state.deleteRoomDialogOpened ? 'block' : 'none'}}>*/}
+
+                {/*    <div className="modal-content">*/}
+                {/*        <span className="small-action-btn close-dialog-btn"*/}
+                {/*              onClick={this.closeDeleteRoomDialog}>*/}
+                {/*            <i className="material-icons">close</i>*/}
+                {/*        </span>*/}
+
+                {/*        <h2>Удалить комнату "{this.roomById(this.state.selectedRoomId).name}"?</h2>*/}
+
+                {/*        <div style={{display: 'flex', flexDirection: 'row-reverse'}}>*/}
+                {/*            <button className="waves-effect waves-light btn-flat"*/}
+                {/*                    onClick={this.handleDeletePurchase}>*/}
+                {/*                да*/}
+                {/*            </button>*/}
+                {/*            <button className="waves-effect waves-red btn-flat"*/}
+                {/*                    onClick={this.closeDeletePurchaseDialog}>*/}
+                {/*                отмена*/}
+                {/*            </button>*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
             </div>
         );
     }

@@ -108,3 +108,16 @@ const Dialog = props => (
         </div>
     </div>
 );
+
+const YesCancel = props => (
+    <div style={{display: 'flex', flexDirection: 'row-reverse'}}>
+        <button className="waves-effect waves-light btn-flat"
+                onClick={props.onYesClick}>
+            да
+        </button>
+        <button className="waves-effect waves-red btn-flat"
+                onClick={props.onCancelClick}>
+            отмена
+        </button>
+    </div>
+);

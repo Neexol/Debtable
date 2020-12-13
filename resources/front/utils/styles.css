@@ -20,12 +20,12 @@ html, body, #root {
     position: fixed;
     bottom: 2rem;
     right: 2rem;
-    background: var(--accent-color);
+    /*background: var(--accent-color);*/
 }
-.btn-floating:hover,
-.btn-floating:focus {
-    background: var(--accent-color-hover);
-}
+/*.btn-floating:hover,*/
+/*.btn-floating:focus {*/
+/*    background: var(--accent-color-hover);*/
+/*}*/
 
 
 
@@ -127,7 +127,7 @@ html, body, #root {
     padding: 2rem;
     border-radius: 0.5rem;
     /*border: 1px solid #888;*/
-    width: 60%;
+    width: 50%;
 }
 .dialog h4 {
     margin-top: 0;
