@@ -1,8 +1,8 @@
-:root {
-    --accent-color: #8bc34a;
-    --accent-color-hover: #5a9216;
-    --dialog-background: white;
-}
+/*:root {*/
+/*    --accent-color: #8bc34a;*/
+/*    --accent-color-hover: #5a9216;*/
+/*    --dialog-background: white;*/
+/*}*/
 
 html, body, #root {
     height: 100%;
@@ -139,4 +139,8 @@ html, body, #root {
 
 .error-toast {
     background: #A40808;
+}
+
+.input-field .prefix.active {
+    color: var(--accent-color);
 }

@@ -111,18 +111,19 @@ class RoomsTab extends React.Component {
         this.closeChangeRoomDialog();
     }
 
+    componentDidMount() {
+        M.AutoInit();
+    }
+
     render() {
         return (
             <div className={'cards-container'}>
                 <RoomTiles rooms={this.props.rooms}
                            onDelete={this.openDeleteRoomDialog}
                            onChange={this.openChangeRoomDialog}/>
-                {/*<a className="btn-floating btn-large red">*/}
-                {/*    <i className="large material-icons">mode_edit</i>*/}
-                {/*</a>*/}
+
                 <button className="btn-floating btn-large"
                         onClick={this.openAddRoomDialog}>
-                    {/*<><i className="material-icons nav-icon">add_circle</i>Добавить комнату</>*/}
                     <i className="material-icons nav-icon">add</i>
                 </button>
 
@@ -130,16 +131,24 @@ class RoomsTab extends React.Component {
                         onClose={this.closeAddRoomDialog}
                         isOpen={this.state.addRoomDialogOpened}
                         title={'Создать комнату'}>
-                    <label htmlFor="room_name"><b>Название новой комнаты</b></label>
-                    <input type="text" placeholder="Название" name="room_name" id="room_name"
-                           value={this.state.newRoomName}
-                           onChange={this.handleRoomNameChange}/>
+                    <div style={{ display: 'flex', alignItems: 'baseline', marginTop: '2rem'}}>
+                        <div className="input-field"
+                             style={{flexGrow: '1', margin: '0 1rem 0 0'}}>
+                            <input type="text"
+                                   value={this.state.newRoomName}
+                                   onChange={this.handleRoomNameChange}
+                                   id={"newRoomNameInput"}/>
+                            <label htmlFor={"newRoomNameInput"}>Название комнаты</label>
+                        </div>
 
-                    <button //className="apply-btn"
-                            onClick={this.handleAddRoom}
-                            disabled={this.state.newRoomName === ''}>
-                        Создать
-                    </button>
+                        <div>
+                            <button className="waves-effect waves-light btn"
+                                    onClick={this.handleAddRoom}
+                                    disabled={this.state.newRoomName === ''}>
+                                <i className="material-icons">add</i>
+                            </button>
+                        </div>
+                    </div>
                 </Dialog>
 
                 {/*<div id="addNewRoomDialog" className="modal"*/}
