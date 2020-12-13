@@ -119,31 +119,6 @@ class ProfileTab extends React.Component {
                                         buttonDisabled={this.state.displayName === this.props.profile.display_name}
                                         buttonIcon={'save'}/>
                         </div>
-
-                        {/*<label htmlFor="display_name"><b>Имя пользователя</b></label>*/}
-                        {/*<div style={{display: "flex"}}>*/}
-                        {/*    <input type="text" placeholder="Введите имя" name="display_name" id="display_name"*/}
-                        {/*           style={{flexGrow: "1"}}*/}
-                        {/*           value={this.state.displayName}*/}
-                        {/*           onChange={this.handleDisplayNameChange}/>*/}
-                        {/*    <button type="submit" className="apply-btn"*/}
-                        {/*            onClick={this.handleSaveClick}*/}
-                        {/*            disabled={this.state.displayName === this.props.profile.display_name}>*/}
-                        {/*        Сохранить*/}
-                        {/*    </button>*/}
-                        {/*</div>*/}
-
-
-
-
-
-                        {/*<button className="apply-btn" onClick={this.openChangePassDialog}>*/}
-                        {/*    Сменить пароль*/}
-                        {/*</button>*/}
-
-                        {/*<button className="apply-btn" onClick={this.handleLogOut}>*/}
-                        {/*    Выйти из этой параши*/}
-                        {/*</button>*/}
                     </div>
 
                     <div className={'card-bottom'}
@@ -161,49 +136,113 @@ class ProfileTab extends React.Component {
 
                 </div>
 
-                <div id="changePassDialog" className="modal"
-                     onClick={e => {if (e.target.id === 'changePassDialog') this.closeChangePassDialog()}}
-                     style={{display: this.state.changePassDialogOpened ? 'block' : 'none'}}>
+                <Dialog id={'changePassDialog'}
+                        onClose={this.closeChangePassDialog}
+                        isOpen={this.state.changePassDialogOpened}
+                        title={'Сменить пароль'}>
 
-                    <div className="modal-content">
-                        <span className="small-action-btn close-dialog-btn"
-                              onClick={this.closeChangePassDialog}>
-                            <i className="material-icons">close</i>
-                        </span>
+                    {/*<div className="input-field"*/}
+                    {/*     style={{flexGrow: '1', margin: '0 1rem 0 0'}}>*/}
+                    {/*    <input type="text"*/}
+                    {/*           value={props.editValue}*/}
+                    {/*           onChange={props.onEditChange}*/}
+                    {/*           id={props.id}/>*/}
+                    {/*    <label htmlFor={props.id}>{props.label}</label>*/}
+                    {/*</div>*/}
 
-                        <h2>Сменить пароль</h2>
+                    <Edit id={'oldPassInput'} type={'password'}
+                          margin={'0 0 1rem 0'}
+                          value={this.state.oldPass}
+                          onChange={this.handleOldPassChange}
+                          label={'Текущий пароль'}/>
 
-                        <label htmlFor="old_pass"><b>Текущий пароль</b></label>
-                        <input type="password" placeholder="текущий пароль" name="old_pass" id="old_pass"
-                               value={this.state.oldPass}
-                               onChange={this.handleOldPassChange}/>
+                    <Edit id={'newPassInput'} type={'password'}
+                          margin={'0 0 1rem 0'}
+                          value={this.state.newPass}
+                          onChange={this.handleNewPassChange}
+                          label={'Новый пароль'}/>
 
-                        <label htmlFor="new_pass"><b>Новый пароль</b></label>
-                        <input type="password" placeholder="новый пароль" name="new_pass" id="new_pass"
-                               value={this.state.newPass}
-                               onChange={this.handleNewPassChange}/>
+                    <Edit id={'newPassRepeatInput'} type={'password'}
+                          margin={'0 0 1rem 0'}
+                          value={this.state.newPassRepeat}
+                          onChange={this.handleNewPassRepeatChange}
+                          label={'Новый пароль еще раз'}/>
 
-                        <label htmlFor="new_pass_repeat"><b>Новый пароль еще раз</b></label>
-                        <input type="password" placeholder="новый пароль еще раз" name="new_pass_repeat" id="new_pass_repeat"
-                               value={this.state.newPassRepeat}
-                               onChange={this.handleNewPassRepeatChange}/>
+                    {/*<label htmlFor="old_pass"><b>Текущий пароль</b></label>*/}
+                    {/*<input type="password" placeholder="текущий пароль" name="old_pass" id="old_pass"*/}
+                    {/*       value={this.state.oldPass}*/}
+                    {/*       onChange={this.handleOldPassChange}/>*/}
 
-                        <div className="validation-errors"
-                             style={{display: (this.state.errorText === '' ? 'none' : 'block')}}>
-                            {this.state.errorText}
-                        </div>
+                    {/*<label htmlFor="new_pass"><b>Новый пароль</b></label>*/}
+                    {/*<input type="password" placeholder="новый пароль" name="new_pass" id="new_pass"*/}
+                    {/*       value={this.state.newPass}*/}
+                    {/*       onChange={this.handleNewPassChange}/>*/}
 
-                        <button type="submit" className="apply-btn"
-                                onClick={this.handleChangePass}
-                                disabled={
-                                    this.state.oldPass === '' ||
-                                    this.state.newPass === '' ||
-                                    this.state.newPassRepeat === ''
-                                }>
-                            Подтвердить
-                        </button>
+                    {/*<label htmlFor="new_pass_repeat"><b>Новый пароль еще раз</b></label>*/}
+                    {/*<input type="password" placeholder="новый пароль еще раз" name="new_pass_repeat" id="new_pass_repeat"*/}
+                    {/*       value={this.state.newPassRepeat}*/}
+                    {/*       onChange={this.handleNewPassRepeatChange}/>*/}
+
+                    <div className="validation-errors"
+                         style={{display: (this.state.errorText === '' ? 'none' : 'block')}}>
+                        {this.state.errorText}
                     </div>
-                </div>
+
+                    <button className="waves-effect waves-light btn"
+                            style={{width: '100%', marginTop: '1rem'}}
+                            onClick={this.handleChangePass}
+                            disabled={
+                                this.state.oldPass === '' ||
+                                this.state.newPass === '' ||
+                                this.state.newPassRepeat === ''
+                            }>
+                        Подтвердить
+                    </button>
+                </Dialog>
+
+                {/*<div id="changePassDialog" className="modal"*/}
+                {/*     onClick={e => {if (e.target.id === 'changePassDialog') this.closeChangePassDialog()}}*/}
+                {/*     style={{display: this.state.changePassDialogOpened ? 'block' : 'none'}}>*/}
+
+                {/*    <div className="modal-content">*/}
+                {/*        <span className="small-action-btn close-dialog-btn"*/}
+                {/*              onClick={this.closeChangePassDialog}>*/}
+                {/*            <i className="material-icons">close</i>*/}
+                {/*        </span>*/}
+
+                {/*        <h2>Сменить пароль</h2>*/}
+
+                {/*        <label htmlFor="old_pass"><b>Текущий пароль</b></label>*/}
+                {/*        <input type="password" placeholder="текущий пароль" name="old_pass" id="old_pass"*/}
+                {/*               value={this.state.oldPass}*/}
+                {/*               onChange={this.handleOldPassChange}/>*/}
+
+                {/*        <label htmlFor="new_pass"><b>Новый пароль</b></label>*/}
+                {/*        <input type="password" placeholder="новый пароль" name="new_pass" id="new_pass"*/}
+                {/*               value={this.state.newPass}*/}
+                {/*               onChange={this.handleNewPassChange}/>*/}
+
+                {/*        <label htmlFor="new_pass_repeat"><b>Новый пароль еще раз</b></label>*/}
+                {/*        <input type="password" placeholder="новый пароль еще раз" name="new_pass_repeat" id="new_pass_repeat"*/}
+                {/*               value={this.state.newPassRepeat}*/}
+                {/*               onChange={this.handleNewPassRepeatChange}/>*/}
+
+                {/*        <div className="validation-errors"*/}
+                {/*             style={{display: (this.state.errorText === '' ? 'none' : 'block')}}>*/}
+                {/*            {this.state.errorText}*/}
+                {/*        </div>*/}
+
+                {/*        <button type="submit" className="apply-btn"*/}
+                {/*                onClick={this.handleChangePass}*/}
+                {/*                disabled={*/}
+                {/*                    this.state.oldPass === '' ||*/}
+                {/*                    this.state.newPass === '' ||*/}
+                {/*                    this.state.newPassRepeat === ''*/}
+                {/*                }>*/}
+                {/*            Подтвердить*/}
+                {/*        </button>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
             </>
         );
     }

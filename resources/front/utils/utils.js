@@ -103,7 +103,7 @@ const Dialog = props => (
                   onClick={props.onClose}>
                 <i className="material-icons">close</i>
             </span>
-            <h4>{props.title}</h4>
+            <h4 style={{marginBottom: '2rem'}}>{props.title}</h4>
             {props.children}
         </div>
     </div>
@@ -124,20 +124,28 @@ const YesCancel = props => (
 
 const EditButton = props => (
     <div style={{ display: 'flex', alignItems: 'baseline'}}>
-        <div className="input-field"
-             style={{flexGrow: '1', margin: '0 1rem 0 0'}}>
-            <input type="text"
-                   value={props.editValue}
-                   onChange={props.onEditChange}
-                   id={props.id}/>
-            <label htmlFor={props.id}>{props.label}</label>
-        </div>
-        <div>
+        <Edit id={props.id}
+              type={'text'}
+              value={props.editValue}
+              onChange={props.onEditChange}
+              label={props.label}/>
+        <div style={{margin: '0 0 0 1rem'}}>
             <button className="waves-effect waves-light btn"
                     onClick={props.onButtonClick}
                     disabled={props.buttonDisabled}>
                 <i className="material-icons">{props.buttonIcon}</i>
             </button>
         </div>
+    </div>
+);
+
+const Edit = props => (
+    <div className="input-field"
+         style={{flexGrow: '1', margin: (props.margin ? props.margin : '0')}}>
+        <input type={props.type}
+               value={props.value}
+               onChange={props.onChange}
+               id={props.id}/>
+        <label htmlFor={props.id}>{props.label}</label>
     </div>
 );

@@ -178,5 +178,6 @@ a:hover {
     flex-direction: row-reverse;
     width: 100%;
     /*background: var(--dark-color);*/
-    background: rgba(0, 0, 0, 0.05);
+    background: rgba(0, 0, 0, 0.03);
+    /*background: #f7ffea;*/
 }

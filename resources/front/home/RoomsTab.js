@@ -131,82 +131,37 @@ class RoomsTab extends React.Component {
                         onClose={this.closeAddRoomDialog}
                         isOpen={this.state.addRoomDialogOpened}
                         title={'Создать комнату'}>
-
-                    <div style={{marginTop: '2rem'}}>
-                        <EditButton id={'newRoomNameInput'}
-                                    label={'Название комнаты'}
-                                    editValue={this.state.newRoomName}
-                                    onEditChange={this.handleRoomNameChange}
-                                    onButtonClick={this.handleAddRoom}
-                                    buttonDisabled={this.state.newRoomName === ''}
-                                    buttonIcon={'add'}/>
-                    </div>
-
-                    {/*<div style={{ display: 'flex', alignItems: 'baseline', marginTop: '2rem'}}>*/}
-                    {/*    <div className="input-field"*/}
-                    {/*         style={{flexGrow: '1', margin: '0 1rem 0 0'}}>*/}
-                    {/*        <input type="text"*/}
-                    {/*               value={this.state.newRoomName}*/}
-                    {/*               onChange={this.handleRoomNameChange}*/}
-                    {/*               id={"newRoomNameInput"}/>*/}
-                    {/*        <label htmlFor={"newRoomNameInput"}>Название комнаты</label>*/}
-                    {/*    </div>*/}
-                    {/*    <div>*/}
-                    {/*        <button className="waves-effect waves-light btn"*/}
-                    {/*                onClick={this.handleAddRoom}*/}
-                    {/*                disabled={this.state.newRoomName === ''}>*/}
-                    {/*            <i className="material-icons">add</i>*/}
-                    {/*        </button>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
+                    <EditButton id={'newRoomNameInput'}
+                                label={'Название комнаты'}
+                                editValue={this.state.newRoomName}
+                                onEditChange={this.handleRoomNameChange}
+                                onButtonClick={this.handleAddRoom}
+                                buttonDisabled={this.state.newRoomName === ''}
+                                buttonIcon={'add'}/>
                 </Dialog>
 
                 <Dialog id={'changeRoomDialog'}
                         onClose={this.closeChangeRoomDialog}
                         isOpen={this.state.changeRoomDialogOpened}
                         title={'Изменить название комнаты'}>
-                    <div style={{marginTop: '2rem'}}>
-                        <EditButton id={'changeRoomNameInput'}
-                                    label={'Новое название'}
-                                    editValue={this.state.updatedRoomName}
-                                    onEditChange={this.handleUpdatedRoomNameChange}
-                                    onButtonClick={this.handleChangeRoom}
-                                    buttonDisabled={
-                                        this.state.updatedRoomName === this.roomById(this.state.selectedRoomId).name ||
-                                        this.state.updatedRoomName === ''
-                                    }
-                                    buttonIcon={'save'}/>
-                    </div>
-                    {/*<div style={{ display: 'flex', alignItems: 'baseline', marginTop: '2rem'}}>*/}
-                    {/*    <div className="input-field"*/}
-                    {/*         style={{flexGrow: '1', margin: '0 1rem 0 0'}}>*/}
-                    {/*        <input type="text"*/}
-                    {/*               value={this.state.updatedRoomName}*/}
-                    {/*               onChange={this.handleUpdatedRoomNameChange}*/}
-                    {/*               id={"changeRoomNameInput"}/>*/}
-                    {/*        <label htmlFor={"changeRoomNameInput"}>Новое название</label>*/}
-                    {/*    </div>*/}
-                    {/*    <div>*/}
-                    {/*        <button className="waves-effect waves-light btn"*/}
-                    {/*                onClick={this.handleChangeRoom}*/}
-                    {/*                disabled={*/}
-                    {/*                    this.state.updatedRoomName === this.roomById(this.state.selectedRoomId).name ||*/}
-                    {/*                    this.state.updatedRoomName === ''*/}
-                    {/*                }>*/}
-                    {/*            <i className="material-icons">save</i>*/}
-                    {/*        </button>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
+                    <EditButton id={'changeRoomNameInput'}
+                                label={'Новое название'}
+                                editValue={this.state.updatedRoomName}
+                                onEditChange={this.handleUpdatedRoomNameChange}
+                                onButtonClick={this.handleChangeRoom}
+                                buttonDisabled={
+                                    this.state.updatedRoomName === this.roomById(this.state.selectedRoomId).name ||
+                                    this.state.updatedRoomName === ''
+                                }
+                                buttonIcon={'save'}/>
                 </Dialog>
 
                 <Dialog id={'deleteRoomDialog'}
                         onClose={this.closeDeleteRoomDialog}
                         isOpen={this.state.deleteRoomDialogOpened}
                         title={`Удалить комнату "${this.roomById(this.state.selectedRoomId).name}"?`}>
-                    <div style={{marginTop: '2rem'}}>
-                        <YesCancel onYesClick={this.handleDeleteRoom}
-                                   onCancelClick={this.closeDeleteRoomDialog}/>
-                    </div>
+                    <YesCancel onYesClick={this.handleDeleteRoom}
+                               onCancelClick={this.closeDeleteRoomDialog}/>
                 </Dialog>
 
             </>
