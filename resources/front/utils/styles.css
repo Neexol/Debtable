@@ -148,14 +148,22 @@ a {
     color: var(--accent-color);
     text-align: center;
     margin: 0;
+    transition: 0.2s;
+}
+a:hover {
+    opacity: 0.5;
 }
 
 .neutral-text-colored {
     color: var(--neutral-color);
 }
+.text-colored {
+    color: var(--text-color);
+}
 
 .card-panel {
     cursor: pointer;
     border-radius: 0.3rem;
+    background: var(--card-backgound);
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.07), 0 3px 1px -2px rgba(0, 0, 0, 0.06), 0 1px 5px 0 rgba(0, 0, 0, 0.08);
 }

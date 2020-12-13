@@ -65,7 +65,7 @@ function InviteTiles(props) {
                         <div>
                             Приглашение в комнату "<b>{room.name}</b>"<br/>
                             <span className={'neutral-text-colored'}
-                                  style={{display: 'flex', alignItems: 'center'}}>
+                                  style={{display: 'flex', alignItems: 'center', marginTop: '0.2rem'}}>
                                 <i className="material-icons small-icon nav-icon">people</i>
                                 {room.members_number}
                             </span><br/>
@@ -86,7 +86,7 @@ function InviteTiles(props) {
                                onClick={() => props.onAcceptInviteClick(room.id)}>
                                 Принять
                             </a>
-                            <a className="col s6 neutral-text-colored"
+                            <a className="col s6 text-colored"
                                     onClick={() => props.onDeclineInviteClick(room.id)}>
                                 Отклонить
                             </a>

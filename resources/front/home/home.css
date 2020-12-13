@@ -7,7 +7,7 @@
     float: left;
     /*top: 0;*/
     /*left: 0;*/
-    background: #31352e;
+    background: var(--dark-color);
     /*overflow-x: hidden;*/
     padding-top: 2rem;
 }
@@ -60,7 +60,7 @@
     /*width: initial;*/
     /*max-width: initial;*/
 
-    background: #f1f3f0;
+    background: var(--content-container-background);
     box-shadow:-0.5rem 0 1rem -0.2rem rgba(0, 0, 0, 0.5);
 
 

@@ -221,7 +221,7 @@ function RoomTiles(props) {
                     
                     <b>{room.name}</b><br/>
                     <span className={'neutral-text-colored'}
-                          style={{display: 'flex', alignItems: 'center'}}>
+                          style={{display: 'flex', alignItems: 'center', marginTop: '0.2rem'}}>
                         <i className="material-icons nav-icon small-icon">people</i>
                         {room.members_number}
                     </span>
