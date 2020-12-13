@@ -7,21 +7,32 @@
     float: left;
     /*top: 0;*/
     /*left: 0;*/
-    background: #E1E2E1;
+    background: #31352e;
     /*overflow-x: hidden;*/
     padding-top: 2rem;
 }
 .side-menu div {
     /*padding: 6px 8px 6px 16px;*/
-    padding: 0 1rem;
+    /*padding: 0 1rem;*/
     text-decoration: none;
     /*font-size: 25px;*/
-    color: #303030;
+    color: rgba(255, 255, 255, 0.5);
     cursor: pointer;
 }
 .side-menu div.active {
-    background: #8bc34a;
-    color: black;
+    background: rgba(0, 0, 0, 0.3);
+    /*background: #8bc34a;*/
+    color: rgba(255, 255, 255, 1);
+}
+.side-menu span:not(.selection) {
+    padding: 0 2rem 0 1rem;
+}
+.side-menu .selection {
+    width: 0.2rem;
+    height: auto;
+    /*height: 100%;*/
+    float: left;
+    /*display: block;*/
 }
 .side-menu div:not(.active):hover {
     background: rgba(0, 0, 0, 0.1);
@@ -35,15 +46,22 @@
 .content {
     /*position: fixed;*/
     /*clear: left;*/
-    height: auto;
-    max-height: 100%;
+
+    /*height: auto;*/
+    /*max-height: 100%;*/
+    height: 100%;
+    width: 100%;
+
     /*width: 100%;*/
     float: left;
-    display: flex;
-    flex-wrap: wrap;
     padding: 1.5rem;
     /*width: initial;*/
     /*max-width: initial;*/
+
+    background: #f1f3f0;
+    box-shadow:-0.5rem 0 1rem -0.2rem rgba(0, 0, 0, 0.5);
+
+
 
     overflow-y: auto;
 
@@ -52,6 +70,13 @@
     /*overflow: auto;*/
     /*margin-left: 13rem;*/
     /*font-size: 12pt;*/
+}
+
+.cards-container {
+    /*height: auto;*/
+    display: flex;
+    flex-wrap: wrap;
+    /*width: 100%;*/
 }
 /*.home__content .card {*/
 /*    background: #ffe86f;*/
@@ -70,12 +95,15 @@
 /*}*/
 .card-panel {
     cursor: pointer;
+    border-radius: 0.3rem;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.07), 0 3px 1px -2px rgba(0, 0, 0, 0.06), 0 1px 5px 0 rgba(0, 0, 0, 0.1);
 }
 
 .room-card {
-    width: 10rem;
+    width: 15rem;
     height: fit-content;
     margin: 0.5rem;
+    /*background: #dff6bf;*/
     /*opacity: 0.5;*/
 }
 .home__add-room-btn {

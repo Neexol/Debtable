@@ -6,9 +6,11 @@ function HomeSideMenu(props) {
                 <div key={i}
                      onClick={() => props.onCheck(i)}
                      className={(index === i) ? "active" : null}
-                     style={{display: 'flex', alignItems: 'center'}}
-                >
-                    {name}
+                     style={{display: 'flex', alignItems: 'stretch'}}>
+                    <span className={'selection ' + ((index === i) ? "accent-colored" : null)}/>
+                    <span style={{display: 'flex', alignItems: 'center'}}>
+                        {name}
+                    </span>
                 </div>
             ))
         } </nav>

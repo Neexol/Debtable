@@ -113,7 +113,7 @@ class RoomsTab extends React.Component {
 
     render() {
         return (
-            <>
+            <div className={'cards-container'}>
                 <RoomTiles rooms={this.props.rooms}
                            onDelete={this.openDeleteRoomDialog}
                            onChange={this.openChangeRoomDialog}/>
@@ -200,7 +200,7 @@ class RoomsTab extends React.Component {
                         </div>
                     </div>
                 </div>
-            </>
+            </div>
         );
     }
 }
@@ -211,7 +211,7 @@ function RoomTiles(props) {
             props.rooms.length === 0 ? (<strong>Нет комнат</strong>) :
             props.rooms.map(room => (
                 <div key={room.id}
-                     className="card-panel room-card hoverable accent-colored"
+                     className="card-panel room-card hoverable"
                      onClick={e => {
                          // console.log(e.target.className.includes('edit-room-btn'));
                          // if (e.target.className === 'edit-room-btn' ||
