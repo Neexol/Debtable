@@ -117,10 +117,13 @@ class RoomsTab extends React.Component {
                 <RoomTiles rooms={this.props.rooms}
                            onDelete={this.openDeleteRoomDialog}
                            onChange={this.openChangeRoomDialog}/>
-                <button className="home__add-room-btn"
-                        style={{display: 'flex', alignItems: 'center'}}
+                {/*<a className="btn-floating btn-large red">*/}
+                {/*    <i className="large material-icons">mode_edit</i>*/}
+                {/*</a>*/}
+                <button className="btn-floating btn-large"
                         onClick={this.openAddRoomDialog}>
-                    <><i className="material-icons nav-icon">add_circle</i>Добавить комнату</>
+                    {/*<><i className="material-icons nav-icon">add_circle</i>Добавить комнату</>*/}
+                    <i className="material-icons nav-icon">add</i>
                 </button>
 
                 <div id="addNewRoomDialog" className="modal"
