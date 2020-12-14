@@ -121,7 +121,7 @@ html, body, #root {
 }
 .dialog-content {
 
-    overflow: hidden;
+    /*overflow: hidden;*/
 
     position: absolute;
     top: 20%; left: 50%;
@@ -208,4 +208,10 @@ a:hover {
 hr {
     border: 1px solid #f1f1f1;
     margin-bottom: 25px;
+}
+
+.select-wrapper .caret {
+    z-index: 2;
+    background: white;
+    pointer-events: none;
 }
