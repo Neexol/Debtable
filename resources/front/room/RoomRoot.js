@@ -14,9 +14,9 @@ class RoomRoot extends React.Component {
     getCurrentTab() {
         const tab = new URLSearchParams(window.location.search).get('tab')?.toString();
         switch (tab) {
+            case 'management': return 0;
             case 'statistics': return 1;
-            case 'management': return 2;
-            default: return 0;
+            default: return 2;
         }
     }
 

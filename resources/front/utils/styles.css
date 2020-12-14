@@ -223,4 +223,6 @@ hr {
 
 .chip {
     overflow: hidden;
+    background: var(--accent-color);
+    color: white;
 }
