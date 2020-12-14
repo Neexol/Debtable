@@ -35,22 +35,25 @@ class TableTab extends React.Component {
 
     render() {
         return (
-            <>
-                <AddRecordForm purchases={this.state.purchases === undefined ? [] : this.state.purchases}
-                               purchase={this.state.selectedPurchase}
-                               members={this.props.members}
-                               room={this.props.room}
-                               updateTable={this.getPurchases}/>
-                {
+            <div style={{height: '100%', display: 'flex', flexDirection: 'column'}}>
+                <div className={'add-form-container'}>
+                    <AddRecordForm purchases={this.state.purchases === undefined ? [] : this.state.purchases}
+                                   purchase={this.state.selectedPurchase}
+                                   members={this.props.members}
+                                   room={this.props.room}
+                                   updateTable={this.getPurchases}/>
+                </div>
+
+                <div className={'table-container'}>{
                     this.state.purchases === undefined
-                        ? <div className="room__empty-page"><Loader/></div>
+                        ? <Loader size={'big'} center={true}/>
                         : <DebtsTable purchases={this.state.purchases}
                                       members={this.props.members}
                                       room={this.props.room}
                                       openEditDialog={this.openEditPurchaseDialog}
                                       updateTable={this.getPurchases}/>
-                }
-            </>
+                }</div>
+            </div>
         );
     }
 }
@@ -171,7 +174,8 @@ class DebtsTable extends React.Component {
                                     if (e.target.className.includes('btn')) return;
                                     this.openEditPurchaseDialog(purchase)
                                 }}>
-                                <td className='valign-wrapper'>{
+                                <td className='valign-wrapper'
+                                    style={{flexWrap: 'wrap'}}>{
                                     purchase.debtors.map(debtor => (
                                         <div key={debtor.id}
                                              className='chip'
@@ -180,16 +184,18 @@ class DebtsTable extends React.Component {
                                         </div>
                                     ))
                                 }</td>
-                                <td>{purchase.name}</td>
-                                <td>
+                                <td style={{width: '25%', wordWrap: 'anywhere'}}>
+                                    {purchase.name}
+                                </td>
+                                <td style={{width: '15%'}}>
                                     <div className='chip'
                                          title={LOGIN_SYMBOL+purchase.buyer.username}>
                                         {purchase.buyer.display_name}
                                     </div>
                                 </td>
-                                <td>{purchase.debt}</td>
-                                <td>{purchase.date}</td>
-                                <td style={{width: '5rem'}}>
+                                <td style={{width: '15%'}}>{purchase.debt}</td>
+                                <td style={{width: '15%'}}>{purchase.date}</td>
+                                <td style={{width: '5%'}}>
                                     <button className="waves-effect waves-red material-icons btn-flat delete"
                                             onClick={() => this.openDeletePurchaseDialog(purchase)}>
                                         delete_outline
@@ -244,7 +250,7 @@ class DebtsTable extends React.Component {
                         </span>
 
                         <h4>Удалить покупку "{this.state.selectedPurchase?.name}"?</h4>
-                        
+
                         <div style={{display: 'flex', flexDirection: 'row-reverse'}}>
                             <button className="waves-effect waves-light btn-flat"
                                     onClick={this.handleDeletePurchase}>
