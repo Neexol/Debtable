@@ -115,7 +115,7 @@ const Dialog = props => (
     <div id={props.id} className="dialog"
          onClick={e => {if (e.target.id === props.id) props.onClose()}}
          style={{display: props.isOpen ? 'block' : 'none'}}>
-        <div className="dialog-content">
+        <div className="dialog-content" style={{width: props.width}}>
             <span className="small-action-btn close-dialog-btn"
                   onClick={props.onClose}>
                 <i className="material-icons">close</i>

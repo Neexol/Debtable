@@ -157,6 +157,7 @@ class RoomsTab extends React.Component {
                 </Dialog>
 
                 <Dialog id={'deleteRoomDialog'}
+                        width={'40%'}
                         onClose={this.closeDeleteRoomDialog}
                         isOpen={this.state.deleteRoomDialogOpened}
                         title={`Удалить комнату "${this.roomById(this.state.selectedRoomId).name}"?`}>

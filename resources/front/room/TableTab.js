@@ -206,64 +206,63 @@ class DebtsTable extends React.Component {
                     }</tbody>
                 </table>
 
-                <div id="editPurchaseDialog" className="dialog"
-                     onClick={e => {if (e.target.id === 'editPurchaseDialog') this.closeEditPurchaseDialog()}}
-                     style={{display: this.state.editPurchaseDialogOpened ? 'block' : 'none'}}>
+                <Dialog id={'editPurchaseDialog'}
+                        width={'70%'}
+                        onClose={this.closeEditPurchaseDialog}
+                        isOpen={this.state.editPurchaseDialogOpened}
+                        title={'Изменить покупку'}>
+                    <PurchaseForm id={this.id}
+                                  members={this.props.members}
+                                  debtors={this.state.debtors}
+                                  onDebtorsChange={() => this.setState({
+                                      debtors: $('#debtorsSelect'+this.id).val().map(value => Number.parseInt(value))
+                                  })}
+                                  purchaseName={this.state.purchaseName}
+                                  onPurchaseNameChange={e => this.setState({purchaseName: e.target.value})}
+                                  buyer={this.state.buyer}
+                                  onBuyerChange={e => this.setState({
+                                      buyer: Number.parseInt(e.target.value)
+                                  })}
+                                  cost={this.state.cost}
+                                  onCostChange={e => this.setState({cost: e.target.value})}
+                                  buttonIcon={'save'}
+                                  onSubmit={this.handleEditPurchase}/>
+                </Dialog>
 
-                    <div className="dialog-content">
-                        <span className="small-action-btn close-dialog-btn"
-                              onClick={this.closeEditPurchaseDialog}>
-                            <i className="material-icons">close</i>
-                        </span>
+                <Dialog id={'deletePurchaseDialog'}
+                        width={'40%'}
+                        onClose={this.closeDeletePurchaseDialog}
+                        isOpen={this.state.deletePurchaseDialogOpened}
+                        title={`Удалить покупку "${this.state.selectedPurchase?.name}"?`}>
+                    <YesCancelButtons onYesClick={this.handleDeletePurchase}
+                                      onCancelClick={this.closeDeletePurchaseDialog}/>
+                </Dialog>
 
-                        <h4>Изменить покупку</h4>
+                {/*<div id="deletePurchaseDialog" className="dialog"*/}
+                {/*     onClick={e => {if (e.target.id === 'deletePurchaseDialog') this.closeDeletePurchaseDialog()}}*/}
+                {/*     style={{display: this.state.deletePurchaseDialogOpened ? 'block' : 'none'}}>*/}
 
-                        <PurchaseForm id={this.id}
-                                      members={this.props.members}
-                                      debtors={this.state.debtors}
-                                      onDebtorsChange={() => this.setState({
-                                          debtors: $('#debtorsSelect'+this.id).val().map(value => Number.parseInt(value))
-                                      })}
-                                      purchaseName={this.state.purchaseName}
-                                      onPurchaseNameChange={e => this.setState({purchaseName: e.target.value})}
-                                      buyer={this.state.buyer}
-                                      onBuyerChange={e => this.setState({
-                                          buyer: Number.parseInt(e.target.value)
-                                      })}
-                                      cost={this.state.cost}
-                                      onCostChange={e => this.setState({cost: e.target.value})}
-                                      // button={{icon: 'save', text: 'Сохранить'}}
-                                      buttonIcon={'save'}
-                                      onSubmit={this.handleEditPurchase}/>
+                {/*    <div className="dialog-content">*/}
+                {/*        <span className="small-action-btn close-dialog-btn"*/}
+                {/*              onClick={this.closeDeletePurchaseDialog}>*/}
+                {/*            <i className="material-icons">close</i>*/}
+                {/*        </span>*/}
 
-                    </div>
-                </div>
+                {/*        <h4>Удалить покупку "{this.state.selectedPurchase?.name}"?</h4>*/}
 
-                <div id="deletePurchaseDialog" className="dialog"
-                     onClick={e => {if (e.target.id === 'deletePurchaseDialog') this.closeDeletePurchaseDialog()}}
-                     style={{display: this.state.deletePurchaseDialogOpened ? 'block' : 'none'}}>
+                {/*        <div style={{display: 'flex', flexDirection: 'row-reverse'}}>*/}
+                {/*            <button className="waves-effect waves-light btn-flat"*/}
+                {/*                    onClick={this.handleDeletePurchase}>*/}
+                {/*                да блять*/}
+                {/*            </button>*/}
+                {/*            <button className="waves-effect waves-light btn-flat"*/}
+                {/*                    onClick={this.closeDeletePurchaseDialog}>*/}
+                {/*                отмена*/}
+                {/*            </button>*/}
+                {/*        </div>*/}
 
-                    <div className="dialog-content">
-                        <span className="small-action-btn close-dialog-btn"
-                              onClick={this.closeDeletePurchaseDialog}>
-                            <i className="material-icons">close</i>
-                        </span>
-
-                        <h4>Удалить покупку "{this.state.selectedPurchase?.name}"?</h4>
-
-                        <div style={{display: 'flex', flexDirection: 'row-reverse'}}>
-                            <button className="waves-effect waves-light btn-flat"
-                                    onClick={this.handleDeletePurchase}>
-                                да блять
-                            </button>
-                            <button className="waves-effect waves-light btn-flat"
-                                    onClick={this.closeDeletePurchaseDialog}>
-                                отмена
-                            </button>
-                        </div>
-
-                    </div>
-                </div>
+                {/*    </div>*/}
+                {/*</div>*/}
             </>
         );
     }
@@ -361,8 +360,8 @@ function PurchaseForm(props) {
     return (
         <div className="add-record-form">
 
-            <div className='row' style={{flexGrow: '1'}}>
-                <div className="input-field col s3">
+            <div className='row' style={{flexGrow: '1', margin: '0'}}>
+                <div className="input-field col s3" style={{margin: '0'}}>
                     <select multiple={true}
                             value={props.debtors}
                             onChange={props.onDebtorsChange}
@@ -378,7 +377,7 @@ function PurchaseForm(props) {
                     <label htmlFor={"debtorsSelect"+props.id}>Кто должен</label>
                 </div>
 
-                <div className="input-field col s3">
+                <div className="input-field col s3" style={{margin: '0'}}>
                     <input type="text"
                         // placeholder="Например, веп))0"
                            id={"purchaseName"+props.id}
@@ -388,7 +387,7 @@ function PurchaseForm(props) {
                     <label htmlFor={"purchaseName"+props.id}>Покупка</label>
                 </div>
 
-                <div className="input-field col s3">
+                <div className="input-field col s3" style={{margin: '0'}}>
                     <select value={props.buyer}
                             onChange={props.onBuyerChange}
                             id={"buyerSelect"+props.id}
@@ -404,7 +403,7 @@ function PurchaseForm(props) {
                     <label htmlFor={"buyerSelect"+props.id}>Кому должен</label>
                 </div>
 
-                <div className="input-field col s3">
+                <div className="input-field col s3" style={{margin: '0'}}>
                     <input type="number"
                         // placeholder="40 гривен"
                            value={props.cost}
@@ -414,7 +413,7 @@ function PurchaseForm(props) {
                 </div>
             </div>
 
-            <div style={{transform: "translateY(-100%)"}}>
+            <div >
                 <button className="waves-effect waves-light btn"
                         disabled={
                             props.debtors.length === 0 ||

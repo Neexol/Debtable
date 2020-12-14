@@ -98,7 +98,7 @@
 .add-form-container {
     background: white;
     box-shadow: 0 0 1rem -0.2rem rgba(0, 0, 0, 0.5);
-    padding: 1.5rem 1.5rem 0 1.5rem;
+    padding: 3rem 1.5rem 1.5rem 1.5rem;
     z-index: 10;
 }
 
@@ -159,7 +159,7 @@
 .add-record-form {
     width: 100%;
     display: flex;
-    align-items: baseline;
+    align-items: center;
 }
 .add-record-form div:not(:first-of-type) {
     padding-left: 0.5rem;
@@ -167,31 +167,31 @@
 
 
 
-.multiselect {
-    width: auto;
-}
-#checkboxes {
-    position: absolute;
-    display: block;
-    background: #ffffff;
-    border: 1px #dadada solid;
-}
-#checkboxes label {
-    display: block;
-    width: auto;
-    padding-right: 1rem;
-}
-#checkboxes input {
-    width: auto;
-}
-#checkboxes label:hover {
-    background-color: #1e90ff;
-}
+/*.multiselect {*/
+/*    width: auto;*/
+/*}*/
+/*#checkboxes {*/
+/*    position: absolute;*/
+/*    display: block;*/
+/*    background: #ffffff;*/
+/*    border: 1px #dadada solid;*/
+/*}*/
+/*#checkboxes label {*/
+/*    display: block;*/
+/*    width: auto;*/
+/*    padding-right: 1rem;*/
+/*}*/
+/*#checkboxes input {*/
+/*    width: auto;*/
+/*}*/
+/*#checkboxes label:hover {*/
+/*    background-color: #1e90ff;*/
+/*}*/
 
 
-.nav-icon {
-    margin-right: 0.3rem;
-}
+/*.nav-icon {*/
+/*    margin-right: 0.3rem;*/
+/*}*/
 
 
 .member-card {
@@ -254,12 +254,12 @@
 
 
 
-.user-chip {
-    background: #E0E0E0;
-    border-radius: 1rem;
-    margin: 0.3rem;
-    padding: 0.4rem;
-}
+/*.user-chip {*/
+/*    background: #E0E0E0;*/
+/*    border-radius: 1rem;*/
+/*    margin: 0.3rem;*/
+/*    padding: 0.4rem;*/
+/*}*/
 
 
 .btn-flat.delete {
