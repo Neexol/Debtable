@@ -1,54 +1,93 @@
-table.redTable {
-    border: 2px solid #A40808;
-    background-color: #EEE7DB;
+/*table.redTable {*/
+/*    border: 2px solid #A40808;*/
+/*    background-color: #EEE7DB;*/
+/*    width: 100%;*/
+/*    text-align: center;*/
+/*    border-collapse: collapse;*/
+/*}*/
+/*table.redTable td, table.redTable th {*/
+/*    border: 1px solid #AAAAAA;*/
+/*    padding: 3px 2px;*/
+/*}*/
+/*table.redTable tbody td {*/
+/*    font-size: 13px;*/
+/*}*/
+/*table.redTable tr:nth-child(even) {*/
+/*    background: #F5C8BF;*/
+/*}*/
+/*table.redTable thead {*/
+/*    background: #A40808;*/
+/*}*/
+/*table.redTable thead th {*/
+/*    font-size: 19px;*/
+/*    font-weight: bold;*/
+/*    color: #FFFFFF;*/
+/*    text-align: center;*/
+/*    border-left: 2px solid #A40808;*/
+/*}*/
+/*table.redTable thead th:first-child {*/
+/*    border-left: none;*/
+/*}*/
+
+/*table.redTable tfoot {*/
+/*    font-size: 13px;*/
+/*    font-weight: bold;*/
+/*    color: #FFFFFF;*/
+/*    background: #A40808;*/
+/*}*/
+/*table.redTable tfoot td {*/
+/*    font-size: 13px;*/
+/*}*/
+/*table.redTable tfoot .links {*/
+/*    text-align: right;*/
+/*}*/
+/*table.redTable tfoot .links a{*/
+/*    display: inline-block;*/
+/*    background: #FFFFFF;*/
+/*    color: #A40808;*/
+/*    padding: 2px 8px;*/
+/*    border-radius: 5px;*/
+/*}*/
+
+.top-menu {
+    height: auto;
     width: 100%;
-    text-align: center;
-    border-collapse: collapse;
+    display: flex;
+    justify-content: space-between;
+    background: var(--dark-color);
 }
-table.redTable td, table.redTable th {
-    border: 1px solid #AAAAAA;
-    padding: 3px 2px;
+.top-menu div {
+    transition: 0.2s;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
 }
-table.redTable tbody td {
-    font-size: 13px;
+.top-menu div.active {
+    background: rgba(0, 0, 0, 0.2);
+    color: rgba(255, 255, 255, 1);
 }
-table.redTable tr:nth-child(even) {
-    background: #F5C8BF;
+.top-menu span:not(.selection) {
+    padding: 0 2rem 0 2rem;
 }
-table.redTable thead {
-    background: #A40808;
+.top-menu .selection {
+    width: auto;
+    height: 0.3rem;
+    transition: 0.2s;
+    /*z-index: 10;*/
 }
-table.redTable thead th {
-    font-size: 19px;
-    font-weight: bold;
-    color: #FFFFFF;
-    text-align: center;
-    border-left: 2px solid #A40808;
-}
-table.redTable thead th:first-child {
-    border-left: none;
-}
-
-table.redTable tfoot {
-    font-size: 13px;
-    font-weight: bold;
-    color: #FFFFFF;
-    background: #A40808;
-}
-table.redTable tfoot td {
-    font-size: 13px;
-}
-table.redTable tfoot .links {
-    text-align: right;
-}
-table.redTable tfoot .links a{
-    display: inline-block;
-    background: #FFFFFF;
-    color: #A40808;
-    padding: 2px 8px;
-    border-radius: 5px;
+.top-menu div:not(.active):hover {
+    background: rgba(0, 0, 0, 0.1);
 }
 
+
+.content {
+    height: 100%;
+    width: 100%;
+    padding: 1.5rem;
+    background: var(--content-container-background);
+    box-shadow:-0.5rem 0 1rem -0.2rem rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
+}
 
 
 .room__top-menu {

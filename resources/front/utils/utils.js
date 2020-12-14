@@ -166,3 +166,10 @@ const Edit = props => (
         <label htmlFor={props.id}>{props.label}</label>
     </div>
 );
+
+const IconWithText = props => (
+    (<span className={'icon-with-text'}>
+        <i className="material-icons nav-icon">{props.icon}</i>
+        {props.text}
+    </span>)
+);

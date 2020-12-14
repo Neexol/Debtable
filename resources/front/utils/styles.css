@@ -215,3 +215,8 @@ hr {
     background: white;
     pointer-events: none;
 }
+
+.icon-with-text {
+    display: flex;
+    align-items: center;
+}
