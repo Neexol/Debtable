@@ -163,10 +163,7 @@ class ManagementTab extends React.Component {
                         <button className="waves-effect waves-light btn"
                                 style={{margin: '0 0 0 1rem'}}
                                 onClick={() => this.setState({inviteUsersDialogOpened: true})}>
-                            {/*<i className={'material-icons left'}>person_add</i>*/}
-                            {/*Пригласить участников*/}
                             <i className={'material-icons'}>person_add</i>
-                            {/*Пригласить участников*/}
                         </button>
                     </div>
                 </div>

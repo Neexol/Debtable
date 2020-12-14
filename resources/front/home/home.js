@@ -1,7 +1,7 @@
 const NAV_NAMES = isInvites => [
     (<IconWithText icon={'meeting_room'} text={'Комнаты'}/>),
     (<IconWithText icon={'person'} text={'Профиль'}/>),
-    (<IconWithText icon={isInvites ? 'notifications_active' : 'notifications'} text={'Комнаты'}/>)
+    (<IconWithText icon={isInvites ? 'notifications_active' : 'notifications'} text={'Приглашения'}/>)
 ];
 
 const NAVIGATION = (index, prop) => ([
