@@ -7,7 +7,7 @@ function RoomTopMenu(props) {
                 <span className={'selection'}/>
                 {NAV_HOME}
             </div>
-            <div style={{display: 'flex'}}>{
+            <div className={'nav-group'} style={{display: 'flex'}}>{
                 NAV_NAMES.map((name, i) => (
                     <div key={i}
                          onClick={() => props.onCheck(i)}
