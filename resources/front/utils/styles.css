@@ -225,4 +225,9 @@ hr {
     overflow: hidden;
     background: var(--accent-color);
     color: white;
+    margin: 0.2rem;
+}
+
+table.highlight > tbody > tr:hover {
+    background-color: rgba(0, 0, 0, 0.025);
 }
