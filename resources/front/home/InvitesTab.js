@@ -51,41 +51,48 @@ class InvitesTab extends React.Component {
 
 function InviteTiles(props) {
     return (
-        <>{
+        <div className={'cards-container'}>{
             props.invites.length === 0 ? (<strong>Нет приглашений</strong>) :
                 props.invites.map(room => (
                     <div key={room.id}
-                         className="card invite-card"
+                         className="card-panel invite-card"
                          onClick={e => {
-                             if (e.target.className === 'accept-invite' ||
-                                 e.target.className === 'decline-invite') return;
-                             console.log(`click on "${room.name}" [id: ${room.id}]`);
+                             if (e.target.className.includes('btn')) return;
+                             // console.log(`click on "${room.name}" [id: ${room.id}]`);
                          }}>
 
-                        <div style={{width: 'max-content'}}>
+                        {/*<div style={{width: 'max-content'}}>*/}
+                        <div>
                             Приглашение в комнату "<b>{room.name}</b>"<br/>
-                            <span style={{display: 'flex', alignItems: 'center'}}>
-                                <i className="material-icons nav-icon">people</i>
+                            <span className={'neutral-text-colored'}
+                                  style={{display: 'flex', alignItems: 'center', marginTop: '0.2rem'}}>
+                                <i className="material-icons small-icon nav-icon">people</i>
                                 {room.members_number}
                             </span><br/>
-                            id: {room.id}<br/>
+                            {/*id: {room.id}<br/>*/}
                         </div>
 
 
-                        <div style={{display: "flex", float: "bottom"}}>
-                            <button className="action-btn"
-                                    onClick={() => props.onAcceptInviteClick(room.id)}
-                                    style={{display: 'flex', alignItems: 'center', marginRight: "0.3rem"}}>
-                                <><i className="material-icons nav-icon">check_circle</i>Принять</>
-                            </button>
-                            <button className="action-btn"
-                                    onClick={() => props.onDeclineInviteClick(room.id)}
-                                    style={{display: 'flex', alignItems: 'center'}}>
-                                <><i className="material-icons nav-icon">cancel</i>Отклонить</>
-                            </button>
+                        <div className={'row action-section'}>
+                            {/*<button className="waves-effect waves-light btn-flat col s6"*/}
+                            {/*        onClick={() => props.onDeclineInviteClick(room.id)}>*/}
+                            {/*    Отклонить*/}
+                            {/*</button>*/}
+                            {/*<button className="waves-effect waves-light btn col s6"*/}
+                            {/*        onClick={() => props.onAcceptInviteClick(room.id)}>*/}
+                            {/*    Принять*/}
+                            {/*</button>*/}
+                            <a className="col s6"
+                               onClick={() => props.onAcceptInviteClick(room.id)}>
+                                Принять
+                            </a>
+                            <a className="col s6 text-colored"
+                                    onClick={() => props.onDeclineInviteClick(room.id)}>
+                                Отклонить
+                            </a>
                         </div>
                     </div>
                 ))
-        }</>
+        }</div>
     );
 }

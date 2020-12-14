@@ -1,12 +1,7 @@
 const NAV_NAMES = isInvites => [
-    // "🚪 Rooms",
-    // "👤 Profile",
-    // "🔔 Notifications"
-    (<><i className="material-icons nav-icon">meeting_room</i>Комнаты</>),
-    (<><i className="material-icons nav-icon">person</i>Профиль</>),
-    (<><i className="material-icons nav-icon">
-        {isInvites ? "notifications_active" : "notifications"}
-    </i>Приглашения</>),
+    (<IconWithText icon={'meeting_room'} text={'Комнаты'}/>),
+    (<IconWithText icon={'person'} text={'Профиль'}/>),
+    (<IconWithText icon={isInvites ? 'notifications_active' : 'notifications'} text={'Приглашения'}/>)
 ];
 
 const NAVIGATION = (index, prop) => ([

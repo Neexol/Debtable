@@ -49,51 +49,50 @@ class AuthorizationRoot extends React.Component {
 
     render() {
         return (
-            <div className="registration-form">
-                <div className="container">
-                    <h1>Регистрация</h1><hr/>
+            <div className="card-panel auth-card">
+                <h4>Регистрация</h4><hr/>
 
-                    <label htmlFor="login"><b>Логин</b></label>
-                    <input type="text" placeholder="Введите логин" name="login" id="login"
-                           value={this.state.login}
-                           onChange={this.handleLoginChange}/>
+                <Edit id={'displayNameInput'} type={'text'}
+                      margin={'0 0 1rem 0'}
+                      value={this.state.displayName}
+                      onChange={this.handleDisplayNameChange}
+                      label={'Имя пользователя'}/>
+                <Edit id={'loginInput'} type={'text'}
+                      margin={'0 0 1rem 0'}
+                      value={this.state.login}
+                      onChange={this.handleLoginChange}
+                      label={'Логин'}/>
+                <Edit id={'passInput'} type={'password'}
+                      margin={'0 0 1rem 0'}
+                      value={this.state.pass}
+                      onChange={this.handlePassChange}
+                      label={'Пароль'}/>
+                <Edit id={'PassRepeatInput'} type={'password'}
+                      margin={'0 0 1rem 0'}
+                      value={this.state.passRepeat}
+                      onChange={this.handlePassRepeatChange}
+                      label={'Пароль еще раз'}/>
 
-                    <label htmlFor="display_name"><b>Имя пользователя</b></label>
-                    <input type="text" placeholder="Введите ваше имя" name="display_name" id="display_name"
-                           value={this.state.displayName}
-                           onChange={this.handleDisplayNameChange}/>
-
-                    <label htmlFor="pass"><b>Пароль</b></label>
-                    <input type="password" placeholder="Введите пароль" name="pass" id="pass"
-                           autoComplete="new-password"
-                           value={this.state.pass}
-                           onChange={this.handlePassChange}/>
-
-                    <label htmlFor="pass-repeat"><b>Пароль еще раз</b></label>
-                    <input type="password" placeholder="Повторите пароль" name="pass-repeat" id="pass-repeat"
-                           value={this.state.passRepeat}
-                           onChange={this.handlePassRepeatChange}/>
-
-                    <div className="validation-errors"
-                         style={{display: (this.state.errorText === '' ? 'none' : 'block')}}>
-                        {this.state.errorText}
-                    </div>
-
-                    <button className="apply-btn"
-                            onClick={this.handleSubmitClick}
-                            disabled={
-                                this.state.login       === '' ||
-                                this.state.displayName === '' ||
-                                this.state.pass        === '' ||
-                                this.state.passRepeat  === ''
-                            }>
-                        Зарегистрироваться
-                    </button>
+                <div className="validation-errors"
+                     style={{display: (this.state.errorText === '' ? 'none' : 'block')}}>
+                    {this.state.errorText}
                 </div>
 
-                <div className="container signin">
-                    <p>Уже есть аккаунт? <a href="login.html">Войти</a></p>
-                </div>
+                <button className="waves-effect waves-light btn"
+                        style={{width: '100%', margin: '1rem 0'}}
+                        onClick={this.handleSubmitClick}
+                        disabled={
+                            this.state.login       === '' ||
+                            this.state.displayName === '' ||
+                            this.state.pass        === '' ||
+                            this.state.passRepeat  === ''
+                        }>
+                    Зарегистрироваться
+                </button>
+
+                <p style={{textAlign: 'center'}}>
+                    Уже есть аккаунт? <a href="login.html">Войти</a>
+                </p>
             </div>
         );
     }

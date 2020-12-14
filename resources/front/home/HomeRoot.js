@@ -126,30 +126,28 @@ class HomeRoot extends React.Component {
 
     render() {
         return (
-            <>
+            <div style={{ height: '100%', display: 'flex', alignItems: 'flex-start'}}>
                 <HomeSideMenu checkedIndex={this.state.checkedIndex}
                               isInvites={this.state.invites?.length > 0}
                               onCheck={this.handleCheck}/>
-                {
+                <div className={'content'}>{
                     this.state.profile === undefined ||
                     this.state.rooms   === undefined ||
                     this.state.invites === undefined
-                        ? <div className="home__empty-page"><Loader/></div>
-                        : <div className="home__content">{
-                            NAVIGATION(this.state.checkedIndex, {
-                                profile: this.state.profile,
-                                rooms: this.state.rooms,
-                                invites: this.state.invites,
-                                updateUser: this.updateUser,
-                                updateRoomsByAdd: this.updateRoomsByAdd,
-                                updateRoomsByDelete: this.updateRoomsByDelete,
-                                updateRoomsByChange: this.updateRoomsByChange,
-                                updateInvitesByAccept: this.updateInvitesByAccept,
-                                updateInvitesByDecline: this.updateInvitesByDecline
-                            })
-                        }</div>
-                }
-            </>
+                        ? <Loader size={'big'} center={true}/>
+                        : NAVIGATION(this.state.checkedIndex, {
+                            profile: this.state.profile,
+                            rooms: this.state.rooms,
+                            invites: this.state.invites,
+                            updateUser: this.updateUser,
+                            updateRoomsByAdd: this.updateRoomsByAdd,
+                            updateRoomsByDelete: this.updateRoomsByDelete,
+                            updateRoomsByChange: this.updateRoomsByChange,
+                            updateInvitesByAccept: this.updateInvitesByAccept,
+                            updateInvitesByDecline: this.updateInvitesByDecline
+                        })
+                }</div>
+            </div>
         );
     }
 }

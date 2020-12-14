@@ -14,9 +14,9 @@ class RoomRoot extends React.Component {
     getCurrentTab() {
         const tab = new URLSearchParams(window.location.search).get('tab')?.toString();
         switch (tab) {
+            case 'management': return 0;
             case 'statistics': return 1;
-            case 'management': return 2;
-            default: return 0;
+            default: return 2;
         }
     }
 
@@ -26,7 +26,7 @@ class RoomRoot extends React.Component {
     }
 
     handleCheck = index => {
-        const tabs = ['table', 'statistics', 'management'];
+        const tabs = ['management', 'statistics', 'table'];
         const params = new URLSearchParams(window.location.search);
         params.set('tab', tabs[index]);
         window.history.pushState(
@@ -151,44 +151,26 @@ class RoomRoot extends React.Component {
 
     render() {
         return (
-            <>
+            <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>
                 <RoomTopMenu checkedIndex={this.state.checkedIndex}
                              onCheck={this.handleCheck}/>
-                {
+                <div className={'content'}
+                     style={[0,2].includes(this.state.checkedIndex) ? {padding: '0'} : null}>{
                     this.state.room         === undefined ||
                     this.state.members      === undefined ||
-                    // this.state.purchases    === undefined ||
                     this.state.invitedUsers === undefined
-                        ? <div className="room__empty-page"><Loader/></div>
-                        : <div className="room__content">{
-                            NAVIGATION(this.state.checkedIndex, {
-                                members: this.state.members,
-                                // purchases: this.state.purchases,
-                                invitedUsers: this.state.invitedUsers,
-                                room: this.state.room,
-                                updateMembersByRemove: this.updateMembersByRemove,
-                                updateInvitedUsersByRemove: this.updateInvitedUsersByRemove,
-                                updateInvitedUsersByAdd: this.updateInvitedUsersByAdd,
-                            })
-                        }</div>
-                }
-            </>
+                        ? <Loader size={'big'} center={true}/>
+                        : NAVIGATION(this.state.checkedIndex, {
+                            members: this.state.members,
+                            // purchases: this.state.purchases,
+                            invitedUsers: this.state.invitedUsers,
+                            room: this.state.room,
+                            updateMembersByRemove: this.updateMembersByRemove,
+                            updateInvitedUsersByRemove: this.updateInvitedUsersByRemove,
+                            updateInvitedUsersByAdd: this.updateInvitedUsersByAdd,
+                        })
+                }</div>
+            </div>
         )
     }
-
-    // render() {
-    //     if (this.state.isLoading) {
-    //         return <Loader/>
-    //     } else return (
-    //         <>
-    //             <RoomTopMenu checkedIndex={this.state.checkedIndex}
-    //                          onCheck={this.handleCheck}/>
-    //
-    //             <div className="room__content">
-    //                 {NAVIGATION(this.state.checkedIndex, this.state.members)}
-    //             </div>
-    //         </>
-    //
-    //     );
-    // }
 }

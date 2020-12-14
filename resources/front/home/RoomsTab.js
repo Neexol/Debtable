@@ -111,95 +111,60 @@ class RoomsTab extends React.Component {
         this.closeChangeRoomDialog();
     }
 
+    componentDidUpdate() {
+        M.updateTextFields();
+    }
+
     render() {
         return (
             <>
                 <RoomTiles rooms={this.props.rooms}
                            onDelete={this.openDeleteRoomDialog}
                            onChange={this.openChangeRoomDialog}/>
-                <button className="home__add-room-btn"
-                        style={{display: 'flex', alignItems: 'center'}}
+
+                <button className="btn-floating btn-large"
                         onClick={this.openAddRoomDialog}>
-                    <><i className="material-icons nav-icon">add_circle</i>Добавить комнату</>
+                    <i className="material-icons nav-icon">add</i>
                 </button>
 
-                <div id="addNewRoomDialog" className="modal"
-                     onClick={e => {if (e.target.id === 'addNewRoomDialog') this.closeAddRoomDialog()}}
-                     style={{display: this.state.addRoomDialogOpened ? 'block' : 'none'}}>
+                <Dialog id={'addNewRoomDialog'}
+                        onClose={this.closeAddRoomDialog}
+                        isOpen={this.state.addRoomDialogOpened}
+                        title={'Создать комнату'}>
+                    <EditButton id={'newRoomNameInput'}
+                                label={'Название комнаты'}
+                                editValue={this.state.newRoomName}
+                                onEditChange={this.handleRoomNameChange}
+                                onButtonClick={this.handleAddRoom}
+                                buttonDisabled={this.state.newRoomName === ''}
+                                buttonIcon={'add'}/>
+                </Dialog>
 
-                    <div className="modal-content">
-                        <span className="small-action-btn close-dialog-btn"
-                              onClick={this.closeAddRoomDialog}>
-                            <i className="material-icons">close</i>
-                        </span>
-
-                        <h2>Создать комнату</h2>
-
-                        <label htmlFor="room_name"><b>Название новой комнаты</b></label>
-                        <input type="text" placeholder="Название" name="room_name" id="room_name"
-                               value={this.state.newRoomName}
-                               onChange={this.handleRoomNameChange}/>
-
-                        <button type="submit" className="apply-btn"
-                                onClick={this.handleAddRoom}
-                                disabled={this.state.newRoomName === ''}>
-                            Создать
-                        </button>
-                    </div>
-                </div>
-
-                <div id="changeRoomDialog" className="modal"
-                     onClick={e => {if (e.target.id === 'changeRoomDialog') this.closeChangeRoomDialog()}}
-                     style={{display: this.state.changeRoomDialogOpened ? 'block' : 'none'}}>
-
-                    <div className="modal-content">
-                        <span className="small-action-btn close-dialog-btn"
-                              onClick={this.closeChangeRoomDialog}>
-                            <i className="material-icons">close</i>
-                        </span>
-
-                        <h2>Изменить название комнаты</h2>
-
-                        <label htmlFor="new_room_name"><b>Новое название для комнаты</b></label>
-                        <input type="text" placeholder="Название" name="new_room_name" id="new_room_name"
-                               value={this.state.updatedRoomName}
-                               onChange={this.handleUpdatedRoomNameChange}/>
-
-                        <button type="submit" className="apply-btn"
-                                onClick={this.handleChangeRoom}
-                                disabled={
+                <Dialog id={'changeRoomDialog'}
+                        onClose={this.closeChangeRoomDialog}
+                        isOpen={this.state.changeRoomDialogOpened}
+                        title={'Изменить название комнаты'}>
+                    <EditButton id={'changeRoomNameInput'}
+                                label={'Новое название'}
+                                editValue={this.state.updatedRoomName}
+                                onEditChange={this.handleUpdatedRoomNameChange}
+                                onButtonClick={this.handleChangeRoom}
+                                buttonDisabled={
                                     this.state.updatedRoomName === this.roomById(this.state.selectedRoomId).name ||
                                     this.state.updatedRoomName === ''
-                                }>
-                            Сохранить
-                        </button>
-                    </div>
-                </div>
+                                }
+                                buttonIcon={'save'}/>
+                </Dialog>
 
-                <div id="deleteRoomDialog" className="modal"
-                     onClick={e => {if (e.target.id === 'deleteRoomDialog') this.closeDeleteRoomDialog()}}
-                     style={{display: this.state.deleteRoomDialogOpened ? 'block' : 'none'}}>
+                <Dialog id={'deleteRoomDialog'}
+                        width={'40%'}
+                        onClose={this.closeDeleteRoomDialog}
+                        isOpen={this.state.deleteRoomDialogOpened}
+                        title={`Удалить комнату "${this.roomById(this.state.selectedRoomId).name}"?`}>
+                    <YesCancelButtons onYesClick={this.handleDeleteRoom}
+                                      onCancelClick={this.closeDeleteRoomDialog}/>
+                </Dialog>
 
-                    <div className="modal-content">
-                        <span className="small-action-btn close-dialog-btn"
-                              onClick={this.closeDeleteRoomDialog}>
-                            <i className="material-icons">close</i>
-                        </span>
-
-                        <h2>Удалить комнату "{this.roomById(this.state.selectedRoomId).name}"?</h2>
-
-                        <div style={{display: 'flex'}}>
-                            <button type="submit" className="apply-btn"
-                                    onClick={this.closeDeleteRoomDialog}>
-                                Отмена
-                            </button>
-                            <button type="submit" className="apply-btn"
-                                    onClick={this.handleDeleteRoom}>
-                                Да
-                            </button>
-                        </div>
-                    </div>
-                </div>
             </>
         );
     }
@@ -207,41 +172,40 @@ class RoomsTab extends React.Component {
 
 function RoomTiles(props) {
     return (
-        <>{
+        <div className={'cards-container'}>{
             props.rooms.length === 0 ? (<strong>Нет комнат</strong>) :
             props.rooms.map(room => (
                 <div key={room.id}
-                     className="card room-card"
+                     className="card-panel room-card hoverable"
                      onClick={e => {
                          // console.log(e.target.className.includes('edit-room-btn'));
                          // if (e.target.className === 'edit-room-btn' ||
                          //     e.target.className === 'delete-room-btn') return;
-                         if (e.target.className.includes('edit-room-btn') ||
-                             e.target.className.includes('delete-room-btn')) return;
+                         if (e.target.className.includes('small-action-btn')) return;
                          redirectToRoom(room.id);
                          // console.log(`click on "${room.name}" [id: ${room.id}]`);
                      }}>
 
                     <span className="room-tile-icons-container">
-                        <span className='material-icons small-action-btn edit-room-btn'
-                              style={{marginBottom: '0.3rem'}}
+                        <span className='material-icons small-action-btn small-icon positive'
+                              style={{marginBottom: '0.5rem'}}
                               onClick={() => props.onChange(room.id)}>
                             edit
                         </span>
-                        <span className="material-icons small-action-btn delete-room-btn"
+                        <span className="material-icons small-action-btn small-icon negative"
                               onClick={() => props.onDelete(room.id)}>
                             delete
                         </span>
                     </span>
                     
                     <b>{room.name}</b><br/>
-                    <span style={{display: 'flex', alignItems: 'center'}}>
-                        <i className="material-icons nav-icon">people</i>
+                    <span className={'neutral-text-colored'}
+                          style={{display: 'flex', alignItems: 'center', marginTop: '0.2rem'}}>
+                        <i className="material-icons nav-icon small-icon">people</i>
                         {room.members_number}
-                    </span><br/>
-                    id: {room.id}
+                    </span>
                 </div>
             ))
-        }</>
+        }</div>
     );
 }

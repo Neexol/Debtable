@@ -153,20 +153,24 @@ class ManagementTab extends React.Component {
     render() {
         return (
             <>
-                <div style={{display: 'flex', alignItems: 'center'}}>
-                    <span>Комната "<strong>{this.props.room.name}</strong>"</span>
-                    <button className="action-btn"
-                            onClick={() => this.setState({inviteUsersDialogOpened: true})}
-                            style={{display: 'flex', alignItems: 'center'}}>
-                        <><i className="material-icons nav-icon">person_add</i>Пригласить участников</>
-                    </button>
+                <div className={'top-content-container'}
+                     style={{padding: '1.5rem'}}>
+                    <div className={'align-center-horizontal'}
+                         style={{display: 'flex', alignItems: 'center'}}>
+                    <span style={{fontSize: '24pt'}}>
+                        Комната <b>{this.props.room.name}</b>
+                    </span>
+                        <button className="waves-effect waves-light btn"
+                                style={{margin: '0 0 0 1rem'}}
+                                onClick={() => this.setState({inviteUsersDialogOpened: true})}>
+                            <i className={'material-icons'}>person_add</i>
+                        </button>
+                    </div>
                 </div>
 
-                <hr/>
-
-                <div className="members-container">
-                    <span>
-                        Участники<br/>
+                <div className={'members-container align-center-horizontal'}>
+                    <span className={'users-col'}>
+                        <div className={'center-align title'}>Участники</div>
                         <MembersList members={this.props.members}
                                      onRemove={this.openRemoveMemberDialog}
                                      onLeaveRoom={this.openLeaveRoomDialog}
@@ -175,8 +179,8 @@ class ManagementTab extends React.Component {
                     </span>
                     {
                         this.props.invitedUsers.length ? (
-                            <span>
-                                Пришлашенные<br/>
+                            <span className={'users-col'}>
+                                <div className={'center-align title'}>Приглашенные</div>
                                 <MembersList members={this.props.invitedUsers}
                                              onRemove={this.openRemoveInvitedUserDialog}
                                              onLeaveRoom={this.openLeaveRoomDialog}
@@ -187,23 +191,42 @@ class ManagementTab extends React.Component {
                     }
                 </div>
 
-                <ConfirmDialog id="removeMemberDialog"
-                               display={this.state.removeMemberDialogOpened}
-                               onClose={this.closeRemoveMemberDialog}
-                               onConfirm={this.handleRemoveMember}
-                               text={`Кикнуть участника #${this.userById(this.state.selectedUserID).username}?`}/>
+                <Dialog id={'removeMemberDialog'}
+                        width={'40%'}
+                        onClose={this.closeRemoveMemberDialog}
+                        isOpen={this.state.removeMemberDialogOpened}
+                        title={
+                            'Исключить участника ' +
+                            LOGIN_SYMBOL +
+                            this.userById(this.state.selectedUserID).username +
+                            '?'
+                        }>
+                    <YesCancelButtons onYesClick={this.handleRemoveMember}
+                                      onCancelClick={this.closeRemoveMemberDialog}/>
+                </Dialog>
 
-                <ConfirmDialog id="removeInvitedUserDialog"
-                               display={this.state.removeInvitedUserDialogOpened}
-                               onClose={this.closeRemoveInvitedUserDialog}
-                               onConfirm={this.handleRemoveInvitedUser}
-                               text={`Отменить приглашение #${this.userById(this.state.selectedUserID).username}?`}/>
+                <Dialog id={'removeInvitedUserDialog'}
+                        width={'40%'}
+                        onClose={this.closeRemoveInvitedUserDialog}
+                        isOpen={this.state.removeInvitedUserDialogOpened}
+                        title={
+                            'Удалить приглашение для ' +
+                            LOGIN_SYMBOL +
+                            this.userById(this.state.selectedUserID).username +
+                            '?'
+                        }>
+                    <YesCancelButtons onYesClick={this.handleRemoveInvitedUser}
+                                      onCancelClick={this.closeRemoveInvitedUserDialog}/>
+                </Dialog>
 
-                <ConfirmDialog id="leaveRoomDialog"
-                               display={this.state.leaveRoomDialogOpened}
-                               onClose={this.closeLeaveRoomDialog}
-                               onConfirm={this.handleLeaveRoom}
-                               text='Вы действительно хотите покинуть комнату? А долги кто будет возвращать? А?'/>
+                <Dialog id={'leaveRoomDialog'}
+                        width={'40%'}
+                        onClose={this.closeLeaveRoomDialog}
+                        isOpen={this.state.leaveRoomDialogOpened}
+                        title={'Вы действительно хотите покинуть комнату?'}>
+                    <YesCancelButtons onYesClick={this.handleLeaveRoom}
+                                      onCancelClick={this.closeLeaveRoomDialog}/>
+                </Dialog>
 
                 <InviteUsersDialog id="inviteUsersDialog"
                                    whoIsUser={this.whoIsUser}
@@ -221,56 +244,33 @@ function MembersList(props) {
         <>{
             props.members.map(member => (
                 <div key={member.id}
-                     className={"member-card" + (member.id === getAuthorizedUserID() ? " self" : "")}
-                     style={{display: 'flex', alignItems: 'center'}}>
-                    <span>
-                        <strong>{member.display_name}</strong><br/>
-                        {LOGIN_SYMBOL}{member.username}
-                    </span>
+                     className={
+                         'card-panel user-card ' +
+                         (getAuthorizedUserID() === member.id ? 'self' : '')
+                     }>
 
-                    <span className="material-icons small-action-btn"
-                          style={{display: (props.isOnlyOneMember ? 'none' : 'block')}}
-                          onClick={() => {
-                              if (member.id === getAuthorizedUserID()) {
-                                  props.onLeaveRoom(member.id);
-                              } else {
-                                  props.onRemove(member.id);
-                              }
-                          }}>
-                        {props.removeIcon}
-                    </span>
+                    <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                        <span>
+                            <b>{member.display_name}</b><br/>
+                            <div className={'neutral-text-colored'}>{LOGIN_SYMBOL}{member.username}</div>
+                        </span>
+
+                        <span className="material-icons small-action-btn negative-text-colored"
+                              style={{display: (props.isOnlyOneMember ? 'none' : 'block')}}
+                              onClick={() => {
+                                  if (member.id === getAuthorizedUserID()) {
+                                      props.onLeaveRoom(member.id);
+                                  } else {
+                                      props.onRemove(member.id);
+                                  }
+                              }}>
+                            {props.removeIcon}
+                        </span>
+                    </div>
+
                 </div>
             ))
         }</>
-    );
-}
-
-function ConfirmDialog(props) {
-    return (
-        <div id={props.id} className="modal"
-             onClick={e => {if (e.target.id === props.id) props.onClose()}}
-             style={{display: props.display ? 'block' : 'none'}}>
-
-            <div className="modal-content">
-                <span className="small-action-btn close-dialog-btn"
-                      onClick={props.onClose}>
-                    <i className="material-icons">close</i>
-                </span>
-
-                <h2>{props.text}</h2>
-
-                <div style={{display: 'flex'}}>
-                    <button type="submit" className="apply-btn"
-                            onClick={props.onClose}>
-                        Отмена
-                    </button>
-                    <button type="submit" className="apply-btn"
-                            onClick={props.onConfirm}>
-                        Да
-                    </button>
-                </div>
-            </div>
-        </div>
     );
 }
 
@@ -305,35 +305,30 @@ class InviteUsersDialog extends React.Component {
 
     render() {
         return (
-            <div id={this.props.id} className="modal"
-                 onClick={e => {if (e.target.id === this.props.id) this.props.onClose()}}
-                 style={{display: this.props.display ? 'block' : 'none'}}>
+            <Dialog id={this.props.id}
+                    onClose={this.props.onClose}
+                    isOpen={this.props.display}
+                    title={'Пригласить участников'}>
 
-                <div className="modal-content">
+                <EditButton id={'searchUsersInput'}
+                            label={'Имя пользователя'}
+                            editValue={this.state.searchText}
+                            onEditChange={this.handleSearchTextChange}
+                            onButtonClick={this.handleSearch}
+                            buttonDisabled={this.state.searchText === ''}
+                            buttonIcon={'search'}
+                            margin={'0 0 1rem 0'}/>
 
-                    <span className="small-action-btn close-dialog-btn"
-                          onClick={this.props.onClose}>
-                        <i className="material-icons">close</i>
-                    </span>
-
-                    <div style={{display: "flex"}}>
-                        <input type="text" placeholder="Введите имя" name="search"
-                               style={{flexGrow: "1"}}
-                               value={this.state.searchText}
-                               onChange={this.handleSearchTextChange}/>
-                        <button className="action-btn"
-                                onClick={this.handleSearch}
-                                disabled={this.state.searchText === ''}
-                                style={{display: 'flex', alignItems: 'center'}}>
-                            <><i className="material-icons nav-icon">search</i>Поиск</>
-                        </button>
-                    </div>
-
-                    <div className="search-results-container">
-                        {
-                            this.state.searchResults === undefined ? '' : (
-                                !this.state.searchResults.length ? 'Пользователей не найдено :(' : (
-                                    this.state.searchResults.map(user => (
+                <div className="search-results-container">
+                    <table>
+                        <tbody>{
+                            this.state.searchResults === undefined
+                                ? <SearchResult text={' '}/>
+                                : (
+                                    !this.state.searchResults.length
+                                    ? <SearchResult text={'Пользователей не найдено :('}/>
+                                    : (
+                                        this.state.searchResults.map(user => (
                                         <SearchResult key={user.id}
                                                       user={user}
                                                       whoIsUser={this.props.whoIsUser(user.id)}
@@ -342,38 +337,40 @@ class InviteUsersDialog extends React.Component {
                                     ))
                                 )
                             )
-                        }
-                    </div>
-
+                        }</tbody>
+                    </table>
                 </div>
-            </div>
+            </Dialog>
         );
     }
 }
 
 function SearchResult(props) {
+    if (props.text) return <tr><td>{props.text}</td></tr>;
     return (
-        <div className="search-result">
+        <tr><td><div className="search-result">
             <span>
-                <strong>{props.user.display_name}</strong><br/>
-                {LOGIN_SYMBOL}{props.user.username}
+                <b>{props.user.display_name}</b><br/>
+                <div className={'neutral-text-colored'}>{LOGIN_SYMBOL}{props.user.username}</div>
             </span>
-
-            <button className={"invite-text-btn"+(props.whoIsUser === 'invitedUser' ? ' negative' : '')}
-                    onClick={() => {
-                        switch (props.whoIsUser) {
-                            case 'invitedUser': props.onCancelInvite(props.user.id); return;
-                            case 'user': props.onInviteUser(props.user.id); return;
+            {
+                props.whoIsUser === 'member'
+                    ? <div className={'neutral-text-colored'}>Уже в комнате</div>
+                    : <a className={props.whoIsUser === 'invitedUser' ? 'negative-text-colored' : ''}
+                         onClick={() => {
+                             switch (props.whoIsUser) {
+                                 case 'invitedUser': props.onCancelInvite(props.user.id); return;
+                                 case 'user': props.onInviteUser(props.user.id); return;
+                             }
+                         }}>
+                        {
+                            props.whoIsUser === 'member' ? 'Уже в комнате' : (
+                                props.whoIsUser === 'invitedUser' ? 'Отменить приглашение' :
+                                    'Пригласить'
+                            )
                         }
-                    }}
-                    disabled={props.whoIsUser === 'member'}>
-                {
-                    props.whoIsUser === 'member' ? 'Уже в комнате' : (
-                        props.whoIsUser === 'invitedUser' ? 'Отменить приглашение' :
-                            'Пригласить'
-                    )
-                }
-            </button>
-        </div>
+                    </a>
+            }
+        </div></td></tr>
     );
 }

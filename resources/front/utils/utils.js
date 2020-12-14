@@ -38,8 +38,6 @@ const ROUTE_PURCHASE = (roomID, purchaseID) => 'api/rooms/' + roomID + '/purchas
 // Statistics
 const ROUTE_STATISTICS = roomID => 'api/rooms/' + roomID + '/stats';
 
-const Loader = () => <div className="loader"/>;
-
 const getJWT = () => {
     let matches = document.cookie.match(new RegExp("(?:^|; )jwt_auth=([^;]*)"));
     return matches ? decodeURIComponent(matches[1]) : undefined;
@@ -94,3 +92,84 @@ const showErrorToast = (code, message) => M.toast({
     classes: "error-toast"
 })
 
+// const Loader = () => <div className="loader"/>;
+const Loader = props => (
+    <div className={props.center ? 'align-center' : null}>
+        <div className={`preloader-wrapper ${props.size} active`}>
+            <div className="spinner-layer spinner-green-only">
+                <div className="circle-clipper left">
+                    <div className="circle"/>
+                </div>
+                <div className="gap-patch">
+                    <div className="circle"/>
+                </div>
+                <div className="circle-clipper right">
+                    <div className="circle"/>
+                </div>
+            </div>
+        </div>
+    </div>
+);
+
+const Dialog = props => (
+    <div id={props.id} className="dialog"
+         onClick={e => {if (e.target.id === props.id) props.onClose()}}
+         style={{display: props.isOpen ? 'block' : 'none'}}>
+        <div className="dialog-content" style={{width: props.width}}>
+            <span className="small-action-btn close-dialog-btn"
+                  onClick={props.onClose}>
+                <i className="material-icons">close</i>
+            </span>
+            <h4 style={{marginBottom: '2rem'}}>{props.title}</h4>
+            {props.children}
+        </div>
+    </div>
+);
+
+const YesCancelButtons = props => (
+    <div style={{display: 'flex', flexDirection: 'row-reverse'}}>
+        <button className="waves-effect waves-light btn-flat"
+                onClick={props.onYesClick}>
+            Да
+        </button>
+        <button className="waves-effect waves-red btn-flat"
+                onClick={props.onCancelClick}>
+            Отмена
+        </button>
+    </div>
+);
+
+const EditButton = props => (
+    <div style={{ display: 'flex', alignItems: 'baseline', margin: props.margin}}>
+        <Edit id={props.id}
+              type={'text'}
+              value={props.editValue}
+              onChange={props.onEditChange}
+              label={props.label}/>
+        <div style={{margin: '0 0 0 1rem'}}>
+            <button className="waves-effect waves-light btn"
+                    onClick={props.onButtonClick}
+                    disabled={props.buttonDisabled}>
+                <i className="material-icons">{props.buttonIcon}</i>
+            </button>
+        </div>
+    </div>
+);
+
+const Edit = props => (
+    <div className="input-field"
+         style={{flexGrow: '1', margin: (props.margin ? props.margin : '0')}}>
+        <input type={props.type}
+               value={props.value}
+               onChange={props.onChange}
+               id={props.id}/>
+        <label htmlFor={props.id}>{props.label}</label>
+    </div>
+);
+
+const IconWithText = props => (
+    (<span className={'icon-with-text'}>
+        <i className="material-icons nav-icon">{props.icon}</i>
+        {props.text}
+    </span>)
+);
