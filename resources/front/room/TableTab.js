@@ -164,47 +164,51 @@ class DebtsTable extends React.Component {
     render() {
         return (
             <>
-                <table className={"highlight centered"}>
-                    <thead>{DebtsTableHeaders}</thead>
-                    <tbody className={'scrollable'}>{
-                        this.props.purchases.map(purchase => (
-                            <tr key={purchase.id}
-                                style={{cursor: 'pointer'}}
-                                onClick={e => {
-                                    if (e.target.className.includes('btn')) return;
-                                    this.openEditPurchaseDialog(purchase)
-                                }}>
-                                <td className='valign-wrapper'
-                                    style={{flexWrap: 'wrap'}}>{
-                                    purchase.debtors.map(debtor => (
-                                        <div key={debtor.id}
-                                             className='chip'
-                                             title={LOGIN_SYMBOL+debtor.username}>
-                                            {debtor.display_name}
-                                        </div>
-                                    ))
-                                }</td>
-                                <td style={{width: '25%', wordWrap: 'anywhere'}}>
-                                    {purchase.name}
-                                </td>
-                                <td style={{width: '15%'}}>
-                                    <div className='chip'
-                                         title={LOGIN_SYMBOL+purchase.buyer.username}>
-                                        {purchase.buyer.display_name}
-                                    </div>
-                                </td>
-                                <td style={{width: '15%'}}>{purchase.debt}</td>
-                                <td style={{width: '15%'}}>{purchase.date}</td>
-                                <td style={{width: '5%'}}>
-                                    <button className="waves-effect waves-red material-icons btn-flat delete"
-                                            onClick={() => this.openDeletePurchaseDialog(purchase)}>
-                                        delete_outline
-                                    </button>
-                                </td>
-                            </tr>
-                        ))
-                    }</tbody>
-                </table>
+                {
+                    !this.props.purchases.length ? null : (
+                        <table className={"highlight centered"}>
+                            <thead>{DebtsTableHeaders}</thead>
+                            <tbody className={'scrollable'}>{
+                                this.props.purchases.map(purchase => (
+                                    <tr key={purchase.id}
+                                        style={{cursor: 'pointer'}}
+                                        onClick={e => {
+                                            if (e.target.className.includes('btn')) return;
+                                            this.openEditPurchaseDialog(purchase)
+                                        }}>
+                                        <td className='valign-wrapper'
+                                            style={{flexWrap: 'wrap'}}>{
+                                            purchase.debtors.map(debtor => (
+                                                <div key={debtor.id}
+                                                     className='chip'
+                                                     title={LOGIN_SYMBOL+debtor.username}>
+                                                    {debtor.display_name}
+                                                </div>
+                                            ))
+                                        }</td>
+                                        <td style={{width: '25%', wordWrap: 'anywhere'}}>
+                                            {purchase.name}
+                                        </td>
+                                        <td style={{width: '15%'}}>
+                                            <div className='chip'
+                                                 title={LOGIN_SYMBOL+purchase.buyer.username}>
+                                                {purchase.buyer.display_name}
+                                            </div>
+                                        </td>
+                                        <td style={{width: '15%'}}>{purchase.debt}</td>
+                                        <td style={{width: '15%'}}>{purchase.date}</td>
+                                        <td style={{width: '5%'}}>
+                                            <button className="waves-effect waves-red material-icons btn-flat delete"
+                                                    onClick={() => this.openDeletePurchaseDialog(purchase)}>
+                                                delete_outline
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))
+                            }</tbody>
+                        </table>
+                    )
+                }
 
                 <Dialog id={'editPurchaseDialog'}
                         width={'70%'}
@@ -237,32 +241,6 @@ class DebtsTable extends React.Component {
                     <YesCancelButtons onYesClick={this.handleDeletePurchase}
                                       onCancelClick={this.closeDeletePurchaseDialog}/>
                 </Dialog>
-
-                {/*<div id="deletePurchaseDialog" className="dialog"*/}
-                {/*     onClick={e => {if (e.target.id === 'deletePurchaseDialog') this.closeDeletePurchaseDialog()}}*/}
-                {/*     style={{display: this.state.deletePurchaseDialogOpened ? 'block' : 'none'}}>*/}
-
-                {/*    <div className="dialog-content">*/}
-                {/*        <span className="small-action-btn close-dialog-btn"*/}
-                {/*              onClick={this.closeDeletePurchaseDialog}>*/}
-                {/*            <i className="material-icons">close</i>*/}
-                {/*        </span>*/}
-
-                {/*        <h4>Удалить покупку "{this.state.selectedPurchase?.name}"?</h4>*/}
-
-                {/*        <div style={{display: 'flex', flexDirection: 'row-reverse'}}>*/}
-                {/*            <button className="waves-effect waves-light btn-flat"*/}
-                {/*                    onClick={this.handleDeletePurchase}>*/}
-                {/*                да блять*/}
-                {/*            </button>*/}
-                {/*            <button className="waves-effect waves-light btn-flat"*/}
-                {/*                    onClick={this.closeDeletePurchaseDialog}>*/}
-                {/*                отмена*/}
-                {/*            </button>*/}
-                {/*        </div>*/}
-
-                {/*    </div>*/}
-                {/*</div>*/}
             </>
         );
     }
