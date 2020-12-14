@@ -36,7 +36,7 @@ class TableTab extends React.Component {
     render() {
         return (
             <div style={{height: '100%', display: 'flex', flexDirection: 'column'}}>
-                <div className={'add-form-container'}>
+                <div className={'top-content-container'}>
                     <AddRecordForm purchases={this.state.purchases === undefined ? [] : this.state.purchases}
                                    purchase={this.state.selectedPurchase}
                                    members={this.props.members}

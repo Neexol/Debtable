@@ -32,6 +32,12 @@ html, body, #root {
     top: 50%;
     transform: translate(-50%, -50%);
 }
+.align-center-horizontal {
+    position: relative;
+    width: max-content;
+    left: 50%;
+    transform: translateX(-50%);
+}
 
 
 .no-select {

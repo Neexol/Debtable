@@ -95,7 +95,7 @@
     /*float: left;*/
 }
 
-.add-form-container {
+.top-content-container {
     background: white;
     box-shadow: 0 0 1rem -0.2rem rgba(0, 0, 0, 0.5);
     padding: 3rem 1.5rem 1.5rem 1.5rem;
@@ -194,25 +194,46 @@
 /*}*/
 
 
-.member-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    background: #fffbe4;
-    position: relative;
-    margin: 0.5rem;
-    border-radius: 0.3rem;
+.user-card {
+    margin: 0.5rem 1rem;
     padding: 1rem;
-    box-shadow:0 0.5rem 1rem -0.2rem #dddddd;
-    width: 10rem;
 }
-.member-card.self {
-    background: gold;
+.user-card.self {
+    border-left: 0.5rem solid var(--accent-color);
 }
+
+/*.member-card {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: space-between;*/
+
+/*    background: #fffbe4;*/
+/*    position: relative;*/
+/*    margin: 0.5rem;*/
+/*    border-radius: 0.3rem;*/
+/*    padding: 1rem;*/
+/*    box-shadow:0 0.5rem 1rem -0.2rem #dddddd;*/
+/*    width: 10rem;*/
+/*}*/
+/*.member-card.self {*/
+/*    background: gold;*/
+/*}*/
+
 .members-container {
     display: flex;
     align-items: start;
+}
+
+.members-container .users-col {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 20vw;
+}
+
+.users-col .title {
+    margin: 1rem 0;
+    font-weight: bold;
 }
 
 .search-results-container {
@@ -242,23 +263,23 @@
     /*padding: 0 0.2rem;*/
 }
 
-.invite-text-btn {
-    background: none;
-    border: none;
-    color: gold;
-    text-decoration: underline;
-    cursor: pointer;
-}
-.invite-text-btn:hover:not(:disabled) {
-    opacity: 0.6;
-}
-.invite-text-btn.negative {
-    color: darkred;
-}
-.invite-text-btn:disabled {
-    color: #888888;
-    cursor: auto;
-}
+/*.invite-text-btn {*/
+/*    background: none;*/
+/*    border: none;*/
+/*    color: gold;*/
+/*    text-decoration: underline;*/
+/*    cursor: pointer;*/
+/*}*/
+/*.invite-text-btn:hover:not(:disabled) {*/
+/*    opacity: 0.6;*/
+/*}*/
+/*.invite-text-btn.negative {*/
+/*    color: darkred;*/
+/*}*/
+/*.invite-text-btn:disabled {*/
+/*    color: #888888;*/
+/*    cursor: auto;*/
+/*}*/
 
 
 

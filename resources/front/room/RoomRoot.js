@@ -155,7 +155,7 @@ class RoomRoot extends React.Component {
                 <RoomTopMenu checkedIndex={this.state.checkedIndex}
                              onCheck={this.handleCheck}/>
                 <div className={'content'}
-                     style={this.state.checkedIndex === 2 ? {padding: '0'} : null}>{
+                     style={[0,2].includes(this.state.checkedIndex) ? {padding: '0'} : null}>{
                     this.state.room         === undefined ||
                     this.state.members      === undefined ||
                     this.state.invitedUsers === undefined
