@@ -26,7 +26,7 @@ class RoomRoot extends React.Component {
     }
 
     handleCheck = index => {
-        const tabs = ['table', 'statistics', 'management'];
+        const tabs = ['management', 'statistics', 'table'];
         const params = new URLSearchParams(window.location.search);
         params.set('tab', tabs[index]);
         window.history.pushState(
