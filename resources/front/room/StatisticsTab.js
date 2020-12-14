@@ -61,6 +61,7 @@ class StatisticsTab extends React.Component {
                 }]
             },
             options: {
+                maintainAspectRatio: false,
                 legend: {
                     display: false
                 },
@@ -77,7 +78,9 @@ class StatisticsTab extends React.Component {
 
     render() {
         return (
-            <canvas className={'diagram'} id={'statsCanvas'}/>
+            <div className="chart-container">
+                <canvas id={'statsCanvas'}/>
+            </div>
         );
     }
 }
