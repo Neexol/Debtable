@@ -236,3 +236,7 @@ table.highlight > tbody > tr:hover {
 .nav-icon {
     margin-right: 0.3rem;
 }
+
+tr:last-of-type {
+    border-bottom: none;
+}

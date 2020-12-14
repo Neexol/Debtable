@@ -305,35 +305,44 @@ class InviteUsersDialog extends React.Component {
 
     render() {
         return (
-            <div id={this.props.id} className="modal"
-                 onClick={e => {if (e.target.id === this.props.id) this.props.onClose()}}
-                 style={{display: this.props.display ? 'block' : 'none'}}>
+            <Dialog id={this.props.id}
+                    onClose={this.props.onClose}
+                    isOpen={this.props.display}
+                    title={'Пригласить участников'}>
 
-                <div className="modal-content">
 
-                    <span className="small-action-btn close-dialog-btn"
-                          onClick={this.props.onClose}>
-                        <i className="material-icons">close</i>
-                    </span>
+                <EditButton id={'searchUsersInput'}
+                            label={'Имя пользователя'}
+                            editValue={this.state.searchText}
+                            onEditChange={this.handleSearchTextChange}
+                            onButtonClick={this.handleSearch}
+                            buttonDisabled={this.state.searchText === ''}
+                            buttonIcon={'search'}
+                            margin={'0 0 1rem 0'}/>
 
-                    <div style={{display: "flex"}}>
-                        <input type="text" placeholder="Введите имя" name="search"
-                               style={{flexGrow: "1"}}
-                               value={this.state.searchText}
-                               onChange={this.handleSearchTextChange}/>
-                        <button className="action-btn"
-                                onClick={this.handleSearch}
-                                disabled={this.state.searchText === ''}
-                                style={{display: 'flex', alignItems: 'center'}}>
-                            <><i className="material-icons nav-icon">search</i>Поиск</>
-                        </button>
-                    </div>
+                {/*<div style={{display: "flex"}}>*/}
+                {/*    <input type="text" placeholder="Введите имя" name="search"*/}
+                {/*           style={{flexGrow: "1"}}*/}
+                {/*           value={this.state.searchText}*/}
+                {/*           onChange={this.handleSearchTextChange}/>*/}
+                {/*    <button className="action-btn"*/}
+                {/*            onClick={this.handleSearch}*/}
+                {/*            disabled={this.state.searchText === ''}*/}
+                {/*            style={{display: 'flex', alignItems: 'center'}}>*/}
+                {/*        <><i className="material-icons nav-icon">search</i>Поиск</>*/}
+                {/*    </button>*/}
+                {/*</div>*/}
 
-                    <div className="search-results-container">
-                        {
-                            this.state.searchResults === undefined ? '' : (
-                                !this.state.searchResults.length ? 'Пользователей не найдено :(' : (
-                                    this.state.searchResults.map(user => (
+                <div className="search-results-container">
+                    <table>
+                        <tbody>{
+                            this.state.searchResults === undefined
+                                ? <SearchResult text={' '}/>
+                                : (
+                                    !this.state.searchResults.length
+                                    ? <SearchResult text={'Пользователей не найдено :('}/>
+                                    : (
+                                        this.state.searchResults.map(user => (
                                         <SearchResult key={user.id}
                                                       user={user}
                                                       whoIsUser={this.props.whoIsUser(user.id)}
@@ -342,38 +351,104 @@ class InviteUsersDialog extends React.Component {
                                     ))
                                 )
                             )
-                        }
-                    </div>
-
+                        }</tbody>
+                    </table>
                 </div>
-            </div>
+            </Dialog>
+
+            // <div id={this.props.id} className="modal"
+            //      onClick={e => {if (e.target.id === this.props.id) this.props.onClose()}}
+            //      style={{display: this.props.display ? 'block' : 'none'}}>
+            //
+            //     <div className="modal-content">
+            //
+            //         <span className="small-action-btn close-dialog-btn"
+            //               onClick={this.props.onClose}>
+            //             <i className="material-icons">close</i>
+            //         </span>
+            //
+            //         <div style={{display: "flex"}}>
+            //             <input type="text" placeholder="Введите имя" name="search"
+            //                    style={{flexGrow: "1"}}
+            //                    value={this.state.searchText}
+            //                    onChange={this.handleSearchTextChange}/>
+            //             <button className="action-btn"
+            //                     onClick={this.handleSearch}
+            //                     disabled={this.state.searchText === ''}
+            //                     style={{display: 'flex', alignItems: 'center'}}>
+            //                 <><i className="material-icons nav-icon">search</i>Поиск</>
+            //             </button>
+            //         </div>
+            //
+            //         <div className="search-results-container">
+            //             {
+            //                 this.state.searchResults === undefined ? '' : (
+            //                     !this.state.searchResults.length ? 'Пользователей не найдено :(' : (
+            //                         this.state.searchResults.map(user => (
+            //                             <SearchResult key={user.id}
+            //                                           user={user}
+            //                                           whoIsUser={this.props.whoIsUser(user.id)}
+            //                                           onInviteUser={this.props.onInviteUser}
+            //                                           onCancelInvite={this.props.onCancelInvite}/>
+            //                         ))
+            //                     )
+            //                 )
+            //             }
+            //         </div>
+            //
+            //     </div>
+            // </div>
         );
     }
 }
 
 function SearchResult(props) {
+    if (props.text) return <tr><td>{props.text}</td></tr>;
     return (
-        <div className="search-result">
+        <tr><td>
+            <div className="search-result">
             <span>
-                <strong>{props.user.display_name}</strong><br/>
+                <b>{props.user.display_name}</b><br/>
                 {LOGIN_SYMBOL}{props.user.username}
             </span>
 
-            <button className={"invite-text-btn"+(props.whoIsUser === 'invitedUser' ? ' negative' : '')}
-                    onClick={() => {
-                        switch (props.whoIsUser) {
-                            case 'invitedUser': props.onCancelInvite(props.user.id); return;
-                            case 'user': props.onInviteUser(props.user.id); return;
+            {
+                props.whoIsUser === 'member'
+                    ? <div className={'neutral-text-colored'}>Уже в комнате</div>
+                    : <a className={props.whoIsUser === 'invitedUser' ? 'negative-text-colored' : ''}
+                         onClick={() => {
+                             switch (props.whoIsUser) {
+                                 case 'invitedUser': props.onCancelInvite(props.user.id); return;
+                                 case 'user': props.onInviteUser(props.user.id); return;
+                             }
+                         }}>
+                        {
+                            props.whoIsUser === 'member' ? 'Уже в комнате' : (
+                                props.whoIsUser === 'invitedUser' ? 'Отменить приглашение' :
+                                    'Пригласить'
+                            )
                         }
-                    }}
-                    disabled={props.whoIsUser === 'member'}>
-                {
-                    props.whoIsUser === 'member' ? 'Уже в комнате' : (
-                        props.whoIsUser === 'invitedUser' ? 'Отменить приглашение' :
-                            'Пригласить'
-                    )
-                }
-            </button>
-        </div>
+                    </a>
+            }
+
+
+                {/*<button className={"invite-text-btn"+(props.whoIsUser === 'invitedUser' ? ' negative' : '')}*/}
+                {/*        onClick={() => {*/}
+                {/*            switch (props.whoIsUser) {*/}
+                {/*                case 'invitedUser': props.onCancelInvite(props.user.id); return;*/}
+                {/*                case 'user': props.onInviteUser(props.user.id); return;*/}
+                {/*            }*/}
+                {/*        }}*/}
+                {/*        disabled={props.whoIsUser === 'member'}>*/}
+                {/*    {*/}
+                {/*        props.whoIsUser === 'member' ? 'Уже в комнате' : (*/}
+                {/*            props.whoIsUser === 'invitedUser' ? 'Отменить приглашение' :*/}
+                {/*                'Пригласить'*/}
+                {/*        )*/}
+                {/*    }*/}
+                {/*</button>*/}
+            </div>
+        </td></tr>
+
     );
 }

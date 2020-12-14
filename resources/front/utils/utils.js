@@ -140,7 +140,7 @@ const YesCancelButtons = props => (
 );
 
 const EditButton = props => (
-    <div style={{ display: 'flex', alignItems: 'baseline'}}>
+    <div style={{ display: 'flex', alignItems: 'baseline', margin: props.margin}}>
         <Edit id={props.id}
               type={'text'}
               value={props.editValue}

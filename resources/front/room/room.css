@@ -215,6 +215,22 @@
     align-items: start;
 }
 
+.search-results-container {
+    height: 15.5rem;
+    /*overflow: scroll;*/
+    overflow-x: hidden;
+    overflow-y: auto;
+    /*box-shadow: inset 0 0 1rem rgba(0,0,0,0.1);*/
+    /*padding: 0 1rem;*/
+}
+
+.search-results-container td {
+    padding: 1rem 1rem;
+}
+
+.search-results-container table {
+    z-index: -1;
+}
 
 .search-result {
     display: flex;
@@ -222,8 +238,8 @@
     justify-content: space-between;
 
     position: relative;
-    margin: 0.5rem;
-    padding: 1rem;
+    /*margin: 0.5rem;*/
+    /*padding: 0 0.2rem;*/
 }
 
 .invite-text-btn {
@@ -245,12 +261,6 @@
 }
 
 
-.search-results-container {
-    height: 10rem;
-    overflow: scroll;
-    overflow-x: hidden;
-    overflow-y: auto;
-}
 
 
 
