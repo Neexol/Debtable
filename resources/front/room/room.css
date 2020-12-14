@@ -83,10 +83,13 @@
 .content {
     height: 100%;
     width: 100%;
+    max-height: initial;
     padding: 1.5rem;
     background: var(--content-container-background);
     box-shadow:-0.5rem 0 1rem -0.2rem rgba(0, 0, 0, 0.5);
     overflow-y: auto;
+
+    /*float: left;*/
 }
 
 

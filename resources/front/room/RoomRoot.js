@@ -151,7 +151,7 @@ class RoomRoot extends React.Component {
 
     render() {
         return (
-            <div style={{ width: '100%', display: 'flex', flexDirection: 'column'}}>
+            <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>
                 <RoomTopMenu checkedIndex={this.state.checkedIndex}
                              onCheck={this.handleCheck}/>
                 <div className={'content'}>{
