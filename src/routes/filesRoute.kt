@@ -10,5 +10,6 @@ fun Route.filesRoute() {
         resource("/home", "front/home/home.html")
         resource("/register", "front/auth/register.html")
         resource("/login", "front/auth/login.html")
+        resource("/room", "front/room/room.html")
     }
 }
