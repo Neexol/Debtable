@@ -47,9 +47,9 @@ const setJWT = jwt => document.cookie = 'jwt_auth=' + (
         : encodeURIComponent(jwt)
 ) + ';path=/';
 
-const redirectToLogin = () => location.replace(HOST_URL+'auth/login.html');
-const redirectToHome  = () => location.replace(HOST_URL+'home/home.html');
-const redirectToRoom  = id => location.replace(HOST_URL+'room/room.html?room='+id);
+const redirectToLogin = () => location.replace(HOST_URL+'login');
+const redirectToHome  = () => location.replace(HOST_URL+'home');
+const redirectToRoom  = id => location.replace(HOST_URL+'room?id='+id);
 
 const sendRequest = (path, method, body, onSuccess, onError) => $.ajax(HOST_URL+path, {
     type: method,

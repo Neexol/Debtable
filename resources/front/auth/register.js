@@ -91,7 +91,7 @@ class AuthorizationRoot extends React.Component {
                 </button>
 
                 <p style={{textAlign: 'center'}}>
-                    Уже есть аккаунт? <a href="login.html">Войти</a>
+                    Уже есть аккаунт? <a href={'login'}>Войти</a>
                 </p>
             </div>
         );

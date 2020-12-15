@@ -73,7 +73,7 @@ class AuthorizationRoot extends React.Component {
                 </button>
 
                 <p style={{textAlign: 'center'}}>
-                    Впервые на Debtable? <a href="register.html">Регистрация</a>
+                    Впервые на Debtable? <a href={'register'}>Регистрация</a>
                 </p>
             </div>
         );
