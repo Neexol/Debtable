@@ -78,7 +78,7 @@ class DebtsTable extends React.Component {
         editPurchaseDialogOpened: true,
         debtors: purchase.debtors.map(debtor => debtor.id),
         purchaseName: purchase.name,
-        cost: purchase.debt,
+        cost: purchase.cost,
         buyer: purchase.buyer.id,
     });
     closeEditPurchaseDialog = () => this.setState({
