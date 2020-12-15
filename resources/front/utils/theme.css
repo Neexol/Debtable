@@ -1,0 +1,11 @@
+:root {
+    --accent-color: #7cb342;
+    --accent-color-hover: #5a9216;
+    --dialog-background: white;
+    --neutral-color: rgba(0, 0, 0, 0.5);
+    --dark-color: #323232;
+    --text-color: black;
+    --negative-text-color: #ff3b30;
+    --card-backgound: white;
+    --content-container-background: #f1f1f1;
+}
