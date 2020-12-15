@@ -20,7 +20,7 @@ class RoomRoot extends React.Component {
     }
 
     getRoomID() {
-        const tab = new URLSearchParams(window.location.search).get('room');
+        const tab = new URLSearchParams(window.location.search).get('id');
         return Number.parseInt(tab);
     }
 
