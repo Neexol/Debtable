@@ -8,6 +8,7 @@ data class PurchaseResponse(
     @SerializedName("id") val id: Int,
     @SerializedName("name") val name: String,
     @SerializedName("debt") val debt: Float,
+    @SerializedName("cost") val cost: Float,
     @SerializedName("date") val date: String,
     @SerializedName("buyer") val buyer: UserResponse,
     @SerializedName("debtors") val debtors: List<UserResponse>
@@ -16,6 +17,7 @@ data class PurchaseResponse(
         purchase.id.value,
         purchase.name,
         purchase.debt,
+        purchase.debt * transaction { purchase.debtors.count() },
         purchase.date,
         UserResponse(transaction { purchase.buyer }),
         transaction { purchase.debtors.map { UserResponse(it) } },
