@@ -8,6 +8,9 @@
     --text-color: black;
     --negative-text-color: #ff3b30;
 
+    --active-text-color: rgba(255, 255, 255, 1);
+    --inactive-text-color: rgba(255, 255, 255, 0.5);
+
     --dialog-background: white;
     --card-backgound: white;
     --content-container-background: #f1f1f1;
