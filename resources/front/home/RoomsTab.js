@@ -48,7 +48,7 @@ class RoomsTab extends React.Component {
     handleUpdatedRoomNameChange = e => this.setState({updatedRoomName: e.target.value});
 
     handleAddRoom = () => {
-        sendPost(ROUTE_ROOMS, JSON.stringify({
+        sendPost(ROUTE_CREATE_ROOM, JSON.stringify({
             name: this.state.newRoomName
         }), response => {
             this.props.updateRoomsByAdd(response);
@@ -178,12 +178,7 @@ function RoomTiles(props) {
                 <div key={room.id}
                      className="card-panel room-card hoverable"
                      onClick={e => {
-                         // console.log(e.target.className.includes('edit-room-btn'));
-                         // if (e.target.className === 'edit-room-btn' ||
-                         //     e.target.className === 'delete-room-btn') return;
-                         if (e.target.className.includes('small-action-btn')) return;
-                         redirectToRoom(room.id);
-                         // console.log(`click on "${room.name}" [id: ${room.id}]`);
+                         if (!e.target.className.includes('small-action-btn')) redirectToRoom(room.id);
                      }}>
 
                     <span className="room-tile-icons-container">

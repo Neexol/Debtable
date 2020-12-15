@@ -55,13 +55,8 @@ function InviteTiles(props) {
             props.invites.length === 0 ? (<strong>Нет приглашений</strong>) :
                 props.invites.map(room => (
                     <div key={room.id}
-                         className="card-panel invite-card"
-                         onClick={e => {
-                             if (e.target.className.includes('btn')) return;
-                             // console.log(`click on "${room.name}" [id: ${room.id}]`);
-                         }}>
+                         className="card-panel invite-card">
 
-                        {/*<div style={{width: 'max-content'}}>*/}
                         <div>
                             Приглашение в комнату "<b>{room.name}</b>"<br/>
                             <span className={'neutral-text-colored'}
@@ -69,19 +64,10 @@ function InviteTiles(props) {
                                 <i className="material-icons small-icon nav-icon">people</i>
                                 {room.members_number}
                             </span><br/>
-                            {/*id: {room.id}<br/>*/}
                         </div>
 
 
                         <div className={'row action-section'}>
-                            {/*<button className="waves-effect waves-light btn-flat col s6"*/}
-                            {/*        onClick={() => props.onDeclineInviteClick(room.id)}>*/}
-                            {/*    Отклонить*/}
-                            {/*</button>*/}
-                            {/*<button className="waves-effect waves-light btn col s6"*/}
-                            {/*        onClick={() => props.onAcceptInviteClick(room.id)}>*/}
-                            {/*    Принять*/}
-                            {/*</button>*/}
                             <a className="col s6"
                                onClick={() => props.onAcceptInviteClick(room.id)}>
                                 Принять

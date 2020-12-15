@@ -6,7 +6,6 @@ class RoomRoot extends React.Component {
             checkedIndex: this.getCurrentTab(),
             room: undefined,
             members: undefined,
-            // purchases: undefined,
             invitedUsers: undefined,
         };
     }
@@ -97,28 +96,6 @@ class RoomRoot extends React.Component {
             }
         }
     );
-    // getPurchases = () => sendGet(ROUTE_PURCHASES(this.state.roomID),
-    //     response => {
-    //         this.setState({purchases: response});
-    //     },
-    //     response => {
-    //         switch (response.status) {
-    //             case 401:
-    //                 redirectToLogin();
-    //                 break;
-    //             case 403:
-    //                 showErrorToast(response.status, 'Ошибка доступа к комнате');
-    //                 redirectToHome();
-    //                 break;
-    //             case 404:
-    //                 showErrorToast(response.status, 'Комната не найдена');
-    //                 break;
-    //             default:
-    //                 showErrorToast(response.status, 'Ошибка загрузки списка покупок');
-    //                 break;
-    //         }
-    //     }
-    // );
     getRoom = () => sendGet(ROUTE_ROOM(this.state.roomID),
         response => {
             this.setState({room: response});
@@ -145,7 +122,6 @@ class RoomRoot extends React.Component {
     componentDidMount() {
         this.getRoom();
         this.getMembers();
-        // this.getPurchases();
         this.getInvitedUsers();
     }
 
@@ -162,7 +138,6 @@ class RoomRoot extends React.Component {
                         ? <Loader size={'big'} center={true}/>
                         : NAVIGATION(this.state.checkedIndex, {
                             members: this.state.members,
-                            // purchases: this.state.purchases,
                             invitedUsers: this.state.invitedUsers,
                             room: this.state.room,
                             updateMembersByRemove: this.updateMembersByRemove,

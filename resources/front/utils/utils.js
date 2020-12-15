@@ -1,5 +1,3 @@
-// const BASE_URL = "https://devtable.herokuapp.com";
-// const BASE_URL = "http://localhost:8080";
 const BASE_URL = location.origin;
 const HOST_URL = BASE_URL + "/";
 const LOGIN_SYMBOL = '@';
@@ -41,7 +39,7 @@ const ROUTE_STATISTICS = roomID => 'api/rooms/' + roomID + '/stats';
 const getJWT = () => {
     let matches = document.cookie.match(new RegExp("(?:^|; )jwt_auth=([^;]*)"));
     return matches ? decodeURIComponent(matches[1]) : undefined;
-}
+};
 
 const setJWT = jwt => document.cookie = 'jwt_auth=' + (
     jwt === undefined
@@ -85,14 +83,13 @@ const getCurrentDate = () => {
     const mm = String(today.getMonth() + 1).padStart(2, '0');
     const yyyy = today.getFullYear();
     return dd + '.' + mm + '.' + yyyy;
-}
+};
 
 const showErrorToast = (code, message) => M.toast({
     html: code + ': ' + message,
     classes: "error-toast"
-})
+});
 
-// const Loader = () => <div className="loader"/>;
 const Loader = props => (
     <div className={props.center ? 'align-center' : null}>
         <div className={`preloader-wrapper ${props.size} active`}>
@@ -168,8 +165,8 @@ const Edit = props => (
 );
 
 const IconWithText = props => (
-    (<span className={'icon-with-text'}>
+    <span className={'icon-with-text'}>
         <i className="material-icons nav-icon">{props.icon}</i>
         {props.text}
-    </span>)
+    </span>
 );

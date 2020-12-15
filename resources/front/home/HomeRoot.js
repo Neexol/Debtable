@@ -75,8 +75,6 @@ class HomeRoot extends React.Component {
                     redirectToLogin();
                     break;
                 default:
-                    // alert("error "+response.status);
-                    // console.log("error "+response.status);
                     showErrorToast(response.status, 'Ошибка загрузки профиля');
                     break;
             }
@@ -92,8 +90,6 @@ class HomeRoot extends React.Component {
                     redirectToLogin();
                     break;
                 default:
-                    // alert("error "+response.status);
-                    // console.log("error "+response.status);
                     showErrorToast(response.status, 'Ошибка загрузки комнат');
                     break;
             }
@@ -102,7 +98,6 @@ class HomeRoot extends React.Component {
     getInvites = () => sendGet(ROUTE_INVITES_OF_USER,
         response => {
             this.setState({invites: response});
-            // response.rooms.forEach(room => console.log('\ninvite to '+room.name+` [${room.id}]`));
         },
         response => {
             switch (response.status) {
@@ -110,8 +105,6 @@ class HomeRoot extends React.Component {
                     redirectToLogin();
                     break;
                 default:
-                    // alert("error "+response.status);
-                    // console.log("error "+response.status);
                     showErrorToast(response.status, 'Ошибка загрузки приглашений');
                     break;
             }

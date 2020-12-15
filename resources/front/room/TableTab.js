@@ -103,7 +103,6 @@ class DebtsTable extends React.Component {
             buyer_id: this.state.buyer,
             debtor_ids: this.state.debtors
         }), response => {
-            // this.props.updateTableByAdd(response);
             this.props.updateTable();
         }, response => {
             switch (response.status) {
@@ -126,7 +125,6 @@ class DebtsTable extends React.Component {
     handleDeletePurchase = () => {
         sendDelete(ROUTE_PURCHASE(this.props.room.id, this.state.selectedPurchase.id), null, 
         response => {
-            // this.props.updateTableByRemove(response);
             this.props.updateTable();
         }, 
         response => {
@@ -276,7 +274,6 @@ class AddRecordForm extends React.Component {
             buyer_id: this.state.buyer,
             debtor_ids: this.state.debtors
         }), response => {
-            // this.props.updateTableByAdd(response);
             this.props.updateTable();
         }, response => {
             switch (response.status) {
@@ -326,7 +323,6 @@ class AddRecordForm extends React.Component {
                           })}
                           cost={this.state.cost}
                           onCostChange={e => this.setState({cost: e.target.value})}
-                          // button={{icon: 'add', text: ''}}
                           buttonIcon={'add'}
                           onSubmit={() => this.handleAddPurchase(this.props.purchase)}/>
 
@@ -357,7 +353,6 @@ function PurchaseForm(props) {
 
                 <div className="input-field col s3" style={{margin: '0'}}>
                     <input type="text"
-                        // placeholder="Например, веп))0"
                            id={"purchaseName"+props.id}
                            value={props.purchaseName}
                            onChange={props.onPurchaseNameChange}
@@ -383,7 +378,6 @@ function PurchaseForm(props) {
 
                 <div className="input-field col s3" style={{margin: '0'}}>
                     <input type="number"
-                        // placeholder="40 гривен"
                            value={props.cost}
                            onChange={props.onCostChange}
                            id={"costInput"+props.id}/>
@@ -399,8 +393,6 @@ function PurchaseForm(props) {
                             props.cost.length === 0
                         }
                         onClick={props.onSubmit}>
-                    {/*<i className="material-icons left">{props.button.icon}</i>*/}
-                    {/*{props.button.text}*/}
                     <i className="material-icons">{props.buttonIcon}</i>
                 </button>
             </div>
