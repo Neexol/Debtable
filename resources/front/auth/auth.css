@@ -1,0 +1,11 @@
+#root {
+    background: var(--content-container-background);
+}
+
+.auth-card {
+    position: absolute;
+    width: 50%;
+    top: 3rem;
+    left: 50%;
+    transform: translateX(-50%);
+}

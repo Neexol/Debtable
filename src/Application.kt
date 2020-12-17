@@ -1,40 +1,34 @@
 package ru.neexol.debtable
 
 import io.ktor.application.*
-import io.ktor.features.*
-import io.ktor.http.*
-import io.ktor.response.*
-import io.ktor.request.*
+import io.ktor.http.content.*
+import io.ktor.locations.*
 import io.ktor.routing.*
+import io.ktor.util.*
+import ru.neexol.debtable.db.DatabaseFactory
+import ru.neexol.debtable.features.*
+import ru.neexol.debtable.routes.apiRoute
+import ru.neexol.debtable.routes.filesRoute
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
-@Suppress("unused") // Referenced in application.conf
+@KtorExperimentalLocationsAPI
+@KtorExperimentalAPI
+@Suppress("unused")
 fun Application.module() {
-    install(DefaultHeaders) {
-        header("Access-Control-Allow-Origin", "*")
-    }
+    DatabaseFactory.init()
+
+    installCallLogging()
+    installSessions()
+    installAuthentication()
+    installContentNegotiation()
+    installDefaultHeaders()
+    installLocations()
+    installSwagger()
+
     routing {
-        route("/text") {
-            get {
-                val textResponse = "Hello world!"
-                call.respondText(textResponse)
-            }
-            post("/{text}") {
-                val textParameter = call.parameters["text"]!!
-                call.respondText(textParameter)
-            }
-        }
-        route("/json") {
-            get {
-                val rawJsonResponse = """{"text":"Hello world!"}"""
-                call.respondText(rawJsonResponse, ContentType.Application.Json)
-            }
-            post {
-                val bodyJson = call.receiveText()
-                call.respondText(bodyJson, ContentType.Application.Json)
-            }
-        }
+        filesRoute()
+        apiRoute()
     }
 }
 

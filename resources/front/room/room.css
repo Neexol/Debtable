@@ -1,0 +1,118 @@
+.top-menu {
+    height: auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    background: var(--dark-color);
+}
+.top-menu div {
+    transition: 0.2s;
+    text-decoration: none;
+    color: var(--inactive-text-color);
+    cursor: pointer;
+}
+.top-menu div.active {
+    background: rgba(0, 0, 0, 0.2);
+    color: var(--active-text-color);
+}
+.top-menu span:not(.selection) {
+    padding: 0 2rem 0 2rem;
+}
+.top-menu .selection {
+    width: auto;
+    height: 0.3rem;
+    transition: 0.2s;
+}
+.top-menu div:not(.active):not(.nav-group):hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.content {
+    height: 100%;
+    width: 100%;
+    max-height: initial;
+    padding: 1.5rem;
+    background: var(--content-container-background);
+    box-shadow: 0 -0.5rem 1rem -0.2rem rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
+}
+
+.top-content-container {
+    background: var(--clear-color);
+    box-shadow: 0 0 1rem -0.2rem rgba(0, 0, 0, 0.5);
+    padding: 3rem 1.5rem 1.5rem 1.5rem;
+    z-index: 10;
+}
+
+.table-container {
+    height: 100%;
+    overflow-y: auto;
+    flex-grow: 1;
+    padding: 1.5rem;
+}
+
+.add-record-form {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.add-record-form div:not(:first-of-type) {
+    padding-left: 0.5rem;
+}
+
+.user-card {
+    margin: 0.5rem 1rem;
+    padding: 1rem;
+}
+.user-card.self {
+    border-left: 0.5rem solid var(--accent-color);
+}
+
+.members-container {
+    display: flex;
+    align-items: start;
+}
+
+.members-container .users-col {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 20vw;
+}
+
+.users-col .title {
+    margin: 1rem 0;
+    font-weight: bold;
+}
+
+.search-results-container {
+    height: 15.5rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.search-results-container td {
+    padding: 1rem 1rem;
+}
+
+.search-results-container table {
+    z-index: -1;
+}
+
+.search-result {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.btn-flat.delete {
+    margin-left: 0.5rem;
+    color: var(--negative-text-color);
+}
+
+.chart-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}

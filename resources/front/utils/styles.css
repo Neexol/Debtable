@@ -1,0 +1,164 @@
+html, body, #root {
+    height: 100%;
+    width: 100%;
+    max-height: 100%;
+}
+
+.accent-colored {
+    background: var(--accent-color);
+}
+
+.btn-floating {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+}
+
+.align-center {
+    position: relative;
+    width: min-content;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.align-center-horizontal {
+    position: relative;
+    width: max-content;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+.no-select {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently */
+}
+
+.small-icon {
+    font-size: 14pt;
+}
+
+.small-action-btn {
+    color: var(--neutral-color);
+    transition: 0.2s;
+}
+.small-action-btn:hover,
+.small-action-btn:focus {
+    opacity: 0.5;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.dialog {
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
+.dialog-content {
+    position: absolute;
+    top: 20%; left: 50%;
+    transform: translateX(-50%);
+    background: var(--dialog-background);
+    padding: 2rem;
+    border-radius: 0.5rem;
+    width: 50%;
+}
+.dialog h4 {
+    margin-top: 0;
+}
+.close-dialog-btn {
+    float: right;
+}
+
+.error-toast {
+    background: var(--error-toast-color);
+}
+
+a {
+    cursor: pointer;
+    color: var(--accent-color);
+    text-align: center;
+    margin: 0;
+    transition: 0.2s;
+}
+a:hover {
+    opacity: 0.5;
+}
+
+.neutral-text-colored {
+    color: var(--neutral-color);
+}
+.text-colored {
+    color: var(--text-color);
+}
+.negative-text-colored {
+    color: var(--negative-text-color);
+}
+
+.card-panel {
+    overflow: hidden;
+    border-radius: 0.3rem;
+    background: var(--card-backgound);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.07), 0 3px 1px -2px rgba(0, 0, 0, 0.06), 0 1px 5px 0 rgba(0, 0, 0, 0.08);
+}
+
+.card-bottom {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.03);
+}
+
+.flex-right {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.validation-errors {
+    border: var(--validation-border) solid 0.1rem;
+    border-radius: 0.3rem;
+    color: var(--validation-text-color);
+    background: var(--validation-background);
+    padding: 1rem;
+}
+
+hr {
+    border: 1px solid var(--separator-color);
+    margin-bottom: 25px;
+}
+
+.select-wrapper .caret {
+    z-index: 2;
+    background: var(--clear-color);
+    pointer-events: none;
+}
+
+.icon-with-text {
+    display: flex;
+    align-items: center;
+}
+
+.chip {
+    overflow: hidden;
+    background: var(--accent-color);
+    color: white;
+    margin: 0.2rem;
+}
+
+table.highlight > tbody > tr:hover {
+    background-color: rgba(0, 0, 0, 0.025);
+}
+
+.nav-icon {
+    margin-right: 0.3rem;
+}
+
+tr:last-of-type {
+    border-bottom: none;
+}
