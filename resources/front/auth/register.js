@@ -1,4 +1,4 @@
-class AuthorizationRoot extends React.Component {
+class RegisterRoot extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -99,6 +99,6 @@ class AuthorizationRoot extends React.Component {
 }
 
 ReactDOM.render(
-    <AuthorizationRoot/>,
+    <RegisterRoot/>,
     document.getElementById('root')
 );
